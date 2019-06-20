@@ -1,3 +1,7 @@
+# The project is continued again
+
+The AntiStasi Community has decided to continue this version next to the the further development of version 1.4.0.2 at https://github.com/Bob-Murphy/A3-Antistasi.
+
 # Discontinued project
 
 In over a year this project added many features which are not as functional as it is the [current Antistasi](https://github.com/A3Antistasi/Antistasi-WotP), the official community discontinued this project in favor of the other.
