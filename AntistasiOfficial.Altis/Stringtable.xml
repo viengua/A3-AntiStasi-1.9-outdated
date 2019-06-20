@@ -3,13 +3,13 @@
 	<Package name="MissionNames">
 		<Container name="MissionNames_0">
 			<Key ID="STR_MISSION_NAME_SQM">
-				<Original>[SP/CO]- Antistasi 1.8.0.10 Altis Blufor</Original>
+				<Original>[SP/CO]- Antistasi 1.9.1.3d Altis Blufor</Original>
 			</Key>
 			<Key ID="STR_MISSION_NAME_INITVAR_SQF">
-				<Original>v 1.8.0.10</Original>
+				<Original>v 1.9.1.3d</Original>
 			</Key>
 			<Key ID="STR_MISSION_NAME_EXT">
-				<Original>Antistasi 1.8.0.10</Original>
+				<Original>Antistasi 1.9.1.3d</Original>
 			</Key>
 		</Container>
 	</Package>
@@ -3299,6 +3299,11 @@
 				<Russian>Внедорожник с пулемётом</Russian>
 				<Spanish>Offroad Armado</Spanish>
 			</Key>
+			<Key ID="STR_D_BUY_ARM_AT">
+				<Original>Armed Offroad AT</Original>
+				<Russian>Внедорожник с пулемётом AT</Russian>
+				<Spanish>Offroad Armado AT</Spanish>
+			</Key>
 			<Key ID="STR_D_BUY_MOR">
 				<Original>Mortar</Original>
 				<Russian>Миномёт</Russian>
@@ -3313,6 +3318,11 @@
 				<Original>Static AA</Original>
 				<Russian>Станк. ЗУ</Russian>
 				<Spanish>AA Estático</Spanish>
+			</Key>
+			<Key ID="STR_D_BUY_ST_AA_ZU_23">
+				<Original>Static AA ZU 23</Original>
+				<Russian>Статический TO 23</Russian>
+				<Spanish>AA Estático ZU 23</Spanish>
 			</Key>
 			<Key ID="STR_D_BUY_APC">
 				<Original>APC</Original>
@@ -3509,10 +3519,10 @@
 				<Russian>Стрелок ГП</Russian>
 				<Spanish>Granadero</Spanish>
 			</Key>
-			<Key ID="STR_D_REC_MORTAR">
-				<Original>Recruit Mortar</Original>
-				<Russian>Миномёт</Russian>
-				<Spanish>Mortero</Spanish>
+			<Key ID="STR_D_REC_HMG">
+				<Original>Recruit HMG</Original>
+				<Russian>Тяжелый пулемет</Russian>
+				<Spanish>Ametralladora pesada</Spanish>
 			</Key>
 			<Key ID="STR_D_REC_AT">
 				<Original>Recruit AT</Original>

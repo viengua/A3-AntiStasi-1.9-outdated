@@ -82,7 +82,7 @@ call {
 		_skillSet = 1;
 	};
 
-	if (_unitType == guer_sol_UN) exitWith {
+	if (_unitType == guer_sol_HMG) exitWith {
 		{
 			_unit removeWeaponGlobal _x;
 		} forEach (weapons _unit);

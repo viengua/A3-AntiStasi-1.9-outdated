@@ -155,10 +155,10 @@ _allGroups pushBack _group;
 		_unitType = _garrison select _counter;
 		call {
 			//Mortar
-				if (_unitType == guer_sol_UN) exitWith {
+				if (_unitType == guer_sol_HMG) exitWith {
 					_unit = _gunnerGroup createUnit [_unitType, _markerPos, [], 0, "NONE"];
 					_spawnPos = [_markerPos] call mortarPos;
-					_vehicle = guer_stat_mortar createVehicle _spawnPos;
+					_vehicle = guer_stat_MGH createVehicle _spawnPos;
 					_guerVehicles pushBack _vehicle;
 					[_vehicle] execVM "scripts\UPSMON\MON_artillery_add.sqf";
 					_unit assignAsGunner _vehicle;
@@ -167,7 +167,7 @@ _allGroups pushBack _group;
 			//Man the statics placed by player
 			if ((_unitType == guer_sol_RFL) AND (count _statics > 0)) exitWith {
 				_static = _statics select 0;
-				if (typeOf _static == guer_stat_mortar) then {
+				if (typeOf _static == guer_stat_MGH) then {
 					_unit = _gunnerGroup createUnit [_unitType, _markerPos, [], 0, "NONE"];
 					_unit assignAsGunner _static;
 					_unit moveInGunner _static;

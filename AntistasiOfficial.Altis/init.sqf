@@ -1,5 +1,5 @@
-//Arma 3 - Antistasi by Barbolani
-//Do whatever you want with this code, but credit me for the thousand hours spent making this.
+//Arma 3 - Antistasi by Barbolani and A3 Antistasi Community
+//Do whatever you want with this code, but credit me for the thousand hours spent making this.1
 enableSaving [ false, false ];
 
 call AS_fnc_init_hq;

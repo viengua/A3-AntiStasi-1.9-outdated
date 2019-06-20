@@ -24,7 +24,7 @@ _unitType = typeOf _unit;
 _skillSet = 0;
 
 if !("ItemRadio" in unlockedItems) then {
-	if ((_unit != leader _unit) AND (_unitType != guer_sol_UN)) then {_unit unlinkItem "ItemRadio"};
+	if ((_unit != leader _unit) AND (_unitType != guer_sol_HMG)) then {_unit unlinkItem "ItemRadio"};
 };
 
 call {
@@ -84,7 +84,7 @@ call {
 		_skillSet = 1;
 	};
 
-	if (_unitType == guer_sol_UN) exitWith {
+	if (_unitType == guer_sol_HMG) exitWith {
 		{
 			_unit removeWeaponGlobal _x;
 		} forEach (weapons _unit);
