@@ -880,10 +880,10 @@ class build_menu 		{
 	AS_FRAME_D(FRAME_H_6, $STR_D_BUI_OP);
 	BTN_BACK("closeDialog 0; if (player == Slowhand) then {createDialog ""radio_comm_commander""} else {createDialog ""radio_comm_player""};");
 
-	BTN_L1(-1,$STR_D_OPS_RB, "", "closeDialog 0; [""create""] spawn puestoDialog");
+	BTN_L1(-1,$STR_D_OPS_RB, "", "closeDialog 0; [""create""] spawn outpostDialog");
 	BTN_L2(-1,$STR_D_BUI_MF, "", "closeDialog 0; createDialog ""minebuild_menu"";");
 
-	BTN_R1(-1,$STR_D_OPS_RB_DEL, "", "closeDialog 0; [""delete""] spawn puestoDialog");
+	BTN_R1(-1,$STR_D_OPS_RB_DEL, "", "closeDialog 0; [""delete""] spawn outpostDialog");
 	BTN_R2(-1,$STR_D_MANA_CAMP, $STR_D_EAC, "closeDialog 0; createDialog ""camp_dialog"";");
 
 	BTN_M(BTN_Y_3, -1, $STR_D_HQ_FORT, "", "closeDialog 0; createDialog ""HQ_fort_dialog"";");

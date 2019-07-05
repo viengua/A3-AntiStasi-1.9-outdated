@@ -155,7 +155,7 @@ else
 			{
 			if (!("DEF_HQ" in misiones)) then
 				{
-				[] remoteExec ["ataqueHQ", call AS_fnc_getNextWorker];
+				[] remoteExec ["attackHQ", call AS_fnc_getNextWorker];
 				};
 			}
 		else
@@ -169,7 +169,7 @@ else
 		};
 	};
 
-[5400,_tsk] spawn borrarTask;
+[5400,_tsk] spawn deleteTaskX;
 
 if (_source == "civ") then {
 	_val = server getVariable "civActive";

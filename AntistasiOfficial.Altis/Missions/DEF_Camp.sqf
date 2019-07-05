@@ -64,4 +64,4 @@ if (_targetMarker in campsFIA) then {
 server setVariable ["campQRF", false, true];
 server setVariable ["active_campQRF", false, true];
 
-[1200,_tsk] spawn borrarTask;
+[1200,_tsk] spawn deleteTaskX;

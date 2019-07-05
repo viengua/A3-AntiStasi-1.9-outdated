@@ -89,7 +89,7 @@ if (dateToNumber date > _fechalimnum) then
 	[-10,Slowhand] call playerScoreAdd;
 	};
 
-[1200,_tsk] spawn borrarTask;
+[1200,_tsk] spawn deleteTaskX;
 
 if (_source == "mil") then {
 	_val = server getVariable "milActive";

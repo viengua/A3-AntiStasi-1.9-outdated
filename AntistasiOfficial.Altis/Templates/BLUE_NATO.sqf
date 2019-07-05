@@ -1,9 +1,9 @@
 //Aircrafts				//Class id									//.sqf presence and selection
 
 	bluHeliTrans = 		["B_Heli_Transport_03_F"];					// None
-	bluHeliTS = 		["B_Heli_Light_01_F"];						// \Create\NATOCA.sqf landing helo. - \AI\puertasLand.sqf
-	bluHeliDis = 		["B_Heli_Transport_01_camo_F"];				// \Create\NATOCA.sqf land or fastrope or paradrop -  \AI\puertasLand.sqf -  \Missions\NATOAmmo.sqf drop the resupply
-	bluHeliRope = 		["B_Heli_Transport_03_F"];					// \Create\NATOCA.sqf land or fastrope - \AI\puertasLand.sqf
+	bluHeliTS = 		["B_Heli_Light_01_F"];						// \Create\NATOCA.sqf landing helo. - \AI\entriesLand.sqf
+	bluHeliDis = 		["B_Heli_Transport_01_camo_F"];				// \Create\NATOCA.sqf land or fastrope or paradrop -  \AI\entriesLand.sqf -  \Missions\NATOAmmo.sqf drop the resupply
+	bluHeliRope = 		["B_Heli_Transport_03_F"];					// \Create\NATOCA.sqf land or fastrope - \AI\entriesLand.sqf
 	bluHeliArmed = 		["B_Heli_Light_01_armed_F"];				// \CREATE\NATOQRF.sqf - \REINF\NATOCAS.sqf
 	bluHeliGunship = 	["B_Heli_Attack_01_F"];						// \REINF\NATOCAS.sqf selectrandom
 	bluCASFW = 			["B_Plane_CAS_01_F"];						// \AI\airstrike.sqf selectrandom
@@ -35,16 +35,16 @@
 	//Category
 	vehNATO = bluMBT + bluAPC + bluIFV + bluIFVAA + bluArty + bluMLRS + bluMRAP + bluMRAPHMG + bluTruckTP + bluTruckMed + bluTruckFuel;
 
-	bluStatAA = 	["B_static_AA_F"];								// \CREATE\createNATOpuesto.sqf selectrandom
+	bluStatAA = 	["B_static_AA_F"];								// \CREATE\createNATOOutpost.sqf selectrandom
 	bluStatAT = 	["B_static_AT_F"];								// none
-	bluStatHMG = 	["B_HMG_01_high_F"];							// \CREATE\createNATOpuesto.sqf selectrandom
+	bluStatHMG = 	["B_HMG_01_high_F"];							// \CREATE\createNATOOutpost.sqf selectrandom
 	bluStatMortar = ["B_G_Mortar_01_F"];							// \REINF\NATOArty.sqf selectrandom
 
 //Units					//Class id											//.sqf presence
 	bluCfgInf = (configfile >> "CfgGroups" >> "West" >> "BLU_F" >> "Infantry");
 
 	bluPilot = 			"B_Pilot_F";										//
-	bluCrew = 			"B_crew_F";											// \CREATE\createNATOpuesto.sqf
+	bluCrew = 			"B_crew_F";											// \CREATE\createNATOOutpost.sqf
 	bluGunner = 		"B_support_MG_F";									// \REINF\NATOArty.sqf
 
 	bluMRAPHMGgroup = 	["B_recon_LAT_F","B_Recon_Sharpshooter_F"];			// \CREATE\NATOQRF.sqf foreach
@@ -56,7 +56,7 @@
 	bluSquad = 			["BUS_InfSquad"]; 				// 8 men			\CREATE\NATOCA.sqf call AS_fnc_pickGroup
 	bluSquadWeapons = 	["BUS_InfSquad_Weapons"];		// 8 men			\CREATE\NATOCA.sqf call AS_fnc_pickGroup
 	bluTeam = 			["BUS_InfTeam"];				// 4 men			\CREATE\NATOCA.sqf call AS_fnc_pickGroup
-	bluATTeam = 		["BUS_InfTeam_AT"]; 			// 4 men			\CREATE\createNATOpuesto.sqf call AS_fnc_pickGroup
+	bluATTeam = 		["BUS_InfTeam_AT"]; 			// 4 men			\CREATE\createNATOOutpost.sqf call AS_fnc_pickGroup
 
 	bluIR = 			"acc_pointer_IR";
 

@@ -16,7 +16,7 @@ _nombredest = [_mrkDestino] call AS_fnc_localizar;
 _tsk = ["AtaqueAAF",[side_blue,civilian],[["CSAT is making a punishment expedition to %1. They will kill everybody there. Defend the city at all costs",_nombredest],"CSAT Punishment",_mrkDestino],getMarkerPos _mrkDestino,"CREATED",10,true,true,"Defend"] call BIS_fnc_setTask;
 misiones pushBack _tsk; publicVariable "misiones";
 //Ataque de artillería
-[_mrkdestino] spawn artilleria;
+[_mrkdestino] spawn artilleryX;
 
 _tiempo = time + 3600;
 
@@ -192,7 +192,7 @@ waitUntil {sleep 5;
 	forcedSpawn = forcedSpawn - [_mrkDestino]; publicVariable "forcedSpawn";
 	sleep 15;
 
-	[0,_tsk] spawn borrarTask;
+	[0,_tsk] spawn deleteTaskX;
 	[2400] remoteExec ["AS_fnc_increaseAttackTimer",2];
 	{
 	waitUntil {sleep 1; !([distanciaSPWN,1,_x,"BLUFORSpawn"] call distanceUnits)};

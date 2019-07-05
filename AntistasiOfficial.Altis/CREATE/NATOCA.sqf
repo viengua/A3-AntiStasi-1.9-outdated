@@ -95,7 +95,7 @@ for "_i" from 1 to _cuenta do {
 					_wp2 setWaypointSpeed "FULL";
 					_wp2 setWaypointStatements ["true", "{deleteVehicle _x} forEach crew this; deleteVehicle this"];
 					[_grupoheli,1] setWaypointBehaviour "AWARE";
-					[_heli,true] spawn puertasLand;
+					[_heli,true] spawn entriesLand;
 				};
 			};
 		};
@@ -127,7 +127,7 @@ for "_i" from 1 to _cuenta do {
 			_wp2 setWaypointType "MOVE";
 			_wp2 setWaypointStatements ["true", "{deleteVehicle _x} forEach crew this; deleteVehicle this"];
 			[_grupoheli,1] setWaypointBehaviour "AWARE";
-			[_heli,true] spawn puertasLand;
+			[_heli,true] spawn entriesLand;
 			diag_log format ["NATOCA HeliTS airdropping: %1, %2, %3 ",_heli,_grupo,_marcador];
 		};
 		if (_tipoveh in bluHeliRope) then {			//Chinhook	can aidrop or land
@@ -164,7 +164,7 @@ for "_i" from 1 to _cuenta do {
 				_wp2 setWaypointSpeed "FULL";
 				_wp2 setWaypointStatements ["true", "{deleteVehicle _x} forEach crew this; deleteVehicle this"];
 				[_grupoheli,1] setWaypointBehaviour "AWARE";
-				[_heli,true] spawn puertasLand;
+				[_heli,true] spawn entriesLand;
 				};
 		};
 		sleep 25;
@@ -177,10 +177,10 @@ _solMax = round (_solMax / 4);
 sleep 20;
 //Taking out enemy mortar to balance the fight
 	if ((_marcador in bases) and ((player distance _posicion)>300)) then {
-		[_marcador] spawn artilleriaNATO;
+		[_marcador] spawn artilleryNATO;
 	};
 	if ((_marcador in aeropuertos) and ((player distance _posicion)>300)) then {
-		[_marcador] spawn artilleriaNATO;
+		[_marcador] spawn artilleryNATO;
 	};
 
 waitUntil {sleep 1; (_marcador in mrkFIA) or ({alive _x} count _soldados < _solMax)};
@@ -192,7 +192,7 @@ if ({alive _x} count _soldados < _solMax) then {
 
 
 //[_tsk,true] call BIS_fnc_deleteTask;
-[0,_tsk] spawn borrarTask;
+[0,_tsk] spawn deleteTaskX;
 
 {
 	_soldado = _x;

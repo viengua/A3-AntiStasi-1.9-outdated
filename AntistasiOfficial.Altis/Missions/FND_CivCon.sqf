@@ -111,7 +111,7 @@ else {
 
 server setVariable ["civActive", 0, true];
 
-[1200,_tsk] spawn borrarTask;
+[1200,_tsk] spawn deleteTaskX;
 sleep 30;
 deleteVehicle Stranger;
 deleteGroup _grpDealer;

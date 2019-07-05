@@ -115,7 +115,7 @@ if ((_camion distance _posicionTel < 50) and ({alive _x} count units _grupo > 0)
 		_tsk = ["Mines",[side_blue,civilian],[["STR_TSK_MINEFIELD_DESC",_cantidad],"STR_MINEFIELD_TITLE",_mrk],_posicionTel,"SUCCEEDED",5,true,true,"Map"] call BIS_fnc_setTask;
 		sleep 15;
 		//[_tsk,true] call BIS_fnc_deleteTask;
-		[0,_tsk] spawn borrarTask;
+		[0,_tsk] spawn deleteTaskX;
 		[2,_coste] remoteExec ["resourcesFIA",2];
 		}
 	else
@@ -124,7 +124,7 @@ if ((_camion distance _posicionTel < 50) and ({alive _x} count units _grupo > 0)
 		sleep 15;
 		Slowhand hcRemoveGroup _grupo;
 		//[_tsk,true] call BIS_fnc_deleteTask;
-		[0,_tsk] spawn borrarTask;
+		[0,_tsk] spawn deleteTaskX;
 		{deleteVehicle _x} forEach units _grupo;
 		deleteGroup _grupo;
 		deleteVehicle _camion;
@@ -137,7 +137,7 @@ else
 	sleep 15;
 	Slowhand hcRemoveGroup _grupo;
 	//[_tsk,true] call BIS_fnc_deleteTask;
-	[0,_tsk] spawn borrarTask;
+	[0,_tsk] spawn deleteTaskX;
 	{deleteVehicle _x} forEach units _grupo;
 	deleteGroup _grupo;
 	deleteVehicle _camion;

@@ -79,12 +79,12 @@ while {true} do {
 						call {
 							if ((_marker in recursos) OR (_marker in fabricas)) exitWith {[_marker] remoteExec ["createFIAresources", call AS_fnc_getNextWorker]};
 							if ((_marker in power) OR (_marker == "FIA_HQ")) exitWith {[_marker] remoteExec ["createFIApower", call AS_fnc_getNextWorker]};
-							if (_marker in aeropuertos) exitWith {[_marker] remoteExec ["createNATOaerop", call AS_fnc_getNextWorker]};
+							if (_marker in aeropuertos) exitWith {[_marker] remoteExec ["createNATOairplane", call AS_fnc_getNextWorker]};
 							if (_marker in bases) exitWith {[_marker] remoteExec ["createNATObases", call AS_fnc_getNextWorker]};
 							if (_marker in puestosFIA) exitWith {[_marker] remoteExec ["createFIAEmplacement", call AS_fnc_getNextWorker]};
 							if ((_marker in puestos) OR (_marker in puertos)) exitWith {[_marker] remoteExec ["createFIAOutpost", call AS_fnc_getNextWorker]};
 							if (_marker in campsFIA) exitWith {[_marker] remoteExec ["createCampFIA", call AS_fnc_getNextWorker]};
-							if (_marker in puestosNATO) exitWith {[_marker] remoteExec ["createNATOpuesto", call AS_fnc_getNextWorker]};
+							if (_marker in puestosNATO) exitWith {[_marker] remoteExec ["createNATOOutpost", call AS_fnc_getNextWorker]};
                             if (_marker in markerSupplyCrates) exitWith {[_marker] remoteExec ["createSupplyGroup", call AS_fnc_getNextWorker]};
 						};
 					};

@@ -71,7 +71,7 @@ call {
 };
 
 
-[1200,_tsk] spawn borrarTask;
+[1200,_tsk] spawn deleteTaskX;
 {
 waitUntil {sleep 1; !([distanciaSPWN,1,_x,"BLUFORSpawn"] call distanceUnits)};
 deleteVehicle _x;

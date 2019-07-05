@@ -15,11 +15,11 @@ while {sleep 1;({alive _x} count units _grupo > 0) and (canMove _veh) and (alive
 		if (alive _veh) then
 			{
 			_veh fire "SmokeLauncher";
-			[_veh] call puertasLand;
+			[_veh] call entriesLand;
 				//sleep 2;
 			{[_x] orderGetIn false; [_x] allowGetIn false} forEach _cargo;
 			//sleep ({alive _x} count units _grupo);
-			[_veh] call puertasLand;
+			[_veh] call entriesLand;
 			waitUntil {sleep 1; ({alive _x} count units _grupo == 0) or (not canMove _veh) or (behaviour leader _grupo != "COMBAT")};
 			if (canMove _veh) then {{[_x] orderGetIn true; [_x] allowGetIn true} forEach _cargo};
 			};

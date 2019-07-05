@@ -32,7 +32,7 @@ if (spawner getVariable _marcador) then
 		};
 	_camion = vehAmmo createVehicle _pos;
 	_camionCreado = true;
-	[_camion] call cajaAAF;
+	[_camion] call boxAAF;
 
 	_mrk = createMarkerLocal [format ["%1patrolarea", floor random 100], _pos];
 	_mrk setMarkerShapeLocal "RECTANGLE";
@@ -90,7 +90,7 @@ else
 	[-10,Slowhand] call playerScoreAdd;
 	};
 
-[1200,_tsk] spawn borrarTask;
+[1200,_tsk] spawn deleteTaskX;
 if (_camionCreado) then
 	{
 	{deleteVehicle _x} forEach units _grupo;

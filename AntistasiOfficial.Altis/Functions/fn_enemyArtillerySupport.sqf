@@ -61,7 +61,7 @@ _composition = [_mapperPos, 0, _mapperStr] call BIS_fnc_ObjectsMapper;
 {
 	call {
 		if (typeOf _x == opArtillery) exitWith {_howitzer = _x; [_x] spawn AS_fnc_protectVehicle};
-		if (typeOf _x == vehAmmo) exitWith {_truck = _x; [_x] spawn AS_fnc_protectVehicle; _vehicles pushBack _truck; [_truck] call cajaAAF};
+		if (typeOf _x == vehAmmo) exitWith {_truck = _x; [_x] spawn AS_fnc_protectVehicle; _vehicles pushBack _truck; [_truck] call boxAAF};
 		if (_x isKindOf "StaticWeapon") exitWith {_statics pushBackUnique _x};
 		if (typeOf _x == "CamoNet_OPFOR_open_F") exitWith {_spawnPoints pushBackUnique (position _x)};
 		if (typeOf _x == "CamoNet_OPFOR_big_F") exitWith {[_x] spawn AS_fnc_protectCamoNet};

@@ -28,7 +28,7 @@ waitUntil {sleep 1; (not alive _veh) or (_veh distance _landpos < 550)};
 
 _veh flyInHeight 15;
 
-[_veh] call puertasLand;
+[_veh] call entriesLand;
 
 //_veh animateDoor ['door_R', 1];
 
@@ -102,7 +102,7 @@ sleep 5 + random 2;
 
 waitUntil {sleep 1; (not alive _veh) or ((count assignedCargo _veh == 0) and (count attachedObjects _veh == 0))};
 
-[_veh] call puertasLand;
+[_veh] call entriesLand;
 
 sleep 5;
 _veh flyInHeight 150;

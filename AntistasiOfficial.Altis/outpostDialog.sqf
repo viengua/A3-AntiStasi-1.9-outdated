@@ -72,5 +72,5 @@ if (_permission) then {
 		[-_hr,-_cost] remoteExec ["resourcesFIA",2];
 	};
 
-	[_type,_position] remoteExec ["crearPuestosFIA",2];
+	[_type,_position] remoteExec ["createOutpostsFIA",2];
 };

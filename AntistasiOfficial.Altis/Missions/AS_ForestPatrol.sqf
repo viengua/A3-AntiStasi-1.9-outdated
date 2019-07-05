@@ -87,7 +87,7 @@ else
 	// BE module
 	};
 
-[1200,_tsk] spawn borrarTask;
+[1200,_tsk] spawn deleteTaskX;
 /*
 if (_source == "mil") then {
 	_val = server getVariable "milActive";

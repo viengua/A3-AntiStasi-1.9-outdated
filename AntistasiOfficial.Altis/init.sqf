@@ -77,7 +77,7 @@ if(isServer) then {
         };
 
     fpsCheck = [] execVM "fpsCheck.sqf";
-    [caja] call cajaAAF; //Give few starting items
+    [caja] call boxAAF; //Give few starting items
     if (activeJNA) then {
         ["complete"] call AS_fnc_JNA_pushLists;
     };
@@ -85,7 +85,7 @@ if(isServer) then {
     diag_log "init.sqf: waiting for placementDone to be true...";
     waitUntil {!(isNil "placementDone")};
     diag_log "init.sqf: placementDone = true";
-    distancias = [] spawn distancias3;
+    distancias = [] spawn distances3;
     resourcecheck = [] execVM "resourcecheck.sqf";
 };
 

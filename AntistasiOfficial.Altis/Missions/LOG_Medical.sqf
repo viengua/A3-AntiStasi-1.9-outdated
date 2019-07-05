@@ -307,7 +307,7 @@ deleteVehicle _sboxempty;
 	};
 };
 
-[1200,_tsk] spawn borrarTask;
+[1200,_tsk] spawn deleteTaskX;
 deleteMarker _mrkfin;
 {waitUntil {sleep 1;(!([distanciaSPWN,1,_x,"BLUFORSpawn"] call distanceUnits))};
 deleteVehicle _x} forEach _vehiculos;

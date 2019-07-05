@@ -169,6 +169,6 @@ while {true} do {
 			};
 
 
-			[1200, _tsk] spawn borrarTask;
+			[1200, _tsk] spawn deleteTaskX;
 			deleteMarker _mrkfin;
 			[_grupos, _soldados, _vehiculos] spawn AS_fnc_despawnUnits;

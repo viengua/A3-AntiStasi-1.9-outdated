@@ -556,7 +556,7 @@ fn_setData = {
 						[] spawn AS_fnc_spawnAttack;
 					} else {
 						if (_x == "DEF_HQ") then {
-							[] spawn ataqueHQ;
+							[] spawn attackHQ;
 						} else {
 							[_x,true] call missionRequest;
 						};

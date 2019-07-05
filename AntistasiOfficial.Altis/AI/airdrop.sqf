@@ -69,7 +69,7 @@ _wp3 setWaypointStatements ["true", "{deleteVehicle _x} forEach crew this; delet
 
 waitUntil {sleep 1; (currentWaypoint _heli == 3) or (not alive _veh)};
 
-//[_veh] call puertasLand;
+//[_veh] call entriesLand;
 
 if (alive _veh) then
 	{
@@ -89,4 +89,4 @@ if (alive _veh) then
 _wp4 = _grupo addWaypoint [_posicion, 0];
 _wp4 setWaypointType "SAD";
 
-//[_veh] call puertasLand;
+//[_veh] call entriesLand;

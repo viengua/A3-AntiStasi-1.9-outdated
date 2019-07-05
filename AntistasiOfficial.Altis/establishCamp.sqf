@@ -112,4 +112,4 @@ _crate enableSimulationGlobal false;
 _crate hideObjectGlobal true;
 sleep 15;
 
-[0,_tsk] spawn borrarTask;
+[0,_tsk] spawn deleteTaskX;

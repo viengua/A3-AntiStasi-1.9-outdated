@@ -128,7 +128,7 @@ if (_involveCSAT) then {
 			sleep 30;
 		};
 		if ((_targetMarker in bases) OR (_targetMarker in aeropuertos)) then {
-			[_targetMarker] spawn artilleria;
+			[_targetMarker] spawn artilleryX;
 		};
 	};
 	sleep 2;
@@ -375,7 +375,7 @@ if (cuentaCA < 0) then {
 };
 
 sleep 30;
-[0,_task] spawn borrarTask;
+[0,_task] spawn deleteTaskX;
 waitUntil {sleep 1; !(spawner getVariable _marker)};
 
 [_allGroups + _redGroups, _allSoldiers + _redSoldiers, _allVehicles + _redVehicles] spawn AS_fnc_despawnUnits;

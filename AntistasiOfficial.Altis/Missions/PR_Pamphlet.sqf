@@ -137,10 +137,10 @@ if !(_missionVehicle distance _targetPosition < 550) exitWith {
     [5,-5,_targetPosition] remoteExec ["AS_fnc_changeCitySupport",2];
 	[-10,Slowhand] call playerScoreAdd;
 
-    [1200,_task] spawn borrarTask;
+    [1200,_task] spawn deleteTaskX;
 	waitUntil {sleep 1; !([distanciaSPWN,1,_missionVehicle,"BLUFORSpawn"] call distanceUnits) OR ((_missionVehicle distance (getMarkerPos guer_respawn) < 60) AND (speed _missionVehicle < 1))};
 	if ((_missionVehicle distance (getMarkerPos guer_respawn) < 60) AND (speed _missionVehicle < 1)) then {
-		[_missionVehicle,true] call vaciar;
+		[_missionVehicle,true] call emptyX;
 	};
 	{deleteVehicle _x} forEach _leafletCrates;
 	[_allGroups, _allSoldiers, _allVehicles] spawn AS_fnc_despawnUnits;
@@ -305,10 +305,10 @@ if (!(alive _missionVehicle) OR (dateToNumber date > _endTime)) then {
 	// BE module
 };
 
-[1200,_task] spawn borrarTask;
+[1200,_task] spawn deleteTaskX;
 waitUntil {sleep 1; (not([distanciaSPWN,1,_missionVehicle,"BLUFORSpawn"] call distanceUnits)) or ((_missionVehicle distance (getMarkerPos guer_respawn) < 60) && (speed _missionVehicle < 1))};
 if ((_missionVehicle distance (getMarkerPos guer_respawn) < 60) && (speed _missionVehicle < 1)) then {
-	[_missionVehicle,true] call vaciar;
+	[_missionVehicle,true] call emptyX;
 };
 {deleteVehicle _x} forEach _leafletCrates;
 sleep 1;

@@ -93,7 +93,7 @@ if ({(alive _x) and (_x distance _posicionTel < 10)} count units _grupo > 0) the
 	markers = markers - [_mrk]; publicVariable "markers";
 	deleteMarker _mrk;
 	sleep 15;
-	[0,_tsk] spawn borrarTask;
+	[0,_tsk] spawn deleteTaskX;
 }
 else {
 	_tsk = ["NATORoadblock",[side_blue,civilian],[["%1 is dispatching a team to establish an Observation Post or Roadblock. Send and cover the team until reaches it's destination.", A3_Str_BLUE],["%1 Roadblock Deployment", A3_Str_BLUE],_mrk],_posicionTel,"FAILED",5,true,true,"Move"] call BIS_fnc_setTask;
@@ -107,5 +107,5 @@ else {
 
 	sleep 15;
 
-	[0,_tsk] spawn borrarTask;
+	[0,_tsk] spawn deleteTaskX;
 };

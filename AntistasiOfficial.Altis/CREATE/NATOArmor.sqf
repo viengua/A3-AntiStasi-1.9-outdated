@@ -71,6 +71,6 @@ if (({alive _x} count _allSoldiers == 0) OR ({(alive _x)} count _allVehicles == 
 
 sleep 15;
 
-[0,_tsk] spawn borrarTask;
+[0,_tsk] spawn deleteTaskX;
 
 [[_group], _allSoldiers, _allVehicles] call AS_fnc_despawnUnitsNow;

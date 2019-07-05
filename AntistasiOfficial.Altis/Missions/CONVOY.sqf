@@ -548,7 +548,7 @@ if (_convoyType == "Money") then {
 			};
 			// BE module
 			waitUntil {sleep 1; speed _vehObj < 1};
-			[_vehObj] call vaciar;
+			[_vehObj] call emptyX;
 			deleteVehicle _vehObj;
 		};
 	};
@@ -628,7 +628,7 @@ if (_source == "civ") then {
 	server setVariable ["civActive", _val - 1, true];
 };
 
-[600,_tsk] spawn borrarTask;
+[600,_tsk] spawn deleteTaskX;
 
 {
 	waitUntil {sleep 1; (!([distanciaSPWN,1,_x,"BLUFORSpawn"] call distanceUnits))};

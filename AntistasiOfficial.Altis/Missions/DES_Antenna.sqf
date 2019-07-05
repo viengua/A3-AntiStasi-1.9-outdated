@@ -44,4 +44,4 @@ if ((not alive _antena) or (not(_marcador in mrkAAF))) then
 
 deleteMarker _mrkfin;
 
-[1200,_tsk] spawn borrarTask;
+[1200,_tsk] spawn deleteTaskX;

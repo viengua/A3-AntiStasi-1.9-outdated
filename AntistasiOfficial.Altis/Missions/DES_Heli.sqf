@@ -182,7 +182,7 @@ if (_source == "mil") then {
 	server setVariable ["milActive", _val - 1, true];
 };
 
-[1200,_tsk] spawn borrarTask;
+[1200,_tsk] spawn deleteTaskX;
 deleteMarker _mrkfin;
 {
 waitUntil {sleep 1;(!([distanciaSPWN,1,_x,"BLUFORSpawn"] call distanceUnits))};

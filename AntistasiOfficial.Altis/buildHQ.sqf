@@ -62,7 +62,7 @@ if(_ignoreDistance) then
 {
 	cajaVeh setPos _pos;
 };
-if (_movido) then {[] call vaciar};
+if (_movido) then {[] call emptyX};
 placementDone = true; publicVariable "placementDone";
 sleep 5;
 [[Petros,"mission"],"AS_fnc_addActionMP"] call BIS_fnc_MP;

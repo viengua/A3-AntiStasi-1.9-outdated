@@ -1,4 +1,4 @@
-// This is a copy of ASS_traidor.sqf repurposed for capturing a HVT.
+// This is a copy of ASS_Traitor.sqf repurposed for capturing a HVT.
 
 if (!isServer and hasInterface) exitWith {};
 
@@ -188,7 +188,7 @@ else
 	[10,0,_initialPosition] remoteExec ["AS_fnc_changeCitySupport",2];
 	};
 
-[5400,_tsk] spawn borrarTask;
+[5400,_tsk] spawn deleteTaskX;
 
 if (_source == "civ") then {
 	_val = server getVariable "civActive";

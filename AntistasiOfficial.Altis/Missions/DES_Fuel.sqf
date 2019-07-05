@@ -188,6 +188,6 @@ _base	  = "";
 					};
 		};
 
-					[800, _tsk] spawn borrarTask;
+					[800, _tsk] spawn deleteTaskX;
 					deleteMarker _mrkfin;
 					deleteMarker _mrkfuelstop;

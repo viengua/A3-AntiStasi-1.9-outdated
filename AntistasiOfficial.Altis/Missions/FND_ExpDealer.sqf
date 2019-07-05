@@ -184,7 +184,7 @@ else {
 
 server setVariable ["expActive", false, true];
 
-[1200,_tsk] spawn borrarTask;
+[1200,_tsk] spawn deleteTaskX;
 if((Devin distance _posCmp) > 50) then {Devin globalchat "STR_TSK_TD_CHAT_4"; sleep 5; _shell1 = "Sh_82mm_AMOS" createVehicle position Devin;_shell1 setVelocity [0,0,150]};
 sleep 30;
 deleteMarker "Devin";

@@ -43,4 +43,4 @@ if (not(_marcador in mrkAAF)) then
 	// BE module
 	};
 
-[1200,_tsk] spawn borrarTask;
+[1200,_tsk] spawn deleteTaskX;

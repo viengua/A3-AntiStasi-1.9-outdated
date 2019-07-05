@@ -62,7 +62,7 @@ if ({_x distance _posTarget < 150} count _soldiers > 5) then {
 reducedGarrisons = reducedGarrisons - [_target];
 publicVariable "reducedGarrisons";
 
-[5, _tsk] spawn borrarTask;
+[5, _tsk] spawn deleteTaskX;
 
 {
 	[_x] spawn {

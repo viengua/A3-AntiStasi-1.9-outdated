@@ -113,7 +113,7 @@ else {
 
 server setVariable ["milActive", 0, true];
 
-[1200,_tsk] spawn borrarTask;
+[1200,_tsk] spawn deleteTaskX;
 sleep 30;
 
 deleteVehicle Nomad;

@@ -88,4 +88,4 @@ sleep 60;
 {deleteVehicle _x} forEach _POWs;
 deleteGroup _groupPOW;
 
-[1200,_task] spawn borrarTask;
+[1200,_task] spawn deleteTaskX;

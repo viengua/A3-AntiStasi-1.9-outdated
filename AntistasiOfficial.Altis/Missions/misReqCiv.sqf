@@ -49,7 +49,7 @@ if (_tipo == "ASS") then {
 	}
 	else {
 		_sitio = _posibles call BIS_fnc_selectRandom;
-		[_sitio, "civ"] remoteExec ["ASS_Traidor", call AS_fnc_getNextWorker];
+		[_sitio, "civ"] remoteExec ["ASS_Traitor", call AS_fnc_getNextWorker];
 	};
 };
 

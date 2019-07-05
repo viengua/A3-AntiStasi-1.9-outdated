@@ -150,7 +150,7 @@ if (_break) exitWith {
 	[5,-5,_targetMarker] remoteExec ["AS_fnc_changeCitySupport",2];
 	[-10,Slowhand] call playerScoreAdd;
 
-	[1200,_tsk] spawn borrarTask;
+	[1200,_tsk] spawn deleteTaskX;
 
 	waitUntil {sleep 1;(!([distanciaSPWN,1,_x,"BLUFORSpawn"] call distanceUnits))};
 	deleteVehicle propTruck;
@@ -327,7 +327,7 @@ else {
 	// BE module
 };
 
-[1200,_tsk] spawn borrarTask;
+[1200,_tsk] spawn deleteTaskX;
 
 waitUntil {sleep 1;(!([distanciaSPWN,1,propTruck,"BLUFORSpawn"] call distanceUnits))};
 deleteVehicle propTruck;

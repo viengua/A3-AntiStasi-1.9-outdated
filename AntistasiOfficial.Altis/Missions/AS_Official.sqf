@@ -60,4 +60,4 @@ if (_source == "mil") then {
 {deleteVehicle _x} forEach units _grp;
 deleteGroup _grp;
 
-[1200,_tsk] spawn borrarTask;
+[1200,_tsk] spawn deleteTaskX;

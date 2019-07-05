@@ -72,7 +72,7 @@ sleep 15;
 
 deleteMarker _mrkFin;
 
-[300,_tsk] spawn borrarTask;
+[300,_tsk] spawn deleteTaskX;
 {
 _soldado = _x;
 waitUntil {sleep 1; {_x distance _soldado < distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F")) == 0};

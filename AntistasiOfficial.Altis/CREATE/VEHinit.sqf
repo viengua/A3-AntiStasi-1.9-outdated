@@ -5,7 +5,7 @@ _vehicle setfuel 0.1;
 if(activeACE) then {[_vehicle, 300] call ace_refuel_fnc_setFuel;} else {_vehicle setfuelcargo 0.1;};
 
 if ((_vehicle isKindOf "FlagCarrier") OR (_vehicle isKindOf "Building")) exitWith {};
-if (_vehicle isKindOf "ReammoBox_F" && ((_vehicle getVariable ["HQ_vehicle", 0]) == 0)) exitWith {[_vehicle] call cajaAAF};
+if (_vehicle isKindOf "ReammoBox_F" && ((_vehicle getVariable ["HQ_vehicle", 0]) == 0)) exitWith {[_vehicle] call boxAAF};
 
 if ((activeACE) AND !(random 3 > 2)) then {_vehicle setVariable ["ace_cookoff_enable", false, true]};
 
@@ -37,7 +37,7 @@ call {
 	if (_vehicleType in (vehTrucks+vehPatrol+vehSupply+enemyMotorpool+vehPatrolBoat)) exitWith {
 		if !(_vehicleType in enemyMotorpool) then {
 			if (_vehicleType == vehAmmo) then {
-				if (_vehicle distance getMarkerPos guer_respawn > 50) then {[_vehicle] call cajaAAF};
+				if (_vehicle distance getMarkerPos guer_respawn > 50) then {[_vehicle] call boxAAF};
 			};
 			_vehicle addEventHandler ["killed",{
 				[-1000] remoteExec ["resourcesAAF",2];
@@ -112,9 +112,9 @@ call {
 					if !("DEF_HQ" in misiones) then {
 						_leader = leader (gunner _mortar);
 						if (!isPlayer _leader) then {
-							[] remoteExec ["ataqueHQ", call AS_fnc_getNextWorker];
+							[] remoteExec ["attackHQ", call AS_fnc_getNextWorker];
 						} else {
-							if ([_leader] call isMember) then {[] remoteExec ["ataqueHQ", call AS_fnc_getNextWorker]};
+							if ([_leader] call isMember) then {[] remoteExec ["attackHQ", call AS_fnc_getNextWorker]};
 						};
 					};
 				} else {

@@ -44,7 +44,7 @@ call {
 			};
 		} else {
 			_currentZone = selectRandom _options;
-			if (_currentZone in antenas) then {[_currentZone, "mil"] remoteExec ["DES_Antena", call AS_fnc_getNextWorker]};
+			if (_currentZone in antenas) then {[_currentZone, "mil"] remoteExec ["DES_Antenna", call AS_fnc_getNextWorker]};
 			if (_currentZone in ciudades) then {
 				[_currentZone, "mil"] remoteExec [([["DES_fuel","DES_EnemySuppression"],[0.5,0.5]] call BIS_fnc_selectRandomWeighted), call AS_fnc_getNextWorker]};
 		};
@@ -133,7 +133,7 @@ call {
 			};
 		} else {
 			_currentZone = selectRandom _options;
-			[_currentZone] remoteExec [(["RES_Prisioneros","RES_Refugiados"] select (_currentZone in ciudades)), call AS_fnc_getNextWorker];
+			[_currentZone] remoteExec [(["RES_Prisoners","RES_Refugees"] select (_currentZone in ciudades)), call AS_fnc_getNextWorker];
 		};
 	};
 
@@ -268,7 +268,7 @@ call {
 			};
 		} else {
 			_currentZone = selectRandom _options;
-			if((random 100 < _prestigeCSAT) and (_prestigeCSAT > 21)) then {[_currentZone, "civ"] remoteExec [(["ASS_Traidor","AS_forest"] select (_currentZone in puestos)), call AS_fnc_getNextWorker];} else {}
+			if((random 100 < _prestigeCSAT) and (_prestigeCSAT > 21)) then {[_currentZone, "civ"] remoteExec [(["ASS_Traitor","AS_forest"] select (_currentZone in puestos)), call AS_fnc_getNextWorker];} else {}
 		};
 	};
 

@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //caja
 	caja allowDamage false;
-	caja addAction [localize "STR_ACT_UNLOADCARGO","[] call vaciar"];
+	caja addAction [localize "STR_ACT_UNLOADCARGO","[] call emptyX"];
 
 
 	// Stef adding class selection in singleplayer

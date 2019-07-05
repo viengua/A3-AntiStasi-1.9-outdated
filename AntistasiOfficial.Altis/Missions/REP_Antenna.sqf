@@ -91,7 +91,7 @@ if (dateToNumber date > _endTime) then {
 _resourcesAAF = server getVariable ["resourcesAAF",0];
 _resourcesAAF = _resourcesAAF - 10000;
 server setVariable ["resourcesAAF",_resourcesAAF,true];
-[60,_task] spawn borrarTask;
+[60,_task] spawn deleteTaskX;
 
 waitUntil {sleep 1; !(spawner getVariable _marker)};
 

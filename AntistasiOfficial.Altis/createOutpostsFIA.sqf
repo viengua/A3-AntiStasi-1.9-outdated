@@ -133,4 +133,4 @@ deleteVehicle _camion;
 deleteGroup _grupo;
 sleep 15;
 
-[0,_tsk] spawn borrarTask;
+[0,_tsk] spawn deleteTaskX;

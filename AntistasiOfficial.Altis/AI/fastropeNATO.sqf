@@ -26,7 +26,7 @@ waitUntil {sleep 1; (not alive _veh) or (_veh distance _landpos < 550)};
 
 _veh flyInHeight 15;
 
-[_veh] call puertasLand;
+[_veh] call entriesLand;
 
 waitUntil {sleep 1; (not alive _veh) or ((speed _veh < 1) and (speed _veh > -1))};
 
@@ -62,7 +62,7 @@ waitUntil {sleep 1; (not alive _veh) or ((count assignedCargo _veh == 0) and (co
 
 sleep 5;
 _veh flyInHeight 150;
-[_veh] call puertasLand;
+[_veh] call entriesLand;
 //_veh animateDoor ['door_R', 0];
 //_veh animateDoor ['door_L', 0];
 _wp2 = _grupo addWaypoint [_posicion, 0];

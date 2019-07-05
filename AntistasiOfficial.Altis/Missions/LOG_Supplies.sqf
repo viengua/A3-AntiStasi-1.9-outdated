@@ -129,7 +129,7 @@ _empty = AS_misSupplyBoxEmpty createVehicle _ecpos;
 //sleep (600 + random 1200);
 
 //[_tsk,true] call BIS_fnc_deleteTask;
-[600,_tsk] spawn borrarTask;
+[600,_tsk] spawn deleteTaskX;
 waitUntil {sleep 1; (not([distanciaSPWN,1,_empty,"BLUFORSpawn"] call distanceUnits)) or ((_empty distance (getMarkerPos guer_respawn) < 60))};
 deleteVehicle _empty;
 

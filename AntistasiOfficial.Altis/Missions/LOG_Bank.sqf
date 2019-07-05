@@ -131,10 +131,10 @@ if (!alive _camion) then
 
 waitUntil {sleep 1; speed _camion == 0};
 
-[_camion] call vaciar;
+[_camion] call emptyX;
 deleteVehicle _camion;
 
-[1200,_tsk] spawn borrarTask;
+[1200,_tsk] spawn deleteTaskX;
 
 waitUntil {sleep 1; !([distanciaSPWN,1,_posicion,"BLUFORSpawn"] call distanceUnits)};
 
@@ -143,5 +143,3 @@ deleteGroup _grupo;
 
 deleteMarker _mrk;
 deleteMarker _mrkfin;
-
-

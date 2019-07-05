@@ -211,7 +211,7 @@ else {
 
 sleep 15;
 deleteMarker "NATOQRF";
-[0,_tsk] spawn borrarTask;
+[0,_tsk] spawn deleteTaskX;
 
 // despawn everything
 {

@@ -54,4 +54,4 @@ if (_source == "mil") then {
 	server setVariable ["milActive", _val - 1, true];
 };
 
-[1200,_tsk] spawn borrarTask;
+[1200,_tsk] spawn deleteTaskX;

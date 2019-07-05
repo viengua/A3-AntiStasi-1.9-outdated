@@ -68,7 +68,7 @@ else
 	[-5,0] remoteExec ["prestige",2];
 	};
 
-[0,_tsk] spawn borrarTask;
+[0,_tsk] spawn deleteTaskX;
 
 {deleteVehicle _x} forEach _soldados;
 {deleteVehicle _x} forEach _vehiculos;

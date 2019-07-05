@@ -65,7 +65,7 @@ if ({alive _x} count _vehiculos == 0) then
 	};
 
 //[_tsk,true] call BIS_fnc_deleteTask;
-[0,_tsk] spawn borrarTask;
+[0,_tsk] spawn deleteTaskX;
 
 {deleteVehicle _x} forEach _soldados;
 {deleteVehicle _x} forEach _vehiculos;

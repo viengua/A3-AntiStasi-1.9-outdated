@@ -52,4 +52,4 @@ if (_source == "civ") then {
 	server setVariable ["civActive", _val - 1, true];
 };
 
-[1200,_tsk] spawn borrarTask;
+[1200,_tsk] spawn deleteTaskX;
