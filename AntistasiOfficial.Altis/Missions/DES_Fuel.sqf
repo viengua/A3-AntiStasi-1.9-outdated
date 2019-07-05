@@ -31,7 +31,7 @@ _base	  = "";
 
 	_posbase = getMarkerPos _base;
 
-	_nombreOrig = [_base] call AS_fnc_localizar;
+	_nameOrigin = [_base] call AS_fnc_localizar;
 
 	// finding location and making markers
 

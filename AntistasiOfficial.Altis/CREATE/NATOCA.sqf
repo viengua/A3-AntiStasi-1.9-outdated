@@ -13,10 +13,10 @@ _threatEval = 7; //Stef i forced it to 7 untill i manage to check if vehDef and 
 _origen = [_airportsX,_posicion] call BIS_fnc_nearestPosition;
 _orig = getMarkerPos _origen;
 
-_nombredest = [_marcador] call AS_fnc_localizar;
-_nombreorig = "the NATO Carrier";
-if (_origen!= "spawnNATO") then {_nombreorig = [_origen] call AS_fnc_localizar};
-_tsk = ["NATOCA",[side_blue,civilian],[["STR_TSK_DESC_ATTACK",_nombredest,_nombreorig, A3_Str_BLUE],["STR_TSK_ATTACK", A3_Str_BLUE],_marcador],_posicion,"CREATED",5,true,true,"Attack"] call BIS_fnc_setTask;
+_nameDest = [_marcador] call AS_fnc_localizar;
+_nameOrigin = "the NATO Carrier";
+if (_origen!= "spawnNATO") then {_nameOrigin = [_origen] call AS_fnc_localizar};
+_tsk = ["NATOCA",[side_blue,civilian],[["STR_TSK_DESC_ATTACK",_nameDest,_nameOrigin, A3_Str_BLUE],["STR_TSK_ATTACK", A3_Str_BLUE],_marcador],_posicion,"CREATED",5,true,true,"Attack"] call BIS_fnc_setTask;
 misiones pushBackUnique _tsk; publicVariable "misiones";
 _soldados = [];
 _vehiculos = [];
@@ -186,7 +186,7 @@ sleep 20;
 waitUntil {sleep 1; (_marcador in mrkFIA) or ({alive _x} count _soldados < _solMax)};
 
 if ({alive _x} count _soldados < _solMax) then {
-	_tsk = ["NATOCA",[side_blue,civilian],[["STR_TSK_DESC_ATTACK",_nombredest,_nombreorig, A3_Str_BLUE],["STR_TSK_ATTACK", A3_Str_BLUE],_marcador],_posicion,"FAILED",5,true,true,"Attack"] call BIS_fnc_setTask;
+	_tsk = ["NATOCA",[side_blue,civilian],[["STR_TSK_DESC_ATTACK",_nameDest,_nameOrigin, A3_Str_BLUE],["STR_TSK_ATTACK", A3_Str_BLUE],_marcador],_posicion,"FAILED",5,true,true,"Attack"] call BIS_fnc_setTask;
 	[-10,0] remoteExec ["prestige",2];
 };
 

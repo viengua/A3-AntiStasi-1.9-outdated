@@ -15,8 +15,8 @@ publicVariable "flag_playerList";
 ["enableMemAcc"] call fn_loadData;
 ["enableOldFT"] call fn_loadData;
 ["campList"] call fn_loadData; publicVariable "campList"; publicVariable "campsFIA";
-["emplacements"] call fn_loadData; publicVariable "puestosFIA"; publicVariable "FIA_RB_list"; publicVariable "FIA_WP_list";
-["mrkFIA"] call fn_loadData; mrkFIA = mrkFIA + puestosFIA; publicVariable "mrkFIA"; if (isMultiplayer) then {sleep 5};
+["emplacements"] call fn_loadData; publicVariable "outpostsFIA"; publicVariable "FIA_RB_list"; publicVariable "FIA_WP_list";
+["mrkFIA"] call fn_loadData; mrkFIA = mrkFIA + outpostsFIA; publicVariable "mrkFIA"; if (isMultiplayer) then {sleep 5};
 ["mrkAAF"] call fn_loadData;
 ["supplySaveArray"] call fn_loadData;
 if(isnil "supplySaveArray") then {supplySaveArray = [];}; publicVariable "supplySaveArray";
@@ -81,13 +81,13 @@ _markers = mrkFIA + mrkAAF + campsFIA;
 	} else {
 		mrkAAF = mrkAAF + [_x];
 	};
-} forEach controles;
+} forEach controlsX;
 
 {
 	if (!(_x in mrkAAF) AND !(_x in mrkFIA) AND (_x != "FIA_HQ")) then {mrkAAF pushBackUnique _x};
 } forEach markers;
 
-_markers = _markers + controles;
+_markers = _markers + controlsX;
 {
 
 	if (_x in mrkFIA) then {

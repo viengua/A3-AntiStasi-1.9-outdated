@@ -10,7 +10,7 @@ _multiplier = 1;
 
 if (!isMultiplayer) then {_multiplier = 2};
 
-_cuenta = count (mrkFIA - puestosFIA - ["FIA_HQ"] - ciudades);
+_cuenta = count (mrkFIA - outpostsFIA - ["FIA_HQ"] - ciudades);
 
 
 if (_resourcesAAF > 5000) then{

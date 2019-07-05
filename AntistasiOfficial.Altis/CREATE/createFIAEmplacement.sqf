@@ -59,10 +59,10 @@ if (_onRoad) then {
 
 {_allSoldiers pushBack _x} forEach units _group;
 
-waitUntil {sleep 1; !(spawner getVariable _marker) OR ({alive _x} count units _group == 0) OR !(_marker in puestosFIA)};
+waitUntil {sleep 1; !(spawner getVariable _marker) OR ({alive _x} count units _group == 0) OR !(_marker in outpostsFIA)};
 
 if ({alive _x} count units _group == 0) then {
-	puestosFIA = puestosFIA - [_marker]; publicVariable "puestosFIA";
+	outpostsFIA = outpostsFIA - [_marker]; publicVariable "outpostsFIA";
 	mrkFIA = mrkFIA - [_marker]; publicVariable "mrkFIA";
 	markers = markers - [_marker]; publicVariable "markers";
 	[5,-5,_markerPos] remoteExec ["AS_fnc_changeCitySupport",2];
@@ -77,6 +77,6 @@ if ({alive _x} count units _group == 0) then {
 	};
 };
 
-waitUntil {sleep 1; !(spawner getVariable _marker) OR !(_marker in puestosFIA)};
+waitUntil {sleep 1; !(spawner getVariable _marker) OR !(_marker in outpostsFIA)};
 
 [_allGroups, _allSoldiers, _allVehicles] call AS_fnc_despawnUnitsNow;

@@ -1,7 +1,7 @@
 // Shift+ctrl+Y when mortar and NATO arty are selected.
 if (count hcSelected player != 1) exitWith {hint "You must select an artillery group"};
 
-private ["_grupo","_artyArray","_artyRoundsArr","_hayMuni","_areReady","_hayArty","_estanVivos","_soldado","_veh","_tipoMuni","_tipoArty","_positionTel","_artyArrayDef1","_artyRoundsArr1","_pieza","_isInRange","_positionTel2","_rounds","_roundsMax","_marcador","_size","_forzado","_texto","_mrkfin","_mrkfin2","_tiempo","_eta","_cuenta","_pos","_ang"];
+private ["_grupo","_artyArray","_artyRoundsArr","_hayMuni","_areReady","_hayArty","_areAlive","_soldado","_veh","_tipoMuni","_tipoArty","_positionTel","_artyArrayDef1","_artyRoundsArr1","_pieza","_isInRange","_positionTel2","_rounds","_roundsMax","_marcador","_size","_forzado","_texto","_mrkfin","_mrkfin2","_tiempo","_eta","_cuenta","_pos","_ang"];
 
 _grupo = hcSelected player select 0;
 
@@ -11,7 +11,7 @@ _artyRoundsArr = [];
 _hayMuni = 0;
 _areReady = false;
 _hayArty = false;
-_estanVivos = false;
+_areAlive = false;
 {
 _soldado = _x;
 _veh = vehicle _soldado;
@@ -22,7 +22,7 @@ if ((_veh != _soldado) and (not(_veh in _artyArray))) then
 		_hayArty = true;
 		if ((canFire _veh) and (alive _veh)) then
 			{
-			_estanVivos = true;
+			_areAlive = true;
 			if (typeOf _veh in bluMLRS) then
 				{
 					if (replaceFIA) then {
@@ -82,7 +82,7 @@ if ((_veh != _soldado) and (not(_veh in _artyArray))) then
 
 if (isNil "_tipoMuni") exitWith {};
 if (!_hayArty) exitWith {hint "You must select an artillery group or it is a Mobile Mortar and it's moving"};
-if (!_estanVivos) exitWith {hint "All elements in this Batery cannot fire or are disabled"};
+if (!_areAlive) exitWith {hint "All elements in this Batery cannot fire or are disabled"};
 if ((_hayMuni < 2) and (!_areReady)) exitWith {hint "The Battery has no ammo to fire. Reload it on HQ"};
 if (!_areReady) exitWith {hint "Selected Battery is busy right now"};
 

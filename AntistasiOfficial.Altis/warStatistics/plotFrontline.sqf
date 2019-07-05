@@ -3,7 +3,7 @@ call compile preprocessFileLineNumbers "WarStatistics\initFunctions.sqf";
 /*
 _r = 500;
 
-_aaf = [((mrkAAF-ciudades)-colinasAA)-controles, _r, 1] call ws_fnc_markersToGridArray;
+_aaf = [((mrkAAF-ciudades)-colinasAA)-controlsX, _r, 1] call ws_fnc_markersToGridArray;
 _fia = [mrkFIA-["FIA_HQ"], _r, -1] call ws_fnc_markersToGridArray;
 _sum = [_aaf, _fia] call ws_fnc_addGrid;
 _zc = [_sum] call ws_fnc_filterZeroCrossing;
@@ -29,7 +29,7 @@ for [{private _i = 0}, {_i < ws_gridSizeX}, {_i = _i + 1}] do //_i is x-pos
 _r = 500;
 
 private _sum = call ws_fnc_newGridArray;
-[((mrkAAF-ciudades)-colinasAA)-controles, _r, 1, _sum] call ws_fnc_markersToGridArray;
+[((mrkAAF-ciudades)-colinasAA)-controlsX, _r, 1, _sum] call ws_fnc_markersToGridArray;
 [mrkFIA-["FIA_HQ"], _r, -1, _sum] call ws_fnc_markersToGridArray;
 private _zc = call ws_fnc_newGridArray;
 [_sum, 0, _zc] call ws_fnc_filterZeroCrossing;

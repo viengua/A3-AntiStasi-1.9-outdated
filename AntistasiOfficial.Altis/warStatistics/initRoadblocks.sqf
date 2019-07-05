@@ -9,8 +9,8 @@ if(!isServer) exitWith {};
     };
 } forEach markers;
 
-markers = markers - controles;
-controles = [];
+markers = markers - controlsX;
+controlsX = [];
 
 _allMarkers = allMapMarkers;
 {
@@ -44,15 +44,15 @@ _allMarkers = allMapMarkers;
 		_rbmrk setMarkerBrush "SolidFull";
 		_rbmrk setMarkerColorLocal "ColorRed";
 		_rbmrk setMarkerAlpha 0;
-		controles pushBackUnique _rbmrk;
+		controlsX pushBackUnique _rbmrk;
 		mrkAAF = mrkAAF + [_rbmrk];
 		_counter = _counter + 1;
 		spawner setVariable [_rbmrk, false, true];
 	};
 } forEach _allMarkers;
 
-markers = markers + controles;
+markers = markers + controlsX;
 
 publicVariable "markers";
-publicVariable "controles";
+publicVariable "controlsX";
 publicVariable "mrkAAF";

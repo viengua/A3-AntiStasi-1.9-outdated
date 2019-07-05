@@ -8,7 +8,7 @@ private ["_poscrash", "_posbase", "_mrkfin", "_mrkTarget", "_tipoveh", "_churche
 
 _marcador   = _this select 0;
 _posicion   = getMarkerPos _marcador;
-_nombredest = [_marcador] call AS_fnc_localizar;
+_nameDest = [_marcador] call AS_fnc_localizar;
 
 _posHQ = getMarkerPos guer_respawn;
 
@@ -32,7 +32,7 @@ _base	  = "";
 
 	_posbase = getMarkerPos _base;
 
-	_nombreOrig = [_base] call AS_fnc_localizar;
+	_nameOrigin = [_base] call AS_fnc_localizar;
 
 	// finding church and making markers
 _range = 1000;
@@ -61,7 +61,7 @@ while {true} do {
 
 	// setting the mission
 
-	_tsk = ["DES", [side_blue, civilian], [[_tskDesc, _nombredest, numberToDate [2035, _dateLimitNum] select 3, numberToDate [2035, _dateLimitNum] select 4, A3_Str_INDEP], _tskTitle, _mrkfin], _missionchurch, "CREATED", 5, true, true, "Destroy"] call BIS_fnc_setTask;
+	_tsk = ["DES", [side_blue, civilian], [[_tskDesc, _nameDest, numberToDate [2035, _dateLimitNum] select 3, numberToDate [2035, _dateLimitNum] select 4, A3_Str_INDEP], _tskTitle, _mrkfin], _missionchurch, "CREATED", 5, true, true, "Destroy"] call BIS_fnc_setTask;
 	misiones pushBack _tsk;
 	publicVariable "misiones";
 
@@ -148,12 +148,12 @@ while {true} do {
 
 	if (dateToNumber date > _dateLimitNum) then
 		{
-			_tsk = ["DES", [side_blue, civilian], [[_tskDesc, _nombredest, numberToDate [2035, _dateLimitNum] select 3, numberToDate [2035, _dateLimitNum] select 4, A3_Str_INDEP], _tskTitle, _mrkfin], _missionchurch, "FAILED", 5, true, true, "Destroy"] call BIS_fnc_setTask;
+			_tsk = ["DES", [side_blue, civilian], [[_tskDesc, _nameDest, numberToDate [2035, _dateLimitNum] select 3, numberToDate [2035, _dateLimitNum] select 4, A3_Str_INDEP], _tskTitle, _mrkfin], _missionchurch, "FAILED", 5, true, true, "Destroy"] call BIS_fnc_setTask;
 			[5, 0, _posicion] remoteExec ["AS_fnc_changeCitySupport", 2];
 			[-50] remoteExec ["AS_fnc_increaseAttackTimer", 2];
 			[-20, Slowhand] call playerScoreAdd;
 		} else {
-			_tsk = ["DES", [side_blue, civilian], [[_tskDesc, _nombredest, numberToDate [2035, _dateLimitNum] select 3, numberToDate [2035, _dateLimitNum] select 4, A3_Str_INDEP], _tskTitle, _mrkfin], _missionchurch, "SUCCEEDED", 5, true, true, "Destroy"] call BIS_fnc_setTask;
+			_tsk = ["DES", [side_blue, civilian], [[_tskDesc, _nameDest, numberToDate [2035, _dateLimitNum] select 3, numberToDate [2035, _dateLimitNum] select 4, A3_Str_INDEP], _tskTitle, _mrkfin], _missionchurch, "SUCCEEDED", 5, true, true, "Destroy"] call BIS_fnc_setTask;
 			[3, 200] remoteExec ["resourcesFIA", 2];
 			[0, 5, _posicion] remoteExec ["AS_fnc_changeCitySupport", 2];
 			[_mrkchurch] remoteExec ["patrolCA",  call AS_fnc_getNextWorker];

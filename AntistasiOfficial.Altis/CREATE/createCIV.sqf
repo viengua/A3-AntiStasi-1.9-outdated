@@ -11,7 +11,7 @@ _orientation = 0;
 
 _markerPos = getMarkerPos (_marker);
 _size = [_marker] call sizeMarker;
-_roads = carreteras getVariable _marker;
+_roads = roadsX getVariable _marker;
 _roads = _roads call BIS_fnc_arrayShuffle;
 
 _data = server getVariable _marker;

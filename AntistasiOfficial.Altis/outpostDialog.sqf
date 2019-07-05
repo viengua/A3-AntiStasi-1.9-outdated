@@ -3,9 +3,9 @@ params ["_type"];
 
 private ["_position","_markerPos","_onRoad","_permission","_text","_groupType","_groupComp","_nearestZone"];
 
-if ("PuestosFIA" in misiones) exitWith {hint localize "STR_TSK_TD_BEMP_RESTR"};
+if ("outpostsFIA" in misiones) exitWith {hint localize "STR_TSK_TD_BEMP_RESTR"};
 if !([player] call hasRadio) exitWith {hint localize "STR_TSK_TD_BEMP_RADIO"};
-if ((_type == "delete") AND (count puestosFIA < 1)) exitWith {hint localize "STR_TSK_TD_BEMP_DEL_NR"};
+if ((_type == "delete") AND (count outpostsFIA < 1)) exitWith {hint localize "STR_TSK_TD_BEMP_DEL_NR"};
 
 openMap true;
 positionTel = [];
@@ -57,7 +57,7 @@ if (_type != "delete") then {
 		_hr = _hr + 1;
 	} forEach _groupType;
 } else {
-	_nearestZone = [puestosFIA,_position] call BIS_fnc_nearestPosition;
+	_nearestZone = [outpostsFIA,_position] call BIS_fnc_nearestPosition;
 	_markerPos = getMarkerPos _nearestZone;
 	if (_position distance _markerPos > 10) exitWith {hint localize "STR_TSK_TD_BEMP_DEL_NONE"};
 };

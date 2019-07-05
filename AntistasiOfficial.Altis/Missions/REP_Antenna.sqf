@@ -76,11 +76,11 @@ if (dateToNumber date > _endTime) then {
 	_mrkfin setMarkerType "loc_Transmitter";
 	_mrkfin setMarkerColor "ColorBlack";
 	_mrkfin setMarkerText "Radio Tower";
-	mrkAntenas pushBack _mrkfin;
+	mrkAntennas pushBack _mrkfin;
 	_antenna addEventHandler ["Killed", {
 		params ["_object"];
 		_object = _this select 0;
-		private _mrk = [mrkAntenas, _object] call BIS_fnc_nearestPosition;
+		private _mrk = [mrkAntennas, _object] call BIS_fnc_nearestPosition;
 		antenas = antenas - [_object];
 		antennasDead pushBack (getPos _object);
 		deleteMarker _mrk;

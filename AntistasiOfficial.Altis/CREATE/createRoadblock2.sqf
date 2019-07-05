@@ -105,10 +105,10 @@ if(_removeMarker) then //Remove the roadblock completely
 {
 	mrkAAF = mrkAAF - [_marker];
 	markers = markers - [_marker];
-	controles = controles - [_marker];
+	controlsX = controlsX - [_marker];
 	publicVariable "mrkAAF";
 	publicVariable "markers";
-	publicVariable "controles";
+	publicVariable "controlsX";
 	spawner setVariable [_marker, nil, true];
 	//publicVariable "mrkFIA";
 	if (activeBE) then {["cl_loc"] remoteExec ["fnc_BE_XP", 2]};

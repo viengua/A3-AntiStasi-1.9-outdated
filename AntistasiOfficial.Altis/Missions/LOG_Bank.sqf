@@ -15,7 +15,7 @@ _dateLimitNum = dateToNumber _fechalim;
 
 _ciudad = [ciudades, _posicion] call BIS_fnc_nearestPosition;
 _mrkfin = createMarker [format ["LOG%1", random 100], _posicion];
-_nombredest = [_ciudad] call AS_fnc_localizar;
+_nameDest = [_ciudad] call AS_fnc_localizar;
 _mrkfin setMarkerShape "ICON";
 
 _pos = (getMarkerPos guer_respawn) findEmptyPosition [1,50,AS_misVehicleBox];
@@ -27,7 +27,7 @@ _camion allowDamage false;
 
 {_x reveal _camion} forEach (allPlayers - (entities "HeadlessClient_F"));
 [_camion] spawn vehInit;
-_camion setVariable ["destino",_nombredest,true];
+_camion setVariable ["destino",_nameDest,true];
 _camion addEventHandler ["GetIn",
 	{
 	if (_this select 1 == "driver") then
@@ -39,7 +39,7 @@ _camion addEventHandler ["GetIn",
 
 [_camion,"Mission Vehicle"] spawn inmuneConvoy;
 
-_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_INDEP],_tskTitle,_mrkfin],_posicion,"CREATED",5,true,true,"Interact"] call BIS_fnc_setTask;
+_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_INDEP],_tskTitle,_mrkfin],_posicion,"CREATED",5,true,true,"Interact"] call BIS_fnc_setTask;
 misiones pushBack _tsk; publicVariable "misiones";
 _mrk = createMarkerLocal [format ["%1patrolarea", floor random 100], _posicion];
 _mrk setMarkerShapeLocal "RECTANGLE";
@@ -61,7 +61,7 @@ waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) or (!alive _camion) or (
 
 if ((dateToNumber date > _dateLimitNum) or (!alive _camion)) then
 	{
-	_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_INDEP],_tskTitle,_mrkfin],_posicion,"FAILED",5,true,true,"Interact"] call BIS_fnc_setTask;
+	_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_INDEP],_tskTitle,_mrkfin],_posicion,"FAILED",5,true,true,"Interact"] call BIS_fnc_setTask;
 	_resourcesAAF = server getVariable "resourcesAAF";
 	_resourcesAAF = _resourcesAAF + 5000;
 	server setVariable ["resourcesAAF",_resourcesAAF,true];
@@ -110,7 +110,7 @@ else
 waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) or (!alive _camion) or (_camion distance _posbase < 50)};
 if ((_camion distance _posbase < 50) and (dateToNumber date < _dateLimitNum)) then
 	{
-	_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_INDEP],_tskTitle,_mrkfin],_posicion,"SUCCEEDED",5,true,true,"Interact"] call BIS_fnc_setTask;
+	_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_INDEP],_tskTitle,_mrkfin],_posicion,"SUCCEEDED",5,true,true,"Interact"] call BIS_fnc_setTask;
 	[0,5000] remoteExec ["resourcesFIA",2];
 	[-20,0] remoteExec ["prestige",2];
 	[1800] remoteExec ["AS_fnc_increaseAttackTimer",2];
@@ -124,7 +124,7 @@ if ((_camion distance _posbase < 50) and (dateToNumber date < _dateLimitNum)) th
 	};
 if (!alive _camion) then
 	{
-	_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_INDEP],_tskTitle,_mrkfin],_posicion,"FAILED",5,true,true,"Interact"] call BIS_fnc_setTask;
+	_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_INDEP],_tskTitle,_mrkfin],_posicion,"FAILED",5,true,true,"Interact"] call BIS_fnc_setTask;
 	[1800] remoteExec ["AS_fnc_increaseAttackTimer",2];
 	[-10,Slowhand] call playerScoreAdd;
 	};

@@ -13,17 +13,17 @@ fabricas = [];
 puestos = [];
 puestosAA = [];
 puertos = [];
-controles = [];
+controlsX = [];
 artyEmplacements = [];
 seaMarkers = [];
-puestosFIA = [];
+outpostsFIA = [];
 puestosNATO = [];
 campsFIA = [];
 mrkAAF = [];
 destroyedCities = [];
-posAntenas = [];
+posAntennas = [];
 antenas = [];
-mrkAntenas = [];
+mrkAntennas = [];
 bancos = [];
 posbancos = [];
 supplySaveArray = [];
@@ -55,11 +55,11 @@ call {
 };
 
 // Search the markers placed within the SQM for each type and create corresponding lists. A pre-defined list is available for Altis.
-if !(count controles > 0) then {
+if !(count controlsX > 0) then {
     _allMarkers = allMapMarkers;
     {
         call {
-            if (toLower _x find "control" >= 0) exitWith {controles pushBackUnique _x};
+            if (toLower _x find "control" >= 0) exitWith {controlsX pushBackUnique _x};
             if (toLower _x find "puestoAA" >= 0) exitWith {puestosAA pushBackUnique _x};
             if (toLower _x find "puesto" >= 0) exitWith {puestos pushBackUnique _x};
             if (toLower _x find "seaPatrol" >= 0) exitWith {seaMarkers pushBackUnique _x};
@@ -81,7 +81,7 @@ if !(count controles > 0) then {
 
 mrkFIA = ["FIA_HQ"];
 garrison setVariable ["FIA_HQ",[],true];
-markers = power + bases + airportsX + recursos + fabricas + puestos + puertos + controles + colinas + colinasAA + puestosAA + ["FIA_HQ"];
+markers = power + bases + airportsX + recursos + fabricas + puestos + puertos + controlsX + colinas + colinasAA + puestosAA + ["FIA_HQ"];
 
 // Make sure all markers are invisible and not currently marked as having been spawned in.
 {_x setMarkerAlpha 0;
@@ -110,9 +110,9 @@ markers = power + bases + airportsX + recursos + fabricas + puestos + puertos + 
                     _roads pushBack (getPosATL _x);
                 };
             } forEach _roadsProv;
-            carreteras setVariable [_name,_roads];
+            roadsX setVariable [_name,_roads];
         } else {
-            _roads = carreteras getVariable _name;
+            _roads = roadsX getVariable _name;
             _numCiv = server getVariable _name;
             if (isNil "_numCiv") then {hint format ["Error in initZones.sqf -- population not set for: %1",_name]};
             if (typeName _numCiv != typeName 0) then {hint format ["Error in initZones.sqf -- wrong datatype for population. City: %1; datatype: %2",_name, typeName _numCiv]};
@@ -253,11 +253,11 @@ publicVariable "recursos";
 publicVariable "fabricas";
 publicVariable "puestos";
 publicVariable "puestosAA";
-publicVariable "controles";
+publicVariable "controlsX";
 publicVariable "puertos";
 publicVariable "destroyedCities";
 publicVariable "forcedSpawn";
-publicVariable "puestosFIA";
+publicVariable "outpostsFIA";
 publicVariable "seaMarkers";
 publicVariable "campsFIA";
 publicVariable "puestosNATO";
@@ -273,21 +273,21 @@ publicVariable "safeDistance_fasttravel";
 "spawnNATO" setMarkerType BLUFOR_marker_type;
 "spawnNATO" setMarkerText format [localize "STR_GL_MAP_CRR", A3_Str_BLUE];
 
-if (count posAntenas > 0) then {
-    for "_i" from 0 to (count posantenas - 1) do {
-        _antennaArray = nearestObjects [posantenas select _i,["Land_TTowerBig_1_F","Land_TTowerBig_2_F","Land_Communication_F"], 25];
+if (count posAntennas > 0) then {
+    for "_i" from 0 to (count posAntennas - 1) do {
+        _antennaArray = nearestObjects [posAntennas select _i,["Land_TTowerBig_1_F","Land_TTowerBig_2_F","Land_Communication_F"], 25];
         if (count _antennaArray > 0) then {
             _antenna = _antennaArray select 0;
             antenas = antenas + [_antenna];
-            _mrkfin = createMarker [format ["Ant%1", _i], posantenas select _i];
+            _mrkfin = createMarker [format ["Ant%1", _i], posAntennas select _i];
             _mrkfin setMarkerShape "ICON";
             _mrkfin setMarkerType "loc_Transmitter";
             _mrkfin setMarkerColor "ColorBlack";
             _mrkfin setMarkerText localize "STR_GL_MAP_RT";
-            mrkAntenas = mrkAntenas + [_mrkfin];
+            mrkAntennas = mrkAntennas + [_mrkfin];
             _antenna addEventHandler ["Killed", {
                 _antenna = _this select 0;
-                _mrk = [mrkAntenas, _antenna] call BIS_fnc_nearestPosition;
+                _mrk = [mrkAntennas, _antenna] call BIS_fnc_nearestPosition;
                 antenas = antenas - [_antenna]; antennasDead = antennasDead + [getPos _antenna]; deleteMarker _mrk;
                 if (activeBE) then {["cl_loc"] remoteExec ["fnc_BE_XP", 2]};
                 {["TaskSucceeded", ["", localize "STR_TSK_TD_RADIO_DESTROYED"]] call BIS_fnc_showNotification} remoteExec ["call", 0];

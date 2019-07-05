@@ -33,7 +33,7 @@ while {visibleMap} do {
 	sleep 1;
 	if (count positionTel > 0) then {
 		_positionTel = positionTel;
-		//_sitio = [marcadores, _positionTel] call BIS_Fnc_nearestPosition;
+		//_sitio = [markersX, _positionTel] call BIS_Fnc_nearestPosition;
 		_sitio = [markers, _positionTel] call BIS_Fnc_nearestPosition; //Sparker
 		_texto = "Click on a zone";
 		if (_sitio == "FIA_HQ") then {
@@ -113,7 +113,7 @@ while {visibleMap} do {
 			};
 		};
 		/*
-		if ((_sitio in controles) and (_sitio in mrkAAF)) then
+		if ((_sitio in controlsX) and (_sitio in mrkAAF)) then
 			{
 			_texto = "AAF Roadblock";
 			};

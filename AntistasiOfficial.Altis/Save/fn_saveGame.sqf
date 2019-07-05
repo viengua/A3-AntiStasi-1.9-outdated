@@ -14,8 +14,8 @@ flag_savingServer = true;
 ["smallCAmrk", smallCAmrk] call fn_saveData;
 ["membersPool", membersPool] call fn_saveData;
 ["antenas", antennasDead] call fn_saveData;
-["mrkAAF", mrkAAF - controles] call fn_saveData;
-["mrkFIA", mrkFIA - puestosFIA - controles] call fn_saveData;
+["mrkAAF", mrkAAF - controlsX] call fn_saveData;
+["mrkFIA", mrkFIA - outpostsFIA - controlsX] call fn_saveData;
 ["supplySaveArray", supplySaveArray] call fn_saveData;
 ["posHQ", server getVariable ["posHQ", getMarkerPos guer_respawn]] call fn_saveData;
 ["prestigeNATO", server getVariable ["prestigeNATO",0]] call fn_saveData;
@@ -261,7 +261,7 @@ _supplyLevels= [];
 _garrison = [];
 {
 _garrison = _garrison + [garrison getVariable [_x,[]]];
-} forEach (mrkFIA - puestosFIA - controles - ciudades);
+} forEach (mrkFIA - outpostsFIA - controlsX - ciudades);
 
 ["garrison",_garrison] call fn_saveData;
 
@@ -275,7 +275,7 @@ _mines = [];
 _emplacements = [];
 {
 	_emplacements = _emplacements + [getMarkerPos _x];
-} forEach puestosFIA;
+} forEach outpostsFIA;
 
 ["emplacements",_emplacements] call fn_saveData;
 
@@ -299,7 +299,7 @@ if (!isDedicated) then {
 				_missionTypes pushBack _x;
 			};
 		};
-	} forEach ["AS","ASS","CON","DES","LOG","RES","CONVOY","DEF_HQ","AtaqueAAF"];
+	} forEach ["AS","ASS","CON","DES","LOG","RES","CONVOY","DEF_HQ","AttackAAF"];
 
 	["tasks",_missionTypes] call fn_saveData;
 };

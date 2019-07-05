@@ -152,7 +152,7 @@ spawner setVariable [_marker, false, true];
 //Reveal marker when detected
 // Does not trigger on Official Server but works on EDEN SP/MP
 // So unloading is never launched :/
-// waitUntil{sleep 1; ([300,1 ,_crate,"BLUFORSpawn"] call distanceUnits) OR ({_x distance _crate < 1000} count puestosFIA != 0)};
+// waitUntil{sleep 1; ([300,1 ,_crate,"BLUFORSpawn"] call distanceUnits) OR ({_x distance _crate < 1000} count outpostsFIA != 0)};
 _marker setMarkerAlpha 1;
 
 if ([300,1,_crate, "BLUFORSpawn"] call distanceUnits) then {

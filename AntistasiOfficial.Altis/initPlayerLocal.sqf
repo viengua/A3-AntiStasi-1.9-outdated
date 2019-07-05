@@ -152,7 +152,7 @@ if (_isJip) then { waitUntil {scriptdone _introshot};
 			if (_x isKindOf "FlagCarrier") then {
 				_nearestMarker = [markers,getPos _x] call BIS_fnc_nearestPosition;
 
-				if (!(_nearestMarker in colinas) AND !(_nearestMarker in controles)) then {
+				if (!(_nearestMarker in colinas) AND !(_nearestMarker in controlsX)) then {
 					if (_nearestMarker in mrkAAF) then {
 						_x addAction [localize "STR_ACT_TAKEFLAG", {[[_this select 0, _this select 1],"mrkWIN"] call BIS_fnc_MP;},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"];
 					} else {
@@ -186,8 +186,8 @@ if (_isJip) then { waitUntil {scriptdone _introshot};
 		waitUntil {!isNil "Slowhand"};
 			if (player == Slowhand) then {
 			   	 if (isMultiplayer) then {
-			    	HC_comandante synchronizeObjectsAdd [player];
-					player synchronizeObjectsAdd [HC_comandante];
+			    	HC_commanderX synchronizeObjectsAdd [player];
+					player synchronizeObjectsAdd [HC_commanderX];
 					diag_log "Antistasi MP Client. Client finished";
 				} else {
 			    	membersPool = [];

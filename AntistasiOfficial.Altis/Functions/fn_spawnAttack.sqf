@@ -4,7 +4,7 @@ _objectives = [];
 _possibleTargets = [];
 _difficulty = 0;
 
-_possibleTargets = mrkFIA - destroyedCities - controles - colinas - puestosFIA - ["FIA_HQ"];
+_possibleTargets = mrkFIA - destroyedCities - controlsX - colinas - outpostsFIA - ["FIA_HQ"];
 _includeCSAT = true;
 cuentaCA = cuentaCA + 600; //experimental
 
@@ -50,7 +50,7 @@ _scoreNeededAirBase = [0, 5] select (count (unlockedWeapons arrayIntersect genAA
 			_scoreNeededAir = _scoreNeededAirBase;
 
 			if !(_base == "") then {
-				_scoreNeededLand = _scoreNeededLand + 2 * ({(isOnRoad getMarkerPos _x) and (getMarkerPos _x distance _position < distanceSPWN)} count puestosFIA);
+				_scoreNeededLand = _scoreNeededLand + 2 * ({(isOnRoad getMarkerPos _x) and (getMarkerPos _x distance _position < distanceSPWN)} count outpostsFIA);
 			};
 
 			{

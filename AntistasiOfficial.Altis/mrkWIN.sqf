@@ -129,7 +129,7 @@ publicVariable "reducedGarrisons";
 	};
 
 //Old roadblock removal, no longer working and autogarrison is disabled to save units.
-{[_marcador,_x] spawn AS_fnc_deleteRoadblock} forEach controles;
+{[_marcador,_x] spawn AS_fnc_deleteRoadblock} forEach controlsX;
 //sleep 15;
 [_marcador] remoteExec ["autoGarrison", call AS_fnc_getNextWorker];
 

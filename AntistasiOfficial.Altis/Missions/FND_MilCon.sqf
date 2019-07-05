@@ -25,7 +25,7 @@ while {count _posbldg < 3} do
 	};
 
 _posDealer = _posbldg select 0;
-_nombredest = [_site] call AS_fnc_localizar;
+_nameDest = [_site] call AS_fnc_localizar;
 
 _grpVul = createGroup side_blue;
 _grpDealer = createGroup Civilian;
@@ -51,7 +51,7 @@ _break = false;
 
 _posTsk = (position _bldg) getPos [random 50, random 360];
 
-_tsk = ["FND_M",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_INDEP],_tskTitle,_site],_posDealer,"CREATED",5,true,true,"Find"] call BIS_fnc_setTask;
+_tsk = ["FND_M",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_INDEP],_tskTitle,_site],_posDealer,"CREATED",5,true,true,"Find"] call BIS_fnc_setTask;
 misiones pushBack _tsk; publicVariable "misiones";
 
 waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) || (not alive Nomad) || ({(side _x isEqualTo civilian) && (_x distance Nomad < 500)} count allPlayers > 0)};
@@ -71,7 +71,7 @@ while {(dateToNumber date < _dateLimitNum) && (alive Nomad) && (!_milActive)} do
 		while {({(side _x == side_blue) && (_x distance Nomad < 200)} count allPlayers < 1) && ({(side _x isEqualTo civilian) && (_x distance Nomad < 200)} count allPlayers > 0) && (dateToNumber date < _dateLimitNum)} do {
 			scopeName "loop1";
 			if (!(_acc) && {(side _x isEqualTo civilian) && (_x distance Nomad < 5)} count allPlayers > 0) exitWith {
-				_tsk = ["FND_M",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_INDEP],_tskTitle,_site],_posDealer,"ASSIGNED",5,true,true,"Find"] call BIS_fnc_setTask;
+				_tsk = ["FND_M",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_INDEP],_tskTitle,_site],_posDealer,"ASSIGNED",5,true,true,"Find"] call BIS_fnc_setTask;
 				_acc = true;
 				_contact = true;
 
@@ -102,11 +102,11 @@ if ((_contact) && (alive Nomad) && (_milActive)) then {
 	Nomad enableAI "MOVE";
 	Nomad stop false;
 	Nomad doMove getMarkerPos "resource_7";
-	_tsk = ["FND_M",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_INDEP],_tskTitle,_site],_posDealer,"SUCCEEDED",5,true,true,"Find"] call BIS_fnc_setTask;
+	_tsk = ["FND_M",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_INDEP],_tskTitle,_site],_posDealer,"SUCCEEDED",5,true,true,"Find"] call BIS_fnc_setTask;
 	Nomad allowDamage false;
 }
 else {
-	_tsk = ["FND_M",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_INDEP],_tskTitle,_site],_posDealer,"FAILED",5,true,true,"Find"] call BIS_fnc_setTask;
+	_tsk = ["FND_M",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_INDEP],_tskTitle,_site],_posDealer,"FAILED",5,true,true,"Find"] call BIS_fnc_setTask;
 	[[Nomad,"remove"],"AS_fnc_addActionMP"] call BIS_fnc_MP;
 	_break = true;
 };

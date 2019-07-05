@@ -22,8 +22,8 @@ while {true} do {
 	//Just remove this if you need. Also check it in init and serverInit.
 	diag_log "resourcecheck.sqf: calculating grids...";
 	[_ws_territory, 0] call ws_fnc_setValueAll; //reset the grid
-	[((mrkAAF-ciudades)-colinas)-controles, _ws_radius, 1, _ws_territory] call ws_fnc_markersToGridArray;		//Convert AAF territory into a 2D array
-	[(((mrkFIA-["FIA_HQ"])-ciudades)-controles)-colinas, _ws_radius, -1.2,_ws_territory] call ws_fnc_markersToGridArray;	//Convert FIA territory into a 2D array
+	[((mrkAAF-ciudades)-colinas)-controlsX, _ws_radius, 1, _ws_territory] call ws_fnc_markersToGridArray;		//Convert AAF territory into a 2D array
+	[(((mrkFIA-["FIA_HQ"])-ciudades)-controlsX)-colinas, _ws_radius, -1.2,_ws_territory] call ws_fnc_markersToGridArray;	//Convert FIA territory into a 2D array
 	[_ws_territory, 0, _ws_frontline] call ws_fnc_filterZeroCrossing;											//Detect zero crossing
 	[_ws_frontline, 0.5, _ws_frontline] call ws_fnc_filterThreshold;											//Make the zero crossing more sharp
 	[_ws_frontline, _ws_frontlineSmooth] call ws_fnc_filterSmooth;												//Blur the frontline
@@ -35,7 +35,7 @@ while {true} do {
 	[ws_frontline, _ws_frontline] call ws_fnc_copyGrid;
 	[ws_frontlineDir, _ws_frontlineDir] call ws_fnc_copyGrid;
 	diag_log "resourcecheck.sqf: finished calculating grids. Putting roadblocks.";
-	private _newRoadblocks = [ws_frontline, ws_frontlineSmooth, ws_frontlineDir, controles, 1000, false] call ws_fnc_putRoadblockmarkersAtFrontline;
+	private _newRoadblocks = [ws_frontline, ws_frontlineSmooth, ws_frontlineDir, controlsX, 1000, false] call ws_fnc_putRoadblockmarkersAtFrontline;
 	diag_log format ["resourcecheck.sqf: Added %1 roadblocks.", _newRoadblocks];
 	//////////////////////////////////////////////////////////////////////////////
 
@@ -127,7 +127,7 @@ while {true} do {
 			if (_power) then {_power = false} else {_power = true};
 			[_city,_power] spawn AS_fnc_adjustLamps;
 			sleep 5;
-			{[_city,_x] spawn AS_fnc_deleteRoadblock} forEach controles;
+			{[_city,_x] spawn AS_fnc_deleteRoadblock} forEach controlsX;
 			if !("CONVOY" in misiones) then {
 				_base = [_city] call AS_fnc_findBaseForConvoy;
 				if ((_base != "") AND (random 3 < 1)) then {
@@ -234,7 +234,7 @@ while {true} do {
 	if (isMultiplayer) then {_resourcesAAF = _resourcesAAF + (round (_incomeEnemy + (_incomeEnemy * ((server getVariable "prestigeCSAT")/100))))} else {_resourcesAAF = _resourcesAAF + (round _incomeEnemy)};
 	server setVariable ["resourcesAAF",_resourcesAAF,true];
 	if (isMultiplayer) then {[] spawn assignStavros};
-	if (!("AtaqueAAF" in misiones) AND (random 100 < 50)) then {[] call missionRequestAUTO};
+	if (!("AttackAAF" in misiones) AND (random 100 < 50)) then {[] call missionRequestAUTO};
 	if (AAFpatrols < 3) then {[] remoteExec ["genRoadPatrol", call AS_fnc_getNextWorker]};
 
 	/* Remove static auto rearm 28.07.2017 Sparker
@@ -251,7 +251,7 @@ while {true} do {
 	if ((cuentaCA < 1) AND (diag_fps > minimoFPS) AND ((count allUnits) < 170)) then { //If there are not too many units on the map already, 17/08 Stef increased from 150 to 170
 
 		[1200] remoteExec ["AS_fnc_increaseAttackTimer",2];
-		if ((count mrkFIA > 0) AND !("AtaqueAAF" in misiones) AND !(server getVariable ["waves_active",false])) then {
+		if ((count mrkFIA > 0) AND !("AttackAAF" in misiones) AND !(server getVariable ["waves_active",false])) then {
 			_script = [] spawn AS_fnc_spawnAttack;
 			waitUntil {sleep 5; scriptDone _script};
 		};

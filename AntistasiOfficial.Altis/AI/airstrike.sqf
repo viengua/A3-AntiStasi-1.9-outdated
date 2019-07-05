@@ -22,14 +22,14 @@ _planefn = [_origpos, _ang, _tipoavion, _lado] call bis_fnc_spawnvehicle;
 _plane = _planefn select 0;
 _plane setVariable ["OPFORSpawn",false]; //Vehicle not defined? Sparker.
 _planeCrew = _planefn select 1;
-_grupoplane = _planefn select 2;
+_groupPlane = _planefn select 2;
 _plane setPosATL [getPosATL _plane select 0, getPosATL _plane select 1, 1000];
 _plane disableAI "TARGET";
 _plane disableAI "AUTOTARGET";
 _plane flyInHeight 100;
 
 
-_wp1 = _grupoplane addWaypoint [_pos1, 0];
+_wp1 = _groupPlane addWaypoint [_pos1, 0];
 _wp1 setWaypointType "MOVE";
 _wp1 setWaypointSpeed "LIMITED";
 _wp1 setWaypointBehaviour "CARELESS";
@@ -56,20 +56,20 @@ else
 	_wp1 setWaypointStatements ["true", "[this] execVM 'AI\airbomb.sqf'"];
 	};
 
-_wp2 = _grupoplane addWaypoint [_pos2, 1];
+_wp2 = _groupPlane addWaypoint [_pos2, 1];
 _wp2 setWaypointSpeed "LIMITED";
 _wp2 setWaypointType "MOVE";
 
-_wp3 = _grupoplane addWaypoint [_finpos, 2];
+_wp3 = _groupPlane addWaypoint [_finpos, 2];
 _wp3 setWaypointType "MOVE";
 _wp3 setWaypointSpeed "FULL";
 _wp3 setWaypointStatements ["true", "{deleteVehicle _x} forEach crew this; deleteVehicle this"];
 
-waitUntil {sleep 2; (currentWaypoint _grupoplane == 4) or (!canMove _plane)};
+waitUntil {sleep 2; (currentWaypoint _groupPlane == 4) or (!canMove _plane)};
 
 {deleteVehicle _x} forEach _planeCrew;
 deleteVehicle _plane;
-deleteGroup _grupoplane;
+deleteGroup _groupPlane;
 
 
 

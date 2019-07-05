@@ -11,10 +11,10 @@ _grupos = [];
 _vehiculos = [];
 _soldados = [];
 
-_nombredest = [_site] call AS_fnc_localizar;
+_nameDest = [_site] call AS_fnc_localizar;
 _posSite = getMarkerPos _site;
 
-_roads = carreteras getVariable _site;
+_roads = roadsX getVariable _site;
 _break = false;
 _maxRoads = count (_roads);
 
@@ -53,7 +53,7 @@ _tiempolim = 60;
 _fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
 _dateLimitNum = dateToNumber _fechalim;
 
-_tsk = ["FND_E",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_site],_posCmp,"CREATED",5,true,true,"Find"] call BIS_fnc_setTask;
+_tsk = ["FND_E",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_site],_posCmp,"CREATED",5,true,true,"Find"] call BIS_fnc_setTask;
 misiones pushBack _tsk; publicVariable "misiones";
 
 _objs = [_posCmp, ([_posCmp,_p1] call BIS_fnc_DirTo), call (compile (preprocessFileLineNumbers "Compositions\cmpExp.sqf"))] call BIS_fnc_ObjectsMapper;
@@ -150,7 +150,7 @@ if !(_qrf) then {
 waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) || !(alive Devin) || ({((side _x isEqualTo side_blue) || (side _x isEqualTo civilian)) && (_x distance Devin < 10)} count allPlayers > 0)};
 
 if ({((side _x isEqualTo side_blue) || (side _x isEqualTo civilian)) && (_x distance Devin < 10)} count allPlayers > 0) then {
-	_tsk = ["FND_E",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_site],_posCmp,"SUCCEEDED",5,true,true,"Find"] call BIS_fnc_setTask;
+	_tsk = ["FND_E",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_site],_posCmp,"SUCCEEDED",5,true,true,"Find"] call BIS_fnc_setTask;
 	[[Devin,"buy_exp"],"AS_fnc_addActionMP"] call BIS_fnc_MP;
 	_mrkDev = createMarker ["Devin", _posCmp];
 	_mrkDev setMarkerShape "ICON";
@@ -167,7 +167,7 @@ if ({((side _x isEqualTo side_blue) || (side _x isEqualTo civilian)) && (_x dist
     [[line1],"DIRECT",0.15] execVM "createConv.sqf";
 }
 else {
-	_tsk = ["FND_E",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_site],_posCmp,"FAILED",5,true,true,"Find"] call BIS_fnc_setTask;
+	_tsk = ["FND_E",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_site],_posCmp,"FAILED",5,true,true,"Find"] call BIS_fnc_setTask;
 };
 
 waitUntil {sleep 10; (dateToNumber date > _dateLimitNum) || !(alive Devin) || ((Devin distance _posCmp) > 50)};

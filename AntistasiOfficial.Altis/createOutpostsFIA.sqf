@@ -6,7 +6,7 @@ _tipo = _this select 0;
 _positionTel = _this select 1;
 
 if (_tipo == "delete") exitWith {
-	_mrk = [puestosFIA,_positionTel] call BIS_fnc_nearestPosition;
+	_mrk = [outpostsFIA,_positionTel] call BIS_fnc_nearestPosition;
 	_pos = getMarkerPos _mrk;
 	hint format ["Deleting %1",markerText _mrk];
 	_coste = 0;
@@ -25,7 +25,7 @@ if (_tipo == "delete") exitWith {
 	{_coste = _coste + (server getVariable _x); _hr = _hr +1} forEach _tipogrupo;
 	[_hr,_coste] remoteExec ["resourcesFIA",2];
 	deleteMarker _mrk;
-	puestosFIA = puestosFIA - [_mrk]; publicVariable "puestosFIA";
+	outpostsFIA = outpostsFIA - [_mrk]; publicVariable "outpostsFIA";
 	mrkFIA = mrkFIA - [_mrk]; publicVariable "mrkFIA";
 	markers = markers - [_mrk]; publicVariable "markers";
 	if (_mrk in FIA_RB_list) then {
@@ -54,7 +54,7 @@ _mrk setMarkerShape "ICON";
 _fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + 60];
 _dateLimitNum = dateToNumber _fechalim;
 
-_tsk = ["PuestosFIA", [side_blue, civilian],["STR_TSK_DESC_OPDEPLOY", "STR_TSK_OPDEPLOY", _mrk],_positionTel, "CREATED", 5, true, true, "Move"] call BIS_fnc_setTask;
+_tsk = ["outpostsFIA", [side_blue, civilian],["STR_TSK_DESC_OPDEPLOY", "STR_TSK_OPDEPLOY", _mrk],_positionTel, "CREATED", 5, true, true, "Move"] call BIS_fnc_setTask;
 misiones pushBackUnique _tsk; publicVariable "misiones";
 _grupo = [getMarkerPos guer_respawn, side_blue, ([_tipogrupo, "guer"] call AS_fnc_pickGroup)] call BIS_Fnc_spawnGroup;
 _grupo setGroupId ["Watch"];
@@ -91,7 +91,7 @@ if ({(alive _x) and (_x distance _positionTel < 10)} count units _grupo > 0) the
 		"" remoteExec ["hint",_owner];
 		waitUntil {!(isPlayer leader _grupo)};
 		};
-	puestosFIA = puestosFIA + [_mrk]; publicVariable "puestosFIA";
+	outpostsFIA = outpostsFIA + [_mrk]; publicVariable "outpostsFIA";
 	mrkFIA = mrkFIA + [_mrk]; publicVariable "mrkFIA";
 	markers = markers + [_mrk]; publicVariable "markers";
 	if (_isRoad) then {
@@ -114,7 +114,7 @@ if ({(alive _x) and (_x distance _positionTel < 10)} count units _grupo > 0) the
 		// BE module
 	};
 	spawner setVariable [_mrk,false,true];
-	_tsk = ["PuestosFIA", [side_blue, civilian],["STR_TSK_DESC_OPDEPLOY", "STR_TSK_OPDEPLOY", _mrk],_positionTel, "SUCCEEDED", 5, true, true, "Move"] call BIS_fnc_setTask;
+	_tsk = ["outpostsFIA", [side_blue, civilian],["STR_TSK_DESC_OPDEPLOY", "STR_TSK_OPDEPLOY", _mrk],_positionTel, "SUCCEEDED", 5, true, true, "Move"] call BIS_fnc_setTask;
 	[-5,5,_positionTel] remoteExec ["AS_fnc_changeCitySupport",2];
 	_mrk setMarkerType "loc_bunker";
 	_mrk setMarkerColor "ColorYellow";
@@ -122,7 +122,7 @@ if ({(alive _x) and (_x distance _positionTel < 10)} count units _grupo > 0) the
 	}
 else
 	{
-	_tsk = ["PuestosFIA", [side_blue, civilian],["STR_TSK_DESC_OPDEPLOY", "STR_TSK_OPDEPLOY", _mrk],_positionTel, "FAILED", 5, true, true, "Move"] call BIS_fnc_setTask;
+	_tsk = ["outpostsFIA", [side_blue, civilian],["STR_TSK_DESC_OPDEPLOY", "STR_TSK_OPDEPLOY", _mrk],_positionTel, "FAILED", 5, true, true, "Move"] call BIS_fnc_setTask;
 	sleep 3;
 	deleteMarker _mrk;
 	};

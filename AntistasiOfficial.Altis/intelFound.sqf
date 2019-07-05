@@ -52,12 +52,12 @@ if (random 100 < _chance) then
 	if (tanksAAFcurrent < 1) then {_texto = format ["%1 AAF Tanks: None<br/>",_texto]} else {_texto = format ["%1 AAF Tanks: %2<br/>",_texto,tanksAAFcurrent]};
 	};
 _minasAAF = allmines - (detectedMines side_blue);
-_revelaMina = false;
+_revealMineX = false;
 if (count _minasAAF > 0) then
 	{
-	{if (random 100 < _chance) then {side_blue revealMine _x; _revelaMina = true}} forEach _minasAAF;
+	{if (random 100 < _chance) then {side_blue revealMine _x; _revealMineX = true}} forEach _minasAAF;
 	};
-if (_revelaMina) then {_texto = format ["%1 New Mines marked on your map<br/>",_texto];};
+if (_revealMineX) then {_texto = format ["%1 New Mines marked on your map<br/>",_texto];};
 
 if (_texto == "<t size='0.6' color='#C1C0BB'>Intel Found.<br/> <t size='0.5' color='#C1C0BB'><br/>") then {_texto = format ["<t size='0.6' color='#C1C0BB'>Intel Not Found.<br/> <t size='0.5' color='#C1C0BB'><br/>"];};
 

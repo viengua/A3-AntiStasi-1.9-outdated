@@ -29,7 +29,7 @@ _traitorPosition = _housePosition select _rnd;
 _posSol1 = _housePosition select (_rnd + 1);
 _posSol2 = (_house buildingExit 0);
 
-_nombredest = [_initialMarker] call AS_fnc_localizar;
+_nameDest = [_initialMarker] call AS_fnc_localizar;
 
 _traitorGroup = createGroup side_red;
 
@@ -62,7 +62,7 @@ if (_source == "civ") then {
 	server setVariable ["civActive", _val + 1, true];
 };
 
-_tsk = ["ASS",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_initialMarker],_posTsk,"CREATED",5,true,true,"Kill"] call BIS_fnc_setTask;
+_tsk = ["ASS",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_initialMarker],_posTsk,"CREATED",5,true,true,"Kill"] call BIS_fnc_setTask;
 misiones pushBack _tsk; publicVariable "misiones";
 
 {[_x] spawn CSATinit; _x allowFleeing 0} forEach units _traitorGroup;
@@ -101,7 +101,7 @@ waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) or (not alive _traitor) 
 if ({_traitor knowsAbout _x > 1.4} count ([500,0,_traitor,"BLUFORSpawn"] call distanceUnits) > 0) then
 	{
 	//hint "You have been discovered. The traitor is fleeing to the nearest base. Go and kill him!";
-	_tsk = ["ASS",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_initialMarker],_traitor,"CREATED",5,true,true,"Kill"] call BIS_fnc_setTask;
+	_tsk = ["ASS",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_initialMarker],_traitor,"CREATED",5,true,true,"Kill"] call BIS_fnc_setTask;
 	{_x enableAI "MOVE"} forEach units _traitorGroup;
 	_traitor assignAsDriver _veh;
 	[_traitor] orderGetin true;
@@ -117,7 +117,7 @@ waitUntil  {sleep 1; (dateToNumber date > _dateLimitNum) or (not alive _traitor)
 
 if (not alive _traitor) then
 	{
-	_tsk = ["ASS",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_initialMarker],_traitor,"SUCCEEDED",5,true,true,"Kill"] call BIS_fnc_setTask;
+	_tsk = ["ASS",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_initialMarker],_traitor,"SUCCEEDED",5,true,true,"Kill"] call BIS_fnc_setTask;
 	[0,0] remoteExec ["prestige",2];
 	[0,300] remoteExec ["resourcesFIA",2];
 	{
@@ -141,7 +141,7 @@ if (not alive _traitor) then
 	}
 else
 	{
-	_tsk = ["ASS",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_initialMarker],_traitor,"FAILED",5,true,true,"Kill"] call BIS_fnc_setTask;
+	_tsk = ["ASS",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_initialMarker],_traitor,"FAILED",5,true,true,"Kill"] call BIS_fnc_setTask;
 	[-10,Slowhand] call playerScoreAdd;
 	if (dateToNumber date > _dateLimitNum) then
 		{

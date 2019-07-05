@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith {};
 
-private ["_prestigio","_marcador","_posicion","_tiempolim","_fechalim","_dateLimitNum","_nombredest","_tsk","_soldados","_vehiculos","_grupo","_tipoVeh","_cuenta","_size"];
+private ["_prestigio","_marcador","_posicion","_tiempolim","_fechalim","_dateLimitNum","_nameDest","_tsk","_soldados","_vehiculos","_grupo","_tipoVeh","_cuenta","_size"];
 
 _prestigio = server getVariable "prestigeNATO";
 
@@ -13,9 +13,9 @@ _tiempolim = _prestigio;
 _fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
 _dateLimitNum = dateToNumber _fechalim;
 
-_nombredest = [_marcador] call AS_fnc_localizar;
+_nameDest = [_marcador] call AS_fnc_localizar;
 
-_tsk = ["NATOArty",[west,civilian],[["STR_TSK_ARTY_DESC",_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_BLUE],["STR_TSK_ARTY_TITLE", A3_Str_BLUE],_marcador],_posicion,"CREATED",5,true,true,"target"] call BIS_fnc_setTask;
+_tsk = ["NATOArty",[west,civilian],[["STR_TSK_ARTY_DESC",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_BLUE],["STR_TSK_ARTY_TITLE", A3_Str_BLUE],_marcador],_posicion,"CREATED",5,true,true,"target"] call BIS_fnc_setTask;
 misiones pushBack _tsk; publicVariable "misiones";
 
 _size = [_marcador] call sizeMarker;
@@ -61,7 +61,7 @@ if ({alive _x} count _vehiculos == 0) then
 	{
 	[-5,0] remoteExec ["prestige",2];
 
-	_tsk = ["NATOArty",[west,civilian],[["STR_TSK_ARTY_DESC",_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_BLUE],["STR_TSK_ARTY_TITLE", A3_Str_BLUE],_marcador],_posicion,"FAILED",5,true,true,"target"] call BIS_fnc_setTask;
+	_tsk = ["NATOArty",[west,civilian],[["STR_TSK_ARTY_DESC",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_BLUE],["STR_TSK_ARTY_TITLE", A3_Str_BLUE],_marcador],_posicion,"FAILED",5,true,true,"target"] call BIS_fnc_setTask;
 	};
 
 //[_tsk,true] call BIS_fnc_deleteTask;

@@ -17,7 +17,7 @@ _tiempolim = 30 max _prestigio;
 _fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
 _dateLimitNum = dateToNumber _fechalim;
 
-_nombreorig = [_origen] call AS_fnc_localizar;
+_nameOrigin = [_origen] call AS_fnc_localizar;
 
 
 _texto = "STR_GL_NATORB";

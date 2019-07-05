@@ -51,7 +51,7 @@ if (count _positionTel > 0) then
 
 	//experimental
 	if (_base in campsFIA) exitWith {hint localize "STR_HINTS_FTR_YCFTTC"; openMap [false,false]};
-	//if (_base in puestosFIA) exitWith {hint localize "STR_HINTS_FTR_YCFTTRNW"; openMap [false,false]};
+	//if (_base in outpostsFIA) exitWith {hint localize "STR_HINTS_FTR_YCFTTRNW"; openMap [false,false]};
 
 	{
 		if (((side _x == side_red) or (side _x == side_green)) and (_x distance (getMarkerPos _base) < 500) and (not(captive _x))) then {_chequeo = true};

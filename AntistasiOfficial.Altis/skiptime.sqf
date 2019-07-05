@@ -8,7 +8,7 @@ if ((side _x == side_green) or (side _x == side_red)) then
 	};
 } forEach allUnits;
 if (_presente) exitWith {hint localize "STR_HINTS_ST_YCRWENOU"};
-if ("AtaqueAAF" in misiones) exitWith {hint localize "STR_HINTS_ST_YCRWAAFOCSATIC"};
+if ("AttackAAF" in misiones) exitWith {hint localize "STR_HINTS_ST_YCRWAAFOCSATIC"};
 if ("DEF_HQ" in misiones) exitWith {hint localize "STR_HINTS_ST_YCRWYHQIUA"};
 
 _chequeo = false;

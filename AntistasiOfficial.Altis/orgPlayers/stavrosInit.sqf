@@ -10,13 +10,13 @@ if (!isNil "_groupsHC") then {
   	} forEach _groupsHC;
 };
 
-_oldUnit synchronizeObjectsRemove [HC_comandante];
-HC_comandante synchronizeObjectsRemove [_oldUnit];
+_oldUnit synchronizeObjectsRemove [HC_commanderX];
+HC_commanderX synchronizeObjectsRemove [_oldUnit];
 Slowhand = _unit;
 publicVariable "Slowhand";
 [group _unit, _unit] remoteExec ["selectLeader",_unit];
-Slowhand synchronizeObjectsAdd [HC_comandante];
-HC_comandante synchronizeObjectsAdd [Slowhand];
+Slowhand synchronizeObjectsAdd [HC_commanderX];
+HC_commanderX synchronizeObjectsAdd [Slowhand];
 if (!isNil "_groupsHC") then {
   	{_unit hcSetGroup [_x]} forEach _groupsHC;
 } else {

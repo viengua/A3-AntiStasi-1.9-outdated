@@ -1,6 +1,6 @@
 //Clear previously spawned roadblocks
 
-controlesCounter = 0;
+controlsXCounter = 0;
 
 if(isServer)  then
 {
@@ -11,10 +11,10 @@ if(isServer)  then
 	    };
 	} forEach markers;
 	mrkAAF = mrkAAF - (mrkAAF select {toLower _x find "control" >= 0});
-	markers = markers - controles;
-	controles = [];
+	markers = markers - controlsX;
+	controlsX = [];
 	publicVariable "markers";
-	publicVariable "controles";
+	publicVariable "controlsX";
 	publicVariable "mrkAAF";
 };
 

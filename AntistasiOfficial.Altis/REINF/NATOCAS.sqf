@@ -12,10 +12,10 @@ _tiempolim = _prestigio;
 _fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
 _dateLimitNum = dateToNumber _fechalim;
 
-_nombreorig = format ["the %1 Carrier", A3_Str_BLUE];
-if (_origen!= "spawnNATO") then {_nombreorig = [_origen] call AS_fnc_localizar};
+_nameOrigin = format ["the %1 Carrier", A3_Str_BLUE];
+if (_origen!= "spawnNATO") then {_nameOrigin = [_origen] call AS_fnc_localizar};
 
-_tsk = ["NATOCAS",[side_blue,civilian],[["%4 is providing Air support from %1. They will be under our command until %2:%3.",_nombreorig,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_BLUE],["%1 CAS", A3_Str_BLUE],_origen],_orig,"CREATED",5,true,true,"Attack"] call BIS_fnc_setTask;
+_tsk = ["NATOCAS",[side_blue,civilian],[["%4 is providing Air support from %1. They will be under our command until %2:%3.",_nameOrigin,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_BLUE],["%1 CAS", A3_Str_BLUE],_origen],_orig,"CREATED",5,true,true,"Attack"] call BIS_fnc_setTask;
 misiones pushBack _tsk; publicVariable "misiones";
 
 _tipoVeh = bluHeliArmed;
@@ -64,7 +64,7 @@ if (dateToNumber date > _dateLimitNum) then
 	}
 else
 	{
-	_tsk = ["NATOCAS",[side_blue,civilian],[["%4 is providing Air support from %1. They will be under our command until %2:%3.",_nombreorig,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_BLUE],["%1 CAS", A3_Str_BLUE],_origen],_orig,"FAILED",5,true,true,"Attack"] call BIS_fnc_setTask;
+	_tsk = ["NATOCAS",[side_blue,civilian],[["%4 is providing Air support from %1. They will be under our command until %2:%3.",_nameOrigin,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_BLUE],["%1 CAS", A3_Str_BLUE],_origen],_orig,"FAILED",5,true,true,"Attack"] call BIS_fnc_setTask;
 	[-5,0] remoteExec ["prestige",2];
 	};
 

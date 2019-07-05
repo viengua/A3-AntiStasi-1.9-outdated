@@ -336,13 +336,13 @@ fn_setData = {
 						_posMina = _varValue select _i select 1;
 						_dirMina = _varValue select _i select 2;
 						_mina = createMine [_tipoMina, _posMina, [], _dirMina];
-						_detectada = _varValue select _i select 3;
-						if (_detectada) then {side_blue revealMine _mina};
+						_detected = _varValue select _i select 3;
+						if (_detected) then {side_blue revealMine _mina};
 					};
 				};*/
 			};
 			if(_varName == 'garrison') exitWith {
-				_markers = mrkFIA - puestosFIA - controles - ciudades;
+				_markers = mrkFIA - outpostsFIA - controlsX - ciudades;
 				_garrison = _varValue;
 				for "_i" from 0 to (count _markers - 1) do
 					{
@@ -363,7 +363,7 @@ fn_setData = {
 						FIA_WP_list pushBackUnique _mrk;
 					};
 					spawner setVariable [_mrk,false,true];
-					puestosFIA pushBack _mrk;
+					outpostsFIA pushBack _mrk;
 				} forEach _varValue;
 			};
 			if (_varName == 'campList') exitWith {
@@ -388,7 +388,7 @@ fn_setData = {
 				antennasDead = _varValue;
 				for "_i" from 0 to (count _varValue - 1) do {
 				    _posAnt = _varValue select _i;
-				    _mrk = [mrkAntenas, _posAnt] call BIS_fnc_nearestPosition;
+				    _mrk = [mrkAntennas, _posAnt] call BIS_fnc_nearestPosition;
 				    _antena = [antenas,_mrk] call BIS_fnc_nearestPosition;
 				    antenas = antenas - [_antena];
 				    _antena removeAllEventHandlers "Killed";
@@ -417,7 +417,7 @@ fn_setData = {
 			//Redundant, same code done for all options, propably add some bool to avoid double execution??
 			//Most likely getting even worse with supply levels ...
 			//I would recommend to redo this part, if I got some time, I will do this - wurzel
-			
+
 			if(_varname == 'supportOPFOR') exitWith {
 				for "_i" from 0 to (count ciudades) - 1 do {
 					_ciudad = ciudades select _i;
@@ -444,7 +444,7 @@ fn_setData = {
 					server setVariable [_ciudad,_datos,true];
 				};
 			};
-			
+
 			if(_varName == 'supplyLevels') exitWith
 			{
 				for "_i" from 0 to (count ciudades) - 1 do {
@@ -459,7 +459,7 @@ fn_setData = {
 					server setVariable [_ciudad,_datos,true];
 				};
 			};
-			
+
 			if(_varname == 'idleBases') exitWith {
 				{
 					server setVariable [(_x select 0),(_x select 1),true];
@@ -473,7 +473,7 @@ fn_setData = {
 						mrkAAF = mrkAAF - [_x];
 						mrkFIA = mrkFIA + [_x];
 					};
-				} forEach controles;
+				} forEach controlsX;
 
 				"FIA_HQ" setMarkerPos _varValue;
 				posHQ = _varValue;
@@ -552,7 +552,7 @@ fn_setData = {
 			};
 			if(_varname == 'tasks') exitWith {
 				{
-					if (_x == "AtaqueAAF") then {
+					if (_x == "AttackAAF") then {
 						[] spawn AS_fnc_spawnAttack;
 					} else {
 						if (_x == "DEF_HQ") then {

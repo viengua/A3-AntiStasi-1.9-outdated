@@ -51,7 +51,7 @@ _unit addEventHandler ["FIRED",
 	}
 	];
 
-_bases = bases + puestos + controles;
+_bases = bases + puestos + controlsX;
 while {(captive player) and (captive _unit)} do
 	{
 	sleep 1;

@@ -15,7 +15,7 @@ if (!isNil "placementDone") then {
 private ["_nearestZone","_position","_oldUnit","_spawnPos","_direction"];
 
 if (isNil "placementDone") then {
-	_markers = _markers - controles;
+	_markers = _markers - controlsX;
 	openMap true;
 } else {
 	openMap [true,true];
@@ -64,7 +64,7 @@ if (visiblemap) then {
 				mrkAAF = mrkAAF - [_x];
 				mrkFIA = mrkFIA + [_x];
 			};
-		} forEach controles;
+		} forEach controlsX;
 		publicVariable "mrkAAF";
 		publicVariable "mrkFIA";
 		petros setPos _position;

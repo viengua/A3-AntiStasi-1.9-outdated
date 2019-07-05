@@ -14,7 +14,7 @@ _posBase -> location of the base sending reinforcements
 
 _marcador = _this select 0;
 _posicion = getMarkerPos _marcador;
-_nombredest = [_marcador] call AS_fnc_localizar;
+_nameDest = [_marcador] call AS_fnc_localizar;
 
 _posHQ = getMarkerPos guer_respawn;
 
@@ -37,7 +37,7 @@ if (count _bases > 0) then {_base = [_bases,_posicion] call BIS_fnc_nearestPosit
 
 _posbase = getMarkerPos _base;
 
-_nombreOrig = [_base] call AS_fnc_localizar;
+_nameOrigin = [_base] call AS_fnc_localizar;
 
 while {true} do {
 	sleep 0.1;
@@ -54,7 +54,7 @@ _posCrash = _posCrash findEmptyPosition [0,100,_tipoVeh];
 _mrkfin = createMarker [format ["REC%1", random 100], _posCrashMrk];
 _mrkfin setMarkerShape "ICON";
 
-_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, _nombreOrig, A3_Str_INDEP],_tskTitle,_mrkfin],_posCrashMrk,"CREATED",5,true,true,"Heal"] call BIS_fnc_setTask;
+_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, _nameOrigin, A3_Str_INDEP],_tskTitle,_mrkfin],_posCrashMrk,"CREATED",5,true,true,"Heal"] call BIS_fnc_setTask;
 
 misiones pushBack _tsk; publicVariable "misiones";
 
@@ -149,11 +149,11 @@ _mrkfin = createMarker [format ["REC%1", random 100], _poscrash];
 _mrkfin setMarkerShape "ICON";
 
 if (dateToNumber date > _dateLimitNum) then {
-	_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, _nombreOrig, A3_Str_INDEP],_tskTitle,_mrkfin],_posCrashMrk,"FAILED",5,true,true,"Heal"] call BIS_fnc_setTask;
+	_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, _nameOrigin, A3_Str_INDEP],_tskTitle,_mrkfin],_posCrashMrk,"FAILED",5,true,true,"Heal"] call BIS_fnc_setTask;
 	[5,-5,_posicion] remoteExec ["AS_fnc_changeCitySupport",2];
 	[-10,Slowhand] call playerScoreAdd;
 } else {
-	_tsk = ["LOG",[side_blue,civilian],[["Secure the vehicle, load the cargo, and deliver the supplies to the people in %1 before %2:%3. AAF command has probably dispatched a patrol from %4 to retrieve the goods, so you better hurry. Note: no cargo left behind!",_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, _nombreOrig, A3_Str_INDEP],_tskTitle,_mrkfin],_poscrash,"AUTOASSIGNED",5,true,true,"Heal"] call BIS_fnc_setTask;
+	_tsk = ["LOG",[side_blue,civilian],[["Secure the vehicle, load the cargo, and deliver the supplies to the people in %1 before %2:%3. AAF command has probably dispatched a patrol from %4 to retrieve the goods, so you better hurry. Note: no cargo left behind!",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, _nameOrigin, A3_Str_INDEP],_tskTitle,_mrkfin],_poscrash,"AUTOASSIGNED",5,true,true,"Heal"] call BIS_fnc_setTask;
 
 	_cuenta = 120;
 	_counter = 0;
@@ -211,7 +211,7 @@ if (dateToNumber date > _dateLimitNum) then {
 					(dateToNumber date > _dateLimitNum)};
 		};
 		if !(_counter < _cuenta) exitWith {
-			_formato = format ["Good to go. Deliver these supplies to %1.",_nombredest];
+			_formato = format ["Good to go. Deliver these supplies to %1.",_nameDest];
 			{if (isPlayer _x) then {[petros,"hint",_formato] remoteExec ["commsMP",_x]}} forEach ([80,0,position _sboxempty,"BLUFORSpawn"] call distanceUnits);
 		};
 	};
@@ -224,7 +224,7 @@ deleteVehicle _sboxempty;
 // Create the repacked box add delivery info
 	_sbox = AS_misSupplyBox createVehicle _pos1;
 	_sbox call jn_fnc_logistics_addAction;
-	_sbox setVariable ["destino",_nombredest,true];
+	_sbox setVariable ["destino",_nameDest,true];
 	_sbox addAction ["Delivery infos",
 	{
 	_text = format ["Deliver this box to %1, unload it to start distributing to people",(_this select 0) getVariable "destino"];
@@ -241,7 +241,7 @@ deleteVehicle _sboxempty;
 	_mrkTarget setMarkerShape "ICON";
 	_active = false;
 
-	_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, _nombreOrig, A3_Str_INDEP],_tskTitle,_mrkTarget],_posicion,"AUTOASSIGNED",5,true,true,"Heal"] call BIS_fnc_setTask;
+	_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, _nameOrigin, A3_Str_INDEP],_tskTitle,_mrkTarget],_posicion,"AUTOASSIGNED",5,true,true,"Heal"] call BIS_fnc_setTask;
 	hint format ["%1 is the box, %2 is posicion",_sbox,_posicion];
 	waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) or ( (_sbox distance _posicion < 40) and (isNull attachedTo _sbox) ) };
 
@@ -264,7 +264,7 @@ deleteVehicle _sboxempty;
 
 			if (alive _sbox) then {
 				[[petros,"hint","Supplies Delivered"],"commsMP"] call BIS_fnc_MP;
-				_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, _nombreOrig, A3_Str_INDEP],_tskTitle,_mrkfin],_posCrashMrk,"SUCCEEDED",5,true,true,"Heal"] call BIS_fnc_setTask;
+				_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, _nameOrigin, A3_Str_INDEP],_tskTitle,_mrkfin],_posCrashMrk,"SUCCEEDED",5,true,true,"Heal"] call BIS_fnc_setTask;
 				[0,15,_marcador] remoteExec ["AS_fnc_changeCitySupport",2];
 				[5,0] remoteExec ["prestige",2];
 				{if (_x distance _posicion < 500) then {[10,_x] call playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
@@ -295,13 +295,13 @@ deleteVehicle _sboxempty;
 
 			}
 			else {
-				_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, _nombreOrig, A3_Str_INDEP],_tskTitle,_mrkfin],_posCrashMrk,"FAILED",5,true,true,"Heal"] call BIS_fnc_setTask;
+				_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, _nameOrigin, A3_Str_INDEP],_tskTitle,_mrkfin],_posCrashMrk,"FAILED",5,true,true,"Heal"] call BIS_fnc_setTask;
 				[5,-5,_posicion] remoteExec ["AS_fnc_changeCitySupport",2];
 				[-10,Slowhand] call playerScoreAdd;
 			};
 	}
 	else {
-			_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, _nombreOrig, A3_Str_INDEP],_tskTitle,_mrkfin],_posCrashMrk,"FAILED",5,true,true,"Heal"] call BIS_fnc_setTask;
+			_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, _nameOrigin, A3_Str_INDEP],_tskTitle,_mrkfin],_posCrashMrk,"FAILED",5,true,true,"Heal"] call BIS_fnc_setTask;
 			[5,-5,_posicion] remoteExec ["AS_fnc_changeCitySupport",2];
 			[-10,Slowhand] call playerScoreAdd;
 	};

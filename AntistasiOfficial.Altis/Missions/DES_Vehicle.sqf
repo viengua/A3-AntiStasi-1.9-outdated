@@ -3,7 +3,7 @@ if (!isServer and hasInterface) exitWith {};
 _tskTitle = "STR_TSK_TD_DesVehicle";
 _tskDesc = "STR_TSK_TD_DESC_DesVehicle";
 
-private ["_marcador","_posicion","_fechalim","_dateLimitNum","_nombredest","_tipoVeh","_texto","_truckCreated","_size","_pos","_veh","_grupo","_unit"];
+private ["_marcador","_posicion","_fechalim","_dateLimitNum","_nameDest","_tipoVeh","_texto","_truckCreated","_size","_pos","_veh","_grupo","_unit"];
 
 _marcador = _this select 0;
 _source = _this select 1;
@@ -18,7 +18,7 @@ _posicion = getMarkerPos _marcador;
 _tiempolim = 120;
 _fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
 _dateLimitNum = dateToNumber _fechalim;
-_nombredest = [_marcador] call AS_fnc_localizar;
+_nameDest = [_marcador] call AS_fnc_localizar;
 
 _tipoVeh = "";
 _texto = "";
@@ -28,7 +28,7 @@ if (count (enemyMotorpool - vehTank) < count enemyMotorpool) then {_tipoVeh = se
 
 // if ("I_MBT_03_cannon_F" in enemyMotorpool) then {_tipoVeh = "I_MBT_03_cannon_F"; _texto = "AAF Tank"} else {_tipoVeh = opSPAA; _texto = "CSAT Artillery"};
 
-_tsk = ["DES",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_texto],_tskTitle,_marcador],_posicion,"CREATED",5,true,true,"Destroy"] call BIS_fnc_setTask;
+_tsk = ["DES",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_texto],_tskTitle,_marcador],_posicion,"CREATED",5,true,true,"Destroy"] call BIS_fnc_setTask;
 misiones pushBack _tsk; publicVariable "misiones";
 _truckCreated = false;
 
@@ -65,7 +65,7 @@ if (spawner getVariable _marcador) then
 
 	if ((not alive _veh) or ({_x getVariable ["BLUFORSpawn",false]} count crew _veh > 0)) then
 		{
-		_tsk = ["DES",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_texto],_tskTitle,_marcador],_posicion,"SUCCEEDED",5,true,true,"Destroy"] call BIS_fnc_setTask;
+		_tsk = ["DES",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_texto],_tskTitle,_marcador],_posicion,"SUCCEEDED",5,true,true,"Destroy"] call BIS_fnc_setTask;
 		[0,300] remoteExec ["resourcesFIA",2];
 		[2,0] remoteExec ["prestige",2];
 		if (_tipoVeh == opSPAA) then {[0,0] remoteExec ["prestige",2]; [0,10,_posicion] remoteExec ["AS_fnc_changeCitySupport",2]} else {[0,5,_posicion] remoteExec ["AS_fnc_changeCitySupport",2]};
@@ -81,7 +81,7 @@ if (spawner getVariable _marcador) then
 	};
 if (dateToNumber date > _dateLimitNum) then
 	{
-	_tsk = ["DES",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_texto],_tskTitle,_marcador],_posicion,"FAILED",5,true,true,"Destroy"] call BIS_fnc_setTask;
+	_tsk = ["DES",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_texto],_tskTitle,_marcador],_posicion,"FAILED",5,true,true,"Destroy"] call BIS_fnc_setTask;
 	[-5,-100] remoteExec ["resourcesFIA",2];
 	[5,0,_posicion] remoteExec ["AS_fnc_changeCitySupport",2];
 	if (_tipoVeh == opSPAA) then {[0,0] remoteExec ["prestige",2]};

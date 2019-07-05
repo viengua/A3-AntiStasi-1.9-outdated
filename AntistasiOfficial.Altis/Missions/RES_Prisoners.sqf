@@ -55,7 +55,7 @@ for "_i" from 0 to _count do
 	removeAllAssignedItems _unit;
 	sleep 1;
 	_POWS pushBack _unit;
-	[_unit,"prisionero"] remoteExec ["AS_fnc_addActionMP"];
+	[_unit,"prisonerX"] remoteExec ["AS_fnc_addActionMP"];
 };
 
 sleep 5;
