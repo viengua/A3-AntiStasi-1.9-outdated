@@ -50,21 +50,21 @@ _scoreNeededAirBase = [0, 5] select (count (unlockedWeapons arrayIntersect genAA
 			_scoreNeededAir = _scoreNeededAirBase;
 
 			if !(_base == "") then {
-				_scoreNeededLand = _scoreNeededLand + 2 * ({(isOnRoad getMarkerPos _x) and (getMarkerPos _x distance _position < distanciaSPWN)} count puestosFIA);
+				_scoreNeededLand = _scoreNeededLand + 2 * ({(isOnRoad getMarkerPos _x) and (getMarkerPos _x distance _position < distanceSPWN)} count puestosFIA);
 			};
 
 			{
-				if (getMarkerPos _x distance _position < distanciaSPWN) then {
+				if (getMarkerPos _x distance _position < distanceSPWN) then {
 					_nearbyThreat = _x;
 					_garrison = garrison getVariable [_nearbyThreat, []];
 
 					if !(_base == "") then {
 						_scoreNeededLand = _scoreNeededLand + (2*({(_x == guer_sol_LAT)} count _garrison)) + (floor((count _garrison)/8));
-						if ((_nearbyThreat in bases) or (_nearbyThreat in aeropuertos)) then {_scoreNeededLand = _scoreNeededLand + 3};
+						if ((_nearbyThreat in bases) or (_nearbyThreat in airportsX)) then {_scoreNeededLand = _scoreNeededLand + 3};
 					};
 					if !(_airport == "") then {
 						_scoreNeededAir = _scoreNeededAir + (floor((count _garrison)/8));
-						if ((_nearbyThreat in bases) or (_nearbyThreat in aeropuertos)) then {_scoreNeededAir = _scoreNeededAir + 3};
+						if ((_nearbyThreat in bases) or (_nearbyThreat in airportsX)) then {_scoreNeededAir = _scoreNeededAir + 3};
 					};
 					_size = [_nearbyThreat] call sizeMarker;
 					_statics = staticsToSave select {_x distance (getMarkerPos _nearbyThreat) < _size};
@@ -81,7 +81,7 @@ _scoreNeededAirBase = [0, 5] select (count (unlockedWeapons arrayIntersect genAA
 			} else {
 				if (!(_base == "") and (_scoreNeededLand < 4)) then {
 					if (((count (garrison getVariable [_objective,[]])) < 4) and (_difficulty < 4)) then {
-						if (!(_objective in bases) and !(_objective in aeropuertos)) then {
+						if (!(_objective in bases) and !(_objective in airportsX)) then {
 							_easyTarget = true;
 							if !(_objective in smallCAmrk) then {
 								//if (debug) then {hint format ["%1 Es facil para bases",_objective]; sleep 5};
@@ -99,7 +99,7 @@ _scoreNeededAirBase = [0, 5] select (count (unlockedWeapons arrayIntersect genAA
 			} else {
 				if (!(_airport == "") and (_base == "") and !(_easyTarget) and (_scoreNeededAir < 4)) then {
 					if (((count (garrison getVariable [_objective,[]])) < 4) and (_difficulty < 4)) then {
-						if (!(_objective in bases) and !(_objective in aeropuertos)) then {
+						if (!(_objective in bases) and !(_objective in airportsX)) then {
 							_easyTarget = true;
 							if !(_objective in smallCAmrk) then {
 								//if (debug) then {hint format ["%1 Es facil para aire",_objective]; sleep 5};
@@ -118,7 +118,7 @@ _scoreNeededAirBase = [0, 5] select (count (unlockedWeapons arrayIntersect genAA
 			if ((!(_base == "") or !(_airport == "")) and !(_easyTarget)) then {
 				_priority = 1;
 				if ((_objective in power) or (_objective in fabricas)) then {_priority = 4};
-				if ((_objective in bases) or (_objective in aeropuertos)) then {_priority = 5};
+				if ((_objective in bases) or (_objective in airportsX)) then {_priority = 5};
 				if (_objective in recursos) then {_priority = 3};
 
 				if !(_base == "") then {

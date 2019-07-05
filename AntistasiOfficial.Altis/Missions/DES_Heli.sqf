@@ -19,7 +19,7 @@ _posHQ = getMarkerPos guer_respawn;
 
 _tiempolim = 120;
 _fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-_fechalimnum = dateToNumber _fechalim;
+_dateLimitNum = dateToNumber _fechalim;
 
 while {true} do
 	{
@@ -113,7 +113,7 @@ _vehiculos = _vehiculos + [_vehT];
 _Vwp0 = _grupoVehT addWaypoint [_poscrash, 0];
 _Vwp0 setWaypointType "MOVE";
 _Vwp0 setWaypointBehaviour "SAFE";
-waitUntil {sleep 1; (not alive _heli) or (_vehT distance _heli < 50) or (dateToNumber date > _fechalimnum)};
+waitUntil {sleep 1; (not alive _heli) or (_vehT distance _heli < 50) or (dateToNumber date > _dateLimitNum)};
 
 if (_vehT distance _heli < 50) then
 	{
@@ -144,7 +144,7 @@ if (_vehT distance _heli < 50) then
 
 	};
 
-waitUntil {sleep 1; (not alive _heli) or (_vehT distance _posicion < 100) or (dateToNumber date > _fechalimnum)};
+waitUntil {sleep 1; (not alive _heli) or (_vehT distance _posicion < 100) or (dateToNumber date > _dateLimitNum)};
 
 if (not alive _heli) then
 	{
@@ -162,7 +162,7 @@ if (not alive _heli) then
 	// BE module
 	};
 
-if ((dateToNumber date > _fechalimnum) or (_vehT distance _posicion < 100)) then
+if ((dateToNumber date > _dateLimitNum) or (_vehT distance _posicion < 100)) then
 	{
 	_tsk = ["DES",[side_blue,civilian],[[_tskDesc,_nombrebase],_tskTitle,_mrkfin],_posCrashMrk,"FAILED",5,true,true,"Destroy"] call BIS_fnc_setTask;
 	//[3,0,_posicion] remoteExec ["AS_fnc_changeCitySupport",2];
@@ -185,7 +185,7 @@ if (_source == "mil") then {
 [1200,_tsk] spawn deleteTaskX;
 deleteMarker _mrkfin;
 {
-waitUntil {sleep 1;(!([distanciaSPWN,1,_x,"BLUFORSpawn"] call distanceUnits))};
+waitUntil {sleep 1;(!([distanceSPWN,1,_x,"BLUFORSpawn"] call distanceUnits))};
 deleteVehicle _x} forEach _vehiculos;
 {deleteVehicle _x} forEach _soldados;
 {deleteGroup _x} forEach _grupos;

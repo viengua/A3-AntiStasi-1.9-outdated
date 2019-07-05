@@ -15,11 +15,11 @@ _posicion = getMarkerPos _marcador;
 
 _tiempolim = 120;
 _fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-_fechalimnum = dateToNumber _fechalim;
+_dateLimitNum = dateToNumber _fechalim;
 
 _nombredest = [_marcador] call AS_fnc_localizar;
 
-_tsk = ["AS",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],_tskTitle,_marcador],_posicion,"CREATED",5,true,true,"Kill"] call BIS_fnc_setTask;
+_tsk = ["AS",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_marcador],_posicion,"CREATED",5,true,true,"Kill"] call BIS_fnc_setTask;
 misiones pushBack _tsk; publicVariable "misiones";
 
 _mrkfin = createMarkerLocal [format ["specops%1", random 100],_posicion];
@@ -41,18 +41,18 @@ createVehicleCrew _uav;
 _grupoUAV = group (crew _uav select 1);
 [_grupoUAV, _mrkfin, "SAFE", "SPAWNED","NOVEH", "NOFOLLOW"] execVM "scripts\UPSMON.sqf";
 
-waitUntil  {sleep 5; (dateToNumber date > _fechalimnum) or ({alive _x} count units _grupo == 0)};
+waitUntil  {sleep 5; (dateToNumber date > _dateLimitNum) or ({alive _x} count units _grupo == 0)};
 
-if (dateToNumber date > _fechalimnum) then
+if (dateToNumber date > _dateLimitNum) then
 	{
-	_tsk = ["AS",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],_tskTitle,_marcador],_posicion,"FAILED",5,true,true,"Kill"] call BIS_fnc_setTask;
+	_tsk = ["AS",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_marcador],_posicion,"FAILED",5,true,true,"Kill"] call BIS_fnc_setTask;
 	[5,0,_posicion] remoteExec ["AS_fnc_changeCitySupport",2];
 	[-600] remoteExec ["AS_fnc_increaseAttackTimer",2];
 	[-10,Slowhand] call playerScoreAdd;
 	}
 else
 	{
-	_tsk = ["AS",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],_tskTitle,_marcador],_posicion,"SUCCEEDED",5,true,true,"Kill"] call BIS_fnc_setTask;
+	_tsk = ["AS",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_marcador],_posicion,"SUCCEEDED",5,true,true,"Kill"] call BIS_fnc_setTask;
 	[0,200] remoteExec ["resourcesFIA",2];
 	[0,5,_posicion] remoteExec ["AS_fnc_changeCitySupport",2];
 	[600] remoteExec ["AS_fnc_increaseAttackTimer",2];
@@ -74,11 +74,11 @@ if (_source == "mil") then {
 };
 
 {
-waitUntil {sleep 1; !([distanciaSPWN,1,_x,"BLUFORSpawn"] call distanceUnits)};
+waitUntil {sleep 1; !([distanceSPWN,1,_x,"BLUFORSpawn"] call distanceUnits)};
 deleteVehicle _x
 } forEach units _grupo;
 deleteGroup _grupo;
-waitUntil {sleep 1; !([distanciaSPWN,1,_uav,"BLUFORSpawn"] call distanceUnits)};
+waitUntil {sleep 1; !([distanceSPWN,1,_uav,"BLUFORSpawn"] call distanceUnits)};
 {deleteVehicle _x} forEach units _grupoUAV;
 deleteVehicle _uav;
 deleteGroup _grupoUAV;

@@ -8,10 +8,10 @@ _posicion = getMarkerPos _marcador;
 
 _tiempolim = 60;
 _fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-_fechalimnum = dateToNumber _fechalim;
+_dateLimitNum = dateToNumber _fechalim;
 _nombredest = [_marcador] call AS_fnc_localizar;
 
-_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],_tskTitle,_marcador],_posicion,"CREATED",5,true,true,"Heal"] call BIS_fnc_setTask;
+_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_marcador],_posicion,"CREATED",5,true,true,"Heal"] call BIS_fnc_setTask;
 misiones pushBack _tsk; publicVariable "misiones";
 _pos = (getMarkerPos guer_respawn) findEmptyPosition [1,50,AS_misSupplyBox];
 
@@ -35,10 +35,10 @@ _sbox addAction ["Delivery infos",
 
 [_sbox,"Supply Crate"] spawn inmuneConvoy;
 
-waitUntil {sleep 1; (not alive _sbox) or (dateToNumber date > _fechalimnum) or (_sbox distance _posicion < 40) and (isNull attachedTo _sbox)};
+waitUntil {sleep 1; (not alive _sbox) or (dateToNumber date > _dateLimitNum) or (_sbox distance _posicion < 40) and (isNull attachedTo _sbox)};
 
-if (dateToNumber date > _fechalimnum) then {
-	_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],_tskTitle,_marcador],_posicion,"FAILED",5,true,true,"Heal"] call BIS_fnc_setTask;
+if (dateToNumber date > _dateLimitNum) then {
+	_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_marcador],_posicion,"FAILED",5,true,true,"Heal"] call BIS_fnc_setTask;
 	[5,-5,_posicion] remoteExec ["AS_fnc_changeCitySupport",2];
 	[-10,Slowhand] call playerScoreAdd;
 } else {
@@ -49,14 +49,14 @@ if (dateToNumber date > _fechalimnum) then {
 	{_amigo = _x;
 		if (captive _amigo) then {[_amigo,false] remoteExec ["setCaptive",_amigo];};
 		{
-			if ((side _x == side_green) and (_x distance _posicion < distanciaSPWN)) then {
+			if ((side _x == side_green) and (_x distance _posicion < distanceSPWN)) then {
 				if (_x distance _posicion < 300) then {_x doMove _posicion} else {_x reveal [_amigo,4]};
 			};
 			if ((side _x == civilian) and (_x distance _posicion < 300)) then {_x doMove position _sbox};
 		} forEach allUnits;
 	} forEach ([300,0,position _sbox,"BLUFORSpawn"] call distanceUnits);
 
-	while {(_counter < _cuenta) and (dateToNumber date < _fechalimnum)} do {
+	while {(_counter < _cuenta) and (dateToNumber date < _dateLimitNum)} do {
 		while {
 			(_counter < _cuenta) and
 			(_sbox distance _posicion < 40) && (speed _sbox < 1) and
@@ -65,7 +65,7 @@ if (dateToNumber date > _fechalimnum) then {
 			!(
 			  	{[_x] call AS_fnc_isUnconscious} count ([40,0,_sbox,"BLUFORSpawn"] call distanceUnits) ==
 			  	count ([40,0,_sbox,"BLUFORSpawn"] call distanceUnits)) and
-				({(side _x == side_green) and (_x distance _sbox < 50)} count allUnits == 0) and (dateToNumber date < _fechalimnum)} do {
+				({(side _x == side_green) and (_x distance _sbox < 50)} count allUnits == 0) and (dateToNumber date < _dateLimitNum)} do {
 					if !(_active) then {   //this is not going to have any use since it is a crate.
 						{
 							_x action ["eject", _sbox];
@@ -95,15 +95,15 @@ if (dateToNumber date > _fechalimnum) then {
 			waitUntil {sleep 1; (
 				(_sbox distance _posicion < 40) and ([40,1,_sbox,"BLUFORSpawn"] call distanceUnits) and
 				({(side _x == side_green) and (_x distance _sbox < 50)} count allUnits == 0))
-				or (dateToNumber date > _fechalimnum)};
+				or (dateToNumber date > _dateLimitNum)};
 			};
 
 				if !(_counter < _cuenta) exitWith {};
 	};
 
-	if (dateToNumber date < _fechalimnum) then {
+	if (dateToNumber date < _dateLimitNum) then {
 		[[petros,"hint","Supplies Delivered"],"commsMP"] call BIS_fnc_MP;
-		_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],_tskTitle,_marcador],_posicion,"SUCCEEDED",5,true,true,"Heal"] call BIS_fnc_setTask;
+		_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_marcador],_posicion,"SUCCEEDED",5,true,true,"Heal"] call BIS_fnc_setTask;
 		[0,15,_marcador] remoteExec ["AS_fnc_changeCitySupport",2];
 		[5,0] remoteExec ["prestige",2];
 		{if (_x distance _posicion < 500) then {[10,_x] call playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
@@ -115,7 +115,7 @@ if (dateToNumber date > _fechalimnum) then {
 		// BE module
 	}
 	else {
-		_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],_tskTitle,_marcador],_posicion,"FAILED",5,true,true,"Heal"] call BIS_fnc_setTask;
+		_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_marcador],_posicion,"FAILED",5,true,true,"Heal"] call BIS_fnc_setTask;
 		[5,-5,_posicion] remoteExec ["AS_fnc_changeCitySupport",2];
 		[-10,Slowhand] call playerScoreAdd;
 	};
@@ -130,6 +130,6 @@ _empty = AS_misSupplyBoxEmpty createVehicle _ecpos;
 
 //[_tsk,true] call BIS_fnc_deleteTask;
 [600,_tsk] spawn deleteTaskX;
-waitUntil {sleep 1; (not([distanciaSPWN,1,_empty,"BLUFORSpawn"] call distanceUnits)) or ((_empty distance (getMarkerPos guer_respawn) < 60))};
+waitUntil {sleep 1; (not([distanceSPWN,1,_empty,"BLUFORSpawn"] call distanceUnits)) or ((_empty distance (getMarkerPos guer_respawn) < 60))};
 deleteVehicle _empty;
 

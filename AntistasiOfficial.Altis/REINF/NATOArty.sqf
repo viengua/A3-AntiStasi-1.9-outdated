@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith {};
 
-private ["_prestigio","_marcador","_posicion","_tiempolim","_fechalim","_fechalimnum","_nombredest","_tsk","_soldados","_vehiculos","_grupo","_tipoVeh","_cuenta","_size"];
+private ["_prestigio","_marcador","_posicion","_tiempolim","_fechalim","_dateLimitNum","_nombredest","_tsk","_soldados","_vehiculos","_grupo","_tipoVeh","_cuenta","_size"];
 
 _prestigio = server getVariable "prestigeNATO";
 
@@ -11,11 +11,11 @@ _posicion = getMarkerPos _marcador;
 
 _tiempolim = _prestigio;
 _fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-_fechalimnum = dateToNumber _fechalim;
+_dateLimitNum = dateToNumber _fechalim;
 
 _nombredest = [_marcador] call AS_fnc_localizar;
 
-_tsk = ["NATOArty",[west,civilian],[["STR_TSK_ARTY_DESC",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4, A3_Str_BLUE],["STR_TSK_ARTY_TITLE", A3_Str_BLUE],_marcador],_posicion,"CREATED",5,true,true,"target"] call BIS_fnc_setTask;
+_tsk = ["NATOArty",[west,civilian],[["STR_TSK_ARTY_DESC",_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_BLUE],["STR_TSK_ARTY_TITLE", A3_Str_BLUE],_marcador],_posicion,"CREATED",5,true,true,"target"] call BIS_fnc_setTask;
 misiones pushBack _tsk; publicVariable "misiones";
 
 _size = [_marcador] call sizeMarker;
@@ -55,13 +55,13 @@ Slowhand hcSetGroup [_grupo];
 _grupo setVariable ["isHCgroup", true, true];
 //{[_x] spawn unlimitedAmmo} forEach _vehiculos;
 
-waitUntil {sleep 1; (dateToNumber date > _fechalimnum) or ({alive _x} count _vehiculos == 0)};
+waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) or ({alive _x} count _vehiculos == 0)};
 
 if ({alive _x} count _vehiculos == 0) then
 	{
 	[-5,0] remoteExec ["prestige",2];
 
-	_tsk = ["NATOArty",[west,civilian],[["STR_TSK_ARTY_DESC",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4, A3_Str_BLUE],["STR_TSK_ARTY_TITLE", A3_Str_BLUE],_marcador],_posicion,"FAILED",5,true,true,"target"] call BIS_fnc_setTask;
+	_tsk = ["NATOArty",[west,civilian],[["STR_TSK_ARTY_DESC",_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_BLUE],["STR_TSK_ARTY_TITLE", A3_Str_BLUE],_marcador],_posicion,"FAILED",5,true,true,"target"] call BIS_fnc_setTask;
 	};
 
 //[_tsk,true] call BIS_fnc_deleteTask;

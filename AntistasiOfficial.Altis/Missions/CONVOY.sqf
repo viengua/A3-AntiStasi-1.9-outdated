@@ -198,7 +198,7 @@ if (_convoyType == "HVT") then {
 			_escortType = enemyMotorpoolDef;
 		};
 
-		_FIAbases = mrkFIA arrayIntersect (bases + aeropuertos);
+		_FIAbases = mrkFIA arrayIntersect (bases + airportsX);
 		_AAFtanks = _motorpool arrayIntersect vehTank;
 		if ((count _FIAbases > 2) && (count _AAFtanks > 0) && (_i == _counter)) then {_escortType = selectRandom vehTank};
 
@@ -232,7 +232,7 @@ _vehObj = _objectiveType createVehicle _posRoad;
 _vehObj allowDamage false;
 _vehObj setDir _dir;
 _vehObj addEventHandler ["HandleDamage", {
-	if (((_this select 1) find "wheel" != -1) && !([distanciaSPWN,1,_vehObj,"BLUFORSpawn"] call distanceUnits)) then {
+	if (((_this select 1) find "wheel" != -1) && !([distanceSPWN,1,_vehObj,"BLUFORSpawn"] call distanceUnits)) then {
 		0;
 	} else {
 		(_this select 2);
@@ -631,12 +631,12 @@ if (_source == "civ") then {
 [600,_tsk] spawn deleteTaskX;
 
 {
-	waitUntil {sleep 1; (!([distanciaSPWN,1,_x,"BLUFORSpawn"] call distanceUnits))};
+	waitUntil {sleep 1; (!([distanceSPWN,1,_x,"BLUFORSpawn"] call distanceUnits))};
 	deleteVehicle _x;
 } forEach _units;
 
 {
-	if (!([distanciaSPWN,1,_x,"BLUFORSpawn"] call distanceUnits)) then {deleteVehicle _x}
+	if (!([distanceSPWN,1,_x,"BLUFORSpawn"] call distanceUnits)) then {deleteVehicle _x}
 } forEach _vehicles;
 
 {deleteGroup _x} forEach _groups;

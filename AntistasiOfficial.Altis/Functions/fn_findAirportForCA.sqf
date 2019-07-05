@@ -4,7 +4,7 @@ private ["_marker","_position","_airportsAAF","_airports","_airport","_posAirpor
 _position = _this select 0;
 if (typeName _marker == typeName "") then {_position = getMarkerPos _marker};
 
-_airportsAAF = aeropuertos - mrkFIA;
+_airportsAAF = airportsX - mrkFIA;
 _airports = [];
 _airport = "";
 

@@ -17,7 +17,7 @@ call {
 	if (_marker in recursos) exitWith {
 		_mrkD setMarkerText format [localize "STR_GL_MAP_RS"+": %1", count (garrison getVariable _marker)];
 	};
-	if (_marker in aeropuertos) exitWith {
+	if (_marker in airportsX) exitWith {
 		_mrkD setMarkerText format [localize "STR_GL_MAP_AP1", count (garrison getVariable _marker), A3_Str_BLUE];
 		_mrkD setMarkerType guer_marker_type;
 	};

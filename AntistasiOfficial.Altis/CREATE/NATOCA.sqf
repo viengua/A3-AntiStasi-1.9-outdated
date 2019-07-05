@@ -6,11 +6,11 @@ _marcador = _this select 0;
 
 _posicion = getMarkerPos (_marcador);
 
-_aeropuertos = aeropuertos - mrkAAF + ["spawnNATO"];
+_airportsX = airportsX - mrkAAF + ["spawnNATO"];
 
 _threatEval = 7; //Stef i forced it to 7 untill i manage to check if vehDef and static guns are operative or not.
 
-_origen = [_aeropuertos,_posicion] call BIS_fnc_nearestPosition;
+_origen = [_airportsX,_posicion] call BIS_fnc_nearestPosition;
 _orig = getMarkerPos _origen;
 
 _nombredest = [_marcador] call AS_fnc_localizar;
@@ -179,7 +179,7 @@ sleep 20;
 	if ((_marcador in bases) and ((player distance _posicion)>300)) then {
 		[_marcador] spawn artilleryNATO;
 	};
-	if ((_marcador in aeropuertos) and ((player distance _posicion)>300)) then {
+	if ((_marcador in airportsX) and ((player distance _posicion)>300)) then {
 		[_marcador] spawn artilleryNATO;
 	};
 
@@ -196,7 +196,7 @@ if ({alive _x} count _soldados < _solMax) then {
 
 {
 	_soldado = _x;
-	waitUntil {sleep 1; {_x distance _soldado < distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F")) == 0};
+	waitUntil {sleep 1; {_x distance _soldado < distanceSPWN} count (allPlayers - (entities "HeadlessClient_F")) == 0};
 	deleteVehicle _soldado;
 } forEach _soldados;
 
@@ -204,7 +204,7 @@ if ({alive _x} count _soldados < _solMax) then {
 
 {
 	_vehiculo = _x;
-	waitUntil {sleep 1; {_x distance _vehiculo < distanciaSPWN/2} count (allPlayers - (entities "HeadlessClient_F")) == 0};
+	waitUntil {sleep 1; {_x distance _vehiculo < distanceSPWN/2} count (allPlayers - (entities "HeadlessClient_F")) == 0};
 	deleteVehicle _x
 } forEach _vehiculos;
 

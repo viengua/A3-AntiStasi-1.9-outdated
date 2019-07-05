@@ -138,7 +138,7 @@ if !(_missionVehicle distance _targetPosition < 550) exitWith {
 	[-10,Slowhand] call playerScoreAdd;
 
     [1200,_task] spawn deleteTaskX;
-	waitUntil {sleep 1; !([distanciaSPWN,1,_missionVehicle,"BLUFORSpawn"] call distanceUnits) OR ((_missionVehicle distance (getMarkerPos guer_respawn) < 60) AND (speed _missionVehicle < 1))};
+	waitUntil {sleep 1; !([distanceSPWN,1,_missionVehicle,"BLUFORSpawn"] call distanceUnits) OR ((_missionVehicle distance (getMarkerPos guer_respawn) < 60) AND (speed _missionVehicle < 1))};
 	if ((_missionVehicle distance (getMarkerPos guer_respawn) < 60) AND (speed _missionVehicle < 1)) then {
 		[_missionVehicle,true] call emptyX;
 	};
@@ -306,7 +306,7 @@ if (!(alive _missionVehicle) OR (dateToNumber date > _endTime)) then {
 };
 
 [1200,_task] spawn deleteTaskX;
-waitUntil {sleep 1; (not([distanciaSPWN,1,_missionVehicle,"BLUFORSpawn"] call distanceUnits)) or ((_missionVehicle distance (getMarkerPos guer_respawn) < 60) && (speed _missionVehicle < 1))};
+waitUntil {sleep 1; (not([distanceSPWN,1,_missionVehicle,"BLUFORSpawn"] call distanceUnits)) or ((_missionVehicle distance (getMarkerPos guer_respawn) < 60) && (speed _missionVehicle < 1))};
 if ((_missionVehicle distance (getMarkerPos guer_respawn) < 60) && (speed _missionVehicle < 1)) then {
 	[_missionVehicle,true] call emptyX;
 };

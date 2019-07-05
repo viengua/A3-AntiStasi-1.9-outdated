@@ -182,7 +182,7 @@ if !(alive _howitzer) then {AS_destroyedZones pushBackUnique _artyPos};
 
 [_allGroups, _soldiers, _vehicles] spawn AS_fnc_despawnUnits;
 
-waitUntil {sleep 3; !([distanciaSPWN,1,_posArty,"BLUFORSpawn"] call distanceUnits)};
+waitUntil {sleep 3; !([distanceSPWN,1,_posArty,"BLUFORSpawn"] call distanceUnits)};
 {deleteVehicle _x} forEach _composition;
 
 server setVariable ["artillerySupport", false, true];

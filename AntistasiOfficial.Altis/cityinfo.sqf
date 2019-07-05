@@ -1,6 +1,6 @@
 
-private ["_texto","_datos","_numCiv","_prestigeOPFOR","_prestigeBLUFOR","_supplyLevels","_power","_busy","_sitio","_posicionTel","_garrison"];
-posicionTel = [];
+private ["_texto","_datos","_numCiv","_prestigeOPFOR","_prestigeBLUFOR","_supplyLevels","_power","_busy","_sitio","_positionTel","_garrison"];
+positionTel = [];
 
 _popFIA = 0;
 _popAAF = 0;
@@ -21,20 +21,20 @@ hint format [localize "STR_HINTS_MAP_TEXT_1",_pop, _popFIA, _popAAF, {_x in dest
 
 openMap true;
 
-onMapSingleClick "posicionTel = _pos;";
+onMapSingleClick "positionTel = _pos;";
 
 
 //Plot the frontline. Sparker
 [ws_frontlineSmooth, 1, false] call WS_fnc_plotGrid;
 ////////////////////////////////
 
-//waitUntil {sleep 1; (count posicionTel > 0) or (not visiblemap)};
+//waitUntil {sleep 1; (count positionTel > 0) or (not visiblemap)};
 while {visibleMap} do {
 	sleep 1;
-	if (count posicionTel > 0) then {
-		_posicionTel = posicionTel;
-		//_sitio = [marcadores, _posicionTel] call BIS_Fnc_nearestPosition;
-		_sitio = [markers, _posicionTel] call BIS_Fnc_nearestPosition; //Sparker
+	if (count positionTel > 0) then {
+		_positionTel = positionTel;
+		//_sitio = [marcadores, _positionTel] call BIS_Fnc_nearestPosition;
+		_sitio = [markers, _positionTel] call BIS_Fnc_nearestPosition; //Sparker
 		_texto = "Click on a zone";
 		if (_sitio == "FIA_HQ") then {
 			_texto = format ["FIA HQ%1",[_sitio] call AS_fnc_getGarrisonInfo];
@@ -59,7 +59,7 @@ while {visibleMap} do {
 			_texto = "AAF Small Outpost";
 			};
 		*/
-		if (_sitio in aeropuertos) then	{
+		if (_sitio in airportsX) then	{
 			if (_sitio in mrkAAF) then {
 				_texto = "AAF Airport";
 				_busy = if (dateToNumber date > server getVariable _sitio) then {false} else {true};
@@ -138,7 +138,7 @@ while {visibleMap} do {
 		};
 		hint format ["%1",_texto];
 	};
-	posicionTel = [];
+	positionTel = [];
 };
 onMapSingleClick "";
 

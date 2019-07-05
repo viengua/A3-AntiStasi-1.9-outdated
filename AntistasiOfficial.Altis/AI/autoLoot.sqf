@@ -31,8 +31,8 @@ if (_unit distance _objeto < _distancia) then
 		for "_i" from 0 to (count _armas - 1) do
 			{
 			_posible = _armas select _i;
-			_basePosible = [_posible] call BIS_fnc_baseWeapon;
-			if ((not(_basePosible in unlockedWeapons)) and ((_basePosible in arifles) or (_basePosible in srifles) or (_basePosible in mguns) or (_posible in mlaunchers) or (_posible in rlaunchers))) then
+			_basePossible = [_posible] call BIS_fnc_baseWeapon;
+			if ((not(_basePossible in unlockedWeapons)) and ((_basePossible in arifles) or (_basePossible in srifles) or (_basePossible in mguns) or (_posible in mlaunchers) or (_posible in rlaunchers))) then
 				{
 				_target = _objeto;
 				_distancia = _unit distance _objeto;
@@ -131,8 +131,8 @@ while {_continuar and (alive _unit) and (!(lifestate _unit == "INCAPACITATED")) 
 			for "_i" from 0 to (count _armas - 1) do
 				{
 				_posible = _armas select _i;
-				_basePosible = [_posible] call BIS_fnc_baseWeapon;
-				if ((not(_basePosible in unlockedWeapons)) and ((_basePosible in arifles) or (_basePosible in srifles) or (_basePosible in mguns) or (_posible in mlaunchers) or (_posible in rlaunchers))) then
+				_basePossible = [_posible] call BIS_fnc_baseWeapon;
+				if ((not(_basePossible in unlockedWeapons)) and ((_basePossible in arifles) or (_basePossible in srifles) or (_basePossible in mguns) or (_posible in mlaunchers) or (_posible in rlaunchers))) then
 					{
 					_target = _objeto;
 					_distancia = _unit distance _objeto;

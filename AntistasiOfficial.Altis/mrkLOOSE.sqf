@@ -35,7 +35,7 @@ _mrk = format ["Dum%1",_marcador];
 _mrk setMarkerColor IND_marker_colour;
 
 //Effects depending on marker type
-	if ((not (_marcador in bases)) and (not (_marcador in aeropuertos))) then {
+	if ((not (_marcador in bases)) and (not (_marcador in airportsX))) then {
 		[10,-10,_posicion] remoteExec ["AS_fnc_changeCitySupport",2];
 		if (_marcador in puestos) then {
 			_mrk setMarkerText localize "STR_GL_AAFOP";
@@ -65,7 +65,7 @@ _mrk setMarkerColor IND_marker_colour;
 		};
 	};
 
-	if ((_marcador in bases) or (_marcador in aeropuertos)) then {
+	if ((_marcador in bases) or (_marcador in airportsX)) then {
 		[20,-20,_posicion] remoteExec ["AS_fnc_changeCitySupport",2];
 		_mrk setMarkerType IND_marker_type;
 		[0,-8] remoteExec ["prestige",2];

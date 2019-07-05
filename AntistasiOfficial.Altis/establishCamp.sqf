@@ -3,10 +3,10 @@ if (!isServer) exitWith {};
 private ["_tipo","_coste","_grupo","_unit","_tam","_roads","_road","_pos","_camion","_texto","_mrk","_hr","_unidades","_formato"];
 
 _tipo = _this select 0;
-_posicionTel = _this select 1;
+_positionTel = _this select 1;
 
 if (_tipo == "delete") exitWith {
-	_mrk = [campsFIA,_posicionTel] call BIS_fnc_nearestPosition;
+	_mrk = [campsFIA,_positionTel] call BIS_fnc_nearestPosition;
 	_pos = getMarkerPos _mrk;
 	_txt = markerText _mrk;
 	hint format ["Deleting %1", _txt];
@@ -30,13 +30,13 @@ _nameOptions = campNames - usedCN;
 _texto = selectRandom _nameOptions;
 _tipoVeh = guer_veh_truck;
 
-_mrk = createMarker [format ["FIACamp%1", random 1000], _posicionTel];
+_mrk = createMarker [format ["FIACamp%1", random 1000], _positionTel];
 _mrk setMarkerShape "ICON";
 
 _fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + 60];
-_fechalimnum = dateToNumber _fechalim;
+_dateLimitNum = dateToNumber _fechalim;
 
-_tsk = ["campsFIA",[side_blue,civilian],["STR_TSK_DESC_CAMPSET","STR_TSK_CAMPSET",_mrk],_posicionTel,"CREATED",5,true,true,"Move"] call BIS_fnc_setTask;
+_tsk = ["campsFIA",[side_blue,civilian],["STR_TSK_DESC_CAMPSET","STR_TSK_CAMPSET",_mrk],_positionTel,"CREATED",5,true,true,"Move"] call BIS_fnc_setTask;
 misiones pushBackUnique _tsk; publicVariable "misiones";
 
 _tam = 10;
@@ -74,9 +74,9 @@ _grupo setVariable ["isHCgroup", true, true];
 _crate = "Box_FIA_Support_F" createVehicle _pos;
 _crate attachTo [_camion,[0.0,-1.2,0.5]];
 
-waitUntil {sleep 1; ({alive _x} count units _grupo == 0) or ({(alive _x) and (_x distance _posicionTel < 10)} count units _grupo > 0) or (dateToNumber date > _fechalimnum)};
+waitUntil {sleep 1; ({alive _x} count units _grupo == 0) or ({(alive _x) and (_x distance _positionTel < 10)} count units _grupo > 0) or (dateToNumber date > _dateLimitNum)};
 
-if ({(alive _x) and (_x distance _posicionTel < 10)} count units _grupo > 0) then {
+if ({(alive _x) and (_x distance _positionTel < 10)} count units _grupo > 0) then {
 	if (isPlayer leader _grupo) then {
 		_owner = (leader _grupo) getVariable ["owner",leader _grupo];
 		(leader _grupo) remoteExec ["removeAllActions",leader _grupo];
@@ -92,14 +92,14 @@ if ({(alive _x) and (_x distance _posicionTel < 10)} count units _grupo > 0) the
 	markers = markers + [_mrk];
 	publicVariable "markers";
 	spawner setVariable [_mrk,false,true];
-	_tsk = ["campsFIA",[side_blue,civilian],["STR_TSK_DESC_CAMPSET","STR_TSK_CAMPSET",_mrk],_posicionTel,"SUCCEEDED",5,true,true,"Move"] call BIS_fnc_setTask;
+	_tsk = ["campsFIA",[side_blue,civilian],["STR_TSK_DESC_CAMPSET","STR_TSK_CAMPSET",_mrk],_positionTel,"SUCCEEDED",5,true,true,"Move"] call BIS_fnc_setTask;
 	_mrk setMarkerType "loc_bunker";
 	_mrk setMarkerColor "ColorOrange";
 	_mrk setMarkerText _texto;
 	usedCN pushBack _texto;
 }
 else {
-	_tsk = ["campsFIA",[side_blue,civilian],["STR_TSK_DESC_CAMPSET","STR_TSK_CAMPSET",_mrk],_posicionTel,"FAILED",5,true,true,"Move"] call BIS_fnc_setTask;
+	_tsk = ["campsFIA",[side_blue,civilian],["STR_TSK_DESC_CAMPSET","STR_TSK_CAMPSET",_mrk],_positionTel,"FAILED",5,true,true,"Move"] call BIS_fnc_setTask;
 	sleep 3;
 	deleteMarker _mrk;
 };

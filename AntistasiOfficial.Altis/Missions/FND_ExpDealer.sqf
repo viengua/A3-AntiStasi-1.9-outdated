@@ -51,9 +51,9 @@ server setVariable ["expActive", true, true];
 
 _tiempolim = 60;
 _fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-_fechalimnum = dateToNumber _fechalim;
+_dateLimitNum = dateToNumber _fechalim;
 
-_tsk = ["FND_E",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],_tskTitle,_site],_posCmp,"CREATED",5,true,true,"Find"] call BIS_fnc_setTask;
+_tsk = ["FND_E",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_site],_posCmp,"CREATED",5,true,true,"Find"] call BIS_fnc_setTask;
 misiones pushBack _tsk; publicVariable "misiones";
 
 _objs = [_posCmp, ([_posCmp,_p1] call BIS_fnc_DirTo), call (compile (preprocessFileLineNumbers "Compositions\cmpExp.sqf"))] call BIS_fnc_ObjectsMapper;
@@ -137,7 +137,7 @@ if (random 8 < 1) then {
 };
 // END QRF
 
-waitUntil {sleep 1; (dateToNumber date > _fechalimnum) || !(alive Devin) || ((Devin distance _posCmp) > 50) || ({(side _x isEqualTo side_blue) && (_x distance Devin < 200)} count allPlayers > 0)};
+waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) || !(alive Devin) || ((Devin distance _posCmp) > 50) || ({(side _x isEqualTo side_blue) && (_x distance Devin < 200)} count allPlayers > 0)};
 
 {if (isPlayer _x) then {[petros,"hint","STR_TSK_TD_CHAT_2"] remoteExec ["commsMP",_x]}} forEach ([200,0,Devin,"BLUFORSpawn"] call distanceUnits);
 
@@ -147,10 +147,10 @@ if !(_qrf) then {
 	["spawnCSAT", _posCmp, _site, 15, "transport", "small"] remoteExec ["enemyQRF", call AS_fnc_getNextWorker];
 };
 // END QRF
-waitUntil {sleep 1; (dateToNumber date > _fechalimnum) || !(alive Devin) || ({((side _x isEqualTo side_blue) || (side _x isEqualTo civilian)) && (_x distance Devin < 10)} count allPlayers > 0)};
+waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) || !(alive Devin) || ({((side _x isEqualTo side_blue) || (side _x isEqualTo civilian)) && (_x distance Devin < 10)} count allPlayers > 0)};
 
 if ({((side _x isEqualTo side_blue) || (side _x isEqualTo civilian)) && (_x distance Devin < 10)} count allPlayers > 0) then {
-	_tsk = ["FND_E",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],_tskTitle,_site],_posCmp,"SUCCEEDED",5,true,true,"Find"] call BIS_fnc_setTask;
+	_tsk = ["FND_E",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_site],_posCmp,"SUCCEEDED",5,true,true,"Find"] call BIS_fnc_setTask;
 	[[Devin,"buy_exp"],"AS_fnc_addActionMP"] call BIS_fnc_MP;
 	_mrkDev = createMarker ["Devin", _posCmp];
 	_mrkDev setMarkerShape "ICON";
@@ -167,10 +167,10 @@ if ({((side _x isEqualTo side_blue) || (side _x isEqualTo civilian)) && (_x dist
     [[line1],"DIRECT",0.15] execVM "createConv.sqf";
 }
 else {
-	_tsk = ["FND_E",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],_tskTitle,_site],_posCmp,"FAILED",5,true,true,"Find"] call BIS_fnc_setTask;
+	_tsk = ["FND_E",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_site],_posCmp,"FAILED",5,true,true,"Find"] call BIS_fnc_setTask;
 };
 
-waitUntil {sleep 10; (dateToNumber date > _fechalimnum) || !(alive Devin) || ((Devin distance _posCmp) > 50)};
+waitUntil {sleep 10; (dateToNumber date > _dateLimitNum) || !(alive Devin) || ((Devin distance _posCmp) > 50)};
 
 if (alive Devin) then {
 	Devin enableAI "ANIM";
@@ -189,7 +189,7 @@ if((Devin distance _posCmp) > 50) then {Devin globalchat "STR_TSK_TD_CHAT_4"; sl
 sleep 30;
 deleteMarker "Devin";
 deleteMarker "DevPat";
-waitUntil {sleep 1; {_x distance Devin < distanciaSPWN/2} count (allPlayers - (entities "HeadlessClient_F")) == 0};
+waitUntil {sleep 1; {_x distance Devin < distanceSPWN/2} count (allPlayers - (entities "HeadlessClient_F")) == 0};
 {deleteVehicle _x} forEach _vehiculos;
 {deleteVehicle _x} forEach _soldados;
 {deleteGroup _x} forEach _grupos;

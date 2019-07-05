@@ -16,7 +16,7 @@ call {
 	if (_location in power) exitWith {_text = format ["Powerplant near %1",_city]};
 	if (_location in bases) exitWith {_text = format ["%1 Base",_city]};
 	if (_location in recursos) exitWith {_text = format ["Resource near %1",_city]};
-	if (_location in aeropuertos) exitWith {_text = format ["%1 Airport",_city]};
+	if (_location in airportsX) exitWith {_text = format ["%1 Airport",_city]};
 	if (_location in fabricas) exitWith {_text = format ["Factory near %1",_city]};
 	if (_location in puertos) exitWith {_text = format ["Seaport near %1",_city]};
 };

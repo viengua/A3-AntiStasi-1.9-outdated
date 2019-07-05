@@ -181,7 +181,7 @@ specialVarLoads =
 
 /*
 	Variables that are loaded, but do not require special procedures
-	["smallCAmrk","mrkAAF","mrkFIA","destroyedCities","distanciaSPWN","civPerc","minimoFPS","AS_destroyedZones","vehInGarage"]
+	["smallCAmrk","mrkAAF","mrkFIA","destroyedCities","distanceSPWN","civPerc","minimoFPS","AS_destroyedZones","vehInGarage"]
 */
 
 //THIS FUNCTIONS HANDLES HOW STATS ARE LOADED
@@ -385,7 +385,7 @@ fn_setData = {
 			if(_varName == 'enableOldFT') exitWith {server setVariable ["enableFTold",_varValue,true]};
 			if(_varName == 'enableMemAcc') exitWith {server setVariable ["enableMemAcc",_varValue,true]};
 			if(_varName == 'antenas') exitWith {
-				antenasmuertas = _varValue;
+				antennasDead = _varValue;
 				for "_i" from 0 to (count _varValue - 1) do {
 				    _posAnt = _varValue select _i;
 				    _mrk = [mrkAntenas, _posAnt] call BIS_fnc_nearestPosition;
@@ -396,7 +396,7 @@ fn_setData = {
 				    _antena setDamage 1;
 				    deleteMarker _mrk;
 				};
-				antenasmuertas = _varValue;
+				antennasDead = _varValue;
 			};
 			if(_varName == 'weapons') exitWith {
 				clearWeaponCargoGlobal caja;

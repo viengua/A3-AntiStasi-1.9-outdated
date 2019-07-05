@@ -9,10 +9,10 @@ if (activeAFRF) then {{if (_x in unlockedWeapons) then {_threat = 2};} forEach g
 _marcador = _this select 0;
 
 if (_marcador isEqualType []) then {_posicion = _marcador} else {_posicion = getMarkerPos _marcador};
-_threat = _threat + 2 * ({(isOnRoad getMarkerPos _x) and (getMarkerPos _x distance _posicion < distanciaSPWN)} count puestosFIA);
+_threat = _threat + 2 * ({(isOnRoad getMarkerPos _x) and (getMarkerPos _x distance _posicion < distanceSPWN)} count puestosFIA);
 
 {
-if (getMarkerPos _x distance _posicion < distanciaSPWN) then {
+if (getMarkerPos _x distance _posicion < distanceSPWN) then {
 	_analizado = _x;
 	_garrison = garrison getVariable [_analizado,[]];
 	_threat = _threat + (2*({(_x == guer_sol_LAT)} count _garrison)) + (floor((count _garrison)/8));

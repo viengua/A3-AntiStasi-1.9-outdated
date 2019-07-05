@@ -66,7 +66,7 @@ publicVariable "reducedGarrisons";
 
 {
 	[_x] spawn {
-		waitUntil {sleep 3; (!([distanciaSPWN,1,_this select 0,"BLUFORSpawn"] call distanceUnits))};
+		waitUntil {sleep 3; (!([distanceSPWN,1,_this select 0,"BLUFORSpawn"] call distanceUnits))};
 		deleteVehicle (_this select 0);
 	};
 } forEach (_soldiers + _vehicles);

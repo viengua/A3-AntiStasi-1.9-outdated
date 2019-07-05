@@ -384,8 +384,8 @@ class spawn_config 					{
 	AS_FRAME_D(FRAME_H_2, $STR_D_SPAWND);
 	BTN_BACK("closeDialog 0; createDialog ""game_options_commander"";");
 
-	#define STR_DIST_PLUS "if (distanciaSPWN < 2500) then {distanciaSPWN = (distanciaSPWN + 100) min 2500; publicVariable ""distanciaSPWN""; hint format [localize ""STR_DH_SDSTMBCTMAGP"",distanciaSPWN];};"
-	#define STR_DIST_MINUS "if (distanciaSPWN > 1000) then {distanciaSPWN = (distanciaSPWN - 100) max 100; publicVariable ""distanciaSPWN""; hint format [localize ""STR_DH_SDSTMBCTMAGP"",distanciaSPWN];};"
+	#define STR_DIST_PLUS "if (distanceSPWN < 2500) then {distanceSPWN = (distanceSPWN + 100) min 2500; publicVariable ""distanceSPWN""; hint format [localize ""STR_DH_SDSTMBCTMAGP"",distanceSPWN];};"
+	#define STR_DIST_MINUS "if (distanceSPWN > 1000) then {distanceSPWN = (distanceSPWN - 100) max 100; publicVariable ""distanceSPWN""; hint format [localize ""STR_DH_SDSTMBCTMAGP"",distanceSPWN];};"
 
 	BTN_L1(-1, $STR_D_SPAWND100P, "", STR_DIST_PLUS);
 	BTN_R1(-1, $STR_D_SPAWND100M, "", STR_DIST_MINUS);

@@ -4,7 +4,7 @@ call compile preprocessFileLineNumbers "roadsDB.sqf";
 
 power = ["power_1","power_2","power_3"]; // power plants
 bases = ["base_1","base_2"]; // army bases
-aeropuertos = ["airport_1","airport_2"]; // airports
+airportsX = ["airport_1","airport_2"]; // airports
 recursos = ["resource_1","resource_2","resource_3","resource_4"]; // resources
 fabricas = ["factory_1","factory_2"]; // factories
 puestos = ["puesto_1","puesto_2","puesto_3"]; // outposts

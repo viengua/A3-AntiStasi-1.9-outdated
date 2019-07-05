@@ -6,21 +6,21 @@ if (_resourcesFIA < 5000) exitWith {hint localize "STR_HINTS_RA_YDNHEMTRAA"};
 _destroyedCities = destroyedCities - ciudades;
 
 openMap true;
-posicionTel = [];
+positionTel = [];
 hint localize "STR_HINTS_RA_COTZYWTR";
 
-onMapSingleClick "posicionTel = _pos;";
+onMapSingleClick "positionTel = _pos;";
 
-waitUntil {sleep 1; (count posicionTel > 0) or (not visiblemap)};
+waitUntil {sleep 1; (count positionTel > 0) or (not visiblemap)};
 onMapSingleClick "";
 
 if (!visibleMap) exitWith {};
 
-_posicionTel = posicionTel;
+_positionTel = positionTel;
 
-_sitio = [markers,_posicionTel] call BIS_fnc_nearestPosition;
+_sitio = [markers,_positionTel] call BIS_fnc_nearestPosition;
 
-if (getMarkerPos _sitio distance _posicionTel > 50) exitWith {hint localize "STR_HINTS_RA_YMCNAMM"};
+if (getMarkerPos _sitio distance _positionTel > 50) exitWith {hint localize "STR_HINTS_RA_YMCNAMM"};
 
 if (not(_sitio in _destroyedCities)) exitWith {hint localize "STR_HINTS_RA_YCRT"};
 
@@ -28,7 +28,7 @@ _nombre = [_sitio] call AS_fnc_localizar;
 
 hint format [localize "STR_HINTS_RA_1REBUILT"];
 
-[0,10,_posicionTel] remoteExec ["AS_fnc_changeCitySupport",2];
+[0,10,_positionTel] remoteExec ["AS_fnc_changeCitySupport",2];
 [5,0] remoteExec ["prestige",2];
 destroyedCities = destroyedCities - [_sitio];
 publicVariable "destroyedCities";

@@ -6,9 +6,9 @@ _prestigeCSAT = server getVariable "prestigeCSAT";
 waitUntil {!resourcesIsChanging};
 resourcesIsChanging = true;
 
-_multiplicador = 1;
+_multiplier = 1;
 
-if (!isMultiplayer) then {_multiplicador = 2};
+if (!isMultiplayer) then {_multiplier = 2};
 
 _cuenta = count (mrkFIA - puestosFIA - ["FIA_HQ"] - ciudades);
 
@@ -32,17 +32,17 @@ if (_resourcesAAF > 5000) then{
 			};
 		} forEach _destroyedCities;
 	} else {
-		/*if ((count antenasMuertas > 0) and (not("REP" in misiones))) then{
+		/*if ((count antennasDead > 0) and (not("REP" in misiones))) then{
 			{
 				if ((_resourcesAAF > 5000) and (not("REP" in misiones))) then{
 					_marcador = [markers, _x] call BIS_fnc_nearestPosition;
 					if ((_marcador in mrkAAF) and (not(spawner getVariable _marcador))) then {
 						diag_log format ["Repairing antenna: %1", _marcador];
 						[_marcador,_x] remoteExec ["REP_Antenna", call AS_fnc_getNextWorker];
-						_resourcesAAF = _resourcesAAF - (5000*_multiplicador);
+						_resourcesAAF = _resourcesAAF - (5000*_multiplier);
 					};
 				};
-			} forEach antenasMuertas;
+			} forEach antennasDead;
 		}; */ //Stef disabled repair radiotower, the mission is buggy, reduntant and pointless
 	};
 };
@@ -50,7 +50,7 @@ if (_resourcesAAF > 5000) then{
 if (_cuenta == 0) exitWith {resourcesIsChanging = false};
 
 if (((planesAAFcurrent < planesAAFmax) and (helisAAFcurrent > 3)) and (_cuenta > 6)) then {
-	if (_resourcesAAF > (17500*_multiplicador)) then {
+	if (_resourcesAAF > (17500*_multiplier)) then {
 		if (count indAirForce < 2) then {
 			indAirForce = indAirForce + planes;
 			publicVariable "indAirForce"
@@ -58,12 +58,12 @@ if (((planesAAFcurrent < planesAAFmax) and (helisAAFcurrent > 3)) and (_cuenta >
 	diag_log format ["Econ: airplanes. Current number: %1; current resources: %2", planesAAFcurrent, _resourcesAAF];
 	planesAAFcurrent = planesAAFcurrent + 1;
 	publicVariable "planesAAFcurrent";
-	_resourcesAAF = _resourcesAAF - (17500*_multiplicador);
+	_resourcesAAF = _resourcesAAF - (17500*_multiplier);
 	};
 };
 
 if (((tanksAAFcurrent < tanksAAFmax) and (APCAAFcurrent > 3)) and (_cuenta > 5) and (planesAAFcurrent != 0)) then {
-	if (_resourcesAAF > (10000*_multiplicador)) then {
+	if (_resourcesAAF > (10000*_multiplier)) then {
 		_length = count (enemyMotorpool - vehTank);
 		if (_length == count enemyMotorpool) then {
 			enemyMotorpool = enemyMotorpool + vehTank;
@@ -71,12 +71,12 @@ if (((tanksAAFcurrent < tanksAAFmax) and (APCAAFcurrent > 3)) and (_cuenta > 5) 
 		};
 		diag_log format ["Econ: tanks. Current number: %1; current resources: %2", tanksAAFcurrent, _resourcesAAF];
 		tanksAAFcurrent = tanksAAFcurrent + 1; publicVariable "tanksAAFcurrent";
-	    _resourcesAAF = _resourcesAAF - (10000*_multiplicador);
+	    _resourcesAAF = _resourcesAAF - (10000*_multiplier);
 	};
 };
 
 if (((helisAAFcurrent < helisAAFmax) and ((helisAAFcurrent < 4) or (planesAAFcurrent > 3))) and (_cuenta > 3)) then {
-	if (_resourcesAAF > (10000*_multiplicador)) then {
+	if (_resourcesAAF > (10000*_multiplier)) then {
 		_length = count (indAirForce - heli_armed);
 		if (_length == count indAirForce) then {
 			indAirForce = indAirForce + heli_armed;
@@ -84,12 +84,12 @@ if (((helisAAFcurrent < helisAAFmax) and ((helisAAFcurrent < 4) or (planesAAFcur
 		};
 		diag_log format ["Econ: helicopters. Current number: %1; current resources: %2", helisAAFcurrent, _resourcesAAF];
 		helisAAFcurrent = helisAAFcurrent + 1; publicVariable "helisAAFcurrent";
-		_resourcesAAF = _resourcesAAF - (7000*_multiplicador);
+		_resourcesAAF = _resourcesAAF - (7000*_multiplier);
 	};
 };
 
 if ((APCAAFcurrent < APCAAFmax) and ((tanksAAFcurrent > 2) or (APCAAFcurrent < 4)) and (_cuenta > 2)) then {
-	if (_resourcesAAF > (5000*_multiplicador)) then{
+	if (_resourcesAAF > (5000*_multiplier)) then{
 		_length = count (enemyMotorpool - vehAPC);
 		if (_length == count enemyMotorpool) then {
 	        enemyMotorpool = enemyMotorpool +  vehAPC;
@@ -102,7 +102,7 @@ if ((APCAAFcurrent < APCAAFmax) and ((tanksAAFcurrent > 2) or (APCAAFcurrent < 4
 	    };
 	    diag_log format ["Econ: APCs/IFVs. Current number: %1; current resources: %2", APCAAFcurrent, _resourcesAAF];
 	    APCAAFcurrent = APCAAFcurrent + 1; publicVariable "APCAAFcurrent";
-	    _resourcesAAF = _resourcesAAF - (5000*_multiplicador);
+	    _resourcesAAF = _resourcesAAF - (5000*_multiplier);
 	};
 };
 

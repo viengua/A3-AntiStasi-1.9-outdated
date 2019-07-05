@@ -3,7 +3,7 @@ if (!isServer and hasInterface) exitWith {};
 _tskTitle = "STR_TSK_TD_DesVehicle";
 _tskDesc = "STR_TSK_TD_DESC_DesVehicle";
 
-private ["_marcador","_posicion","_fechalim","_fechalimnum","_nombredest","_tipoVeh","_texto","_camionCreado","_size","_pos","_veh","_grupo","_unit"];
+private ["_marcador","_posicion","_fechalim","_dateLimitNum","_nombredest","_tipoVeh","_texto","_truckCreated","_size","_pos","_veh","_grupo","_unit"];
 
 _marcador = _this select 0;
 _source = _this select 1;
@@ -17,7 +17,7 @@ _posicion = getMarkerPos _marcador;
 
 _tiempolim = 120;
 _fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-_fechalimnum = dateToNumber _fechalim;
+_dateLimitNum = dateToNumber _fechalim;
 _nombredest = [_marcador] call AS_fnc_localizar;
 
 _tipoVeh = "";
@@ -28,15 +28,15 @@ if (count (enemyMotorpool - vehTank) < count enemyMotorpool) then {_tipoVeh = se
 
 // if ("I_MBT_03_cannon_F" in enemyMotorpool) then {_tipoVeh = "I_MBT_03_cannon_F"; _texto = "AAF Tank"} else {_tipoVeh = opSPAA; _texto = "CSAT Artillery"};
 
-_tsk = ["DES",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_texto],_tskTitle,_marcador],_posicion,"CREATED",5,true,true,"Destroy"] call BIS_fnc_setTask;
+_tsk = ["DES",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_texto],_tskTitle,_marcador],_posicion,"CREATED",5,true,true,"Destroy"] call BIS_fnc_setTask;
 misiones pushBack _tsk; publicVariable "misiones";
-_camionCreado = false;
+_truckCreated = false;
 
-waitUntil {sleep 1;(dateToNumber date > _fechalimnum) or (spawner getVariable _marcador)};
+waitUntil {sleep 1;(dateToNumber date > _dateLimitNum) or (spawner getVariable _marcador)};
 
 if (spawner getVariable _marcador) then
 	{
-	_camionCreado = true;
+	_truckCreated = true;
 	_size = [_marcador] call sizeMarker;
 	_pos = [];
 	if (_size > 40) then {_pos = [_posicion, 10, _size, 10, 0, 0.3, 0] call BIS_Fnc_findSafePos} else {_pos = _posicion findEmptyPosition [10,60,_tipoVeh]};
@@ -57,15 +57,15 @@ if (spawner getVariable _marcador) then
 		[_unit] spawn genInit;
 		sleep 2;
 		};
-	waitUntil {sleep 1;({leader _grupo knowsAbout _x > 1.4} count ([distanciaSPWN,0,leader _grupo,"BLUFORSpawn"] call distanceUnits) > 0) or (dateToNumber date > _fechalimnum) or (not alive _veh) or ({_x getVariable ["BLUFORSpawn",false]} count crew _veh > 0)};
+	waitUntil {sleep 1;({leader _grupo knowsAbout _x > 1.4} count ([distanceSPWN,0,leader _grupo,"BLUFORSpawn"] call distanceUnits) > 0) or (dateToNumber date > _dateLimitNum) or (not alive _veh) or ({_x getVariable ["BLUFORSpawn",false]} count crew _veh > 0)};
 
-	if ({leader _grupo knowsAbout _x > 1.4} count ([distanciaSPWN,0,leader _grupo,"BLUFORSpawn"] call distanceUnits) > 0) then {_grupo addVehicle _veh;};
+	if ({leader _grupo knowsAbout _x > 1.4} count ([distanceSPWN,0,leader _grupo,"BLUFORSpawn"] call distanceUnits) > 0) then {_grupo addVehicle _veh;};
 
-	waitUntil {sleep 1;(dateToNumber date > _fechalimnum) or (not alive _veh) or ({_x getVariable ["BLUFORSpawn",false]} count crew _veh > 0)};
+	waitUntil {sleep 1;(dateToNumber date > _dateLimitNum) or (not alive _veh) or ({_x getVariable ["BLUFORSpawn",false]} count crew _veh > 0)};
 
 	if ((not alive _veh) or ({_x getVariable ["BLUFORSpawn",false]} count crew _veh > 0)) then
 		{
-		_tsk = ["DES",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_texto],_tskTitle,_marcador],_posicion,"SUCCEEDED",5,true,true,"Destroy"] call BIS_fnc_setTask;
+		_tsk = ["DES",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_texto],_tskTitle,_marcador],_posicion,"SUCCEEDED",5,true,true,"Destroy"] call BIS_fnc_setTask;
 		[0,300] remoteExec ["resourcesFIA",2];
 		[2,0] remoteExec ["prestige",2];
 		if (_tipoVeh == opSPAA) then {[0,0] remoteExec ["prestige",2]; [0,10,_posicion] remoteExec ["AS_fnc_changeCitySupport",2]} else {[0,5,_posicion] remoteExec ["AS_fnc_changeCitySupport",2]};
@@ -79,9 +79,9 @@ if (spawner getVariable _marcador) then
 		// BE module
 		};
 	};
-if (dateToNumber date > _fechalimnum) then
+if (dateToNumber date > _dateLimitNum) then
 	{
-	_tsk = ["DES",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_texto],_tskTitle,_marcador],_posicion,"FAILED",5,true,true,"Destroy"] call BIS_fnc_setTask;
+	_tsk = ["DES",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4,_texto],_tskTitle,_marcador],_posicion,"FAILED",5,true,true,"Destroy"] call BIS_fnc_setTask;
 	[-5,-100] remoteExec ["resourcesFIA",2];
 	[5,0,_posicion] remoteExec ["AS_fnc_changeCitySupport",2];
 	if (_tipoVeh == opSPAA) then {[0,0] remoteExec ["prestige",2]};
@@ -98,9 +98,9 @@ if (_source == "mil") then {
 
 waitUntil {sleep 1; not (spawner getVariable _marcador)};
 
-if (_camionCreado) then
+if (_truckCreated) then
 	{
 	{deleteVehicle _x} forEach units _grupo;
 	deleteGroup _grupo;
-	if (!([distanciaSPWN,1,_veh,"BLUFORSpawn"] call distanceUnits)) then {deleteVehicle _veh};
+	if (!([distanceSPWN,1,_veh,"BLUFORSpawn"] call distanceUnits)) then {deleteVehicle _veh};
 	};

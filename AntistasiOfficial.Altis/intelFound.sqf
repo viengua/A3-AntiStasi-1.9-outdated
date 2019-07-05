@@ -8,7 +8,7 @@ if (count _this == 1) then
 	_marcador = _this select 0;
 	if (_marcador isEqualType "") then
 		{
-		if ((_marcador in bases) or (_marcador in aeropuertos)) then {_chance = 30} else {_chance = 15};
+		if ((_marcador in bases) or (_marcador in airportsX)) then {_chance = 30} else {_chance = 15};
 		}
 	else
 		{

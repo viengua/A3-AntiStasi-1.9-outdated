@@ -2,7 +2,7 @@ if !(worldName == "xcam_taunus") exitWith {};
 
 power = []; // power plants
 bases = []; // army bases
-aeropuertos = []; // airports
+airportsX = []; // airports
 recursos = []; // resources
 fabricas = []; // factories
 puestos = []; // outposts

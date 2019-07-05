@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith {};
 
-private ["_marcador","_posicion","_escarretera","_tam","_road","_veh","_grupo","_unit","_roadcon"];
+private ["_marcador","_posicion","_isRoad","_tam","_road","_veh","_grupo","_unit","_roadcon"];
 
 _marcador = _this select 0;
 _posicion = getMarkerPos _marcador;

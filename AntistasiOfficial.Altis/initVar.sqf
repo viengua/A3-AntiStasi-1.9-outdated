@@ -13,7 +13,7 @@ servidoresOficiales = ["Antistasi Official: Main","Antistasi Official: Hardcore"
 debug = false;//debug variable, not useful for everything..
 
 cleantime = 3600; //time to delete dead bodies, vehicles etc..
-distanciaSPWN = 1000;//initial spawn distance. Less than 1Km makes parked vehicles spawn in your nose while you approach.
+distanceSPWN = 1000;//initial spawn distance. Less than 1Km makes parked vehicles spawn in your nose while you approach.
 musicON = false;
 civPerc = 0.02;//initial % civ spawn rate
 minimoFPS = 15;//initial FPS minimum.

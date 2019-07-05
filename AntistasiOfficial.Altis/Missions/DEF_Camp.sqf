@@ -23,7 +23,7 @@ for "_i" from 0 to (count campList - 1) do {
 	};
 };
 
-_airportsAAF = aeropuertos - mrkFIA;
+_airportsAAF = airportsX - mrkFIA;
 {
 	_airport = _x;
 	_posAirport = getMarkerPos _airport;

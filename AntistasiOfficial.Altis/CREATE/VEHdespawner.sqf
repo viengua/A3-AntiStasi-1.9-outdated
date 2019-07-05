@@ -23,7 +23,7 @@ if ((typeOf _vehicle in CIV_vehicles) AND ({_x getVariable ["BLUFORSpawn",false]
 				[_unit,false] remoteExec ["setCaptive",_unit];
 			};
 			{
-				if ((side _x == side_green) AND (_x distance _vehiclePos < distanciaSPWN)) then {_x reveal [_unit,4]};
+				if ((side _x == side_green) AND (_x distance _vehiclePos < distanceSPWN)) then {_x reveal [_unit,4]};
 			} forEach allUnits;
 		} forEach crew _vehicle;
 	};
@@ -31,8 +31,8 @@ if ((typeOf _vehicle in CIV_vehicles) AND ({_x getVariable ["BLUFORSpawn",false]
 
 while {alive _vehicle} do {
 	if (
-		    !([distanciaSPWN,1,_vehicle,"BLUFORSpawn"] call distanceUnits) AND
-		    !([distanciaSPWN,1,_vehicle,"OPFORSpawn"] call distanceUnits) AND
+		    !([distanceSPWN,1,_vehicle,"BLUFORSpawn"] call distanceUnits) AND
+		    !([distanceSPWN,1,_vehicle,"OPFORSpawn"] call distanceUnits) AND
 		    !(_vehicle in staticsToSave) AND
 		    (_vehicle distance getMarkerPos guer_respawn > 100)
 	) then {

@@ -161,8 +161,8 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //petros
-	grupoPetros = group petros;
-	grupoPetros setGroupId ["Petros","GroupColor4"];
+	groupPetros = group petros;
+	groupPetros setGroupId ["Petros","GroupColor4"];
 	petros setIdentity "amiguete";
 	petros setName "Petros";
 	petros forceSpeed 0;

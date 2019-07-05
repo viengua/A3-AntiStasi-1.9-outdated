@@ -1,4 +1,4 @@
-params ["_marker",["_size",[(distanciaSPWN/2), (distanciaSPWN/2)]]];
+params ["_marker",["_size",[(distanceSPWN/2), (distanceSPWN/2)]]];
 private ["_markerPos","_patrolMarker"];
 
 _markerPos = getMarkerPos _marker;

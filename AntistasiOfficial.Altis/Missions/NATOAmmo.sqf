@@ -11,15 +11,15 @@ private ["_crate","_chute","_humo"];
 _mrkfin = createMarker ["AmmoSupp", _posicion];
 _mrkfin setMarkerShape "ICON";
 _fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + 60];
-_fechalimnum = dateToNumber _fechalim;
+_dateLimitNum = dateToNumber _fechalim;
 
 _tsk = ["NATOAmmo",[side_blue,civilian],[[_tskDesc, A3_Str_BLUE],[_tskTitle, A3_Str_BLUE],_mrkfin],_posicion,"CREATED",5,true,true,"rifle"] call BIS_fnc_setTask;
 misiones pushBack _tsk; publicVariable "misiones";
 [-5,0] remoteExec ["prestige",2];
 
-_aeropuertos = aeropuertos - mrkAAF + ["spawnNATO"];
+_airportsX = airportsX - mrkAAF + ["spawnNATO"];
 
-_origen = [_aeropuertos,_posicion] call BIS_fnc_nearestPosition;
+_origen = [_airportsX,_posicion] call BIS_fnc_nearestPosition;
 _orig = getMarkerPos _origen;
 _vehiculos = [];
 
@@ -40,7 +40,7 @@ _grupoHeli setCombatMode "BLUE";
 Slowhand hcSetGroup [_grupoHeli];
 _grupoHeli setVariable ["isHCgroup", true, true];
 
-waitUntil {sleep 2; (_heli distance _posicion < 300) or (!canMove _heli) or (dateToNumber date > _fechalimnum)};
+waitUntil {sleep 2; (_heli distance _posicion < 300) or (!canMove _heli) or (dateToNumber date > _dateLimitNum)};
 
 Slowhand hcRemoveGroup _grupoHeli;
 
@@ -75,11 +75,11 @@ deleteMarker _mrkFin;
 [300,_tsk] spawn deleteTaskX;
 {
 _soldado = _x;
-waitUntil {sleep 1; {_x distance _soldado < distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F")) == 0};
+waitUntil {sleep 1; {_x distance _soldado < distanceSPWN} count (allPlayers - (entities "HeadlessClient_F")) == 0};
 deleteVehicle _soldado;
 } forEach _heliCrew;
 deleteGroup _grupoHeli;
 {_vehiculo = _x;
-waitUntil {sleep 1; {_x distance _vehiculo < distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F")) == 0};
+waitUntil {sleep 1; {_x distance _vehiculo < distanceSPWN} count (allPlayers - (entities "HeadlessClient_F")) == 0};
 deleteVehicle _vehiculo;
 } forEach _vehiculos;

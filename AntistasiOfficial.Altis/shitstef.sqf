@@ -95,7 +95,7 @@ if (count _vehicles > 0) then {
 	{
 		if !(_x in staticsToSave) then {
 			[_x] spawn {
-				waitUntil {sleep 1; !([distanciaSPWN,1,_this select 0,"BLUFORSpawn"] call distanceUnits)};
+				waitUntil {sleep 1; !([distanceSPWN,1,_this select 0,"BLUFORSpawn"] call distanceUnits)};
 				deleteVehicle (_this select 0);
 			};
 		};
@@ -109,7 +109,7 @@ if (count _vehicles > 0) then {
 if (count _soldiers > 0) then {
 	{
 		[_x] spawn {
-			waitUntil {sleep 1; !([distanciaSPWN,1,_this select 0,"BLUFORSpawn"] call distanceUnits)};
+			waitUntil {sleep 1; !([distanceSPWN,1,_this select 0,"BLUFORSpawn"] call distanceUnits)};
 			deleteVehicle (_this select 0);
 		};
 	} forEach _soldiers;
@@ -128,8 +128,8 @@ params [["_groups", []], ["_soldiers", []], ["_vehicles", []]];
 	{
 		_veh = _x;
 		if (
-		    !([distanciaSPWN,1,_veh,"BLUFORSpawn"] call distanceUnits) and
-			(({_x distance _veh <= distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)
+		    !([distanceSPWN,1,_veh,"BLUFORSpawn"] call distanceUnits) and
+			(({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)
 		) then {deleteVehicle _x};
 	} forEach _vehicles;
 
@@ -137,8 +137,8 @@ params [["_groups", []], ["_soldiers", []], ["_vehicles", []]];
 	{
 		_veh = _x;
 		if (
-		    !([distanciaSPWN,1,_veh,"BLUFORSpawn"] call distanceUnits) and
-			(({_x distance _veh <= distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)
+		    !([distanceSPWN,1,_veh,"BLUFORSpawn"] call distanceUnits) and
+			(({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)
 		) then {deleteVehicle _x; _soldiers = _soldiers - [_x]};
 	} forEach _soldiers;
 
@@ -156,8 +156,8 @@ if (count _soldiers > 0) then {
 			private ["_veh"];
 			_veh = _this select 0;
 			waitUntil {sleep 1;
-				!([distanciaSPWN,1,_veh,"BLUFORSpawn"] call distanceUnits) and
-				( ({_x distance _veh <= distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)
+				!([distanceSPWN,1,_veh,"BLUFORSpawn"] call distanceUnits) and
+				( ({_x distance _veh <= distanceSPWN} count (allPlayers - (entities "HeadlessClient_F"))) == 0)
 			};
 		deleteVehicle _veh;
 		};

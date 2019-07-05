@@ -13,7 +13,7 @@ flag_savingServer = true;
 ["cuentaCA", cuentaCA] call fn_saveData;
 ["smallCAmrk", smallCAmrk] call fn_saveData;
 ["membersPool", membersPool] call fn_saveData;
-["antenas", antenasmuertas] call fn_saveData;
+["antenas", antennasDead] call fn_saveData;
 ["mrkAAF", mrkAAF - controles] call fn_saveData;
 ["mrkFIA", mrkFIA - puestosFIA - controles] call fn_saveData;
 ["supplySaveArray", supplySaveArray] call fn_saveData;
@@ -30,7 +30,7 @@ flag_savingServer = true;
 ["skillAAF", skillAAF] call fn_saveData;
 ["destroyedCities", destroyedCities] call fn_saveData;
 ["destroyedBuildings", destroyedBuildings] call fn_saveData;
-["distanciaSPWN", distanciaSPWN] call fn_saveData;
+["distanceSPWN", distanceSPWN] call fn_saveData;
 ["civPerc", civPerc] call fn_saveData;
 ["minimoFPS", minimoFPS] call fn_saveData;
 ["unlockedWeapons", unlockedWeapons] call fn_saveData;
@@ -307,7 +307,7 @@ if (!isDedicated) then {
 _data = [];
 {
 	_data pushBack [_x,server getVariable _x];
-} forEach (aeropuertos + bases);
+} forEach (airportsX + bases);
 
 ["idleBases",_data] call fn_saveData;
 

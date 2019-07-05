@@ -28,7 +28,7 @@ if (_c < 1) exitWith {
 // /end
 
 _bases = bases - mrkAAF;
-_aeropuertos = aeropuertos - mrkAAF;
+_airportsX = airportsX - mrkAAF;
 
 if (((_tipo == "NATOArty") or (_tipo == "NATOArmor") or (_tipo == "NATORoadblock")) and (count _bases == 0)) exitWith {hint localize "STR_HINTS_NATOD_YNYCALOBTPTA"};
 
@@ -80,19 +80,19 @@ if (_tipo == "NATOUAV") exitWith {[] remoteExec [_tipo, call AS_fnc_getNextWorke
 if (_tipo == "NATORED") exitWith {[-100,-10] remoteExec ["prestige",2];}; //Stef 30-08 added the support change, maybe add a sleep 5 minute to take effect to simulate jets moving to them.
 
 
-posicionTel = [];
+positionTel = [];
 
 hint format ["%1",_textohint];
 
 openMap true;
-onMapSingleClick "posicionTel = _pos;";
+onMapSingleClick "positionTel = _pos;";
 
-waitUntil {sleep 1; (count posicionTel > 0) or (!visibleMap)};
+waitUntil {sleep 1; (count positionTel > 0) or (!visibleMap)};
 onMapSingleClick "";
 
 if (!visibleMap) exitWith {};
 
-_posicionTel =+ posicionTel;
+_positionTel =+ positionTel;
 if ((_tipo != "NATOArmor") or (_tipo == "NATORoadblock")) then {openMap false};
 
 // break, in case no valid point of origin was selected
@@ -104,34 +104,34 @@ _loc = "spawnNATO";
 
 // roadblocks, only allowed on roads
 if (_tipo == "NATORoadblock") exitWith {
-	_check = isOnRoad _posicionTel;
+	_check = isOnRoad _positionTel;
 	if !(_check) exitWith {hint localize "STR_HINTS_NATOD_RBCOBPOR"};
-	[_posicionTel] remoteExec [_tipo, call AS_fnc_getNextWorker];
+	[_positionTel] remoteExec [_tipo, call AS_fnc_getNextWorker];
 };
 
-if (_tipo == "NATOAmmo") exitWith {[_posiciontel,_NATOSupp] remoteExec [_tipo,  call AS_fnc_getNextWorker]};
+if (_tipo == "NATOAmmo") exitWith {[_positionTel,_NATOSupp] remoteExec [_tipo,  call AS_fnc_getNextWorker]};
 
-_sitio = [markers, _posicionTel] call BIS_Fnc_nearestPosition;
+_sitio = [markers, _positionTel] call BIS_Fnc_nearestPosition;
 
 if (_tipo == "NATOQRF") exitWith {
 	_sitioName = "the NATO carrier";
-	if ((_sitio in _bases) || (_sitio in _aeropuertos)) then {
+	if ((_sitio in _bases) || (_sitio in _airportsX)) then {
 		_loc = _sitio;
 		_sitioName = [_sitio] call AS_fnc_localizar;
 	};
 
-	posicionTel = [];
+	positionTel = [];
 	hint format [localize "STR_HINTS_NATOD_QRFDF1MTTFTQRF",_sitioName];
 
 	openMap true;
-	onMapSingleClick "posicionTel = _pos;";
+	onMapSingleClick "positionTel = _pos;";
 
-	waitUntil {sleep 1; (count posicionTel > 0) or (!visibleMap)};
+	waitUntil {sleep 1; (count positionTel > 0) or (!visibleMap)};
 	onMapSingleClick "";
 
 	if (!visibleMap) exitWith {};
 
-	_destino =+ posicionTel;
+	_destino =+ positionTel;
 	openMap false;
 
 	if (surfaceIsWater _destino) exitWith {hint localize "STR_HINTS_NATOD_NLCSATDQRFIRTL"};
@@ -139,7 +139,7 @@ if (_tipo == "NATOQRF") exitWith {
 	[_loc,_destino] remoteExec ["NATOQRF", call AS_fnc_getNextWorker];
 };
 
-if (_posicionTel distance getMarkerPos _sitio > 50) exitWith {hint localize "STR_HINTS_NATOD_YMCNAMM"};
+if (_positionTel distance getMarkerPos _sitio > 50) exitWith {hint localize "STR_HINTS_NATOD_YMCNAMM"};
 
 if (_tipo == "NATOArty") exitWith {
 	if (not(_sitio in _bases)) exitWith {hint localize "STR_HINTS_NATOD_ASCOBOFB"};
@@ -152,21 +152,21 @@ if (_tipo == "NATOArmor") then {
 		hint localize "STR_HINTS_NATOD_YMCNAFB";
 	}
 	else {
-		posicionTel = [];
+		positionTel = [];
 		hint localize "STR_HINTS_NATOD_COTACD";
 
 		openMap true;
-		onMapSingleClick "posicionTel = _pos;";
+		onMapSingleClick "positionTel = _pos;";
 
-		waitUntil {sleep 1; (count posicionTel > 0) or (!visibleMap)};
+		waitUntil {sleep 1; (count positionTel > 0) or (!visibleMap)};
 		onMapSingleClick "";
 
 		if (!visibleMap) then {_salir = true};
 
-		_posicionTel =+ posicionTel;
+		_positionTel =+ positionTel;
 		openMap false;
-		_destino = [markers, _posicionTel] call BIS_Fnc_nearestPosition;
-		if (_posicionTel distance getMarkerPos _destino > 50) then {
+		_destino = [markers, _positionTel] call BIS_Fnc_nearestPosition;
+		if (_positionTel distance getMarkerPos _destino > 50) then {
 			hint localize "STR_HINTS_NATOD_YMCNAMM";
 			_salir = true
 		}

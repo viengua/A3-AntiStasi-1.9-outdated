@@ -1,21 +1,21 @@
 if (!isServer and hasInterface) exitWith {};
 
 _prestigio = server getVariable "prestigeNATO";
-_aeropuertos = aeropuertos - mrkAAF + ["spawnNATO"];
+_airportsX = airportsX - mrkAAF + ["spawnNATO"];
 
-_origen = [_aeropuertos,Slowhand] call BIS_fnc_nearestPosition;
+_origen = [_airportsX,Slowhand] call BIS_fnc_nearestPosition;
 _orig = getMarkerPos _origen;
 
 [-10,0] remoteExec ["prestige",2];
 
 _tiempolim = 30;
 _fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-_fechalimnum = dateToNumber _fechalim;
+_dateLimitNum = dateToNumber _fechalim;
 
 _nombreorig = format ["the %1 Carrier", A3_Str_BLUE];
 if (_origen!= "spawnNATO") then {_nombreorig = [_origen] call AS_fnc_localizar};
 
-_tsk = ["NATOUAV",[side_blue,civilian],[["STR_TSK_UAV_DESC",_nombreorig,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4, A3_Str_BLUE],["STR_TSK_UAV_TITLE", A3_Str_BLUE],_origen],_orig,"CREATED",5,true,true,"Attack"] call BIS_fnc_setTask;
+_tsk = ["NATOUAV",[side_blue,civilian],[["STR_TSK_UAV_DESC",_nombreorig,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_BLUE],["STR_TSK_UAV_TITLE", A3_Str_BLUE],_origen],_orig,"CREATED",5,true,true,"Attack"] call BIS_fnc_setTask;
 misiones pushBack _tsk; publicVariable "misiones";
 
 _soldados = [];
@@ -43,15 +43,15 @@ for "_i" from 1 to 1 do
 Slowhand hcSetGroup [_grupoHeli];
 _grupoHeli setVariable ["isHCgroup", true, true];
 
-waitUntil {sleep 1; (dateToNumber date > _fechalimnum) or ({alive _x} count _vehiculos == 0) or ({canMove _x} count _vehiculos == 0)};
+waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) or ({alive _x} count _vehiculos == 0) or ({canMove _x} count _vehiculos == 0)};
 
-if (dateToNumber date > _fechalimnum) then
+if (dateToNumber date > _dateLimitNum) then
 	{
 	{["TaskSucceeded", ["", format [localize "STR_NTS_UAV_FIN", A3_Str_BLUE]]] call BIS_fnc_showNotification} remoteExec ["call", 0];
 	}
 else
 	{
-	_tsk = ["NATOUAV",[side_blue,civilian],[["STR_TSK_UAV_DESC",_nombreorig,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4, A3_Str_BLUE],["STR_TSK_UAV_TITLE", A3_Str_BLUE],_origen],_orig,"FAILED",5,true,true,"Attack"] call BIS_fnc_setTask;
+	_tsk = ["NATOUAV",[side_blue,civilian],[["STR_TSK_UAV_DESC",_nombreorig,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_BLUE],["STR_TSK_UAV_TITLE", A3_Str_BLUE],_origen],_orig,"FAILED",5,true,true,"Attack"] call BIS_fnc_setTask;
 	[-5,0] remoteExec ["prestige",2];
 	};
 

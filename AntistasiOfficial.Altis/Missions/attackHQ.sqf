@@ -17,7 +17,7 @@ if ({(_x distance _posicion < 500) and ((typeOf _x == guer_stat_AA) or (typeOf _
 _tsk = ["DEF_HQ",[side_blue,civilian],[_tskDesc,_tskTitle,guer_respawn],_posicion,"CREATED",5,true,true,"Defend"] call BIS_fnc_setTask;
 misiones pushBack _tsk; publicVariable "misiones";
 
-_pos = [_posicion, distanciaSPWN * 3, random 360] call BIS_Fnc_relPos;
+_pos = [_posicion, distanceSPWN * 3, random 360] call BIS_Fnc_relPos;
 _vehicle=[_pos, 0, opGunship, side_red] call bis_fnc_spawnvehicle;
 _heli = _vehicle select 0;
 _heliCrew = _vehicle select 1;
@@ -34,7 +34,7 @@ sleep 30;
 
 for "_i" from 0 to (round random 2) do
 	{
-	_pos = [_posicion, distanciaSPWN * 3, random 360] call BIS_Fnc_relPos;
+	_pos = [_posicion, distanceSPWN * 3, random 360] call BIS_Fnc_relPos;
 	_vehicle=[_pos, 0, opHeliFR, side_red] call bis_fnc_spawnvehicle;
 	_heli = _vehicle select 0;
 	_heliCrew = _vehicle select 1;
@@ -73,14 +73,14 @@ call {
 
 [1200,_tsk] spawn deleteTaskX;
 {
-waitUntil {sleep 1; !([distanciaSPWN,1,_x,"BLUFORSpawn"] call distanceUnits)};
+waitUntil {sleep 1; !([distanceSPWN,1,_x,"BLUFORSpawn"] call distanceUnits)};
 deleteVehicle _x;
 } forEach _soldados;
 {
-waitUntil {sleep 1; !([distanciaSPWN,1,_x,"BLUFORSpawn"] call distanceUnits)};
+waitUntil {sleep 1; !([distanceSPWN,1,_x,"BLUFORSpawn"] call distanceUnits)};
 deleteVehicle _x;
 } forEach _pilotos;
 {
-if (!([distanciaSPWN,1,_x,"BLUFORSpawn"] call distanceUnits)) then {deleteVehicle _x};
+if (!([distanceSPWN,1,_x,"BLUFORSpawn"] call distanceUnits)) then {deleteVehicle _x};
 } forEach _vehiculos;
 {deleteGroup _x} forEach _grupos;

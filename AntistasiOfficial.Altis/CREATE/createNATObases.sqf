@@ -273,7 +273,7 @@ _allGroups pushBack _group;
 		};
 
 		//Despawn
-		if (count ([distanciaSPWN,0,_markerPos,"BLUFORSpawn"] call distanceUnits) < 1) then {
+		if (count ([distanceSPWN,0,_markerPos,"BLUFORSpawn"] call distanceUnits) < 1) then {
 			spawner setVariable [_marker,false,true];
 		};
 

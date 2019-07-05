@@ -8,17 +8,17 @@ if !([player] call hasRadio) exitWith {hint localize "STR_TSK_TD_BEMP_RADIO"};
 if ((_type == "delete") AND (count puestosFIA < 1)) exitWith {hint localize "STR_TSK_TD_BEMP_DEL_NR"};
 
 openMap true;
-posicionTel = [];
+positionTel = [];
 hint localize (["STR_TSK_TD_BEMP_BLD_INFO","STR_TSK_TD_BEMP_DEL_INFO"] select (_type == "delete"));
 
-onMapSingleClick "posicionTel = _pos;";
+onMapSingleClick "positionTel = _pos;";
 
-waitUntil {sleep 1; (count posicionTel > 0) OR !visiblemap};
+waitUntil {sleep 1; (count positionTel > 0) OR !visiblemap};
 onMapSingleClick "";
 
 if (!visibleMap) exitWith {};
 
-_position = posicionTel;
+_position = positionTel;
 
 if ((_type == "delete") AND ({(alive _x) AND (!captive _x) AND ((side _x == side_green) OR (side _x == side_red)) AND (_x distance _position < safeDistance_fasttravel)} count allUnits > 0)) exitWith {hint localize "STR_TSK_TD_BEMP_DEL_ENEMY"};
 

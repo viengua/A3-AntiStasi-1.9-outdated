@@ -8,10 +8,10 @@ cajaVeh call jn_fnc_logistics_removeAction;
 
 private ["_pos","_rnd"];
 _movido = false;
-if (group petros != grupoPetros) then
+if (group petros != groupPetros) then
 	{
 	_movido = true;
-	[petros] join grupoPetros;
+	[petros] join groupPetros;
 	};
 [[petros,"remove"],"AS_fnc_addActionMP"] call BIS_fnc_MP;
 petros forceSpeed 0;

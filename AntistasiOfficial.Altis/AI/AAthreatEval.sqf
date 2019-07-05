@@ -14,16 +14,16 @@ _esFIA = false;
 if (_esMarcador) then {
 	if (_marcador in mrkAAF) then {
 		{
-			if (getMarkerPos _x distance _posicion < (distanciaSPWN*1.5)) then {
-				if ((_x in bases) or (_x in aeropuertos)) then {_threat = _threat + 3} else {_threat = _threat + 1};
+			if (getMarkerPos _x distance _posicion < (distanceSPWN*1.5)) then {
+				if ((_x in bases) or (_x in airportsX)) then {_threat = _threat + 3} else {_threat = _threat + 1};
 			};
-		} forEach (controles + puestos + colinas + bases + aeropuertos - mrkFIA);
+		} forEach (controles + puestos + colinas + bases + airportsX - mrkFIA);
 	} else {_esFIA = true;};
 } else { _esFIA = true;};
 
 if (_esFIA) then {
 	{
-		if (getMarkerPos _x distance _posicion < distanciaSPWN) then {
+		if (getMarkerPos _x distance _posicion < distanceSPWN) then {
 			_analizado = _x;
 			_garrison = garrison getVariable [_analizado,[]];
 			_threat = _threat + (floor((count _garrison)/4));

@@ -18,9 +18,9 @@ _targetName = [_targetMarker] call AS_fnc_localizar;
 // mission timer
 _tiempolim = 60;
 _fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-_fechalimnum = dateToNumber _fechalim;
+_dateLimitNum = dateToNumber _fechalim;
 
-_tsk = ["PR",[side_blue,civilian],[[_tskDesc,_targetName,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],_tskTitle,_targetMarker],_targetPosition,"CREATED",5,true,true,"Heal"] call BIS_fnc_setTask;
+_tsk = ["PR",[side_blue,civilian],[[_tskDesc,_targetName,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_targetMarker],_targetPosition,"CREATED",5,true,true,"Heal"] call BIS_fnc_setTask;
 misiones pushBack _tsk; publicVariable "misiones";
 
 
@@ -43,7 +43,7 @@ if (count _bases > 0) then {_base = [_bases,_targetPosition] call BIS_fnc_neares
 
 _posBase = getMarkerPos _base;
 
-_airportsAAF = aeropuertos - mrkFIA;
+_airportsAAF = airportsX - mrkFIA;
 _airports = [];
 _airport = "";
 _posAirport = [];
@@ -111,7 +111,7 @@ else {
 };
 
 // wait until the truck is in the target area or dead
-waitUntil {sleep 1; (not alive propTruck) or (dateToNumber date > _fechalimnum) or (propTruck distance _targetPosition < 150)};
+waitUntil {sleep 1; (not alive propTruck) or (dateToNumber date > _dateLimitNum) or (propTruck distance _targetPosition < 150)};
 
 /*
 condition flags for the loop
@@ -122,9 +122,9 @@ _break = false;
 _active = false;
 
 // once the vehicle has arrived at its destination and is stationary, enable the activation action
-while {(alive propTruck) && (dateToNumber date < _fechalimnum) && !(server getVariable "BCactive")} do {
+while {(alive propTruck) && (dateToNumber date < _dateLimitNum) && !(server getVariable "BCactive")} do {
 
-	while {(alive propTruck) && (dateToNumber date < _fechalimnum) && (propTruck distance _targetPosition < 150) && !(server getVariable "BCactive")} do {
+	while {(alive propTruck) && (dateToNumber date < _dateLimitNum) && (propTruck distance _targetPosition < 150) && !(server getVariable "BCactive")} do {
 		if (!(_active) && (speed propTruck < 1)) then {
 			_active = true;
 			[[propTruck,"toggle_device"],"AS_fnc_addActionMP"] call BIS_fnc_MP;
@@ -146,13 +146,13 @@ if !(server getVariable "BCactive") then {
 };
 
 if (_break) exitWith {
-	_tsk = ["PR",[side_blue,civilian],[[_tskDesc_fail,_targetName,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],_tskTitle,_targetMarker],_targetPosition,"FAILED",5,true,true,"Heal"] call BIS_fnc_setTask;
+	_tsk = ["PR",[side_blue,civilian],[[_tskDesc_fail,_targetName,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_targetMarker],_targetPosition,"FAILED",5,true,true,"Heal"] call BIS_fnc_setTask;
 	[5,-5,_targetMarker] remoteExec ["AS_fnc_changeCitySupport",2];
 	[-10,Slowhand] call playerScoreAdd;
 
 	[1200,_tsk] spawn deleteTaskX;
 
-	waitUntil {sleep 1;(!([distanciaSPWN,1,_x,"BLUFORSpawn"] call distanceUnits))};
+	waitUntil {sleep 1;(!([distanceSPWN,1,_x,"BLUFORSpawn"] call distanceUnits))};
 	deleteVehicle propTruck;
 	{
 		deleteVehicle _x;
@@ -202,7 +202,7 @@ propTruck engineOn false;
 		[_amigo,false] remoteExec ["setCaptive",_amigo];
 	};
 	{
-		if ((side _x == side_green) and (_x distance propTruck < distanciaSPWN)) then {
+		if ((side _x == side_green) and (_x distance propTruck < distanceSPWN)) then {
 			if (_x distance propTruck < 300) then {_x doMove position propTruck} else {_x reveal [_amigo,4]};
 		};
 	} forEach allUnits;
@@ -229,7 +229,7 @@ if (isMultiplayer) then {
 
 0 = [_targetMarker, 30, _timing, _comp] spawn attackWaves;
 
-_tsk = ["PR",[side_blue,civilian],[[_tskDesc_hold,_targetName,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],_tskTitle,_targetMarker],propTruck,"ASSIGNED",5,true,true,"Heal"] call BIS_fnc_setTask;
+_tsk = ["PR",[side_blue,civilian],[[_tskDesc_hold,_targetName,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_targetMarker],propTruck,"ASSIGNED",5,true,true,"Heal"] call BIS_fnc_setTask;
 
 /*
 setup for the progress bar/timer
@@ -311,12 +311,12 @@ if (_break) then {
 
 // failure if you held out for less than 10 minutes
 if (_break) then {
-	_tsk = ["PR",[side_blue,civilian],[[_tskDesc_fail2,_targetName,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],_tskTitle,_targetMarker],_targetPosition,"FAILED",5,true,true,"Heal"] call BIS_fnc_setTask;
+	_tsk = ["PR",[side_blue,civilian],[[_tskDesc_fail2,_targetName,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_targetMarker],_targetPosition,"FAILED",5,true,true,"Heal"] call BIS_fnc_setTask;
 	[5,-5,_targetMarker] remoteExec ["AS_fnc_changeCitySupport",2];
 	[-10,Slowhand] call playerScoreAdd;
 }
 else {
-	_tsk = ["PR",[side_blue,civilian],[[_tskDesc_success,_targetName,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],_tskTitle,_targetMarker],_targetPosition,"SUCCEEDED",5,true,true,"Heal"] call BIS_fnc_setTask;
+	_tsk = ["PR",[side_blue,civilian],[[_tskDesc_success,_targetName,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_targetMarker],_targetPosition,"SUCCEEDED",5,true,true,"Heal"] call BIS_fnc_setTask;
 	[0,_prestige,_targetMarker] remoteExec ["AS_fnc_changeCitySupport",2];
 	{if (_x distance _targetPosition < 500) then {[10,_x] call playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
 	[10,Slowhand] call playerScoreAdd;
@@ -329,7 +329,7 @@ else {
 
 [1200,_tsk] spawn deleteTaskX;
 
-waitUntil {sleep 1;(!([distanciaSPWN,1,propTruck,"BLUFORSpawn"] call distanceUnits))};
+waitUntil {sleep 1;(!([distanceSPWN,1,propTruck,"BLUFORSpawn"] call distanceUnits))};
 deleteVehicle propTruck;
 
 {
@@ -337,7 +337,7 @@ deleteVehicle propTruck;
 } foreach _grafArray;
 
 // remove the propaganda site
-waitUntil {sleep 1; (not([distanciaSPWN,1,_targetPosition,"BLUFORSpawn"] call distanceUnits))};
+waitUntil {sleep 1; (not([distanceSPWN,1,_targetPosition,"BLUFORSpawn"] call distanceUnits))};
 {
 	deleteVehicle _x;
 } foreach _objectsToDelete;

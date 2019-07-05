@@ -35,7 +35,7 @@ _wp1 setWaypointSpeed "LIMITED";
 _wp1 setWaypointBehaviour "CARELESS";
 if (_tipoavion in opCASFW) then
 	{
-	if ((_marcador in bases) or (_marcador in aeropuertos)) then
+	if ((_marcador in bases) or (_marcador in airportsX)) then
 		{
 		_wp1 setWaypointStatements ["true", "[this] execVM 'AI\airbomb.sqf'"];
 		}

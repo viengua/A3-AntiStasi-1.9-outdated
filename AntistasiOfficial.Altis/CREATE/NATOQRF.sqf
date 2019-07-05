@@ -40,7 +40,7 @@ _mrk setMarkerText (format ["%1 QRF", A3_Str_BLUE]);
 // mission time restricted to 30 minutes
 _tiempolim = 30;
 _fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-_fechalimnum = dateToNumber _fechalim;
+_dateLimitNum = dateToNumber _fechalim;
 
 _tsk = ["NATOQRF",[side_blue,civilian],[["Our Commander asked %3 for reinforcements near %1. Their troops will depart from %2.",_destName,_origName, A3_Str_BLUE],["%1 QRF", A3_Str_BLUE],_mrk],_dest,"CREATED",5,true,true,"Move"] call BIS_fnc_setTask;
 misiones pushBackUnique _tsk; publicVariable "misiones";
@@ -199,9 +199,9 @@ else {
 
 
 // you lose if all soldiers die before the timer runs out
-waitUntil {sleep 10; (dateToNumber date > _fechalimnum) or ({alive _x} count _soldados == 0)};
+waitUntil {sleep 10; (dateToNumber date > _dateLimitNum) or ({alive _x} count _soldados == 0)};
 
-if (dateToNumber date > _fechalimnum) then {
+if (dateToNumber date > _dateLimitNum) then {
 	_tsk = ["NATOQRF",[side_blue,civilian],[["Our Commander asked %3 for reinforcements near %1. Their troops will depart from %2",_destName,_origName, A3_Str_BLUE],["%1 QRF", A3_Str_BLUE],_mrk],_dest,"SUCCEEDED",5,true,true,"Move"] call BIS_fnc_setTask;
 }
 else {
@@ -216,7 +216,7 @@ deleteMarker "NATOQRF";
 // despawn everything
 {
 	_soldado = _x;
-	waitUntil {sleep 1; {_x distance _soldado < distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F")) == 0};
+	waitUntil {sleep 1; {_x distance _soldado < distanceSPWN} count (allPlayers - (entities "HeadlessClient_F")) == 0};
 	deleteVehicle _soldado;
 } forEach _soldados;
 
@@ -224,6 +224,6 @@ deleteMarker "NATOQRF";
 
 {
 	_vehiculo = _x;
-	waitUntil {sleep 1; {_x distance _vehiculo < distanciaSPWN/2} count (allPlayers - (entities "HeadlessClient_F")) == 0};
+	waitUntil {sleep 1; {_x distance _vehiculo < distanceSPWN/2} count (allPlayers - (entities "HeadlessClient_F")) == 0};
 	deleteVehicle _x
 } forEach _vehiculos;

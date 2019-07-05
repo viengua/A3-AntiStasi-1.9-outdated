@@ -44,7 +44,7 @@ if(isnil "supplySaveArray") then {supplySaveArray = [];}; publicVariable "supply
 ["garrison"] call fn_loadData;
 ["skillFIA"] call fn_loadData;
 ["skillAAF"] call fn_loadData; publicVariable "skillAAF";
-["distanciaSPWN"] call fn_loadData; publicVariable "distanciaSPWN";
+["distanceSPWN"] call fn_loadData; publicVariable "distanceSPWN";
 ["civPerc"] call fn_loadData; publicVariable "civPerc";
 ["minimoFPS"] call fn_loadData; publicVariable "minimoFPS";
 ["smallCAmrk"] call fn_loadData;
@@ -98,7 +98,7 @@ _markers = _markers + controles;
 				_mrkD setMarkerColor guer_marker_colour;
 			};
 
-			if (_x in aeropuertos) exitWith {
+			if (_x in airportsX) exitWith {
 				_mrkD setMarkerText format [localize "STR_GL_MAP_AP1",count (garrison getVariable _x), A3_Str_BLUE];
 				_mrkD setMarkerType guer_marker_type;
 				planesAAFmax = planesAAFmax - 1;

@@ -76,7 +76,7 @@ if (_tipo == "AS") then {
 	};
 }; */  // Stef 14/09 removed conquer AA hilltop because it has no more sense.
 if (_tipo == "DES") then {
-	_sitios = aeropuertos + bases - mrkFIA;
+	_sitios = airportsX + bases - mrkFIA;
 	if (count _sitios > 0) then {
 		for "_i" from 0 to ((count _sitios) - 1) do {
 			_sitio = _sitios select _i;
@@ -100,12 +100,12 @@ if (_tipo == "DES") then {
 	else {
 		_sitio = _posibles call BIS_fnc_selectRandom;
 		if (_sitio in bases) then {[_sitio, "mil"] remoteExec ["DES_Vehicle", call AS_fnc_getNextWorker]};
-		if (_sitio in aeropuertos) then {[_sitio, "mil"] remoteExec ["DES_Heli", call AS_fnc_getNextWorker]};
+		if (_sitio in airportsX) then {[_sitio, "mil"] remoteExec ["DES_Heli", call AS_fnc_getNextWorker]};
 	};
 };
 
 if (_tipo == "CONVOY") then {
-	_sitios = bases + aeropuertos - mrkFIA;
+	_sitios = bases + airportsX - mrkFIA;
 	if (count _sitios > 0) then {
 		for "_i" from 0 to ((count _sitios) - 1) do {
 			_sitio = _sitios select _i;

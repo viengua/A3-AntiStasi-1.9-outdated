@@ -64,7 +64,7 @@ if (dateToNumber date > _endTime) then {
 		[-10,Slowhand] call playerScoreAdd;
 	};
 
-	antenasMuertas = antenasMuertas - [_posAntenna];
+	antennasDead = antennasDead - [_posAntenna];
 	_antenna = nearestBuilding _posAntenna;
 	if (isMultiplayer) then {_antenna hideObjectGlobal true} else {_antenna hideObject true};
 	_antenna = createVehicle ["Land_Communication_F", _posAntenna, [], 0, "NONE"];
@@ -82,7 +82,7 @@ if (dateToNumber date > _endTime) then {
 		_object = _this select 0;
 		private _mrk = [mrkAntenas, _object] call BIS_fnc_nearestPosition;
 		antenas = antenas - [_object];
-		antenasmuertas pushBack (getPos _object);
+		antennasDead pushBack (getPos _object);
 		deleteMarker _mrk;
 		{["TaskSucceeded", ["", localize "STR_TSK_TD_RADIO_DESTROYED"]] call BIS_fnc_showNotification} remoteExec ["call", 0];
 	}];
@@ -98,5 +98,5 @@ waitUntil {sleep 1; !(spawner getVariable _marker)};
 if (typeName _group == "GROUP") then {
 	{deleteVehicle _x} forEach units _group;
 	deleteGroup _group;
-	if !([distanciaSPWN,1,_vehicle,"BLUFORSpawn"] call distanceUnits) then {deleteVehicle _vehicle};
+	if !([distanceSPWN,1,_vehicle,"BLUFORSpawn"] call distanceUnits) then {deleteVehicle _vehicle};
 };

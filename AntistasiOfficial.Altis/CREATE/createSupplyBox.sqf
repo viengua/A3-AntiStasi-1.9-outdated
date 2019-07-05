@@ -35,7 +35,7 @@ _fnDeleteMissionIn = {
     };
 
     // Delete objects if no one is near something like that
-    waitUntil {sleep 5; !([distanciaSPWN,1,_crate,"BLUFORSpawn"] call distanceUnits) OR (_crate distance (getMarkerPos guer_respawn) < 60)};
+    waitUntil {sleep 5; !([distanceSPWN,1,_crate,"BLUFORSpawn"] call distanceUnits) OR (_crate distance (getMarkerPos guer_respawn) < 60)};
     if (alive _crate AND (_marker in markerSupplyCrates)) exitWith{};
     deleteVehicle _crate;
     deleteMarker _marker;
@@ -196,7 +196,7 @@ while {alive _crate AND (_marker in markerSupplyCrates)} do {
 	{
 		_player = _x;
 		{
-			if ((side _x == side_green) and (_x distance _crate < distanciaSPWN)) then{
+			if ((side _x == side_green) and (_x distance _crate < distanceSPWN)) then{
 				if (_x distance _crate < 600) then
 				{
 					_x doMove position _crate

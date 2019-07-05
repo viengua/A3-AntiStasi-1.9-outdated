@@ -7,7 +7,7 @@ colinas = [];
 colinasAA = [];
 power = [];
 bases = [];
-aeropuertos = [];
+airportsX = [];
 recursos = [];
 fabricas = [];
 puestos = [];
@@ -65,7 +65,7 @@ if !(count controles > 0) then {
             if (toLower _x find "seaPatrol" >= 0) exitWith {seaMarkers pushBackUnique _x};
             if (toLower _x find "base" >= 0) exitWith {bases pushBackUnique _x};
             if (toLower _x find "power" >= 0) exitWith {power pushBackUnique _x};
-            if (toLower _x find "airport" >= 0) exitWith {aeropuertos pushBackUnique _x};
+            if (toLower _x find "airport" >= 0) exitWith {airportsX pushBackUnique _x};
             if (toLower _x find "resource" >= 0) exitWith {recursos pushBackUnique _x};
             if (toLower _x find "factory" >= 0) exitWith {fabricas pushBackUnique _x};
             if (toLower _x find "artillery" >= 0) exitWith {artyEmplacements pushBackUnique _x};
@@ -81,7 +81,7 @@ if !(count controles > 0) then {
 
 mrkFIA = ["FIA_HQ"];
 garrison setVariable ["FIA_HQ",[],true];
-markers = power + bases + aeropuertos + recursos + fabricas + puestos + puertos + controles + colinas + colinasAA + puestosAA + ["FIA_HQ"];
+markers = power + bases + airportsX + recursos + fabricas + puestos + puertos + controles + colinas + colinasAA + puestosAA + ["FIA_HQ"];
 
 // Make sure all markers are invisible and not currently marked as having been spawned in.
 {_x setMarkerAlpha 0;
@@ -170,8 +170,8 @@ markers = power + bases + aeropuertos + recursos + fabricas + puestos + puertos 
 
 markers = markers + colinas + ciudades;
 
-planesAAFmax = count aeropuertos;
-helisAAFmax = 2* (count aeropuertos);
+planesAAFmax = count airportsX;
+helisAAFmax = 2* (count airportsX);
 tanksAAFmax = count bases;
 APCAAFmax = 2* (count bases);
 
@@ -196,7 +196,7 @@ if (worldName in ["Altis", "altis", "Bornholm", "bornholm", "Tanoa", "tanoa", "N
         _pos = getMarkerPos _loc;
         _dmrk = createMarker [format ["Dum%1",_loc], _pos];
         _dmrk setMarkerShape "ICON";
-        if !(_loc in (aeropuertos+bases)) then {_dmrk setMarkerColor IND_marker_colour};
+        if !(_loc in (airportsX+bases)) then {_dmrk setMarkerColor IND_marker_colour};
         [_loc] call AS_fnc_createRoadblocks;
         garrison setVariable [_loc,[],true];
         _dmrk setMarkerType _type;
@@ -211,7 +211,7 @@ if (worldName in ["Altis", "altis", "Bornholm", "bornholm", "Tanoa", "tanoa", "N
 {
     [_x, IND_marker_type, format [localize "STR_GL_MAP_AP", A3_Str_INDEP]] call _fnc_marker;
     server setVariable [_x,dateToNumber date,true];
-} forEach aeropuertos;
+} forEach airportsX;
 
 {
     [_x, IND_marker_type, format [localize "STR_GL_MAP_MB", A3_Str_INDEP]] call _fnc_marker;
@@ -248,7 +248,7 @@ publicVariable "colinas";
 publicVariable "colinasAA";
 publicVariable "power";
 publicVariable "bases";
-publicVariable "aeropuertos";
+publicVariable "airportsX";
 publicVariable "recursos";
 publicVariable "fabricas";
 publicVariable "puestos";
@@ -288,7 +288,7 @@ if (count posAntenas > 0) then {
             _antenna addEventHandler ["Killed", {
                 _antenna = _this select 0;
                 _mrk = [mrkAntenas, _antenna] call BIS_fnc_nearestPosition;
-                antenas = antenas - [_antenna]; antenasmuertas = antenasmuertas + [getPos _antenna]; deleteMarker _mrk;
+                antenas = antenas - [_antenna]; antennasDead = antennasDead + [getPos _antenna]; deleteMarker _mrk;
                 if (activeBE) then {["cl_loc"] remoteExec ["fnc_BE_XP", 2]};
                 {["TaskSucceeded", ["", localize "STR_TSK_TD_RADIO_DESTROYED"]] call BIS_fnc_showNotification} remoteExec ["call", 0];
             }];
@@ -297,7 +297,7 @@ if (count posAntenas > 0) then {
 };
 
 publicVariable "antenas";
-antenasmuertas = [];
+antennasDead = [];
 
 if (count posbancos > 0) then {
 	for "_i" from 0 to (count posbancos - 1) do {

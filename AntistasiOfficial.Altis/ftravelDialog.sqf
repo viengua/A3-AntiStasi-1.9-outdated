@@ -1,4 +1,4 @@
-private ["_tipo","_coste","_grupo","_unit","_tam","_roads","_road","_pos","_camion","_texto","_mrk","_hr","_exists","_posicionTel","_tipogrupo","_resourcesFIA","_hrFIA"];
+private ["_tipo","_coste","_grupo","_unit","_tam","_roads","_road","_pos","_camion","_texto","_mrk","_hr","_exists","_positionTel","_tipogrupo","_resourcesFIA","_hrFIA"];
 
 if (!([player] call hasRadio)) exitWith {hint localize "STR_HINTS_FD_YNARIYITBA"};
 if ("campsFIA" in misiones) exitWith {hint localize "STR_TSK_TD_BEMP_RESTR"};
@@ -20,26 +20,26 @@ if !(_permission) exitWith {hint _text};
 // BE module
 
 openMap true;
-posicionTel = [];
+positionTel = [];
 if (_tipo == "create") then {hint localize "STR_HINTS_FD_COTPYWTETC"};
 if (_tipo == "delete") then {hint localize "STR_HINTS_FD_COTCTAAC"};
 if (_tipo == "rename") then {hint localize "STR_HINTS_FD_COTCTRAC"};
 
-onMapSingleClick "posicionTel = _pos;";
+onMapSingleClick "positionTel = _pos;";
 
-waitUntil {sleep 1; (count posicionTel > 0) or (not visiblemap)};
+waitUntil {sleep 1; (count positionTel > 0) or (not visiblemap)};
 onMapSingleClick "";
 
 if (!visibleMap) exitWith {};
 
-if (getMarkerPos guer_respawn distance posicionTel < 100) exitWith {hint localize "STR_HINTS_FD_LITCTB"; openMap false;};
+if (getMarkerPos guer_respawn distance positionTel < 100) exitWith {hint localize "STR_HINTS_FD_LITCTB"; openMap false;};
 
 openMap false;
-_posicionTel = posicionTel;
+_positionTel = positionTel;
 _pos = [];
 
 if ((_tipo == "delete") and (count campsFIA < 1)) exitWith {hint localize "STR_HINTS_FD_NCTA"};
-if ((_tipo == "delete") and ({(alive _x) and (!captive _x) and ((side _x == side_green) or (side _x == side_red)) and (_x distance _posicionTel < 500)} count allUnits > 0)) exitWith {hint localize "STR_HINTS_FD_YCDACWEANI"};
+if ((_tipo == "delete") and ({(alive _x) and (!captive _x) and ((side _x == side_green) or (side _x == side_red)) and (_x distance _positionTel < 500)} count allUnits > 0)) exitWith {hint localize "STR_HINTS_FD_YCDACWEANI"};
 
 _coste = 500;
 _hr = 0;
@@ -59,17 +59,17 @@ _txt = "";
 _break = false;
 while {(_tipo == "delete") && !(_break)} do {
 	scopeName "loop1";
-	_mrk = [campsFIA,_posicionTel] call BIS_fnc_nearestPosition;
+	_mrk = [campsFIA,_positionTel] call BIS_fnc_nearestPosition;
 	_pos = getMarkerPos _mrk;
-	if (_posicionTel distance _pos > 50) exitWith {_break = true; _txt = "No camp nearby.";};
+	if (_positionTel distance _pos > 50) exitWith {_break = true; _txt = "No camp nearby.";};
 	breakOut "loop1";
 };
 
 while {(_tipo == "rename")} do {
 	scopeName "loop2";
-	_mrk = [campsFIA,_posicionTel] call BIS_fnc_nearestPosition;
+	_mrk = [campsFIA,_positionTel] call BIS_fnc_nearestPosition;
 	_pos = getMarkerPos _mrk;
-	if (_posicionTel distance _pos > 50) exitWith {_break = true; _txt = "No camp nearby.";};
+	if (_positionTel distance _pos > 50) exitWith {_break = true; _txt = "No camp nearby.";};
 
 	createDialog "rCamp_Dialog";
 
@@ -102,5 +102,5 @@ if (_tipo == "create") then {
 };
 
 if (_tipo != "rename") then {
-	[[_tipo,_posicionTel],"establishCamp"] call BIS_fnc_MP;
+	[[_tipo,_positionTel],"establishCamp"] call BIS_fnc_MP;
 };

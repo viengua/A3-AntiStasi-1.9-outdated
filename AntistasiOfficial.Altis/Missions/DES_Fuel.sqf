@@ -16,7 +16,7 @@ _MissionEndTime	 = [date select 0, date select 1, date select 2, date select 3, 
 _TimeLeft	 = dateToNumber _MissionEndTime;
 
 _fMarkers = mrkFIA + campsFIA;
-_hMarkers = bases + aeropuertos + puestos - mrkFIA;
+_hMarkers = bases + airportsX + puestos - mrkFIA;
 
 _basesAAF = bases - mrkFIA;
 _bases	  = [];

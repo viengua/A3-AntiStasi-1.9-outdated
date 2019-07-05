@@ -76,7 +76,7 @@ publicVariable "reducedGarrisons";
 [_marcador] remoteExec ["patrolCA", call AS_fnc_getNextWorker];
 
 //Depending on marker type
-	if (_marcador in aeropuertos) then {
+	if (_marcador in airportsX) then {
 		[0,10,_posicion] remoteExec ["AS_fnc_changeCitySupport",2];
 		{["TaskSucceeded", ["", localize "STR_NTS_AIRPORT_TKN"]] call BIS_fnc_showNotification} remoteExec ["call", 0];
 		[5,8] remoteExec ["prestige",2];

@@ -1,4 +1,4 @@
-private ["_tipo","_coste","_posicionTel","_cantidad","_cantidadMax"];
+private ["_tipo","_coste","_positionTel","_cantidad","_quantityMax"];
 
 if ("Mines" in misiones) exitWith {hint "We can only deploy one minefield at a time."};
 
@@ -22,23 +22,23 @@ if (_tipo == "delete") exitWith
 	};
 
 openMap true;
-posicionTel = [];
+positionTel = [];
 hint "Click on the position you wish to build the minefield.";
 
-onMapSingleClick "posicionTel = _pos;";
+onMapSingleClick "positionTel = _pos;";
 
-waitUntil {sleep 1; (count posicionTel > 0) or (not visiblemap)};
+waitUntil {sleep 1; (count positionTel > 0) or (not visiblemap)};
 onMapSingleClick "";
 
 if (!visibleMap) exitWith {};
 
-_posicionTel = posicionTel;
+_positionTel = positionTel;
 
-_cantidadMax = 40;
+_quantityMax = 40;
 _cantidad = 0;
 
 if (_tipo == "ATMine") then {
-	_cantidadMax = 20;
+	_quantityMax = 20;
 	if (atMine in unlockedMagazines) then {
 		_cantidad = 20;
 	} else {
@@ -59,9 +59,9 @@ if (_tipo == "APERSMine") then {
 
 if (_cantidad < 5) exitWith {hint "You need at least 5 mines of this type to build a Minefield"};
 
-if (_cantidad > _cantidadMax) then
+if (_cantidad > _quantityMax) then
 	{
-	_cantidad = _cantidadMax;
+	_cantidad = _quantityMax;
 	};
 
-[[_tipo,_posicionTel,_cantidad], "REINF\buildMinefield.sqf"] remoteExec ["execVM", call AS_fnc_getNextWorker];
+[[_tipo,_positionTel,_cantidad], "REINF\buildMinefield.sqf"] remoteExec ["execVM", call AS_fnc_getNextWorker];

@@ -7,7 +7,7 @@ private ["_milThreatGround","_milThreatAir","_civVehicles","_size","_compromised
 
 //_milThreatGround = (bases + puestos + controles) arrayIntersect mrkAAF; //Sparker: allow players to go through roadblocks undercover
 _milThreatGround = (bases + puestos) arrayIntersect mrkAAF;
-_milThreatAir = (bases + aeropuertos + puestos + colinas) arrayIntersect mrkAAF;
+_milThreatAir = (bases + airportsX + puestos + colinas) arrayIntersect mrkAAF;
 _compromised = player getVariable ["compromised",dateToNumber date];
 
 /*

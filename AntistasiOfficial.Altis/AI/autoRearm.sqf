@@ -1,4 +1,4 @@
-private ["_unit","_Pweapon","_Sweapon","_cuenta","_magazines","_hayCaja","_distancia","_objetos","_target","_muerto","_check","_timeOut","_arma","_armas","_rearming","_basePosible","_hmd","_casco"];
+private ["_unit","_Pweapon","_Sweapon","_cuenta","_magazines","_hayCaja","_distancia","_objetos","_target","_muerto","_check","_timeOut","_arma","_armas","_rearming","_basePossible","_hmd","_casco"];
 
 _unit = _this select 0;
 
@@ -54,8 +54,8 @@ if (_Pweapon != "") then
 					for "_i" from 0 to (count _armas - 1) do
 						{
 						_posible = _armas select _i;
-						_basePosible = [_posible] call BIS_fnc_baseWeapon;
-						if (!(_posible in baseRifles) and ((_basePosible in gear_assaultRifles) or (_basePosible in gear_sniperRifles) or (_basePosible in gear_machineGuns))) then
+						_basePossible = [_posible] call BIS_fnc_baseWeapon;
+						if (!(_posible in baseRifles) and ((_basePossible in gear_assaultRifles) or (_basePossible in gear_sniperRifles) or (_basePossible in gear_machineGuns))) then
 							{
 							_target = _objeto;
 							_hayCaja = true;

@@ -178,7 +178,7 @@ for [{private _i = 0}, {_i < ws_gridSizeX}, {_i = _i + 1}] do //_i is x-pos
 								roadblocksEnemy setVariable [_rbname, nil];
 							};
 							//Check if there are no players around
-							if(({_x distance _rbpos < 2*distanciaSPWN} count allPlayers) == 0) exitWith //There are no players around, put a roadblock here
+							if(({_x distance _rbpos < 2*distanceSPWN} count allPlayers) == 0) exitWith //There are no players around, put a roadblock here
 							{
 								_rbname setMarkerColor "ColorRed";
 								mrkAAF pushBackUnique _rbname;

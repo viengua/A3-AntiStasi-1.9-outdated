@@ -100,7 +100,7 @@ if (_involveCSAT) then {
 				{_x assignAsCargo _vehicle; _x moveInCargo _vehicle} forEach units _group;
 				_redGroups pushBack _group;
 				[_vehicle,"CSAT Air Transport"] spawn inmuneConvoy;
-				if ((_marker in bases) OR (_marker in aeropuertos) OR (random 10 < _threatEvaluationAir)) then {
+				if ((_marker in bases) OR (_marker in airportsX) OR (random 10 < _threatEvaluationAir)) then {
 					{removebackpack _x; _x addBackpack "B_Parachute"} forEach units _group;
 					[_vehicle,_group,_marker,_threatEvaluationAir] spawn airdrop;
 				} else {
@@ -127,7 +127,7 @@ if (_involveCSAT) then {
 			[_targetMarker, selectRandom opCASFW] spawn airstrike;
 			sleep 30;
 		};
-		if ((_targetMarker in bases) OR (_targetMarker in aeropuertos)) then {
+		if ((_targetMarker in bases) OR (_targetMarker in airportsX)) then {
 			[_targetMarker] spawn artilleryX;
 		};
 	};
@@ -157,7 +157,7 @@ if !(_base == "") then {
 			_vehicleType = enemyMotorpoolDef;
 			_vehicleArray =+ (enemyMotorpool - vehPatrol);
 			if (_i == _maxCounter) then {
-				_basesFIA = count (mrkFIA arrayIntersect (bases + aeropuertos));
+				_basesFIA = count (mrkFIA arrayIntersect (bases + airportsX));
 				call {
 					if (_basesFIA < 1) exitWith {
 						_vehicleArray = _vehicleArray - vehTank - vehIFV;

@@ -1,9 +1,9 @@
 if (!isServer and hasInterface) exitWith {};
 
-private ["_tipo","_cantidad","_tipoMuni","_grupo","_unit","_tam","_roads","_road","_pos","_camion","_texto","_mrk","_ATminesAdd","_APminesAdd","_posicionTel","_tsk","_magazines","_typeMagazines","_cantMagazines","_newCantMagazines","_mina","_tipo","_camion"];
+private ["_tipo","_cantidad","_tipoMuni","_grupo","_unit","_tam","_roads","_road","_pos","_camion","_texto","_mrk","_ATminesAdd","_APminesAdd","_positionTel","_tsk","_magazines","_typeMagazines","_cantMagazines","_newCantMagazines","_mina","_tipo","_camion"];
 
 _tipo = _this select 0;
-_posicionTel = _this select 1;
+_positionTel = _this select 1;
 _cantidad = _this select 2;
 _coste = (2*(server getVariable guer_sol_EXP)) + ([guer_veh_truck] call vehiclePrice);
 [-2,-1*_coste] remoteExec [resourcesFIA,2];
@@ -44,7 +44,7 @@ for "_i" from 0 to (count _typeMagazines) - 1 do
 	caja addMagazineCargoGlobal [_typeMagazines select _i,_newCantMagazines select _i];
 	};
 
-_mrk = createMarker [format ["Minefield%1", random 1000], _posicionTel];
+_mrk = createMarker [format ["Minefield%1", random 1000], _positionTel];
 _mrk setMarkerShape "ELLIPSE";
 _mrk setMarkerSize [100,100];
 _mrk setMarkerType "hd_warning";
@@ -52,7 +52,7 @@ _mrk setMarkerColor "ColorRed";
 _mrk setMarkerBrush "DiagGrid";
 _mrk setMarkerText _texto;
 
-_tsk = ["Mines",[side_blue,civilian],[["STR_TSK_MINEFIELD_DESC",_cantidad],"STR_MINEFIELD_TITLE",_mrk],_posicionTel,"CREATED",5,true,true,"map"] call BIS_fnc_setTask;
+_tsk = ["Mines",[side_blue,civilian],[["STR_TSK_MINEFIELD_DESC",_cantidad],"STR_MINEFIELD_TITLE",_mrk],_positionTel,"CREATED",5,true,true,"map"] call BIS_fnc_setTask;
 misiones pushBack _tsk; publicVariable "misiones";
 
 _grupo = createGroup side_blue;
@@ -84,9 +84,9 @@ _camion allowCrewInImmobile true;
 
 //waitUntil {sleep 1; (count crew _camion > 0) or (!alive _camion) or ({alive _x} count units _grupo == 0)};
 
-waitUntil {sleep 1; (!alive _camion) or ((_camion distance _posicionTel < 50) and ({alive _x} count units _grupo > 0))};
+waitUntil {sleep 1; (!alive _camion) or ((_camion distance _positionTel < 50) and ({alive _x} count units _grupo > 0))};
 
-if ((_camion distance _posicionTel < 50) and ({alive _x} count units _grupo > 0)) then
+if ((_camion distance _positionTel < 50) and ({alive _x} count units _grupo > 0)) then
 	{
 	if (isPlayer leader _grupo) then
 		{
@@ -109,10 +109,10 @@ if ((_camion distance _posicionTel < 50) and ({alive _x} count units _grupo > 0)
 		deleteVehicle _camion;
 		for "_i" from 1 to _cantidad do
 			{
-			_mina = createMine [_tipo,_posicionTel,[],100];
+			_mina = createMine [_tipo,_positionTel,[],100];
 			side_blue revealMine _mina;
 			};
-		_tsk = ["Mines",[side_blue,civilian],[["STR_TSK_MINEFIELD_DESC",_cantidad],"STR_MINEFIELD_TITLE",_mrk],_posicionTel,"SUCCEEDED",5,true,true,"Map"] call BIS_fnc_setTask;
+		_tsk = ["Mines",[side_blue,civilian],[["STR_TSK_MINEFIELD_DESC",_cantidad],"STR_MINEFIELD_TITLE",_mrk],_positionTel,"SUCCEEDED",5,true,true,"Map"] call BIS_fnc_setTask;
 		sleep 15;
 		//[_tsk,true] call BIS_fnc_deleteTask;
 		[0,_tsk] spawn deleteTaskX;
@@ -120,7 +120,7 @@ if ((_camion distance _posicionTel < 50) and ({alive _x} count units _grupo > 0)
 		}
 	else
 		{
-		_tsk = ["Mines",[side_blue,civilian],[["STR_TSK_MINEFIELD_DESC",_cantidad],"STR_MINEFIELD_TITLE",_mrk],_posicionTel,"FAILED",5,true,true,"Map"] call BIS_fnc_setTask;
+		_tsk = ["Mines",[side_blue,civilian],[["STR_TSK_MINEFIELD_DESC",_cantidad],"STR_MINEFIELD_TITLE",_mrk],_positionTel,"FAILED",5,true,true,"Map"] call BIS_fnc_setTask;
 		sleep 15;
 		Slowhand hcRemoveGroup _grupo;
 		//[_tsk,true] call BIS_fnc_deleteTask;
@@ -133,7 +133,7 @@ if ((_camion distance _posicionTel < 50) and ({alive _x} count units _grupo > 0)
 	}
 else
 	{
-	_tsk = ["Mines",[side_blue,civilian],[["STR_TSK_MINEFIELD_DESC",_cantidad],"STR_MINEFIELD_TITLE",_mrk],_posicionTel,"FAILED",5,true,true,"Map"] call BIS_fnc_setTask;
+	_tsk = ["Mines",[side_blue,civilian],[["STR_TSK_MINEFIELD_DESC",_cantidad],"STR_MINEFIELD_TITLE",_mrk],_positionTel,"FAILED",5,true,true,"Map"] call BIS_fnc_setTask;
 	sleep 15;
 	Slowhand hcRemoveGroup _grupo;
 	//[_tsk,true] call BIS_fnc_deleteTask;

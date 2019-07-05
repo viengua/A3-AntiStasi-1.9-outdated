@@ -3,20 +3,20 @@ if (!allowPlayerRecruit) exitWith {hint "Server is very loaded. \nWait one minut
 	if (!([player] call hasRadio)) exitWith {hint "You need a radio in your inventory to be able to give orders to other squads"};
 _tipo = _this select 0;
 
-posicionTel = [];
+positionTel = [];
 
 hint "Select the spot from which the plane will start to drop the bombs";
 
 openMap true;
-onMapSingleClick "posicionTel = _pos;";
+onMapSingleClick "positionTel = _pos;";
 
-waitUntil {sleep 1; (count posicionTel > 0) or (!visibleMap)};
+waitUntil {sleep 1; (count positionTel > 0) or (!visibleMap)};
 onMapSingleClick "";
 
 if (!visibleMap) exitWith {};
 
-_pos1 = posicionTel;
-posicionTel = [];
+_pos1 = positionTel;
+positionTel = [];
 
 _mrkorig = createMarker [format ["BRStart%1",random 1000], _pos1];
 _mrkorig setMarkerShape "ICON";
@@ -26,15 +26,15 @@ _mrkOrig setMarkerText "Bomb Run Init";
 
 hint "Select the map position to which the plane will exit to calculate plane's route vector";
 
-onMapSingleClick "posicionTel = _pos;";
+onMapSingleClick "positionTel = _pos;";
 
-waitUntil {sleep 1; (count posicionTel > 0) or (!visibleMap)};
+waitUntil {sleep 1; (count positionTel > 0) or (!visibleMap)};
 onMapSingleClick "";
 
 if (!visibleMap) exitWith {deleteMarker _mrkOrig};
 
-_pos2 = posicionTel;
-posicionTel = [];
+_pos2 = positionTel;
+positionTel = [];
 
 _ang = [_pos1,_pos2] call BIS_fnc_dirTo;
 

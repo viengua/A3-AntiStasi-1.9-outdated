@@ -16,7 +16,7 @@ params ["_orig", "_dest", "_mrk", "_duration", "_composition", "_size", ["_sourc
 
 // FIA bases/airports
 _bases = bases arrayIntersect mrkAAF;
-_airports = aeropuertos arrayIntersect mrkAAF;
+_airports = airportsX arrayIntersect mrkAAF;
 
 _posComp = ["transport", "destroy", "mixed"];
 if !(_composition in _posComp) exitWith {};
@@ -302,7 +302,7 @@ if !(_varName isEqualTo "") then {
 // remove the remains
 {
 	_soldado = _x;
-	waitUntil {sleep 1; {_x distance _soldado < distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F")) == 0};
+	waitUntil {sleep 1; {_x distance _soldado < distanceSPWN} count (allPlayers - (entities "HeadlessClient_F")) == 0};
 	deleteVehicle _soldado;
 } forEach _soldados;
 
@@ -310,7 +310,7 @@ if !(_varName isEqualTo "") then {
 
 {
 	_vehiculo = _x;
-	waitUntil {sleep 1; {_x distance _vehiculo < distanciaSPWN/2} count (allPlayers - (entities "HeadlessClient_F")) == 0};
+	waitUntil {sleep 1; {_x distance _vehiculo < distanceSPWN/2} count (allPlayers - (entities "HeadlessClient_F")) == 0};
 	deleteVehicle _x
 } forEach _vehiculos;
 

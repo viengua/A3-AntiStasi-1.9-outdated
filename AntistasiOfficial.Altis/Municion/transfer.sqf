@@ -1,4 +1,4 @@
-private ["_camion","_objetos","_todo","_proceder","_caja","_armas","_municion","_items","_mochis","_contenedores","_cuenta","_exists"];
+private ["_camion","_objetos","_todo","_proceder","_caja","_armas","_municion","_items","_mochis","_containers","_cuenta","_exists"];
 /*
 spanish to english dictionary:
 camion = truck

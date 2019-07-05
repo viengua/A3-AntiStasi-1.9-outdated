@@ -195,15 +195,15 @@ waitUntil {sleep 5;
 	[0,_tsk] spawn deleteTaskX;
 	[2400] remoteExec ["AS_fnc_increaseAttackTimer",2];
 	{
-	waitUntil {sleep 1; !([distanciaSPWN,1,_x,"BLUFORSpawn"] call distanceUnits)};
+	waitUntil {sleep 1; !([distanceSPWN,1,_x,"BLUFORSpawn"] call distanceUnits)};
 	deleteVehicle _x;
 	} forEach _soldados;
 	{
-	waitUntil {sleep 1; !([distanciaSPWN,1,_x,"BLUFORSpawn"] call distanceUnits)};
+	waitUntil {sleep 1; !([distanceSPWN,1,_x,"BLUFORSpawn"] call distanceUnits)};
 	deleteVehicle _x;
 	} forEach _pilotos;
 	{
-	if (!([distanciaSPWN,1,_x,"BLUFORSpawn"] call distanceUnits)) then {deleteVehicle _x};
+	if (!([distanceSPWN,1,_x,"BLUFORSpawn"] call distanceUnits)) then {deleteVehicle _x};
 	} forEach _vehiculos;
 	{deleteGroup _x} forEach _grupos;
 

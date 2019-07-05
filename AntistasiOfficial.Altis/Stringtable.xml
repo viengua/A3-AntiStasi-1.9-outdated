@@ -3,7 +3,7 @@
 	<Package name="MissionNames">
 		<Container name="MissionNames_0">
 			<Key ID="STR_MISSION_NAME_SQM">
-				<Original>[SP/CO]- Antistasi 1.9.1.3d Altis Blufor - 1-0002</Original>
+				<Original>[SP/CO]- Antistasi 1.9.1.3d Altis Blufor - 1-0003</Original>
 			</Key>
 			<Key ID="STR_MISSION_NAME_INITVAR_SQF">
 				<Original>v 1.9.1.3d</Original>
@@ -4890,7 +4890,7 @@
 					- Apoyo OTAN: El Comandante puede solicitar a la facción aliada un apoyo contundente en la batalla (la facción aliada será diferente dependiendo del mod/vanilla blufor/greenfor). Comprueba las entradas de diario de las Opciones de Comandante y de las Características Antistasi - Apoyo. &lt;br/&gt;&lt;br/&gt;
 
 					- Apoyo CSAT: la facción enemiga (de nuevo, será diferente dependiendo del mod/vanilla blufor/greenfor) ayudará al enemigo y cuando este valor sea muy alto, empezarán a bombardear ciudades. &lt;br/&gt;
-					Tras destruir 8 ciudades, la campaña se habrá perdido. El apoyo CSAT crece si conquistas bases y aeropuertos enemigos, también si destruyes emplazamientos AA en cimas de colina con nombre. &lt;br/&gt;&lt;br/&gt;
+					Tras destruir 8 ciudades, la campaña se habrá perdido. El apoyo CSAT crece si conquistas bases y airportsX enemigos, también si destruyes emplazamientos AA en cimas de colina con nombre. &lt;br/&gt;&lt;br/&gt;
 
 					- XP Ejército: indica el nivel XP del Ejército, consulta la sección relativa en el diario para una explicación detallada, las flechas muestran lo cerca que estás del siguiente nivel y, si están en rojo, significa que no has cumplido el requisito para la próxima actualización de nivel.&lt;br/&gt;&lt;br/&gt;
 
@@ -5535,7 +5535,7 @@
 					El apoyo disminuye cuando los civiles resultan heridos (muertos, o se enfadan por perder la electricidad) o si ejecutan prisoneros.&lt;br/&gt;
 					El Comandante puede usar el apoyo de la Facción Aliada de diversas formas (comprueba la sección correspondiente).&lt;br/&gt;&lt;br/&gt;
 
-					El apoyo enemigo se acumula cuando conquistas Bases, Aeropuertos o Cimas AA.&lt;br/&gt;
+					El apoyo enemigo se acumula cuando conquistas Bases, airportsX o Cimas AA.&lt;br/&gt;
 					Se puede reducir pidiendo a la facción aliada que asalte los emplazamientos militares enemigos lejos de Altis.&lt;br/&gt;
 					Si el apoyo enemigo es muy alto, su Facción de apoyo empezará a bombardear ciudades. Si destruyen 8 ciudades habrás perdido la campaña.
 				</Spanish>

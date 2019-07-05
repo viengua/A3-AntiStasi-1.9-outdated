@@ -1,7 +1,7 @@
 // Shift+ctrl+Y when mortar and NATO arty are selected.
 if (count hcSelected player != 1) exitWith {hint "You must select an artillery group"};
 
-private ["_grupo","_artyArray","_artyRoundsArr","_hayMuni","_estanListos","_hayArty","_estanVivos","_soldado","_veh","_tipoMuni","_tipoArty","_posicionTel","_artyArrayDef1","_artyRoundsArr1","_pieza","_isInRange","_posicionTel2","_rounds","_roundsMax","_marcador","_size","_forzado","_texto","_mrkfin","_mrkfin2","_tiempo","_eta","_cuenta","_pos","_ang"];
+private ["_grupo","_artyArray","_artyRoundsArr","_hayMuni","_areReady","_hayArty","_estanVivos","_soldado","_veh","_tipoMuni","_tipoArty","_positionTel","_artyArrayDef1","_artyRoundsArr1","_pieza","_isInRange","_positionTel2","_rounds","_roundsMax","_marcador","_size","_forzado","_texto","_mrkfin","_mrkfin2","_tiempo","_eta","_cuenta","_pos","_ang"];
 
 _grupo = hcSelected player select 0;
 
@@ -9,7 +9,7 @@ _artyArray = [];
 _artyRoundsArr = [];
 
 _hayMuni = 0;
-_estanListos = false;
+_areReady = false;
 _hayArty = false;
 _estanVivos = false;
 {
@@ -70,7 +70,7 @@ if ((_veh != _soldado) and (not(_veh in _artyArray))) then
 				{
 				if (unitReady _veh) then
 					{
-					_estanListos = true;
+					_areReady = true;
 					_artyArray pushBack _veh;
 					_artyRoundsArr pushBack (((magazinesAmmo _veh) select 0)select 1);
 					};
@@ -83,8 +83,8 @@ if ((_veh != _soldado) and (not(_veh in _artyArray))) then
 if (isNil "_tipoMuni") exitWith {};
 if (!_hayArty) exitWith {hint "You must select an artillery group or it is a Mobile Mortar and it's moving"};
 if (!_estanVivos) exitWith {hint "All elements in this Batery cannot fire or are disabled"};
-if ((_hayMuni < 2) and (!_estanListos)) exitWith {hint "The Battery has no ammo to fire. Reload it on HQ"};
-if (!_estanListos) exitWith {hint "Selected Battery is busy right now"};
+if ((_hayMuni < 2) and (!_areReady)) exitWith {hint "The Battery has no ammo to fire. Reload it on HQ"};
+if (!_areReady) exitWith {hint "Selected Battery is busy right now"};
 
 hcShowBar false;
 hcShowBar true;
@@ -107,19 +107,19 @@ _tipoArty = tipoArty;
 tipoArty = nil;
 
 
-posicionTel = [];
+positionTel = [];
 
 hint "Select the position on map where to perform the Artillery strike";
 
 openMap true;
-onMapSingleClick "posicionTel = _pos;";
+onMapSingleClick "positionTel = _pos;";
 
-waitUntil {sleep 1; (count posicionTel > 0) or (!visibleMap)};
+waitUntil {sleep 1; (count positionTel > 0) or (!visibleMap)};
 onMapSingleClick "";
 
 if (!visibleMap) exitWith {};
 
-_posicionTel = posicionTel;
+_positionTel = positionTel;
 
 _artyArrayDef1 = [];
 _artyRoundsArr1 = [];
@@ -127,7 +127,7 @@ _artyRoundsArr1 = [];
 for "_i" from 0 to (count _artyArray) - 1 do
 	{
 	_pieza = _artyArray select _i;
-	_isInRange = _posicionTel inRangeOfArtillery [[_pieza], ((getArtilleryAmmo [_pieza]) select 0)];
+	_isInRange = _positionTel inRangeOfArtillery [[_pieza], ((getArtilleryAmmo [_pieza]) select 0)];
 	if (_isInRange) then
 		{
 		_artyArrayDef1 pushBack _pieza;
@@ -137,7 +137,7 @@ for "_i" from 0 to (count _artyArray) - 1 do
 
 if (_artyArrayDef1 isEqualTo []) exitWith {hint "The position you marked is out of bounds for that Battery"};
 
-_mrkfin = createMarker [format ["Arty%1", random 100], _posicionTel];
+_mrkfin = createMarker [format ["Arty%1", random 100], _positionTel];
 _mrkfin setMarkerShape "ICON";
 _mrkfin setMarkerType "hd_destroy";
 _mrkfin setMarkerColor "ColorRed";
@@ -145,20 +145,20 @@ _mrkfin setMarkerColor "ColorRed";
 if (_tipoArty == "BARRAGE") then
 	{
 	_mrkfin setMarkerText "Arty Barrage Begin";
-	posicionTel = [];
+	positionTel = [];
 
 	hint "Select the position to finish the barrage";
 
 	openMap true;
-	onMapSingleClick "posicionTel = _pos;";
+	onMapSingleClick "positionTel = _pos;";
 
-	waitUntil {sleep 1; (count posicionTel > 0) or (!visibleMap)};
+	waitUntil {sleep 1; (count positionTel > 0) or (!visibleMap)};
 	onMapSingleClick "";
 
-	_posicionTel2 = posicionTel;
+	_positionTel2 = positionTel;
 	};
 
-if ((_tipoArty == "BARRAGE") and (isNil "_posicionTel2")) exitWith {deleteMarker _mrkfin};
+if ((_tipoArty == "BARRAGE") and (isNil "_positionTel2")) exitWith {deleteMarker _mrkfin};
 
 if (_tipoArty != "BARRAGE") then
 	{
@@ -185,34 +185,34 @@ if (_tipoArty != "BARRAGE") then
 	}
 else
 	{
-	_rounds = round (_posicionTel distance _posicionTel2) / 10;
+	_rounds = round (_positionTel distance _positionTel2) / 10;
 	_roundsMax = _rounds;
 	};
 
-_marcador = [markers,_posicionTel] call BIS_fnc_nearestPosition;
+_marcador = [markers,_positionTel] call BIS_fnc_nearestPosition;
 _size = [_marcador] call sizeMarker;
 _forzado = false;
 
-if ((not(_marcador in forcedSpawn)) and (_posicionTel distance (getMarkerPos _marcador) < _size) and (not(spawner getVariable _marcador))) then
+if ((not(_marcador in forcedSpawn)) and (_positionTel distance (getMarkerPos _marcador) < _size) and (not(spawner getVariable _marcador))) then
 	{
 	_forzado = true;
 	forcedSpawn pushBack _marcador;
 	publicVariable "forcedSpawn";
 	};
 
-_texto = format ["Requesting fire support on Grid %1. %2 Rounds", mapGridPosition _posicionTel, round _rounds];
+_texto = format ["Requesting fire support on Grid %1. %2 Rounds", mapGridPosition _positionTel, round _rounds];
 [[Slowhand,"sideChat",_texto],"commsMP"] call BIS_fnc_MP;
 
 if (_tipoArty == "BARRAGE") then
 	{
-	_mrkfin2 = createMarker [format ["Arty%1", random 100], _posicionTel2];
+	_mrkfin2 = createMarker [format ["Arty%1", random 100], _positionTel2];
 	_mrkfin2 setMarkerShape "ICON";
 	_mrkfin2 setMarkerType "hd_destroy";
 	_mrkfin2 setMarkerColor "ColorRed";
 	_mrkfin2 setMarkerText "Arty Barrage End";
-	_ang = [_posicionTel,_posicionTel2] call BIS_fnc_dirTo;
+	_ang = [_positionTel,_positionTel2] call BIS_fnc_dirTo;
 	sleep 5;
-	_eta = (_artyArrayDef1 select 0) getArtilleryETA [_posicionTel, ((getArtilleryAmmo [(_artyArrayDef1 select 0)]) select 0)];
+	_eta = (_artyArrayDef1 select 0) getArtilleryETA [_positionTel, ((getArtilleryAmmo [(_artyArrayDef1 select 0)]) select 0)];
 	_tiempo = time + _eta;
 	_texto = format ["Acknowledged. Fire mission is inbound. ETA %1 secs for the first impact",round _eta];
 	[[petros,"sideChat",_texto],"commsMP"] call BIS_fnc_MP;
@@ -225,7 +225,7 @@ if (_tipoArty == "BARRAGE") then
 		};
 	};
 
-_pos = [_posicionTel,random 10,random 360] call BIS_fnc_relPos;
+_pos = [_positionTel,random 10,random 360] call BIS_fnc_relPos;
 
 for "_i" from 0 to (count _artyArrayDef1) - 1 do {
 	if (_rounds > 0) then {
@@ -283,7 +283,7 @@ for "_i" from 0 to (count _artyArrayDef1) - 1 do {
 if (_tipoArty != "BARRAGE") then
 	{
 	sleep 5;
-	_eta = (_artyArrayDef1 select 0) getArtilleryETA [_posicionTel, ((getArtilleryAmmo [(_artyArrayDef1 select 0)]) select 0)];
+	_eta = (_artyArrayDef1 select 0) getArtilleryETA [_positionTel, ((getArtilleryAmmo [(_artyArrayDef1 select 0)]) select 0)];
 	_tiempo = time + _eta - 5;
 	_texto = format ["Acknowledged. Fire mission is inbound. %2 Rounds fired. ETA %1 secs",round _eta,_roundsMax - _rounds];
 	[[petros,"sideChat",_texto],"commsMP"] call BIS_fnc_MP;

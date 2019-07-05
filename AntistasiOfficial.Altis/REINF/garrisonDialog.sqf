@@ -1,25 +1,25 @@
-private ["_tipo","_posicionTel","_cercano","_garrison","_coste","_hr","_size"];
+private ["_tipo","_positionTel","_cercano","_garrison","_coste","_hr","_size"];
 _tipo = _this select 0;
 
 if (_tipo == "add") then {hint "Select a zone to add garrisoned troops"} else {hint "Select a zone to remove it's Garrison"};
 
 openMap true;
-posicionTel = [];
+positionTel = [];
 
-onMapSingleClick "posicionTel = _pos;";
+onMapSingleClick "positionTel = _pos;";
 
-waitUntil {sleep 1; (count posicionTel > 0) or (not visiblemap)};
+waitUntil {sleep 1; (count positionTel > 0) or (not visiblemap)};
 onMapSingleClick "";
 
 if (!visibleMap) exitWith {};
 
-_posicionTel = posicionTel;
+_positionTel = positionTel;
 posicionGarr = [];
 
-_cercano = [markers,_posicionTel] call BIS_fnc_nearestPosition;
+_cercano = [markers,_positionTel] call BIS_fnc_nearestPosition;
 _posicion = getMarkerPos _cercano;
 
-if (getMarkerPos _cercano distance _posicionTel > 40) exitWith {hint "You must click near a marked zone"; CreateDialog "garrison_menu";};
+if (getMarkerPos _cercano distance _positionTel > 40) exitWith {hint "You must click near a marked zone"; CreateDialog "garrison_menu";};
 
 if (_cercano in mrkAAF) exitWith {hint "That zone does not belong to FIA"; CreateDialog "garrison_menu";};
 
@@ -77,7 +77,7 @@ else
 		{
 		if ({(alive _x) and (!captive _x) and ((side _x == side_green) or (side _x == side_red)) and (_x distance _posicion < safeDistance_garrison)} count allUnits > 0) exitWith {hint "You cannot add soldiers to this garrison while there are enemies nearby"; CreateDialog "garrison_menu"};
 		};
-	posicionGarr = _posicionTel;
+	posicionGarr = _positionTel;
 	publicVariable "posicionGarr";
 	hint format ["Info%1",[_cercano] call AS_fnc_getGarrisonInfo];
 	closeDialog 0;

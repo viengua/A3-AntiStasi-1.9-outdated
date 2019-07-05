@@ -14,10 +14,10 @@ _posHQ = getMarkerPos guer_respawn;
 
 _tiempolim   = 60;
 _fechalim    = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-_fechalimnum = dateToNumber _fechalim;
+_dateLimitNum = dateToNumber _fechalim;
 
 _fMarkers = mrkFIA + campsFIA;
-_hMarkers = bases + aeropuertos + puestos - mrkFIA;
+_hMarkers = bases + airportsX + puestos - mrkFIA;
 
 _basesAAF = bases - mrkFIA;
 _bases	  = [];
@@ -61,7 +61,7 @@ while {true} do {
 
 	// setting the mission
 
-	_tsk = ["DES", [side_blue, civilian], [[_tskDesc, _nombredest, numberToDate [2035, _fechalimnum] select 3, numberToDate [2035, _fechalimnum] select 4, A3_Str_INDEP], _tskTitle, _mrkfin], _missionchurch, "CREATED", 5, true, true, "Destroy"] call BIS_fnc_setTask;
+	_tsk = ["DES", [side_blue, civilian], [[_tskDesc, _nombredest, numberToDate [2035, _dateLimitNum] select 3, numberToDate [2035, _dateLimitNum] select 4, A3_Str_INDEP], _tskTitle, _mrkfin], _missionchurch, "CREATED", 5, true, true, "Destroy"] call BIS_fnc_setTask;
 	misiones pushBack _tsk;
 	publicVariable "misiones";
 
@@ -144,16 +144,16 @@ while {true} do {
 	// mission win/fail and closing mission; calls QRF
 
 	waitUntil  {sleep 5;
-		    (dateToNumber date > _fechalimnum)or ({alive _x} count units _group1 < 4)};
+		    (dateToNumber date > _dateLimitNum)or ({alive _x} count units _group1 < 4)};
 
-	if (dateToNumber date > _fechalimnum) then
+	if (dateToNumber date > _dateLimitNum) then
 		{
-			_tsk = ["DES", [side_blue, civilian], [[_tskDesc, _nombredest, numberToDate [2035, _fechalimnum] select 3, numberToDate [2035, _fechalimnum] select 4, A3_Str_INDEP], _tskTitle, _mrkfin], _missionchurch, "FAILED", 5, true, true, "Destroy"] call BIS_fnc_setTask;
+			_tsk = ["DES", [side_blue, civilian], [[_tskDesc, _nombredest, numberToDate [2035, _dateLimitNum] select 3, numberToDate [2035, _dateLimitNum] select 4, A3_Str_INDEP], _tskTitle, _mrkfin], _missionchurch, "FAILED", 5, true, true, "Destroy"] call BIS_fnc_setTask;
 			[5, 0, _posicion] remoteExec ["AS_fnc_changeCitySupport", 2];
 			[-50] remoteExec ["AS_fnc_increaseAttackTimer", 2];
 			[-20, Slowhand] call playerScoreAdd;
 		} else {
-			_tsk = ["DES", [side_blue, civilian], [[_tskDesc, _nombredest, numberToDate [2035, _fechalimnum] select 3, numberToDate [2035, _fechalimnum] select 4, A3_Str_INDEP], _tskTitle, _mrkfin], _missionchurch, "SUCCEEDED", 5, true, true, "Destroy"] call BIS_fnc_setTask;
+			_tsk = ["DES", [side_blue, civilian], [[_tskDesc, _nombredest, numberToDate [2035, _dateLimitNum] select 3, numberToDate [2035, _dateLimitNum] select 4, A3_Str_INDEP], _tskTitle, _mrkfin], _missionchurch, "SUCCEEDED", 5, true, true, "Destroy"] call BIS_fnc_setTask;
 			[3, 200] remoteExec ["resourcesFIA", 2];
 			[0, 5, _posicion] remoteExec ["AS_fnc_changeCitySupport", 2];
 			[_mrkchurch] remoteExec ["patrolCA",  call AS_fnc_getNextWorker];

@@ -31,21 +31,21 @@ if (_chequeo) exitWith {Hint localize "STR_HINTS_FTR_YCFTWENTG"};
 
 if (_chequeo) exitWith {Hint localize "STR_HINTS_FTR_YCFTIYDHADIAY"};
 
-posicionTel = [];
+positionTel = [];
 
 if (_esHC) then {hcShowBar false};
 hint localize "STR_HINTS_FTR_COTZYWTT";
 openMap true;
-onMapSingleClick "posicionTel = _pos;";
+onMapSingleClick "positionTel = _pos;";
 
-waitUntil {sleep 1; (count posicionTel > 0) or (not visiblemap)};
+waitUntil {sleep 1; (count positionTel > 0) or (not visiblemap)};
 onMapSingleClick "";
 
-_posicionTel = posicionTel;
+_positionTel = positionTel;
 
-if (count _posicionTel > 0) then
+if (count _positionTel > 0) then
 	{
-	_base = [_markers, _posicionTel] call BIS_Fnc_nearestPosition;
+	_base = [_markers, _positionTel] call BIS_Fnc_nearestPosition;
 
 	if (_base in mrkAAF) exitWith {hint localize "STR_HINTS_FTR_YCFTTAECZ"; openMap [false,false]};
 
@@ -59,7 +59,7 @@ if (count _posicionTel > 0) then
 
 	if (_chequeo) exitWith {Hint localize "STR_HINTS_FTR_YCFTTAAUAOWE"; openMap [false,false]};
 
-	if (_posicionTel distance getMarkerPos _base < 50) then
+	if (_positionTel distance getMarkerPos _base < 50) then
 		{
 		_posicion = [getMarkerPos _base, 10, random 360] call BIS_Fnc_relPos;
 		_distancia = round (((position _jefe) distance _posicion)/200);
