@@ -14,7 +14,7 @@ private ["_hr","_resourcesFIA","_spawnData","_roadPos","_direction","_spawnPos",
 
 if (_check) exitWith {Hint "You cannot Recruit Squads with enemies near your HQ"};
 
-_spawnData = [(getMarkerPos guer_respawn), [ciudades, (getMarkerPos guer_respawn)] call BIS_fnc_nearestPosition] call AS_fnc_findRoadspot;
+_spawnData = [(getMarkerPos guer_respawn), [citiesX, (getMarkerPos guer_respawn)] call BIS_fnc_nearestPosition] call AS_fnc_findRoadspot;
 if(_spawnData isequalto []) exitwith {hint localize "STR_HINTS_COMMANDER_HQRECRUITFAR"; commanderX globalChat localize "STR_HINTS_COMMANDER_HQRECRUITFAR";};
 
 _hr = server getVariable ["hr",0];

@@ -3,14 +3,14 @@ if (!isServer and hasInterface) exitWith{};
 _tskTitle = "STR_TSK_TD_DesAntenna";
 _tskDesc = "STR_TSK_TD_DESC_DesAntenna";
 
-private ["_antena","_posicion","_tiempolim","_marcador","_nameDest","_mrkfin","_tsk"];
+private ["_antena","_posicion","_timeLimit","_marcador","_nameDest","_mrkfin","_tsk"];
 
 _antena = _this select 0;
 _posicion = getPos _antena;
 
-_tiempolim = 120;
-_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-_dateLimitNum = dateToNumber _fechalim;
+_timeLimit = 120;
+_dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
+_dateLimitNum = dateToNumber _dateLimit;
 _marcador = [markers,_posicion] call BIS_fnc_nearestPosition;
 _nameDest = [_marcador] call AS_fnc_localizar;
 

@@ -1,4 +1,4 @@
-private ["_unit","_coste","_armas","_municion","_caja","_items"];
+private ["_unit","_coste","_armas","_ammunition","_caja","_items"];
 
 _unit = _this select 0;
 
@@ -20,7 +20,7 @@ else
 	[1,0] remoteExec ["prestige",2];
 	};
 _armas = [];
-_municion = [];
+_ammunition = [];
 _items = [];
 _unit allowDamage false;
 [_unit] orderGetin false;
@@ -39,8 +39,8 @@ clearItemCargoGlobal _caja;
 clearBackpackCargoGlobal _caja;
 _armas = weapons _unit;
 {_caja addWeaponCargoGlobal [[_x] call BIS_fnc_baseWeapon,1]} forEach _armas;
-_municion = magazines _unit;
-{_caja addMagazineCargoGlobal [_x,1]} forEach _municion;
+_ammunition = magazines _unit;
+{_caja addMagazineCargoGlobal [_x,1]} forEach _ammunition;
 _items = assignedItems _unit + items _unit + primaryWeaponItems _unit;
 {_caja addItemCargoGlobal [_x,1]} forEach _items;
 removeAllWeapons _unit;

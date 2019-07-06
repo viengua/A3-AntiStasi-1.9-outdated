@@ -13,7 +13,7 @@ _dest = _this select 1;
 
 // names of locations for the task description
 _origName = format ["the %1 carrier", A3_Str_BLUE];
-_destName = [([ciudades, _dest] call BIS_fnc_nearestPosition)] call AS_fnc_localizar;
+_destName = [([citiesX, _dest] call BIS_fnc_nearestPosition)] call AS_fnc_localizar;
 
 // kind of QRF: air/land
 _type = "air";
@@ -38,9 +38,9 @@ _mrk setMarkerType "b_support";
 _mrk setMarkerText (format ["%1 QRF", A3_Str_BLUE]);
 
 // mission time restricted to 30 minutes
-_tiempolim = 30;
-_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-_dateLimitNum = dateToNumber _fechalim;
+_timeLimit = 30;
+_dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
+_dateLimitNum = dateToNumber _dateLimit;
 
 _tsk = ["NATOQRF",[side_blue,civilian],[["Our Commander asked %3 for reinforcements near %1. Their troops will depart from %2.",_destName,_origName, A3_Str_BLUE],["%1 QRF", A3_Str_BLUE],_mrk],_dest,"CREATED",5,true,true,"Move"] call BIS_fnc_setTask;
 misiones pushBackUnique _tsk; publicVariable "misiones";
@@ -52,7 +52,7 @@ misiones pushBackUnique _tsk; publicVariable "misiones";
 // arrays of all spawned units/groups
 _grupos = [];
 _soldados = [];
-_vehiculos = [];
+_vehiclesX = [];
 
 // initialise groups, two for vehicles, two for dismounts
 _grpVeh1 = createGroup side_blue;
@@ -75,7 +75,7 @@ if (_type == "air") then {
 	_landpos1 = [_dest, 0, 150, 10, 0, 0.3, 0] call BIS_Fnc_findSafePos;
 	_landpos1 set [2, 0];
 	_pad1 = createVehicle ["Land_HelipadEmpty_F", _landpos1, [], 0, "NONE"];
-	_vehiculos = _vehiculos + [_pad1];
+	_vehiclesX = _vehiclesX + [_pad1];
 
 	// first chopper
 	_vehicle = [_posOrig, 0, selectRandom bluHeliArmed, side_blue] call bis_fnc_spawnvehicle;
@@ -87,7 +87,7 @@ if (_type == "air") then {
 	[_heli1] spawn NATOVEHinit;
 	_soldados = _soldados + _heliCrew;
 	_grupos = _grupos + [_grpVeh1];
-	_vehiculos = _vehiculos + [_heli1];
+	_vehiclesX = _vehiclesX + [_heli1];
 	_heli1 lock 3;
 
 	// spawn loiter script for armed escort
@@ -110,7 +110,7 @@ if (_type == "air") then {
 	[_heli2] spawn NATOVEHinit;
 	_soldados = _soldados + _heliCrew2;
 	_grupos = _grupos + [_grpVeh2];
-	_vehiculos = _vehiculos + [_heli2];
+	_vehiclesX = _vehiclesX + [_heli2];
 	_heli2 lock 3;
 
 	// add dismounts
@@ -147,7 +147,7 @@ else {
 	_grpVeh1 = _vehicle1 select 2;
 	{[_x] spawn NATOinitCA} forEach _vehCrew1;
 	_soldados = _soldados + _vehCrew1;
-	_vehiculos = _vehiculos + [_veh1];
+	_vehiclesX = _vehiclesX + [_veh1];
 
 	// add dismounts
 	{
@@ -173,7 +173,7 @@ else {
 	_grpVeh2 = _vehicle2 select 2;
 	{[_x] spawn NATOinitCA} forEach _vehCrew2;
 	_soldados = _soldados + _vehCrew2;
-	_vehiculos = _vehiculos + [_veh2];
+	_vehiclesX = _vehiclesX + [_veh2];
 
 	// add dismounts
 	{
@@ -226,4 +226,4 @@ deleteMarker "NATOQRF";
 	_vehiculo = _x;
 	waitUntil {sleep 1; {_x distance _vehiculo < distanceSPWN/2} count (allPlayers - (entities "HeadlessClient_F")) == 0};
 	deleteVehicle _x
-} forEach _vehiculos;
+} forEach _vehiclesX;

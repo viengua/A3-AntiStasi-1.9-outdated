@@ -8,9 +8,9 @@ _source = _this select 1;
 
 _initialPosition = getMarkerPos _initialMarker;
 
-_tiempolim = 60;
-_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-_dateLimitNum = dateToNumber _fechalim;
+_timeLimit = 60;
+_dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
+_dateLimitNum = dateToNumber _dateLimit;
 
 _tam = [_initialMarker] call sizeMarker;
 _houses = nearestObjects [_initialPosition, ["house"], _tam];
@@ -85,8 +85,8 @@ _mrk setMarkerColorLocal "ColorRed";
 _mrk setMarkerBrushLocal "DiagGrid";
 _mrk setMarkerAlphaLocal 0;
 
-_tipoGrupo = [infSquad, side_green] call AS_fnc_pickGroup;
-_grupo = [_initialPosition, side_green, _tipogrupo] call BIS_Fnc_spawnGroup;
+_typeGroup = [infSquad, side_green] call AS_fnc_pickGroup;
+_grupo = [_initialPosition, side_green, _typeGroup] call BIS_Fnc_spawnGroup;
 sleep 1;
 if (random 10 < 2.5) then
 	{

@@ -2,7 +2,7 @@ private ["_allMarkers","_sizeX","_sizeY","_size","_name","_pos","_roads","_numCi
 
 AS_destroyedZones = [];
 forcedSpawn = [];
-ciudades = [];
+citiesX = [];
 colinas = [];
 colinasAA = [];
 power = [];
@@ -25,7 +25,7 @@ posAntennas = [];
 antenas = [];
 mrkAntennas = [];
 bancos = [];
-posbancos = [];
+posBank = [];
 supplySaveArray = [];
 safeDistance_undercover = 350;
 safeDistance_garage = 200;
@@ -129,7 +129,7 @@ markers = power + bases + airportsX + recursos + fabricas + puestos + puertos + 
         _mrk setMarkerColor IND_marker_colour;
         _mrk setMarkerText _name;
         _mrk setMarkerAlpha 0;
-        ciudades pushBack _name;
+        citiesX pushBack _name;
         spawner setVariable [_name,false,true];
         _dmrk = createMarker [format ["Dum%1",_name], _pos];
         _dmrk setMarkerShape "ICON";
@@ -168,7 +168,7 @@ markers = power + bases + airportsX + recursos + fabricas + puestos + puertos + 
     };
 } foreach (nearestLocations [getArray (configFile >> "CfgWorlds" >> worldName >> "centerPosition"), ["Hill"], worldSize/1.414]);
 
-markers = markers + colinas + ciudades;
+markers = markers + colinas + citiesX;
 
 planesAAFmax = count airportsX;
 helisAAFmax = 2* (count airportsX);
@@ -243,7 +243,7 @@ mrkAAF = markers - ["FIA_HQ"];
 publicVariable "mrkAAF";
 publicVariable "mrkFIA";
 publicVariable "markers";
-publicVariable "ciudades";
+publicVariable "citiesX";
 publicVariable "colinas";
 publicVariable "colinasAA";
 publicVariable "power";
@@ -299,9 +299,9 @@ if (count posAntennas > 0) then {
 publicVariable "antenas";
 antennasDead = [];
 
-if (count posbancos > 0) then {
-	for "_i" from 0 to (count posbancos - 1) do {
-		_bankArray = nearestObjects [posbancos select _i,["Land_Offices_01_V1_F"], 25];
+if (count posBank > 0) then {
+	for "_i" from 0 to (count posBank - 1) do {
+		_bankArray = nearestObjects [posBank select _i,["Land_Offices_01_V1_F"], 25];
 		if (count _bankArray > 0) then {
 			_bank = _bankArray select 0;
 			bancos = bancos + [_bank];

@@ -1,9 +1,9 @@
-private ["_veh","_grupo","_posicion","_posorigen","_heli","_landpos","_wp","_d","_wp2","_wp3"];
+private ["_veh","_grupo","_posicion","_posOrigin","_heli","_landpos","_wp","_d","_wp2","_wp3"];
 
 _veh = _this select 0;
 _grupo = _this select 1;
 _posicion = _this select 2;
-_posorigen = _this select 3;
+_posOrigin = _this select 3;
 _heli = _this select 4;
 
 _landpos = [];

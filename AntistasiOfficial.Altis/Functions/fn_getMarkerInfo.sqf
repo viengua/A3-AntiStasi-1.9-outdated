@@ -12,11 +12,11 @@ _pop = 0;
 	_popFIA = _popFIA + (_numCiv * (_prestigeBLUFOR / 100));
 	_popAAF = _popAAF + (_numCiv * (_prestigeOPFOR / 100));
 	_pop = _pop + _numCiv;
-} forEach ciudades;
+} forEach citiesX;
 _popFIA = round _popFIA;
 _popAAF = round _popAAF;
 
-_text = format ["%1\n\nTotal population: %2\n%3 Support: %4\n%5 Support: %6 \n\nDestroyed Cities: %7\n\nClick on a zone for detailed info.", worldName, _pop, A3_Str_PLAYER, _popFIA, A3_Str_INDEP, _popAAF, {_x in destroyedCities} count ciudades];
+_text = format ["%1\n\nTotal population: %2\n%3 Support: %4\n%5 Support: %6 \n\nDestroyed Cities: %7\n\nClick on a zone for detailed info.", worldName, _pop, A3_Str_PLAYER, _popFIA, A3_Str_INDEP, _popAAF, {_x in destroyedCities} count citiesX];
 hint _text;
 
 _fn_text = {
@@ -58,7 +58,7 @@ while {visibleMap} do {
 			if (_location == "FIA_HQ") exitWith {
 				_text = format ["%1 HQ%2", A3_Str_PLAYER, [_location] call AS_fnc_getGarrisonInfo];
 			};
-			if (_location in ciudades) exitWith {
+			if (_location in citiesX) exitWith {
 				_data = server getVariable _location;
 				_numCiv = _data select 0;
 				_prestigeOPFOR = _data select 2;

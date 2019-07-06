@@ -28,9 +28,9 @@ _mrkfin setMarkerTypeLocal "hd_warning";
 _mrkfin setMarkerColorLocal "ColorRed";
 _mrkfin setMarkerBrushLocal "DiagGrid";
 
-_tiempolim = 120;
-_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-_dateLimitNum = dateToNumber _fechalim;
+_timeLimit = 120;
+_dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
+_dateLimitNum = dateToNumber _dateLimit;
 
 
 /*
@@ -45,8 +45,8 @@ _nameDest = [_mrkOutpost] call AS_fnc_localizar;
 _tsk = ["AS",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_mrkOutpost],_Forest,"CREATED",5,true,true,"Kill"] call BIS_fnc_setTask;
 misiones pushBack _tsk; publicVariable "misiones";
 
-_tipoGrupo = [infSquad, side_green] call AS_fnc_pickGroup;
-_group1 = [_ClearPosOutpost, side_green, _tipoGrupo] call BIS_Fnc_spawnGroup;
+_typeGroup = [infSquad, side_green] call AS_fnc_pickGroup;
+_group1 = [_ClearPosOutpost, side_green, _typeGroup] call BIS_Fnc_spawnGroup;
 sleep 1;
 [_group1, _mrkfin, "SPAWNED", "NOVEH2", "NOFOLLOW", "AWARE"] execVM "scripts\UPSMON.sqf";
 {[_x] spawn genInit; _x allowFleeing 0} forEach units _group1;

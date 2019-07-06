@@ -13,10 +13,10 @@ if (_tipo == "delete") exitWith {
 	_coste = 0;
 	_hr = 0;
 	_formato = ([guer_grp_sniper, "guer"] call AS_fnc_pickGroup);
-	if !(typeName _tipogrupo == "ARRAY") then {
-		_tipogrupo = [_formato] call groupComposition;
+	if !(typeName _typeGroup == "ARRAY") then {
+		_typeGroup = [_formato] call groupComposition;
 	};
-	{_coste = _coste + (server getVariable _x); _hr = _hr +1} forEach _tipogrupo;
+	{_coste = _coste + (server getVariable _x); _hr = _hr +1} forEach _typeGroup;
 	[_hr,_coste] remoteExec ["resourcesFIA",2];
 	deleteMarker _mrk;
 	campsFIA = campsFIA - [_mrk]; publicVariable "campsFIA";
@@ -33,8 +33,8 @@ _tipoVeh = guer_veh_truck;
 _mrk = createMarker [format ["FIACamp%1", random 1000], _positionTel];
 _mrk setMarkerShape "ICON";
 
-_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + 60];
-_dateLimitNum = dateToNumber _fechalim;
+_dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + 60];
+_dateLimitNum = dateToNumber _dateLimit;
 
 _tsk = ["campsFIA",[side_blue,civilian],["STR_TSK_DESC_CAMPSET","STR_TSK_CAMPSET",_mrk],_positionTel,"CREATED",5,true,true,"Move"] call BIS_fnc_setTask;
 misiones pushBackUnique _tsk; publicVariable "misiones";

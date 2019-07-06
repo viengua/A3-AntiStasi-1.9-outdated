@@ -2,7 +2,7 @@ if (!isServer and hasInterface) exitWith {};
 
 if(true)exitWith{};//disabled because its to slow
 
-private ["_marcador","_destino","_origen","_grupos","_soldados","_vehiculos","_size","_grupo","_camion","_tam","_roads","_road","_pos"];
+private ["_marcador","_destino","_origen","_grupos","_soldados","_vehiclesX","_size","_grupo","_camion","_tam","_roads","_road","_pos"];
 
 _marcador = _this select 0;
 if (not(_marcador in smallCAmrk)) exitWith {};
@@ -14,7 +14,7 @@ if ((worldName == "Tanoa") AND !([_origen, _destino] call AS_fnc_IslandCheck)) e
 
 _grupos = [];
 _soldados = [];
-_vehiculos = [];
+_vehiclesX = [];
 
 _size = [_marcador] call sizeMarker;
 
@@ -51,7 +51,7 @@ while {(_size > 0)} do
 		_grupoVeh setVariable ["esNATO",true,true];
 		_soldados = _soldados + _vehCrew;
 		_grupos pushBack _grupoVeh;
-		_vehiculos = _vehiculos + [_veh];
+		_vehiclesX = _vehiclesX + [_veh];
 		if (_tipoVeh != guer_veh_technical) then
 			{
 			if (_tipoVeh == guer_veh_quad) then
@@ -63,9 +63,9 @@ while {(_size > 0)} do
 				}
 			else
 				{
-				_tipoGrupo = guer_grp_squad;
-				if (_tipoVeh == guer_veh_offroad) then {_tipoGrupo = [guer_grp_team,guer_grp_AT] call BIS_fnc_selectRandom};
-				_grupo = [_origen, side_blue, ([_tipoGrupo, "guer"] call AS_fnc_pickGroup)] call BIS_Fnc_spawnGroup;
+				_typeGroup = guer_grp_squad;
+				if (_tipoVeh == guer_veh_offroad) then {_typeGroup = [guer_grp_team,guer_grp_AT] call BIS_fnc_selectRandom};
+				_grupo = [_origen, side_blue, ([_typeGroup, "guer"] call AS_fnc_pickGroup)] call BIS_Fnc_spawnGroup;
 				{[_x] call AS_fnc_initialiseFIAUnit; [_x] join _grupoVeh; _x moveInCargo _veh; _soldados pushBack _x} forEach units _grupo;
 				deleteGroup _grupo;
 				};
@@ -98,7 +98,7 @@ waitUntil {sleep 1;((not(_marcador in smallCAmrk)) or (_marcador in mrkAAF))};
 {_vehiculo = _x;
 waitUntil {sleep 1; {_x distance _vehiculo < distanceSPWN} count (allPlayers - (entities "HeadlessClient_F")) == 0};
 deleteVehicle _vehiculo;
-} forEach _vehiculos;
+} forEach _vehiclesX;
 {_soldado = _x;
 waitUntil {sleep 1; {_x distance _soldado < distanceSPWN} count (allPlayers - (entities "HeadlessClient_F")) == 0};
 deleteVehicle _soldado;

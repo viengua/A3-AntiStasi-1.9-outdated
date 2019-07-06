@@ -15,7 +15,7 @@ player addEventHandler ["FIRED", {
 			};
 		} else {
 			private ["_city","_size","_data"];
-			_city = [ciudades,_player] call BIS_fnc_nearestPosition;
+			_city = [citiesX,_player] call BIS_fnc_nearestPosition;
 			_size = [_city] call sizeMarker;
 			_data = server getVariable _city;
 			if (random 100 < _data select 2) then {
@@ -43,7 +43,7 @@ player addEventHandler ["HandleHeal", {
 			_player setCaptive false;
 		} else {
 			private ["_city","_size","_data"];
-			_city = [ciudades,_player] call BIS_fnc_nearestPosition;
+			_city = [citiesX,_player] call BIS_fnc_nearestPosition;
 			_size = [_city] call sizeMarker;
 			_data = server getVariable _city;
 			if (random 100 < _data select 2) then {
@@ -108,7 +108,7 @@ player addEventHandler ["GetInMan", {
 		if (_vehicle isKindOf "Truck_F") then {
 			if !(typeOf _vehicle in ["C_Van_01_fuel_F","I_Truck_02_fuel_F","B_G_Van_01_fuel_F"]) then {
 				if (_this select 1 == "driver") then {
-					_EHid = _unit addAction [localize "STR_ACT_LOADAMMOBOX", "Municion\transfer.sqf",nil,0,false,true];
+					_EHid = _unit addAction [localize "STR_ACT_LOADAMMOBOX", "ammunition\transfer.sqf",nil,0,false,true];
 					_unit setVariable ["eh_transferID", _EHid, true];
 				};
 			};

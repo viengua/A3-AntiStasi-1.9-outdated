@@ -8,7 +8,7 @@ diag_log "InitVar.sqf: start";
 //Don't touch them.
 antistasiVersion = localize "STR_MISSION_NAME_INITVAR_SQF";
 
-servidoresOficiales = ["Antistasi Official: Main","Antistasi Official: Hardcore", "Antistasi Official: USA"];//No longer effect
+officialServers = ["Antistasi Official: Main","Antistasi Official: Hardcore", "Antistasi Official: USA"];//No longer effect
 
 debug = false;//debug variable, not useful for everything..
 
@@ -187,7 +187,7 @@ planesAAFmax = 0;
 helisAAFmax = 0;
 APCAAFmax = 0;
 tanksAAFmax = 0;
-cuentaCA = 600;//600
+countCA = 600;//600
 prestigeIsChanging = false;
 cityIsSupportChanging = false;
 resourcesIsChanging = false;

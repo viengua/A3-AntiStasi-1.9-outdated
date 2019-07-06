@@ -41,7 +41,7 @@ call {
 	};
 
 	if (_source == "mil") exitWith {
-		_convoyTypeArray = ["Municion","Armor","HVT"];
+		_convoyTypeArray = ["ammunition","Armor","HVT"];
 		_val = server getVariable "milActive";
 		server setVariable ["milActive", _val + 1, true];
 	};
@@ -73,7 +73,7 @@ _originName = [_base] call AS_fnc_localizar;
 [_base,30] spawn AS_fnc_addTimeForIdle;
 
 call {
-	if (_convoyType == "Municion") exitWith {
+	if (_convoyType == "ammunition") exitWith {
 		_tskTitle = "STR_TSK_TD_CVY_AMMO";
 		_tskDesc = "STR_TSK_TD_DESC_CVY_AMMO";
 		_icon = "rearm";
@@ -287,7 +287,7 @@ call {
 			_unit moveInCargo [_vehObj, _i + 3];
 			removeAllWeapons _unit;
 			removeAllAssignedItems _unit;
-			[[_unit,"refugiado"],"AS_fnc_addActionMP"] call BIS_fnc_MP;
+			[[_unit,"refugee"],"AS_fnc_addActionMP"] call BIS_fnc_MP;
 			sleep 1;
 			_POWs pushBack _unit;
 		};
@@ -408,7 +408,7 @@ if (_convoyType == "HVT") then {
 };
 
 
-if (_convoyType == "Municion") then {
+if (_convoyType == "ammunition") then {
 	waitUntil {sleep 1; (dateToNumber date > _endTimeNumber) or (_vehObj distance _posDestination < 100) or (not alive _vehObj) or (driver _vehObj getVariable ["BLUFORSpawn",false])};
 
 	if ((_vehObj distance _posDestination < 100) or (dateToNumber date >_endTimeNumber)) then {

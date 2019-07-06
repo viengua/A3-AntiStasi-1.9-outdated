@@ -13,15 +13,15 @@ _orig = getMarkerPos _origen;
 [-10,0] remoteExec ["prestige",2];
 
 
-_tiempolim = 30 max _prestigio;
-_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-_dateLimitNum = dateToNumber _fechalim;
+_timeLimit = 30 max _prestigio;
+_dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
+_dateLimitNum = dateToNumber _dateLimit;
 
 _nameOrigin = [_origen] call AS_fnc_localizar;
 
 
 _texto = "STR_GL_NATORB";
-_tipoGrupo = [bluATTeam, side_blue] call AS_fnc_pickGroup;
+_typeGroup = [bluATTeam, side_blue] call AS_fnc_pickGroup;
 _tipoVeh = bluAPC select 0;
 
 
@@ -31,7 +31,7 @@ _mrk setMarkerShape "ICON";
 
 _tsk = ["NATORoadblock",[side_blue,civilian],[["%1 is dispatching a team to establish a Roadblock. Send and cover the team until reaches its destination.", A3_Str_BLUE],["%1 Roadblock Deployment", A3_Str_BLUE],_mrk],_positionTel,"CREATED",5,true,true,"Move"] call BIS_fnc_setTask;
 misiones pushBackUnique _tsk; publicVariable "misiones";
-_grupo = [_orig, side_blue, _tipoGrupo] call BIS_Fnc_spawnGroup;
+_grupo = [_orig, side_blue, _typeGroup] call BIS_Fnc_spawnGroup;
 _grupo setGroupId ["Watch"];
 
 _tam = 10;

@@ -10,7 +10,7 @@ flag_savingServer = true;
 } forEach (allPlayers - entities "HeadlessClient_F");
 
 //game
-["cuentaCA", cuentaCA] call fn_saveData;
+["countCA", countCA] call fn_saveData;
 ["smallCAmrk", smallCAmrk] call fn_saveData;
 ["membersPool", membersPool] call fn_saveData;
 ["antenas", antennasDead] call fn_saveData;
@@ -252,7 +252,7 @@ _supplyLevels= [];
 	_supportOPFOR = _supportOPFOR + [_data select 2];
 	_supportBLUFOR = _supportBLUFOR + [_data select 3];
 	_supplyLevels = _supplyLevels + [_data select 4];
-} forEach ciudades;
+} forEach citiesX;
 
 ["supportOPFOR",_supportOPFOR] call fn_saveData;
 ["supportBLUFOR",_supportBLUFOR] call fn_saveData;
@@ -261,7 +261,7 @@ _supplyLevels= [];
 _garrison = [];
 {
 _garrison = _garrison + [garrison getVariable [_x,[]]];
-} forEach (mrkFIA - outpostsFIA - controlsX - ciudades);
+} forEach (mrkFIA - outpostsFIA - controlsX - citiesX);
 
 ["garrison",_garrison] call fn_saveData;
 

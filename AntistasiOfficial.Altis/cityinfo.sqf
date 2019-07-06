@@ -14,10 +14,10 @@ _supplyLevels = _datos select 4;
 _popFIA = _popFIA + (_numCiv * (_prestigeBLUFOR / 100));
 _popAAF = _popAAF + (_numCiv * (_prestigeOPFOR / 100));
 _pop = _pop + _numCiv;
-} forEach ciudades;
+} forEach citiesX;
 _popFIA = round _popFIA;
 _popAAF = round _popAAF;
-hint format [localize "STR_HINTS_MAP_TEXT_1",_pop, _popFIA, _popAAF, {_x in destroyedCities} count ciudades,count allunits,worldname];
+hint format [localize "STR_HINTS_MAP_TEXT_1",_pop, _popFIA, _popAAF, {_x in destroyedCities} count citiesX,count allunits,worldname];
 
 openMap true;
 
@@ -39,7 +39,7 @@ while {visibleMap} do {
 		if (_sitio == "FIA_HQ") then {
 			_texto = format ["FIA HQ%1",[_sitio] call AS_fnc_getGarrisonInfo];
 		};
-		if (_sitio in ciudades) then {
+		if (_sitio in citiesX) then {
 			_datos = server getVariable _sitio;
 
 			_numCiv = _datos select 0;

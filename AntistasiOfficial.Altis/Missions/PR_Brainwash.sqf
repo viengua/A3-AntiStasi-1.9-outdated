@@ -16,9 +16,9 @@ _targetPosition = getMarkerPos _targetMarker;
 _targetName = [_targetMarker] call AS_fnc_localizar;
 
 // mission timer
-_tiempolim = 60;
-_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-_dateLimitNum = dateToNumber _fechalim;
+_timeLimit = 60;
+_dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
+_dateLimitNum = dateToNumber _dateLimit;
 
 _tsk = ["PR",[side_blue,civilian],[[_tskDesc,_targetName,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_targetMarker],_targetPosition,"CREATED",5,true,true,"Heal"] call BIS_fnc_setTask;
 misiones pushBack _tsk; publicVariable "misiones";
@@ -104,10 +104,10 @@ server setVariable ["BCactive", false, true];
 
 // dispatch a small QRF
 if !(_airport == "") then {
-	[_airport, _targetPosition, _targetMarker, _tiempolim, "transport", "small"] remoteExec ["enemyQRF", call AS_fnc_getNextWorker];
+	[_airport, _targetPosition, _targetMarker, _timeLimit, "transport", "small"] remoteExec ["enemyQRF", call AS_fnc_getNextWorker];
 }
 else {
-	[_base, _targetPosition, _targetMarker, _tiempolim, "transport", "small"] remoteExec ["enemyQRF", call AS_fnc_getNextWorker];
+	[_base, _targetPosition, _targetMarker, _timeLimit, "transport", "small"] remoteExec ["enemyQRF", call AS_fnc_getNextWorker];
 };
 
 // wait until the truck is in the target area or dead

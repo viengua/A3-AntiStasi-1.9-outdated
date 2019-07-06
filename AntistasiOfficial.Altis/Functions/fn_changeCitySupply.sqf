@@ -2,7 +2,7 @@ params["_type", "_delta", "_location"];
 private["_city", "_data", "_supplyLevels", "_index", "_currentLevel", "_newLevels", "_oldLevel"];
 
 //Gather the needed data
-_city = [[ciudades, _location] call BIS_fnc_nearestPosition, _location] select (typeName _location == typeName "");
+_city = [[citiesX, _location] call BIS_fnc_nearestPosition, _location] select (typeName _location == typeName "");
 _data = server getVariable _city;
 if !(_data isEqualType []) exitWith {diag_log format ["Error in changeCitySupply. Passed %1 as reference.", _location]};
 

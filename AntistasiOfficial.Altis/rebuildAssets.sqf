@@ -3,7 +3,7 @@ _resourcesFIA = server getVariable "resourcesFIA";
 
 if (_resourcesFIA < 5000) exitWith {hint localize "STR_HINTS_RA_YDNHEMTRAA"};
 
-_destroyedCities = destroyedCities - ciudades;
+_destroyedCities = destroyedCities - citiesX;
 
 openMap true;
 positionTel = [];

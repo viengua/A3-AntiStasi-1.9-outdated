@@ -6,9 +6,9 @@ _tskDesc = "STR_TSK_TD_DESC_logSupply";
 _marcador = _this select 0;
 _posicion = getMarkerPos _marcador;
 
-_tiempolim = 60;
-_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-_dateLimitNum = dateToNumber _fechalim;
+_timeLimit = 60;
+_dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
+_dateLimitNum = dateToNumber _dateLimit;
 _nameDest = [_marcador] call AS_fnc_localizar;
 
 _tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_marcador],_posicion,"CREATED",5,true,true,"Heal"] call BIS_fnc_setTask;

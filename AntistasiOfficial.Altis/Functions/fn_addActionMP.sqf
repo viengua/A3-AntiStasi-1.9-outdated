@@ -9,13 +9,13 @@ switch _type do {
 	case "mission": {petros addAction [localize "STR_ACT_MISSIONREQUEST", {nul=CreateDialog "mission_menu";},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"];};
 	case "misCiv": {_object addAction [localize "STR_ACT_MISSIONREQUEST", {nul=CreateDialog "misCiv_menu";},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"];};
 	case "misMil": {_object addAction [localize "STR_ACT_MISSIONREQUEST", {nul=CreateDialog "misMil_menu";},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"];};
-	case "camion": {_object addAction [localize "STR_ACT_LOADAMMOBOX", "Municion\transfer.sqf",nil,0,false,true]};
+	case "camion": {_object addAction [localize "STR_ACT_LOADAMMOBOX", "ammunition\transfer.sqf",nil,0,false,true]};
 	case "remove": {
 		for "_i" from 0 to (_object addAction ["",""]) do {
 			_object removeAction _i;
 		};
 	};
-	case "refugiado": {_object addAction [localize "STR_ACT_ORDERREFUGEE", "AI\liberaterefugee.sqf",nil,0,false,true]};
+	case "refugee": {_object addAction [localize "STR_ACT_ORDERREFUGEE", "AI\liberaterefugee.sqf",nil,0,false,true]};
 	case "prisonerX": {_object addAction [localize "STR_ACT_LIBERATE", "AI\liberatePOW.sqf",nil,0,false,true]};
 	case "interrogate": {_object addAction [localize "STR_ACT_INTERROGATE", "AI\interrogate.sqf",nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"]};
 	case "captureX": {_object addAction [localize "STR_ACT_OFFERTOJOIN", "AI\captureX.sqf",nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"]};

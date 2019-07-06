@@ -28,7 +28,7 @@ if (random 100 < _chance) then
 	};
 if (random 100 < _chance) then
 	{
-	if (cuentaCA < 600) then {_texto = format ["%1 AAF Next Counterattack: ASAP<br/>",_texto]} else {_texto = format ["%1 AAF Next Counterattack: %2 minutes<br/>",_texto,round (cuentaCA/60)]};
+	if (countCA < 600) then {_texto = format ["%1 AAF Next Counterattack: ASAP<br/>",_texto]} else {_texto = format ["%1 AAF Next Counterattack: %2 minutes<br/>",_texto,round (countCA/60)]};
 	};
 if (random 100 < _chance) then
 	{

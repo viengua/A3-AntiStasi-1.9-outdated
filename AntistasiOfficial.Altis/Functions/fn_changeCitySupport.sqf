@@ -4,7 +4,7 @@ private ["_city","_data","_numCiv","_numVeh","_prestigeOPFOR","_prestigeBLUFOR"]
 waitUntil {!cityIsSupportChanging};
 cityIsSupportChanging = true;
 
-_city = [[ciudades, _location] call BIS_fnc_nearestPosition, _location] select (typeName _location == typeName "");
+_city = [[citiesX, _location] call BIS_fnc_nearestPosition, _location] select (typeName _location == typeName "");
 
 _data = server getVariable _city;
 if !(_data isEqualType []) exitWith {diag_log format ["Error in changeCitySupport. Passed %1 as reference.", _location]};

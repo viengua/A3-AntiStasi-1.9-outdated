@@ -9,7 +9,7 @@ _NATOSupp = server getVariable "prestigeNATO";
 
 _grupo = createGroup side_blue;
 
-_spawnData = [_posicion, [ciudades, _posicion] call BIS_fnc_nearestPosition] call AS_fnc_findRoadspot;
+_spawnData = [_posicion, [citiesX, _posicion] call BIS_fnc_nearestPosition] call AS_fnc_findRoadspot;
 _spawnPos = _spawnData select 0;
 _spawnDir = _spawnData select 1;
 
@@ -69,8 +69,8 @@ _veh setCenterOfMass [(getCenterOfMass _veh) vectorAdd [0, 0, -1], 0];
 _veh allowCrewInImmobile true;
 sleep 1;
 
-_tipoGrupo = [bluATTeam, side_blue] call AS_fnc_pickGroup;
-_grupoInf = [getpos _tempPos, side_blue, _tipoGrupo] call BIS_Fnc_spawnGroup;
+_typeGroup = [bluATTeam, side_blue] call AS_fnc_pickGroup;
+_grupoInf = [getpos _tempPos, side_blue, _typeGroup] call BIS_Fnc_spawnGroup;
 
 _grupoInf setFormDir _spawnDir;
 

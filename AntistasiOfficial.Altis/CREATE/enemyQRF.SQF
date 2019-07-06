@@ -87,7 +87,7 @@ _endTime = dateToNumber _endTime;
 // arrays of all spawned units/groups
 _grupos = [];
 _soldados = [];
-_vehiculos = [];
+_vehiclesX = [];
 
 // initialise groups, two for vehicles, three for dismounts
 _grpVeh1 = createGroup _side;
@@ -110,7 +110,7 @@ private _dir = [_orig, _dest] call BIS_fnc_dirTo;
 // initialisation of vehicles
 _initVehs = {
 	params ["_specs"];
-	_specs = _specs + [_dir, _side, _vehiculos, _grupos, _soldados, true];
+	_specs = _specs + [_dir, _side, _vehiclesX, _grupos, _soldados, true];
 	_specs call AS_fnc_initialiseVehicle;
 };
 
@@ -121,7 +121,7 @@ if (_type == "air") then {
 		// attack chopper/armed escort
 
 		private _vehData = [[_orig, _lead]] call _initVehs;
-		_vehiculos = _vehData select 0;
+		_vehiclesX = _vehData select 0;
 		_grupos = _vehData select 1;
 		_soldados = _vehData select 2;
 
@@ -151,7 +151,7 @@ if (_type == "air") then {
 		};
 		_landpos1 set [2, 0];
 		_pad1 = createVehicle ["Land_HelipadEmpty_F", _landpos1, [], 0, "NONE"];
-		_vehiculos = _vehiculos + [_pad1];
+		_vehiclesX = _vehiclesX + [_pad1];
 
 		// shift the spawn position of second chopper to avoid crash
 		_pos2 = _orig;
@@ -160,7 +160,7 @@ if (_type == "air") then {
 
 		// troop transport chopper
 		private _vehData = [[_pos2, _transport]] call _initVehs;
-		_vehiculos = _vehData select 0;
+		_vehiclesX = _vehData select 0;
 		_grupos = _vehData select 1;
 		_soldados = _vehData select 2;
 
@@ -219,7 +219,7 @@ else {
 	if ((_composition == "destroy") || (_composition == "mixed")) then {
 		// first MRAP, escort
 		private _vehData = [[_posRoad, _lead]] call _initVehs;
-		_vehiculos = _vehData select 0;
+		_vehiclesX = _vehData select 0;
 		_grupos = _vehData select 1;
 		_soldados = _vehData select 2;
 
@@ -257,7 +257,7 @@ else {
 
 		// second vehicle
 		private _vehData = [[_posRoad, _transport]] call _initVehs;
-		_vehiculos = _vehData select 0;
+		_vehiclesX = _vehData select 0;
 		_grupos = _vehData select 1;
 		_soldados = _vehData select 2;
 
@@ -291,7 +291,7 @@ else {
 	};
 };
 
-{_x allowDamage true} forEach _vehiculos;
+{_x allowDamage true} forEach _vehiclesX;
 
 waitUntil {sleep 10; (dateToNumber date > _endTime) or ({alive _x AND !captive _x} count _soldados == 0)};
 
@@ -312,6 +312,6 @@ if !(_varName isEqualTo "") then {
 	_vehiculo = _x;
 	waitUntil {sleep 1; {_x distance _vehiculo < distanceSPWN/2} count (allPlayers - (entities "HeadlessClient_F")) == 0};
 	deleteVehicle _x
-} forEach _vehiculos;
+} forEach _vehiclesX;
 
-_data = [_soldados, _grupos, _vehiculos] //Added this because it's required in INT_Reinforcements.sqf
+_data = [_soldados, _grupos, _vehiclesX] //Added this because it's required in INT_Reinforcements.sqf

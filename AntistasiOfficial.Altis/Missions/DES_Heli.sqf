@@ -3,7 +3,7 @@ if (!isServer and hasInterface) exitWith {};
 _tskTitle = "STR_TSK_TD_DesHeli";
 _tskDesc = "STR_TSK_TD_DESC_DesHeli";
 
-private ["_poscrash","_marcador","_posicion","_mrkfin","_tipoveh","_efecto","_heli","_vehiculos","_soldados","_grupos","_unit","_roads","_road","_vehicle","_veh","_tipogrupo","_tsk","_humo","_emitterArray"];
+private ["_poscrash","_marcador","_posicion","_mrkfin","_tipoveh","_efecto","_heli","_vehiclesX","_soldados","_grupos","_unit","_roads","_road","_vehicle","_veh","_typeGroup","_tsk","_humo","_emitterArray"];
 
 _marcador = _this select 0;
 _source = _this select 1;
@@ -17,9 +17,9 @@ _posicion = getMarkerPos _marcador;
 
 _posHQ = getMarkerPos guer_respawn;
 
-_tiempolim = 120;
-_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-_dateLimitNum = dateToNumber _fechalim;
+_timeLimit = 120;
+_dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
+_dateLimitNum = dateToNumber _dateLimit;
 
 while {true} do
 	{
@@ -39,7 +39,7 @@ _nombrebase = [_marcador] call AS_fnc_localizar;
 
 _tsk = ["DES",[side_blue,civilian],[[_tskDesc,_nombrebase],_tskTitle,_mrkfin],_posCrashMrk,"CREATED",5,true,true,"Destroy"] call BIS_fnc_setTask;
 misiones pushBack _tsk; publicVariable "misiones";
-_vehiculos = [];
+_vehiclesX = [];
 _soldados = [];
 _grupos = [];
 
@@ -49,7 +49,7 @@ _heli attachTo [_efecto,[0,0,1.5]];
 _humo = "test_EmptyObjectForSmoke" createVehicle _poscrash; _humo attachTo[_heli,[0,1.5,-1]];
 _heli setDamage 0.9;
 _heli lock 2;
-_vehiculos = _vehiculos + [_heli,_efecto];
+_vehiclesX = _vehiclesX + [_heli,_efecto];
 
 _grpcrash = createGroup side_green;
 _grupos = _grupos + [_grpcrash];
@@ -79,12 +79,12 @@ _vehCrew = _vehicle select 1;
 _grupoVeh = _vehicle select 2;
 _soldados = _soldados + _vehCrew;
 _grupos = _grupos + [_grupoVeh];
-_vehiculos = _vehiculos + [_veh];
+_vehiclesX = _vehiclesX + [_veh];
 
 sleep 1;
 
-_tipoGrupo = [infPatrol, side_green] call AS_fnc_pickGroup;
-_grupo = [_posicion, side_green, _tipogrupo] call BIS_Fnc_spawnGroup;
+_typeGroup = [infPatrol, side_green] call AS_fnc_pickGroup;
+_grupo = [_posicion, side_green, _typeGroup] call BIS_Fnc_spawnGroup;
 
 {_x assignAsCargo _veh; _x moveInCargo _veh; _soldados = _soldados + [_x]; [_x] join _grupoveh; [_x] spawn genInit} forEach units _grupo;
 deleteGroup _grupo;
@@ -108,7 +108,7 @@ _vehCrewT = _vehicle select 1;
 _grupoVehT = _vehicleT select 2;
 _soldados = _soldados + _vehCrewT;
 _grupos = _grupos + [_grupoVehT];
-_vehiculos = _vehiculos + [_vehT];
+_vehiclesX = _vehiclesX + [_vehT];
 
 _Vwp0 = _grupoVehT addWaypoint [_poscrash, 0];
 _Vwp0 setWaypointType "MOVE";
@@ -186,7 +186,7 @@ if (_source == "mil") then {
 deleteMarker _mrkfin;
 {
 waitUntil {sleep 1;(!([distanceSPWN,1,_x,"BLUFORSpawn"] call distanceUnits))};
-deleteVehicle _x} forEach _vehiculos;
+deleteVehicle _x} forEach _vehiclesX;
 {deleteVehicle _x} forEach _soldados;
 {deleteGroup _x} forEach _grupos;
 

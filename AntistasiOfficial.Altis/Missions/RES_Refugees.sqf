@@ -42,7 +42,7 @@ for "_i" from 1 to (_count - 1) do {
 	removeVest _unit;
 	removeBackpack _unit;
 	_POWs pushBack _unit;
-	[_unit,"refugiado"] remoteExec ["AS_fnc_addActionMP"];
+	[_unit,"refugee"] remoteExec ["AS_fnc_addActionMP"];
 };
 
 sleep 5;

@@ -16,7 +16,7 @@ if (_type in misiones) exitWith {
 
 call {
 	if (_type == "DES") exitWith {
-		_zones = ciudades + antenas - mrkFIA;
+		_zones = citiesX + antenas - mrkFIA;
 		if (count _zones > 0) then {
 			for "_i" from 0 to ((count _zones) - 1) do {
 				_currentZone = _zones select _i;
@@ -45,13 +45,13 @@ call {
 		} else {
 			_currentZone = selectRandom _options;
 			if (_currentZone in antenas) then {[_currentZone, "mil"] remoteExec ["DES_Antenna", call AS_fnc_getNextWorker]};
-			if (_currentZone in ciudades) then {
+			if (_currentZone in citiesX) then {
 				[_currentZone, "mil"] remoteExec [([["DES_fuel","DES_EnemySuppression"],[0.5,0.5]] call BIS_fnc_selectRandomWeighted), call AS_fnc_getNextWorker]};
 		};
 	};
 
 	if (_type == "LOG") exitWith {
-		_zones = puestos + ciudades - ["puesto_13"];
+		_zones = puestos + citiesX - ["puesto_13"];
 		if (random 100 < 20) then {_zones = _zones + bancos};
 		_zones = _zones - mrkFIA;
 		if (count _zones > 0) then {
@@ -64,7 +64,7 @@ call {
 				};
 
 				if (_markerPos distance _positionHQ < 4000) then {
-					if (_currentZone in ciudades) then {
+					if (_currentZone in citiesX) then {
 						_options pushBackUnique _currentZone;
 					} else {
 						if (_currentZone in puestos) then {
@@ -78,7 +78,7 @@ call {
 				};
 
 				if (_currentZone in bancos) then {
-					_nearestZone = [ciudades, _markerPos] call BIS_fnc_nearestPosition;
+					_nearestZone = [citiesX, _markerPos] call BIS_fnc_nearestPosition;
 					if (_nearestZone in mrkFIA) then {_options pushBackUnique _currentZone};
 				};
 			};
@@ -93,7 +93,7 @@ call {
 			_currentZone = selectRandom _options;
 
 			call {
-				if (_currentZone in ciudades) exitWith {
+				if (_currentZone in citiesX) exitWith {
 					[_currentZone] remoteExec ["LOG_Medical", call AS_fnc_getNextWorker]
 				};
 				if (_currentZone in puestos) exitWith {
@@ -107,14 +107,14 @@ call {
 	};
 
 	if (_type == "RES") exitWith {
-		_zones = ciudades + bases + puestos - mrkFIA;
-		if (_manual) then {_zones = ciudades - mrkFIA};
+		_zones = citiesX + bases + puestos - mrkFIA;
+		if (_manual) then {_zones = citiesX - mrkFIA};
 
 		if (count _zones > 0) then {
 			for "_i" from 0 to ((count _zones) - 1) do {
 				_currentZone = _zones select _i;
 				_markerPos = getMarkerPos _currentZone;
-				if (_currentZone in ciudades) then {
+				if (_currentZone in citiesX) then {
 					if (_markerPos distance _positionHQ < 4000) then {
 						_options pushBackUnique _currentZone;
 					};
@@ -133,12 +133,12 @@ call {
 			};
 		} else {
 			_currentZone = selectRandom _options;
-			[_currentZone] remoteExec [(["RES_Prisoners","RES_Refugees"] select (_currentZone in ciudades)), call AS_fnc_getNextWorker];
+			[_currentZone] remoteExec [(["RES_Prisoners","RES_Refugees"] select (_currentZone in citiesX)), call AS_fnc_getNextWorker];
 		};
 	};
 
 	if (_type == "FND_M") exitWith {
-		_zones = ciudades - mrkFIA;
+		_zones = citiesX - mrkFIA;
 		if (count _zones > 0) then {
 			for "_i" from 0 to ((count _zones) - 1) do {
 				_currentZone = _zones select _i;
@@ -167,7 +167,7 @@ call {
 	};
 
 	if (_type == "FND_C") exitWith {
-		_zones = ciudades - mrkFIA;
+		_zones = citiesX - mrkFIA;
 		if (count _zones > 0) then {
 			for "_i" from 0 to ((count _zones) - 1) do {
 				_currentZone = _zones select _i;
@@ -196,7 +196,7 @@ call {
 	};
 
 	if (_type == "FND_E") exitWith {
-		_zones = ciudades;
+		_zones = citiesX;
 		if (count _zones > 0) then {
 			for "_i" from 0 to ((count _zones) - 1) do {
 				_currentZone = _zones select _i;
@@ -225,7 +225,7 @@ call {
 	};
 
 	if (_type == "CONVOY") exitWith {
-		_zones = ciudades - mrkFIA;
+		_zones = citiesX - mrkFIA;
 		if (count _zones > 0) then {
 			for "_i" from 0 to ((count _zones) - 1) do {
 				_currentZone = _zones select _i;
@@ -250,7 +250,7 @@ call {
 	};
 
 	if (_type == "ASS") exitWith {
-		_zones = ciudades + puestos - mrkFIA;
+		_zones = citiesX + puestos - mrkFIA;
 		if (count _zones > 0) then {
 			for "_i" from 0 to ((count _zones) - 1) do {
 				_currentZone = _zones select _i;
@@ -276,7 +276,7 @@ call {
 		[[],[]] params ["_optionsPamphlet","_optionsBrainwash"];
 
 		if (_manual) then {
-			_zones = ciudades - mrkFIA;
+			_zones = citiesX - mrkFIA;
 			if (count _zones > 0) then {
 				for "_i" from 0 to ((count _zones) - 1) do {
 					_currentZone = _zones select _i;
@@ -303,7 +303,7 @@ call {
 
 			[_optionsPamphlet, _optionsBrainwash] remoteExec ["missionSelect", Slowhand];
 		} else {
-			_zones = ciudades - mrkFIA;
+			_zones = citiesX - mrkFIA;
 			if (count _zones > 0) then {
 				for "_i" from 0 to ((count _zones) - 1) do {
 					_currentZone = _zones select _i;

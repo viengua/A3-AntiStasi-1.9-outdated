@@ -105,7 +105,7 @@ fnc_RB_placeSingle = {
 		_position = getMarkerPos _position;
 	};
 
-	_spawnData = [_position, [ciudades, _position] call BIS_fnc_nearestPosition] call AS_fnc_findRoadspot;
+	_spawnData = [_position, [citiesX, _position] call BIS_fnc_nearestPosition] call AS_fnc_findRoadspot;
 	if (count _spawnData < 1) exitWith {diag_log format ["Roadblock error report -- bad position: %1", _position]};
 	_roadPos = _spawnData select 0;
 	_roadDir = _spawnData select 1;

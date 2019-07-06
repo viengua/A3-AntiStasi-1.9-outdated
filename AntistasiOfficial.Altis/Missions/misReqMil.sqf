@@ -35,7 +35,7 @@ if ((server getVariable "milActive") > 1) exitWith {
 };
 
 if (_tipo == "AS") then {
-	_sitios = bases + ciudades - mrkFIA;
+	_sitios = bases + citiesX - mrkFIA;
 	if (count _sitios > 0) then {
 		for "_i" from 0 to ((count _sitios) - 1) do {
 			_sitio = _sitios select _i;
@@ -52,7 +52,7 @@ if (_tipo == "AS") then {
 		_ran = ((floor random 10) < 3);
 		if ((count (_posibles arrayIntersect bases) > 0) && _ran) exitWith {[selectRandom (_posibles arrayIntersect bases), "mil"] remoteExec ["AS_Official", call AS_fnc_getNextWorker]};
 		_sitio = _posibles call BIS_fnc_selectRandom;
-		if (_sitio in ciudades) then {[_sitio, "mil"] remoteExec ["AS_specOP", call AS_fnc_getNextWorker];};
+		if (_sitio in citiesX) then {[_sitio, "mil"] remoteExec ["AS_specOP", call AS_fnc_getNextWorker];};
 		if (_sitio in bases) then {[_sitio, "mil"] remoteExec ["AS_Official", call AS_fnc_getNextWorker];};
 	};
 };

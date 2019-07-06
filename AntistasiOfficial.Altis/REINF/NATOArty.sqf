@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith {};
 
-private ["_prestigio","_marcador","_posicion","_tiempolim","_fechalim","_dateLimitNum","_nameDest","_tsk","_soldados","_vehiculos","_grupo","_tipoVeh","_cuenta","_size"];
+private ["_prestigio","_marcador","_posicion","_timeLimit","_dateLimit","_dateLimitNum","_nameDest","_tsk","_soldados","_vehiclesX","_grupo","_tipoVeh","_cuenta","_size"];
 
 _prestigio = server getVariable "prestigeNATO";
 
@@ -9,9 +9,9 @@ _posicion = getMarkerPos _marcador;
 
 [-10,0] remoteExec ["prestige",2];
 
-_tiempolim = _prestigio;
-_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-_dateLimitNum = dateToNumber _fechalim;
+_timeLimit = _prestigio;
+_dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
+_dateLimitNum = dateToNumber _dateLimit;
 
 _nameDest = [_marcador] call AS_fnc_localizar;
 
@@ -20,7 +20,7 @@ misiones pushBack _tsk; publicVariable "misiones";
 
 _size = [_marcador] call sizeMarker;
 _soldados = [];
-_vehiculos = [];
+_vehiclesX = [];
 _grupo = createGroup side_blue;
 _tipoVeh = selectRandom bluStatMortar;
 _grupo setVariable ["esNATO",true,true];
@@ -46,18 +46,18 @@ for "_i" from 1 to _cuenta do
 	sleep 1;
 	_unit moveInGunner _veh;
 	_soldados pushBack _unit;
-	_vehiculos pushBack _veh;
+	_vehiclesX pushBack _veh;
 	sleep 2;
 	};
 _grupo setGroupOwner (owner Slowhand);
 _grupo setGroupId ["N.Arty"];
 Slowhand hcSetGroup [_grupo];
 _grupo setVariable ["isHCgroup", true, true];
-//{[_x] spawn unlimitedAmmo} forEach _vehiculos;
+//{[_x] spawn unlimitedAmmo} forEach _vehiclesX;
 
-waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) or ({alive _x} count _vehiculos == 0)};
+waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) or ({alive _x} count _vehiclesX == 0)};
 
-if ({alive _x} count _vehiculos == 0) then
+if ({alive _x} count _vehiclesX == 0) then
 	{
 	[-5,0] remoteExec ["prestige",2];
 
@@ -68,5 +68,5 @@ if ({alive _x} count _vehiculos == 0) then
 [0,_tsk] spawn deleteTaskX;
 
 {deleteVehicle _x} forEach _soldados;
-{deleteVehicle _x} forEach _vehiculos;
+{deleteVehicle _x} forEach _vehiclesX;
 deleteGroup _grupo;

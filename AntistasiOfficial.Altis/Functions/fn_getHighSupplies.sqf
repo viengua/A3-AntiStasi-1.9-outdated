@@ -1,6 +1,6 @@
 params ["_marker", "_threshold"];
 
-_city = [[ciudades, _marker] call BIS_fnc_nearestPosition, _marker] select (typeName _marker == typeName "");
+_city = [[citiesX, _marker] call BIS_fnc_nearestPosition, _marker] select (typeName _marker == typeName "");
 _data = server getVariable _city;
 if !(_data isEqualType []) exitWith {diag_log format ["Error in getHighSupplies. Passed %1 as reference.", _location]};
 

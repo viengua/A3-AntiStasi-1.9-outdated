@@ -6,7 +6,7 @@ _tskDesc = "STR_TSK_TD_DESC_HQATTACK";
 _posicion = getMarkerPos guer_respawn;
 
 _pilotos = [];
-_vehiculos = [];
+_vehiclesX = [];
 _grupos = [];
 _soldados = [];
 
@@ -21,13 +21,13 @@ _pos = [_posicion, distanceSPWN * 3, random 360] call BIS_Fnc_relPos;
 _vehicle=[_pos, 0, opGunship, side_red] call bis_fnc_spawnvehicle;
 _heli = _vehicle select 0;
 _heliCrew = _vehicle select 1;
-_grupoheli = _vehicle select 2;
+_groupHeli = _vehicle select 2;
 _pilotos = _pilotos + _heliCrew;
-_grupos = _grupos + [_grupoheli];
-_vehiculos = _vehiculos + [_heli];
+_grupos = _grupos + [_groupHeli];
+_vehiclesX = _vehiclesX + [_heli];
 [_heli] spawn CSATVEHinit;
 {[_x] spawn CSATinit} forEach _heliCrew;
-_wp1 = _grupoheli addWaypoint [_posicion, 0];
+_wp1 = _groupHeli addWaypoint [_posicion, 0];
 _wp1 setWaypointType "SAD";
 [_heli,"CSAT Air Attack"] spawn inmuneConvoy;
 sleep 30;
@@ -38,18 +38,18 @@ for "_i" from 0 to (round random 2) do
 	_vehicle=[_pos, 0, opHeliFR, side_red] call bis_fnc_spawnvehicle;
 	_heli = _vehicle select 0;
 	_heliCrew = _vehicle select 1;
-	_grupoheli = _vehicle select 2;
+	_groupHeli = _vehicle select 2;
 	_pilotos = _pilotos + _heliCrew;
-	_grupos = _grupos + [_grupoheli];
-	_vehiculos = _vehiculos + [_heli];
+	_grupos = _grupos + [_groupHeli];
+	_vehiclesX = _vehiclesX + [_heli];
 
-	{_x setBehaviour "CARELESS";} forEach units _grupoheli;
-	_tipoGrupo = [opGroup_SpecOps, side_red] call AS_fnc_pickGroup;
-	_grupo = [_pos, side_red, _tipoGrupo] call BIS_Fnc_spawnGroup;
+	{_x setBehaviour "CARELESS";} forEach units _groupHeli;
+	_typeGroup = [opGroup_SpecOps, side_red] call AS_fnc_pickGroup;
+	_grupo = [_pos, side_red, _typeGroup] call BIS_Fnc_spawnGroup;
 	{_x assignAsCargo _heli; _x moveInCargo _heli; _soldados = _soldados + [_x]; [_x] spawn CSATinit} forEach units _grupo;
 	_grupos = _grupos + [_grupo];
 	[_heli,"CSAT Air Transport"] spawn inmuneConvoy;
-	[_heli,_grupo,_posicion,_pos,_grupoheli] spawn fastropeCSAT;
+	[_heli,_grupo,_posicion,_pos,_groupHeli] spawn fastropeCSAT;
 	sleep 10;
 	};
 
@@ -82,5 +82,5 @@ deleteVehicle _x;
 } forEach _pilotos;
 {
 if (!([distanceSPWN,1,_x,"BLUFORSpawn"] call distanceUnits)) then {deleteVehicle _x};
-} forEach _vehiculos;
+} forEach _vehiclesX;
 {deleteGroup _x} forEach _grupos;

@@ -3,7 +3,7 @@ if (!isServer and hasInterface) exitWith {};
 _tskTitle = "STR_TSK_TD_logMedical";
 _tskDesc = "STR_TSK_TD_DESC_logMedical";
 
-private ["_poscrash","_posbase","_mrkfin","_mrkTarget","_tipoveh","_heli","_vehiculos","_soldados","_grupos","_unit","_roads","_road","_vehicle","_veh","_tipogrupo","_tsk","_humo","_emitterArray"];
+private ["_poscrash","_posbase","_mrkfin","_mrkTarget","_tipoveh","_heli","_vehiclesX","_soldados","_grupos","_unit","_roads","_road","_vehicle","_veh","_typeGroup","_tsk","_humo","_emitterArray"];
 
 /*
 _posicion -> location of the destination, town
@@ -18,9 +18,9 @@ _nameDest = [_marcador] call AS_fnc_localizar;
 
 _posHQ = getMarkerPos guer_respawn;
 
-_tiempolim = 60;
-_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-_dateLimitNum = dateToNumber _fechalim;
+_timeLimit = 60;
+_dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
+_dateLimitNum = dateToNumber _dateLimit;
 
 _fMarkers = mrkFIA + campsFIA;
 _hMarkers = bases + airportsX + puestos - mrkFIA;
@@ -58,7 +58,7 @@ _tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_date
 
 misiones pushBack _tsk; publicVariable "misiones";
 
-_vehiculos = [];
+_vehiclesX = [];
 _soldados = [];
 _grupos = [];
 
@@ -95,8 +95,8 @@ _crates = [];
 	_crates pushBack _currentCrate;
 } forEach _crateOffsets;
 
-_tipoGrupo = [infGarrisonSmall, side_green] call AS_fnc_pickGroup;
-_grupo = [_poscrash, side_green, _tipogrupo] call BIS_Fnc_spawnGroup;
+_typeGroup = [infGarrisonSmall, side_green] call AS_fnc_pickGroup;
+_grupo = [_poscrash, side_green, _typeGroup] call BIS_Fnc_spawnGroup;
 _grupos = _grupos + [_grupo];
 
 {[_x] spawn genInit; _soldados = _soldados + [_x]} forEach units _grupo;
@@ -124,12 +124,12 @@ _vehCrew = _vehicle select 1;
 _grupoVeh = _vehicle select 2;
 _soldados = _soldados + _vehCrew;
 _grupos = _grupos + [_grupoVeh];
-_vehiculos = _vehiculos + [_veh];
+_vehiclesX = _vehiclesX + [_veh];
 
 sleep 1;
 
-_tipoGrupo = [infSquad, side_green] call AS_fnc_pickGroup;
-_grupo = [_posbase, side_green, _tipogrupo] call BIS_Fnc_spawnGroup;
+_typeGroup = [infSquad, side_green] call AS_fnc_pickGroup;
+_grupo = [_posbase, side_green, _typeGroup] call BIS_Fnc_spawnGroup;
 
 {_x assignAsCargo _veh; _x moveInCargo _veh; _soldados = _soldados + [_x]; [_x] spawn genInit} forEach units _grupo;
 _grupos = _grupos + [_grupo];
@@ -310,6 +310,6 @@ deleteVehicle _sboxempty;
 [1200,_tsk] spawn deleteTaskX;
 deleteMarker _mrkfin;
 {waitUntil {sleep 1;(!([distanceSPWN,1,_x,"BLUFORSpawn"] call distanceUnits))};
-deleteVehicle _x} forEach _vehiculos;
+deleteVehicle _x} forEach _vehiclesX;
 {deleteVehicle _x} forEach _soldados;
 {deleteGroup _x} forEach _grupos;

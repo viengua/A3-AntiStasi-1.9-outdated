@@ -183,7 +183,7 @@ while {alive _crate AND (_marker in markerSupplyCrates)} do {
         sleep 2;
 		(isNull attachedTo _crate) AND
 		!({(_crate distance (getmarkerpos _x) < 200) AND
-		(isOnRoad (position _crate))} count ciudades == 0) OR
+		(isOnRoad (position _crate))} count citiesX == 0) OR
 		!(_marker in markerSupplyCrates)
 	};
     diag_log format ["ANTISTASI - Unloaded _crate %1", _crate];
@@ -264,7 +264,7 @@ while {alive _crate AND (_marker in markerSupplyCrates)} do {
 		if (!(_counter < _deploymentTime)) exitWith {
 			// delete the map marker
 			deleteMarker _marker;
-			_currentCity = [ciudades, getPos _crate] call BIS_fnc_nearestPosition;
+			_currentCity = [citiesX, getPos _crate] call BIS_fnc_nearestPosition;
 			_isCrateUnloaded = true;
 		};
 	};

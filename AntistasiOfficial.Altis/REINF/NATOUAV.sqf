@@ -8,9 +8,9 @@ _orig = getMarkerPos _origen;
 
 [-10,0] remoteExec ["prestige",2];
 
-_tiempolim = 30;
-_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-_dateLimitNum = dateToNumber _fechalim;
+_timeLimit = 30;
+_dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
+_dateLimitNum = dateToNumber _dateLimit;
 
 _nameOrigin = format ["the %1 Carrier", A3_Str_BLUE];
 if (_origen!= "spawnNATO") then {_nameOrigin = [_origen] call AS_fnc_localizar};
@@ -19,11 +19,11 @@ _tsk = ["NATOUAV",[side_blue,civilian],[["STR_TSK_UAV_DESC",_nameOrigin,numberTo
 misiones pushBack _tsk; publicVariable "misiones";
 
 _soldados = [];
-_vehiculos = [];
+_vehiclesX = [];
 
-_grupoHeli = createGroup side_blue;
-_grupoHeli setVariable ["esNATO",true,true];
-_grupoHeli setGroupId ["UAV"];
+_groupHeli = createGroup side_blue;
+_groupHeli setVariable ["esNATO",true,true];
+_groupHeli setGroupId ["UAV"];
 hint format [localize "STR_TSK_NUAV_UAVWBAOHC", A3_Str_BLUE];
 
 for "_i" from 1 to 1 do
@@ -31,19 +31,19 @@ for "_i" from 1 to 1 do
 	_helifn = [_orig, 0, selectRandom bluUAV, side_blue] call bis_fnc_spawnvehicle;
 	_heli = _helifn select 0;
 	_heli setVariable ["BLUFORSpawn",false];
-	_vehiculos pushBack _heli;
+	_vehiclesX pushBack _heli;
 	createVehicleCrew _heli;
 	_heliCrew = crew _heli;
-	{[_x] spawn NATOinitCA; _soldados pushBack _x; [_x] join _grupoHeli} forEach _heliCrew;
+	{[_x] spawn NATOinitCA; _soldados pushBack _x; [_x] join _groupHeli} forEach _heliCrew;
 	_heli setPosATL [getPosATL _heli select 0, getPosATL _heli select 1, 1000];
 	_heli flyInHeight 300;
 
 	sleep 10;
 	};
-Slowhand hcSetGroup [_grupoHeli];
-_grupoHeli setVariable ["isHCgroup", true, true];
+Slowhand hcSetGroup [_groupHeli];
+_groupHeli setVariable ["isHCgroup", true, true];
 
-waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) or ({alive _x} count _vehiculos == 0) or ({canMove _x} count _vehiculos == 0)};
+waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) or ({alive _x} count _vehiclesX == 0) or ({canMove _x} count _vehiclesX == 0)};
 
 if (dateToNumber date > _dateLimitNum) then
 	{
@@ -58,5 +58,5 @@ else
 [0,_tsk] spawn deleteTaskX;
 
 {deleteVehicle _x} forEach _soldados;
-{deleteVehicle _x} forEach _vehiculos;
-deleteGroup _grupoheli;
+{deleteVehicle _x} forEach _vehiclesX;
+deleteGroup _groupHeli;

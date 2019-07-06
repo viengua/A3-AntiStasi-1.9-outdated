@@ -3,7 +3,7 @@ if (!isServer and hasInterface) exitWith {};
 _tskTitle = "STR_TSK_TD_DESSuppression";
 _tskDesc  = "STR_TSK_TD_DESC_DESSuppression";
 
-private ["_poscrash", "_posbase", "_mrkfin", "_mrkTarget", "_tipoveh", "_churches", "_vehiculos", "_soldados", "_grupos", "_unit", "_roads", "_road", "_vehicle", "_veh", "_tipogrupo", "_tsk", "_humo", "_emitterArray", "_poschurch", "_grupo", "_missionchurch", "_posmissionchurch", "_group1", "_MRAP"];
+private ["_poscrash", "_posbase", "_mrkfin", "_mrkTarget", "_tipoveh", "_churches", "_vehiclesX", "_soldados", "_grupos", "_unit", "_roads", "_road", "_vehicle", "_veh", "_typeGroup", "_tsk", "_humo", "_emitterArray", "_poschurch", "_grupo", "_missionchurch", "_posmissionchurch", "_group1", "_MRAP"];
 
 
 _marcador   = _this select 0;
@@ -12,9 +12,9 @@ _nameDest = [_marcador] call AS_fnc_localizar;
 
 _posHQ = getMarkerPos guer_respawn;
 
-_tiempolim   = 60;
-_fechalim    = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-_dateLimitNum = dateToNumber _fechalim;
+_timeLimit   = 60;
+_dateLimit    = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
+_dateLimitNum = dateToNumber _dateLimit;
 
 _fMarkers = mrkFIA + campsFIA;
 _hMarkers = bases + airportsX + puestos - mrkFIA;
@@ -67,14 +67,14 @@ while {true} do {
 
 	// adding groups and vehicle
 
-	_vehiculos = [];
+	_vehiclesX = [];
 	_soldados  = [];
 	_grupos	   = [];
 
 	if ((server getVariable "prestigeCSAT") < 70) then
 		{
-			_tipoGrupo = [infSquad, side_green] call AS_fnc_pickGroup;
-			_group1	   = [_posmissionchurch, side_green, _tipogrupo] call BIS_Fnc_spawnGroup;
+			_typeGroup = [infSquad, side_green] call AS_fnc_pickGroup;
+			_group1	   = [_posmissionchurch, side_green, _typeGroup] call BIS_Fnc_spawnGroup;
 			[_group1, _mrkchurch, "SAFE", "SPAWNED", "NOVEH2", "NOFOLLOW"] execVM "scripts\UPSMON.sqf";
 
 			{ [_x] spawn genInit;
@@ -107,8 +107,8 @@ while {true} do {
 			{ [_x] spawn genInit;
 			  _soldados = _soldados + [_x]} forEach units _grupo;
 		} else {
-			_tipoGrupo = [opGroup_Squad, side_red] call AS_fnc_pickGroup;
-			_group1	   = [_posmissionchurch, side_red, _tipogrupo] call BIS_Fnc_spawnGroup;
+			_typeGroup = [opGroup_Squad, side_red] call AS_fnc_pickGroup;
+			_group1	   = [_posmissionchurch, side_red, _typeGroup] call BIS_Fnc_spawnGroup;
 			[_group1, _mrkchurch, "SAFE", "SPAWNED", "NOVEH2", "NOFOLLOW"] execVM "scripts\UPSMON.sqf";
 
 
@@ -171,4 +171,4 @@ while {true} do {
 
 			[1200, _tsk] spawn deleteTaskX;
 			deleteMarker _mrkfin;
-			[_grupos, _soldados, _vehiculos] spawn AS_fnc_despawnUnits;
+			[_grupos, _soldados, _vehiclesX] spawn AS_fnc_despawnUnits;

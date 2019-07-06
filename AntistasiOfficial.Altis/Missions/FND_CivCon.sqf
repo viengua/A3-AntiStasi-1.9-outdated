@@ -6,9 +6,9 @@ _tskDesc = "STR_TSK_TD_DESC_fndCiv";
 _site = _this select 0;
 _position = getMarkerPos _site;
 
-_tiempolim = 60;
-_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-_dateLimitNum = dateToNumber _fechalim;
+_timeLimit = 60;
+_dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
+_dateLimitNum = dateToNumber _dateLimit;
 
 _range = [_site] call sizeMarker;
 _bldgs = nearestObjects [_position, ["house"], _range];

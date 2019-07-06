@@ -23,7 +23,7 @@ if (getMarkerPos _cercano distance _positionTel > 40) exitWith {hint "You must c
 
 if (_cercano in mrkAAF) exitWith {hint "That zone does not belong to FIA"; CreateDialog "garrison_menu";};
 
-if ((_cercano in outpostsFIA) or (_cercano in ciudades)) exitWith {hint "You cannot manage garrisons on this kind of zone"; CreateDialog "garrison_menu"};
+if ((_cercano in outpostsFIA) or (_cercano in citiesX)) exitWith {hint "You cannot manage garrisons on this kind of zone"; CreateDialog "garrison_menu"};
 
 _garrison = garrison getVariable [_cercano,[]];
 

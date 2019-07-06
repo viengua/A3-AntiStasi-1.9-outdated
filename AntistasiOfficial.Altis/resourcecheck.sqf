@@ -22,8 +22,8 @@ while {true} do {
 	//Just remove this if you need. Also check it in init and serverInit.
 	diag_log "resourcecheck.sqf: calculating grids...";
 	[_ws_territory, 0] call ws_fnc_setValueAll; //reset the grid
-	[((mrkAAF-ciudades)-colinas)-controlsX, _ws_radius, 1, _ws_territory] call ws_fnc_markersToGridArray;		//Convert AAF territory into a 2D array
-	[(((mrkFIA-["FIA_HQ"])-ciudades)-controlsX)-colinas, _ws_radius, -1.2,_ws_territory] call ws_fnc_markersToGridArray;	//Convert FIA territory into a 2D array
+	[((mrkAAF-citiesX)-colinas)-controlsX, _ws_radius, 1, _ws_territory] call ws_fnc_markersToGridArray;		//Convert AAF territory into a 2D array
+	[(((mrkFIA-["FIA_HQ"])-citiesX)-controlsX)-colinas, _ws_radius, -1.2,_ws_territory] call ws_fnc_markersToGridArray;	//Convert FIA territory into a 2D array
 	[_ws_territory, 0, _ws_frontline] call ws_fnc_filterZeroCrossing;											//Detect zero crossing
 	[_ws_frontline, 0.5, _ws_frontline] call ws_fnc_filterThreshold;											//Make the zero crossing more sharp
 	[_ws_frontline, _ws_frontlineSmooth] call ws_fnc_filterSmooth;												//Blur the frontline
@@ -149,7 +149,7 @@ while {true} do {
 			if (_power) then {_power = false} else {_power = true};
 			[_city,_power] spawn AS_fnc_adjustLamps;
 		};
-	} forEach ciudades;
+	} forEach citiesX;
 
 	if (countSupplyCrates < 6) then
 	{
@@ -246,9 +246,9 @@ while {true} do {
 		};
 	} forEach vehicles;
 	*/
-	cuentaCA = cuentaCA - 600;
-	publicVariable "cuentaCA";
-	if ((cuentaCA < 1) AND (diag_fps > minimoFPS) AND ((count allUnits) < 170)) then { //If there are not too many units on the map already, 17/08 Stef increased from 150 to 170
+	countCA = countCA - 600;
+	publicVariable "countCA";
+	if ((countCA < 1) AND (diag_fps > minimoFPS) AND ((count allUnits) < 170)) then { //If there are not too many units on the map already, 17/08 Stef increased from 150 to 170
 
 		[1200] remoteExec ["AS_fnc_increaseAttackTimer",2];
 		if ((count mrkFIA > 0) AND !("AttackAAF" in misiones) AND !(server getVariable ["waves_active",false])) then {

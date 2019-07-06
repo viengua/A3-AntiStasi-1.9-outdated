@@ -3,7 +3,7 @@ if (!isServer and hasInterface) exitWith {};
 _tskTitle = "STR_TSK_TD_DesVehicle";
 _tskDesc = "STR_TSK_TD_DESC_DesVehicle";
 
-private ["_marcador","_posicion","_fechalim","_dateLimitNum","_nameDest","_tipoVeh","_texto","_truckCreated","_size","_pos","_veh","_grupo","_unit"];
+private ["_marcador","_posicion","_dateLimit","_dateLimitNum","_nameDest","_tipoVeh","_texto","_truckCreated","_size","_pos","_veh","_grupo","_unit"];
 
 _marcador = _this select 0;
 _source = _this select 1;
@@ -15,9 +15,9 @@ if (_source == "mil") then {
 
 _posicion = getMarkerPos _marcador;
 
-_tiempolim = 120;
-_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-_dateLimitNum = dateToNumber _fechalim;
+_timeLimit = 120;
+_dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
+_dateLimitNum = dateToNumber _dateLimit;
 _nameDest = [_marcador] call AS_fnc_localizar;
 
 _tipoVeh = "";

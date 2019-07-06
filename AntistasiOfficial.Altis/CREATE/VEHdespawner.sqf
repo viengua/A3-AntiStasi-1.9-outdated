@@ -11,7 +11,7 @@ _vehicle setVariable ["inDespawner",true,true];
 if ((typeOf _vehicle in CIV_vehicles) AND ({_x getVariable ["BLUFORSpawn",false]} count crew _vehicle > 0) AND (_vehicle distance getMarkerPos guer_respawn > 50)) then {
 	_vehiclePos = position _vehicle;
 	[0,-1,_vehiclePos] remoteExec ["AS_fnc_changeCitySupport",2];
-	_city = [ciudades, _vehiclePos] call BIS_fnc_nearestPosition;
+	_city = [citiesX, _vehiclePos] call BIS_fnc_nearestPosition;
 	_data = server getVariable _city;
 	_prestigeOPFOR = _data select 2;
 	sleep 5;

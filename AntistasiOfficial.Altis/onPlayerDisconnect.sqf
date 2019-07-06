@@ -1,4 +1,4 @@
-private ["_player","_recursos","_hr","_armas","_municion","_items","_pos"];
+private ["_player","_recursos","_hr","_armas","_ammunition","_items","_pos"];
 
 params ["_player","_id","_uid","_name"];
 

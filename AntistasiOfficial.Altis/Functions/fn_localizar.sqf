@@ -6,9 +6,9 @@ _text = "";
 
 call {
 	if (_location in colinas) exitWith {_text = format ["Observation Post at Mount %1", [_location, false] call AS_fnc_location]};
-	if (_location in ciudades) exitWith {_text = format ["%1", [_location, false] call AS_fnc_location]};
+	if (_location in citiesX) exitWith {_text = format ["%1", [_location, false] call AS_fnc_location]};
 
-	_city = [ciudades, _position] call BIS_fnc_nearestPosition;
+	_city = [citiesX, _position] call BIS_fnc_nearestPosition;
 	_city = [_city, false] call AS_fnc_location;
 
 	if (_location in controlsX) exitWith {_text = format ["Roadblock near %1",_city]};

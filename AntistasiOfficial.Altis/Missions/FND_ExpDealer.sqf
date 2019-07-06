@@ -8,7 +8,7 @@ _site = _this select 0;
 private ["_mrk","_posCmp","_p1","_p2","_dirveh"];
 
 _grupos = [];
-_vehiculos = [];
+_vehiclesX = [];
 _soldados = [];
 
 _nameDest = [_site] call AS_fnc_localizar;
@@ -49,9 +49,9 @@ if !(_break) exitWith {[[petros,"globalChat","STR_TSK_TD_CHAT_1"],"commsMP"] cal
 
 server setVariable ["expActive", true, true];
 
-_tiempolim = 60;
-_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-_dateLimitNum = dateToNumber _fechalim;
+_timeLimit = 60;
+_dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
+_dateLimitNum = dateToNumber _dateLimit;
 
 _tsk = ["FND_E",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_site],_posCmp,"CREATED",5,true,true,"Find"] call BIS_fnc_setTask;
 misiones pushBack _tsk; publicVariable "misiones";
@@ -116,12 +116,12 @@ if (random 8 < 1) then {
 	_grupoVeh = _vehicle select 2;
 	_soldados = _soldados + _vehCrew;
 	_grupos = _grupos + [_grupoVeh];
-	_vehiculos = _vehiculos + [_veh];
+	_vehiclesX = _vehiclesX + [_veh];
 
 	sleep 1;
 
-	_tipoGrupo = [infSquad, side_green] call AS_fnc_pickGroup;
-	_grupo = [_posbase, side_green, _tipogrupo] call BIS_Fnc_spawnGroup;
+	_typeGroup = [infSquad, side_green] call AS_fnc_pickGroup;
+	_grupo = [_posbase, side_green, _typeGroup] call BIS_Fnc_spawnGroup;
 
 	{_x assignAsCargo _veh; _x moveInCargo _veh; _soldados = _soldados + [_x]; [_x] spawn genInit} forEach units _grupo;
 	_grupos = _grupos + [_grupo];
@@ -190,7 +190,7 @@ sleep 30;
 deleteMarker "Devin";
 deleteMarker "DevPat";
 waitUntil {sleep 1; {_x distance Devin < distanceSPWN/2} count (allPlayers - (entities "HeadlessClient_F")) == 0};
-{deleteVehicle _x} forEach _vehiculos;
+{deleteVehicle _x} forEach _vehiclesX;
 {deleteVehicle _x} forEach _soldados;
 {deleteGroup _x} forEach _grupos;
 deleteVehicle Devin;

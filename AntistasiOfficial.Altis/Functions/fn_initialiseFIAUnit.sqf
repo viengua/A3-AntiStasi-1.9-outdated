@@ -313,7 +313,7 @@ if (player == leader _unit) then {
 			if (unitReady _unit) then {
 				if ((alive _unit) and (_unit distance (getMarkerPos guer_respawn) > 50) and (_unit distance leader group _unit > 500) and ((vehicle _unit == _unit) or ((typeOf (vehicle _unit)) in CIV_vehicles))) then {
 					hint format ["%1 lost communication, he will come back with you if possible", name _unit];
-					[_unit] join rezagados;
+					[_unit] join stragglers;
 					if ((vehicle _unit isKindOf "StaticWeapon") or (isNull (driver (vehicle _unit)))) then {unassignVehicle _unit; [_unit] orderGetIn false};
 					_unit doMove position player;
 					_tiempo = time + 900;

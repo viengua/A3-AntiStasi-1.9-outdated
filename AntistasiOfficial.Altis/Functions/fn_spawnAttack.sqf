@@ -6,13 +6,13 @@ _difficulty = 0;
 
 _possibleTargets = mrkFIA - destroyedCities - controlsX - colinas - outpostsFIA - ["FIA_HQ"];
 _includeCSAT = true;
-cuentaCA = cuentaCA + 600; //experimental
+countCA = countCA + 600; //experimental
 
 diag_log format ["fn_spawnAttack.sqf: initial possible targets %1", _possibleTargets];
 
 if ((random 100 > (server getVariable "prestigeCSAT")) or ({_x in bases} count mrkFIA == 0) || (server getVariable "blockCSAT")) then {
 	diag_log format ["fn_spawnAttack.sqf:  removing cities from objectives."];
-	_possibleTargets = _possibleTargets - ciudades;
+	_possibleTargets = _possibleTargets - citiesX;
 	_includeCSAT = false;
 };
 
@@ -29,7 +29,7 @@ _scoreNeededAirBase = [0, 5] select (count (unlockedWeapons arrayIntersect genAA
 	_objective = _x;
 	_easyTarget = false;
 	diag_log format ["fn_spawnAttack.sqf: analyzing objective: %1.", _objective];
-	if (_objective in ciudades) then {
+	if (_objective in citiesX) then {
 		diag_log "fn_spawnAttack.sqf: objective is a city.";
 		_data = server getVariable _objective;
 		_prestigeBLUFOR = _data select 3;
@@ -137,7 +137,7 @@ diag_log format ["ObjectiveS: %1, difficulty: %2", _objectives, _difficulty];
 
 if ((count _objectives > 0) and (_difficulty < 3)) then {
 	_objective = selectRandom _objectives;
-	if !(_objective in ciudades) then
+	if !(_objective in citiesX) then
 	{
 		if((count allUnits) < 170) then //If there are not too many units on the map already, 17/08 Stef increased from 150 to 170
 		{
@@ -152,7 +152,7 @@ if ((count _objectives > 0) and (_difficulty < 3)) then {
 	{
 		[_objective] remoteExec ["CSATpunish", call AS_fnc_getNextWorker]
 	};
-	cuentaCA = cuentaCA - 600; //experimental
+	countCA = countCA - 600; //experimental
 };
 
 if !("CONVOY" in misiones) then {
@@ -167,7 +167,7 @@ if !("CONVOY" in misiones) then {
 					_objectives pushBack [_x,_base];
 				};
 			};
-		} forEach (ciudades - mrkAAF);
+		} forEach (citiesX - mrkAAF);
 
 		if !(_objectives isEqualTo []) then {
 			_objective = selectRandom _objectives;

@@ -28,7 +28,7 @@ private ["_city","_position","_power","_powered", "_factRes", "_location"];
 
 		[_city,_powered] spawn AS_fnc_adjustLamps;
 	};
-} forEach ciudades;
+} forEach citiesX;
 
 _factRes = fabricas + recursos;
 {

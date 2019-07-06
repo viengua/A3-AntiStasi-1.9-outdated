@@ -6,14 +6,14 @@ _tskDesc = "STR_TSK_TD_DESC_logBank";
 _banco = _this select 0;
 
 _posicion = getPos _banco;
-_marcador = [ciudades,_posicion] call BIS_fnc_nearestPosition;
+_marcador = [citiesX,_posicion] call BIS_fnc_nearestPosition;
 _posbase = getMarkerPos guer_respawn;
 
-_tiempolim = 120;
-_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-_dateLimitNum = dateToNumber _fechalim;
+_timeLimit = 120;
+_dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
+_dateLimitNum = dateToNumber _dateLimit;
 
-_ciudad = [ciudades, _posicion] call BIS_fnc_nearestPosition;
+_ciudad = [citiesX, _posicion] call BIS_fnc_nearestPosition;
 _mrkfin = createMarker [format ["LOG%1", random 100], _posicion];
 _nameDest = [_ciudad] call AS_fnc_localizar;
 _mrkfin setMarkerShape "ICON";
@@ -49,8 +49,8 @@ _mrk setMarkerColorLocal "ColorRed";
 _mrk setMarkerBrushLocal "DiagGrid";
 _mrk setMarkerAlphaLocal 0;
 
-_tipoGrupo = [infSquad, side_green] call AS_fnc_pickGroup;
-_grupo = [_posicion, side_green, _tipogrupo] call BIS_Fnc_spawnGroup;
+_typeGroup = [infSquad, side_green] call AS_fnc_pickGroup;
+_grupo = [_posicion, side_green, _typeGroup] call BIS_Fnc_spawnGroup;
 sleep 1;
 [_grupo, _mrk, "SAFE","SPAWNED", "NOVEH2", "FORTIFY"] execVM "scripts\UPSMON.sqf";
 {[_x] spawn genInitBASES} forEach units _grupo;

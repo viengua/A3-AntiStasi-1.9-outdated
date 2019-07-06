@@ -14,9 +14,9 @@ if (_source == "mil") then {
 };
 
 _posicion = getMarkerPos _marcador;
-_tiempolim = 90;//120
-_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-_dateLimitNum = dateToNumber _fechalim;
+_timeLimit = 90;//120
+_dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
+_dateLimitNum = dateToNumber _dateLimit;
 
 _nameDest = [_marcador] call AS_fnc_localizar;
 

@@ -15,7 +15,7 @@ _markerPos = getMarkerPos (_marker);
 
 _prestigeCSAT = server getVariable ["prestigeCSAT",0];
 
-diag_log format ["Info: Attack triggered. Timer prior to attack: %1.", cuentaCA];
+diag_log format ["Info: Attack triggered. Timer prior to attack: %1.", countCA];
 
 //Where attack start from
 	_base = [_marker] call AS_fnc_findBaseForCA;
@@ -370,8 +370,8 @@ if !(_marker in mrkAAF) then {
 };
 
 [2700] remoteExec ["AS_fnc_increaseAttackTimer",2];
-if (cuentaCA < 0) then {
-	cuentaCA = 600;
+if (countCA < 0) then {
+	countCA = 600;
 };
 
 sleep 30;

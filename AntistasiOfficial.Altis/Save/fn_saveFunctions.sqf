@@ -177,7 +177,7 @@ fn_saveProfile = {
 
 //ADD VARIABLES TO THIS ARRAY THAT NEED SPECIAL SCRIPTING TO LOAD
 specialVarLoads =
-["campaign_playerList","cuentaCA","membersPool","antenas","posHQ","prestigeNATO","prestigeCSAT","APCAAFcurrent","tanksAAFcurrent","planesAAFcurrent","helisAAFcurrent","time","resourcesAAF","skillFIA","skillAAF","destroyedBuildings","flag_chopForest","BE_data","enableOldFT","enableMemAcc","hr","resourcesFIA","vehicles","weapons","magazines","items","backpacks","objectsHQ","addObjectsHQ","supportOPFOR","supportBLUFOR", "supplyLevels","garrison","mines","emplacements","campList","tasks","idleBases","unlockedWeapons","unlockedItems","unlockedMagazines","unlockedBackpacks"];
+["campaign_playerList","countCA","membersPool","antenas","posHQ","prestigeNATO","prestigeCSAT","APCAAFcurrent","tanksAAFcurrent","planesAAFcurrent","helisAAFcurrent","time","resourcesAAF","skillFIA","skillAAF","destroyedBuildings","flag_chopForest","BE_data","enableOldFT","enableMemAcc","hr","resourcesFIA","vehicles","weapons","magazines","items","backpacks","objectsHQ","addObjectsHQ","supportOPFOR","supportBLUFOR", "supplyLevels","garrison","mines","emplacements","campList","tasks","idleBases","unlockedWeapons","unlockedItems","unlockedMagazines","unlockedBackpacks"];
 
 /*
 	Variables that are loaded, but do not require special procedures
@@ -194,7 +194,7 @@ fn_setData = {
 		        {membersPool pushBackUnique _x;} forEach _varValue;
 		    };
 			if(_varName == 'campaign_playerList') exitWith {server setVariable ["campaign_playerList",_varValue,true]};
-			if(_varName == 'cuentaCA') exitWith {cuentaCA = _varValue max 2700};
+			if(_varName == 'countCA') exitWith {countCA = _varValue max 2700};
 			if(_varName == 'flag_chopForest') then {
 				flag_chopForest = _varValue;
 				if (flag_chopForest) then {[] spawn AS_fnc_clearForest};
@@ -320,29 +320,29 @@ fn_setData = {
 			if(_varName == 'mines') exitWith {
 				/*for "_i" from 0 to (count _varValue) - 1 do {
 					_unknownMine = false;
-					_tipoMina = _varValue select _i select 0;
-					switch _tipoMina do {
-						case apMine_type: {_tipoMina = apMine_placed};
-						case atMine_type: {_tipoMina = atMine_placed};
-						case "APERSBoundingMine_Range_Ammo": {_tipoMina = "APERSBoundingMine"};
-						case "SLAMDirectionalMine_Wire_Ammo": {_tipoMina = "SLAMDirectionalMine"};
-						case "APERSTripMine_Wire_Ammo": {_tipoMina = "APERSTripMine"};
-						case "ClaymoreDirectionalMine_Remote_Ammo": {_tipoMina = "Claymore_F"};
+					_typeMine = _varValue select _i select 0;
+					switch _typeMine do {
+						case apMine_type: {_typeMine = apMine_placed};
+						case atMine_type: {_typeMine = atMine_placed};
+						case "APERSBoundingMine_Range_Ammo": {_typeMine = "APERSBoundingMine"};
+						case "SLAMDirectionalMine_Wire_Ammo": {_typeMine = "SLAMDirectionalMine"};
+						case "APERSTripMine_Wire_Ammo": {_typeMine = "APERSTripMine"};
+						case "ClaymoreDirectionalMine_Remote_Ammo": {_typeMine = "Claymore_F"};
 						default {
 							_unknownMine = true;
 						};
 					};
 					if !(_unknownMine) then {
-						_posMina = _varValue select _i select 1;
+						_posMine = _varValue select _i select 1;
 						_dirMina = _varValue select _i select 2;
-						_mina = createMine [_tipoMina, _posMina, [], _dirMina];
+						_mina = createMine [_typeMine, _posMine, [], _dirMina];
 						_detected = _varValue select _i select 3;
 						if (_detected) then {side_blue revealMine _mina};
 					};
 				};*/
 			};
 			if(_varName == 'garrison') exitWith {
-				_markers = mrkFIA - outpostsFIA - controlsX - ciudades;
+				_markers = mrkFIA - outpostsFIA - controlsX - citiesX;
 				_garrison = _varValue;
 				for "_i" from 0 to (count _markers - 1) do
 					{
@@ -419,8 +419,8 @@ fn_setData = {
 			//I would recommend to redo this part, if I got some time, I will do this - wurzel
 
 			if(_varname == 'supportOPFOR') exitWith {
-				for "_i" from 0 to (count ciudades) - 1 do {
-					_ciudad = ciudades select _i;
+				for "_i" from 0 to (count citiesX) - 1 do {
+					_ciudad = citiesX select _i;
 					_datos = server getVariable _ciudad;
 					_numCiv = _datos select 0;
 					_numVeh = _datos select 1;
@@ -432,8 +432,8 @@ fn_setData = {
 				};
 			};
 			if(_varname == 'supportBLUFOR') exitWith {
-				for "_i" from 0 to (count ciudades) - 1 do {
-					_ciudad = ciudades select _i;
+				for "_i" from 0 to (count citiesX) - 1 do {
+					_ciudad = citiesX select _i;
 					_datos = server getVariable _ciudad;
 					_numCiv = _datos select 0;
 					_numVeh = _datos select 1;
@@ -447,8 +447,8 @@ fn_setData = {
 
 			if(_varName == 'supplyLevels') exitWith
 			{
-				for "_i" from 0 to (count ciudades) - 1 do {
-					_ciudad = ciudades select _i;
+				for "_i" from 0 to (count citiesX) - 1 do {
+					_ciudad = citiesX select _i;
 					_datos = server getVariable _ciudad;
 					_numCiv = _datos select 0;
 					_numVeh = _datos select 1;

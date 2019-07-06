@@ -177,7 +177,7 @@ if (_tipo == "NATOArmor") then {
 };
 
 if (_tipo == "NATOCA") then {
-	if ((_sitio in ciudades) or (_sitio in controlsX) or (_sitio in colinas)) then {_salir = true; hint localize "STR_HINTS_NATOD_NATOWATKOZ"};
+	if ((_sitio in citiesX) or (_sitio in controlsX) or (_sitio in colinas)) then {_salir = true; hint localize "STR_HINTS_NATOD_NATOWATKOZ"};
 	if (_sitio in mrkFIA) then {_salir = true; hint localize "STR_HINTS_NATOD_NATOAMBOOOAAFCZ"};
 };
 

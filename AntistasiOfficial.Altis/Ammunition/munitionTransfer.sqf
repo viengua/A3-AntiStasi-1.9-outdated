@@ -1,11 +1,11 @@
 if (!isServer) exitWith {};
-private ["_subCosa","_municion"];
+private ["_subCosa","_ammunition"];
 _origen = _this select 0;
 _destino = _this select 1;
 
-_municion= [];
+_ammunition= [];
 _items = [];
-_municion = magazineCargo _origen;
+_ammunition = magazineCargo _origen;
 _items = itemCargo _origen;
 _armas = [];
 _weaponsItemsCargo = weaponsItemsCargo _origen;
@@ -23,8 +23,8 @@ if (count _containers > 0) then
 	for "_i" from 0 to (count _containers) - 1 do
 		{
 		_subCosa = magazineCargo ((_containers select _i) select 1);
-		if (!isNil "_subCosa") then {_municion = _municion + _subCosa} else {diag_log format ["Error from %1",magazineCargo (_containers select _i)]};
-		//_municion = _municion + (magazineCargo ((_containers select _i) select 1));
+		if (!isNil "_subCosa") then {_ammunition = _ammunition + _subCosa} else {diag_log format ["Error from %1",magazineCargo (_containers select _i)]};
+		//_ammunition = _ammunition + (magazineCargo ((_containers select _i) select 1));
 		_items = _items + (itemCargo ((_containers select _i) select 1));
 		_weaponsItemsCargo = _weaponsItemsCargo + weaponsItemsCargo ((_containers select _i) select 1);
 		};
@@ -39,10 +39,10 @@ if (!isNil "_weaponsItemsCargo") then
 
 		if ((activeAFRF) && (isNumber (configFile >> "CfgWeapons" >> (_x select 0) >> "rhs_disposable"))) then {
 			_ammo = (getArray (configFile >> "CfgWeapons" >> (_x select 0) >> "magazines")) select 0;
-			_municion pushBack _ammo;
+			_ammunition pushBack _ammo;
 		}
 		else {
-			_municion pushBack ((_x select 4) select 0);
+			_ammunition pushBack ((_x select 4) select 0);
 		};
 		for "_i" from 1 to (count _x) - 1 do
 			{
@@ -59,7 +59,7 @@ if (!isNil "_weaponsItemsCargo") then
 					if (count _cosa > 0) then
 						{
 						_subCosa = _cosa select 0;
-						if (!isNil "_subCosa") then {_municion pushBack _subCosa; Slowhand sidechat format ["%1,%2",_municion,_subCosa];} else {diag_log format ["Error transfering ammo on %1",_cosa]};
+						if (!isNil "_subCosa") then {_ammunition pushBack _subCosa; Slowhand sidechat format ["%1,%2",_ammunition,_subCosa];} else {diag_log format ["Error transfering ammo on %1",_cosa]};
 						};
 					};
 				}
@@ -69,42 +69,42 @@ if (!isNil "_weaponsItemsCargo") then
 		};
 	};
 
-_armasFinal = [];
-_armasFinalCount = [];
+_weaponsFinal = [];
+_weaponsFinalCount = [];
 {
 	_arma = _x;
-	if ((not(_arma in _armasFinal)) and (not(_arma in unlockedWeapons))) then {
+	if ((not(_arma in _weaponsFinal)) and (not(_arma in unlockedWeapons))) then {
 		if (_arma in blockedWeapons) then {
-			_armasFinal pushBack ([_arma] call AS_fnc_weaponReplacement);
+			_weaponsFinal pushBack ([_arma] call AS_fnc_weaponReplacement);
 		} else {
-			_armasFinal pushBack _arma;
+			_weaponsFinal pushBack _arma;
 		};
-		_armasFinalCount pushBack ({_x == _arma} count _armas);
+		_weaponsFinalCount pushBack ({_x == _arma} count _armas);
 	};
 } forEach _armas;
 
-if (count _armasFinal > 0) then
+if (count _weaponsFinal > 0) then
 	{
-	for "_i" from 0 to (count _armasFinal) - 1 do
+	for "_i" from 0 to (count _weaponsFinal) - 1 do
 		{
-		_destino addWeaponCargoGlobal [_armasFinal select _i,_armasFinalCount select _i];
+		_destino addWeaponCargoGlobal [_weaponsFinal select _i,_weaponsFinalCount select _i];
 		};
 	};
 
 
 _ammunitionFinalX = [];
 _ammunitionFinalCount = [];
-if (isNil "_municion") then {
+if (isNil "_ammunition") then {
 	diag_log format ["Error en transmisión de munición. Tenía esto: %1 y estos containers: %2, el origen era un %3", magazineCargo _origen, everyContainer _origen,typeOf _origen];
 } else {
-	if (count _municion > 0) then {
+	if (count _ammunition > 0) then {
 		{
 			_arma = _x;
 			if ((not(_arma in _ammunitionFinalX)) and (not(_arma in unlockedMagazines))) then {
 				_ammunitionFinalX pushBack _arma;
-				_ammunitionFinalCount pushBack ({_x == _arma} count _municion);
+				_ammunitionFinalCount pushBack ({_x == _arma} count _ammunition);
 			};
-		} forEach  _municion;
+		} forEach  _ammunition;
 	};
 };
 

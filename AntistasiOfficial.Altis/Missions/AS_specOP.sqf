@@ -13,9 +13,9 @@ if (_source == "mil") then {
 
 _posicion = getMarkerPos _marcador;
 
-_tiempolim = 120;
-_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-_dateLimitNum = dateToNumber _fechalim;
+_timeLimit = 120;
+_dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
+_dateLimitNum = dateToNumber _dateLimit;
 
 _nameDest = [_marcador] call AS_fnc_localizar;
 
@@ -30,8 +30,8 @@ _mrkfin setMarkerColorLocal "ColorRed";
 _mrkfin setMarkerBrushLocal "DiagGrid";
 if (!debug) then {_mrkfin setMarkerAlphaLocal 0};
 
-_tipoGrupo = [opGroup_SpecOps, side_red] call AS_fnc_pickGroup;
-_grupo = [_posicion, side_red, _tipoGrupo] call BIS_Fnc_spawnGroup;
+_typeGroup = [opGroup_SpecOps, side_red] call AS_fnc_pickGroup;
+_grupo = [_posicion, side_red, _typeGroup] call BIS_Fnc_spawnGroup;
 sleep 1;
 _uav = createVehicle [opUAVsmall, _posicion, [], 0, "FLY"];
 createVehicleCrew _uav;

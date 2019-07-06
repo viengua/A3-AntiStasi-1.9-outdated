@@ -36,7 +36,7 @@ _unit addEventHandler ["FIRED",
 			}
 		else
 			{
-			_ciudad = [ciudades,_unit] call BIS_fnc_nearestPosition;
+			_ciudad = [citiesX,_unit] call BIS_fnc_nearestPosition;
 			_size = [_ciudad] call sizeMarker;
 			_datos = server getVariable _ciudad;
 			if (random 100 < _datos select 2) then

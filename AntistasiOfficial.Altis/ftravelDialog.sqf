@@ -1,4 +1,4 @@
-private ["_tipo","_coste","_grupo","_unit","_tam","_roads","_road","_pos","_camion","_texto","_mrk","_hr","_exists","_positionTel","_tipogrupo","_resourcesFIA","_hrFIA"];
+private ["_tipo","_coste","_grupo","_unit","_tam","_roads","_road","_pos","_camion","_texto","_mrk","_hr","_exists","_positionTel","_typeGroup","_resourcesFIA","_hrFIA"];
 
 if (!([player] call hasRadio)) exitWith {hint localize "STR_HINTS_FD_YNARIYITBA"};
 if ("campsFIA" in misiones) exitWith {hint localize "STR_TSK_TD_BEMP_RESTR"};
@@ -47,12 +47,12 @@ _hr = 0;
 if ((_tipo == "create") && (count campsFIA > _maxCamps)) exitWith {hint localize "STR_HINTS_FD_YCOSAMOFFC"};
 
 if (_tipo == "create") then {
-	_tipogrupo = guer_grp_sniper;
+	_typeGroup = guer_grp_sniper;
 	_formato = ([guer_grp_sniper, "guer"] call AS_fnc_pickGroup);
-	if !(typeName _tipogrupo == "ARRAY") then {
-		_tipogrupo = [_formato] call groupComposition;
+	if !(typeName _typeGroup == "ARRAY") then {
+		_typeGroup = [_formato] call groupComposition;
 	};
-	{_coste = _coste + (server getVariable _x); _hr = _hr +1} forEach _tipogrupo;
+	{_coste = _coste + (server getVariable _x); _hr = _hr +1} forEach _typeGroup;
 };
 
 _txt = "";

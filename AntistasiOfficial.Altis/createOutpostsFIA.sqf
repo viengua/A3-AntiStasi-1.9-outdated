@@ -11,18 +11,18 @@ if (_tipo == "delete") exitWith {
 	hint format ["Deleting %1",markerText _mrk];
 	_coste = 0;
 	_hr = 0;
-	_tipogrupo = guer_grp_sniper;
+	_typeGroup = guer_grp_sniper;
 	if (markerText _mrk != "FIA Observation Post") then
 		{
-		_tipogrupo = guer_grp_AT;
+		_typeGroup = guer_grp_AT;
 		_coste = _coste + ([guer_veh_technical] call vehiclePrice) + (server getVariable guer_sol_RFL);
 		_hr = _hr + 1;
 		};
-	_formato = ([_tipogrupo, "guer"] call AS_fnc_pickGroup);
-	if !(typeName _tipogrupo == "ARRAY") then {
-		_tipogrupo = [_formato] call groupComposition;
+	_formato = ([_typeGroup, "guer"] call AS_fnc_pickGroup);
+	if !(typeName _typeGroup == "ARRAY") then {
+		_typeGroup = [_formato] call groupComposition;
 	};
-	{_coste = _coste + (server getVariable _x); _hr = _hr +1} forEach _tipogrupo;
+	{_coste = _coste + (server getVariable _x); _hr = _hr +1} forEach _typeGroup;
 	[_hr,_coste] remoteExec ["resourcesFIA",2];
 	deleteMarker _mrk;
 	outpostsFIA = outpostsFIA - [_mrk]; publicVariable "outpostsFIA";
@@ -38,25 +38,25 @@ if (_tipo == "delete") exitWith {
 _isRoad = isOnRoad _positionTel;
 
 _texto = "FIA Observation Post";
-_tipogrupo = guer_grp_sniper;
+_typeGroup = guer_grp_sniper;
 _tipoVeh = guer_veh_quad;
 
 if (_isRoad) then
 	{
 	_texto = "FIA Roadblock";
-	_tipogrupo = guer_grp_AT;
+	_typeGroup = guer_grp_AT;
 	_tipoVeh = guer_veh_offroad;
 	};
 
 _mrk = createMarker [format ["FIAPost%1", random 1000], _positionTel];
 _mrk setMarkerShape "ICON";
 
-_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + 60];
-_dateLimitNum = dateToNumber _fechalim;
+_dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + 60];
+_dateLimitNum = dateToNumber _dateLimit;
 
 _tsk = ["outpostsFIA", [side_blue, civilian],["STR_TSK_DESC_OPDEPLOY", "STR_TSK_OPDEPLOY", _mrk],_positionTel, "CREATED", 5, true, true, "Move"] call BIS_fnc_setTask;
 misiones pushBackUnique _tsk; publicVariable "misiones";
-_grupo = [getMarkerPos guer_respawn, side_blue, ([_tipogrupo, "guer"] call AS_fnc_pickGroup)] call BIS_Fnc_spawnGroup;
+_grupo = [getMarkerPos guer_respawn, side_blue, ([_typeGroup, "guer"] call AS_fnc_pickGroup)] call BIS_Fnc_spawnGroup;
 _grupo setGroupId ["Watch"];
 
 _tam = 10;

@@ -8,9 +8,9 @@ private ["_pos","_camion","_truckCreated","_grupo","_grupo1","_mrk"];
 _marcador = _this select 0;
 _posicion = getMarkerPos _marcador;
 
-_tiempolim = 60;
-_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-_dateLimitNum = dateToNumber _fechalim;
+_timeLimit = 60;
+_dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
+_dateLimitNum = dateToNumber _dateLimit;
 
 _nameDest = [_marcador] call AS_fnc_localizar;
 
@@ -42,8 +42,8 @@ if (spawner getVariable _marcador) then
 	_mrk setMarkerBrushLocal "DiagGrid";
 	if (!debug) then {_mrk setMarkerAlphaLocal 0};
 
-	_tipoGrupo = [infGarrisonSmall, side_green] call AS_fnc_pickGroup;
-	_grupo = [_pos, side_green, _tipogrupo] call BIS_Fnc_spawnGroup;
+	_typeGroup = [infGarrisonSmall, side_green] call AS_fnc_pickGroup;
+	_grupo = [_pos, side_green, _typeGroup] call BIS_Fnc_spawnGroup;
 	sleep 1;
 	if (random 10 < 33) then
 		{
@@ -53,7 +53,7 @@ if (spawner getVariable _marcador) then
 
 	[_grupo, _mrk, "SAFE","SPAWNED", "NOVEH2"] execVM "scripts\UPSMON.sqf";
 
-	_grupo1 = [_pos, side_green, _tipoGrupo] call BIS_Fnc_spawnGroup;
+	_grupo1 = [_pos, side_green, _typeGroup] call BIS_Fnc_spawnGroup;
 	sleep 1;
 	[_grupo1, _mrk, "SAFE","SPAWNED", "NOVEH2"] execVM "scripts\UPSMON.sqf";
 

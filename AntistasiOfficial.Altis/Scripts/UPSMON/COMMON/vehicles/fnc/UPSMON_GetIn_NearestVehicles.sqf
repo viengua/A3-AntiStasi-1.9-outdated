@@ -3,7 +3,7 @@ File: UPSMON_GetIn_NearestVehicles.sqf
 Author: Azroul13
 
 Description:
-	Función que busca vehiculos cercanos y hace entrar a las unidades del lider
+	Funciï¿½n que busca vehiclesX cercanos y hace entrar a las unidades del lider
 Parameter(s):
 	<--- Leader
 	<--- Types of vehicle the group must search

@@ -5,7 +5,7 @@ if (typeName _markerPos != "ARRAY") then {
 	_markerPos = getMarkerPos _markerPos;
 };
 
-_spawnData = [_markerPos, [ciudades, _markerPos] call BIS_fnc_nearestPosition] call AS_fnc_findRoadspot;
+_spawnData = [_markerPos, [citiesX, _markerPos] call BIS_fnc_nearestPosition] call AS_fnc_findRoadspot;
 if (count _spawnData < 1) exitWith {diag_log format ["Error in spawnBunker: no suitable roads found near %1",_markerPos]};
 _roadPos = _spawnData select 0;
 _roadDir = _spawnData select 1;

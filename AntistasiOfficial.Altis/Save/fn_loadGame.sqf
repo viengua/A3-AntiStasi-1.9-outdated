@@ -22,7 +22,7 @@ publicVariable "flag_playerList";
 if(isnil "supplySaveArray") then {supplySaveArray = [];}; publicVariable "supplySaveArray";
 ["destroyedCities"] call fn_loadData; publicVariable "destroyedCities";
 ["mines"] call fn_loadData;
-["cuentaCA"] call fn_loadData; publicVariable "cuentaCA";
+["countCA"] call fn_loadData; publicVariable "countCA";
 ["antenas"] call fn_loadData; publicVariable "antenas";
 ["prestigeNATO"] call fn_loadData;
 ["prestigeCSAT"] call fn_loadData;
@@ -116,7 +116,7 @@ _markers = _markers + controlsX;
 				_mrkD setMarkerText format [localize "STR_GL_MAP_OP1",count (garrison getVariable _x), A3_Str_PLAYER];
 			};
 
-			if (_x in ciudades) exitWith {
+			if (_x in citiesX) exitWith {
 				_power = [power, getMarkerPos _x] call BIS_fnc_nearestPosition;
 				if (!(_power in mrkFIA) OR (_power in destroyedCities)) then {
 					[_x,false] spawn AS_fnc_adjustLamps;
@@ -146,7 +146,7 @@ _markers = _markers + controlsX;
 
 	if (_x in mrkAAF) then {
 		call {
-			if (_x in ciudades) exitWith {
+			if (_x in citiesX) exitWith {
 				_power = [power, getMarkerPos _x] call BIS_fnc_nearestPosition;
 				if (!(_power in mrkAAF) OR (_power in destroyedCities)) then {
 					[_x,false] spawn AS_fnc_adjustLamps;

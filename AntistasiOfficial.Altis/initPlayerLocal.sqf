@@ -91,7 +91,7 @@ player setVariable ["ASrank",rank player,true];
 player setVariable ["score", [0,25] select (player == Slowhand),true];
 player setvariable ["compromised",0];
 
-rezagados = creategroup side_blue;
+stragglers = creategroup side_blue;
 (group player) enableAttack false;
 
 if (!activeACE) then {

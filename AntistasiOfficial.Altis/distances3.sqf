@@ -50,7 +50,7 @@ while {true} do {
 					call {
 						if (_marker in _hills) exitWith {[_marker] remoteExec ["createWatchpost", call AS_fnc_getNextWorker]};
 						if (_marker in colinasAA) exitWith {[_marker] remoteExec ["createAAsite", call AS_fnc_getNextWorker]};
-						if (_marker in ciudades) exitWith {[_marker] remoteExec ["createCIV", call AS_fnc_getNextWorker]; [_marker] remoteExec ["createCity", call AS_fnc_getNextWorker]};
+						if (_marker in citiesX) exitWith {[_marker] remoteExec ["createCIV", call AS_fnc_getNextWorker]; [_marker] remoteExec ["createCity", call AS_fnc_getNextWorker]};
 						if (_marker in power) exitWith {[_marker] remoteExec ["createPower", call AS_fnc_getNextWorker]};
 						if (_marker in bases) exitWith {[_marker] remoteExec ["createBase", call AS_fnc_getNextWorker]};
 						if (_marker in controlsX) exitWith {[_marker, roadblocksEnemy getVariable [_marker, nil]] remoteExec ["createRoadblock2", call AS_fnc_getNextWorker]}; // Server must take the composition of the roadblock from its roadblockEnemy logic object and sends it to the worker
@@ -72,7 +72,7 @@ while {true} do {
 			if !(spawner getVariable _marker) then {
 				if (({_x distance _markerPos < distanceSPWN} count _enemyUnits > 0) OR ({((_x getVariable ["owner",objNull]) == _x) AND (_x distance _markerPos < distanceSPWN)} count _allyUnits > 0) OR (_marker in forcedSpawn)) then {
 					spawner setVariable [_marker,true,true];
-					if (_marker in ciudades) then {
+					if (_marker in citiesX) then {
 						if (({((_x getVariable ["owner",objNull]) == _x) AND (_x distance _markerPos < distanceSPWN)} count _allyUnits > 0) OR (_marker in forcedSpawn)) then {[_marker] remoteExec ["createCIV",call AS_fnc_getNextWorker]};
 						[_marker] remoteExec ["createCity", call AS_fnc_getNextWorker]
 					} else {

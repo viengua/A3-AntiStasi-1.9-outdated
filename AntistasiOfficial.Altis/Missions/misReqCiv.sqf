@@ -34,7 +34,7 @@ if ((server getVariable "civActive") > 1) exitWith {
 };
 
 if (_tipo == "ASS") then {
-	_sitios = ciudades - mrkFIA - _excl;
+	_sitios = citiesX - mrkFIA - _excl;
 	if (count _sitios > 0) then {
 		for "_i" from 0 to ((count _sitios) - 1) do {
 			_sitio = _sitios select _i;
@@ -75,7 +75,7 @@ if (_tipo == "CON") then {
 
 
 if (_tipo == "CONVOY") then {
-	_tempSit = ciudades + bases;
+	_tempSit = citiesX + bases;
 	_sitios = _tempSit - mrkFIA - _excl;
 	if (count _sitios > 0) then {
 		for "_i" from 0 to ((count _sitios) - 1) do {

@@ -12,56 +12,56 @@ if (str (_display) != "no display") then
 	_ChildControl = _display displayCtrl 104;
 	_coste = 0;
 	_costeHR = 0;
-	_tipogrupo = guer_grp_squad;
+	_typeGroup = guer_grp_squad;
 	_formato = ([guer_grp_squad, "guer"] call AS_fnc_pickGroup);
-	if !(typeName _tipogrupo == "ARRAY") then {
-		_tipogrupo = [_formato] call groupComposition;
+	if !(typeName _typeGroup == "ARRAY") then {
+		_typeGroup = [_formato] call groupComposition;
 	};
-	{_coste = _coste + (server getVariable _x); _costeHR = _costeHR +1} forEach _tipogrupo;
+	{_coste = _coste + (server getVariable _x); _costeHR = _costeHR +1} forEach _typeGroup;
 	_ChildControl  ctrlSetTooltip format ["Cost: %1 €. HR: %2",_coste,_costeHR];
 
 	_ChildControl = _display displayCtrl 105;
 	_coste = 0;
 	_costeHR = 0;
-	_tipogrupo = guer_grp_team;
+	_typeGroup = guer_grp_team;
 	_formato = ([guer_grp_team, "guer"] call AS_fnc_pickGroup);
-	if !(typeName _tipogrupo == "ARRAY") then {
-		_tipogrupo = [_formato] call groupComposition;
+	if !(typeName _typeGroup == "ARRAY") then {
+		_typeGroup = [_formato] call groupComposition;
 	};
-	{_coste = _coste + (server getVariable _x); _costeHR = _costeHR +1} forEach _tipogrupo;
+	{_coste = _coste + (server getVariable _x); _costeHR = _costeHR +1} forEach _typeGroup;
 	_ChildControl  ctrlSetTooltip format ["Cost: %1 €. HR: %2",_coste,_costeHR];
 
 	_ChildControl = _display displayCtrl 106;
 	_coste = 0;
 	_costeHR = 0;
-	_tipogrupo = guer_grp_AT;
+	_typeGroup = guer_grp_AT;
 	_formato = ([guer_grp_AT, "guer"] call AS_fnc_pickGroup);
-	if !(typeName _tipogrupo == "ARRAY") then {
-		_tipogrupo = [_formato] call groupComposition;
+	if !(typeName _typeGroup == "ARRAY") then {
+		_typeGroup = [_formato] call groupComposition;
 	};
-	{_coste = _coste + (server getVariable _x); _costeHR = _costeHR +1} forEach _tipogrupo;
+	{_coste = _coste + (server getVariable _x); _costeHR = _costeHR +1} forEach _typeGroup;
 	_ChildControl  ctrlSetTooltip format ["Cost: %1 €. HR: %2",_coste,_costeHR];
 
 	_ChildControl = _display displayCtrl 107;
 	_coste = 0;
 	_costeHR = 0;
-	_tipogrupo = guer_grp_sniper;
+	_typeGroup = guer_grp_sniper;
 	_formato = ([guer_grp_sniper, "guer"] call AS_fnc_pickGroup);
-	if !(typeName _tipogrupo == "ARRAY") then {
-		_tipogrupo = [_formato] call groupComposition;
+	if !(typeName _typeGroup == "ARRAY") then {
+		_typeGroup = [_formato] call groupComposition;
 	};
-	{_coste = _coste + (server getVariable _x); _costeHR = _costeHR +1} forEach _tipogrupo;
+	{_coste = _coste + (server getVariable _x); _costeHR = _costeHR +1} forEach _typeGroup;
 	_ChildControl  ctrlSetTooltip format ["Cost: %1 €. HR: %2",_coste,_costeHR];
 
 	_ChildControl = _display displayCtrl 108;
 	_coste = 0;
 	_costeHR = 0;
-	_tipogrupo = guer_grp_sentry;
+	_typeGroup = guer_grp_sentry;
 	_formato = ([guer_grp_sentry, "guer"] call AS_fnc_pickGroup);
-	if !(typeName _tipogrupo == "ARRAY") then {
-		_tipogrupo = [_formato] call groupComposition;
+	if !(typeName _typeGroup == "ARRAY") then {
+		_typeGroup = [_formato] call groupComposition;
 	};
-	{_coste = _coste + (server getVariable _x); _costeHR = _costeHR +1} forEach _tipogrupo;
+	{_coste = _coste + (server getVariable _x); _costeHR = _costeHR +1} forEach _typeGroup;
 	_ChildControl  ctrlSetTooltip format ["Cost: %1 €. HR: %2",_coste,_costeHR];
 
 

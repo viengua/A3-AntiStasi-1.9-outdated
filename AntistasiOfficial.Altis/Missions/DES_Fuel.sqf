@@ -3,7 +3,7 @@ if (!isServer and hasInterface) exitWith {};
 _tskTitle = "STR_TSK_TD_DESfuel";
 _tskDesc  = "STR_TSK_TD_DESC_DESfuel";
 
-private ["_posbase", "_mrkfin", "_mrkTarget", "_tipoveh", "_range", "_vehiculos", "_soldados", "_grupos", "_returntime", "_roads", "_road", "_vehicle", "_veh", "_TypeOfGroup", "_tsk", "_humo", "_emitterArray", "_poschurch", "_grupo", "_fuelstop", "_posfuelstop", "_fuelstops"];
+private ["_posbase", "_mrkfin", "_mrkTarget", "_tipoveh", "_range", "_vehiclesX", "_soldados", "_grupos", "_returntime", "_roads", "_road", "_vehicle", "_veh", "_TypeOfGroup", "_tsk", "_humo", "_emitterArray", "_poschurch", "_grupo", "_fuelstop", "_posfuelstop", "_fuelstops"];
 
 
 _InitialMarker = _this select 0;
@@ -71,7 +71,7 @@ _base	  = "";
 
 	// adding groups and vehicle
 
-	_vehiculos = [];
+	_vehiclesX = [];
 	_soldados  = [];
 	_grupos	   = [];
 
@@ -87,7 +87,7 @@ _base	  = "";
 	sleep 1;
 	if (not alive _veh) then {_veh = "I_Truck_02_fuel_F" createVehicle _spawnPosition}; // Fallback default fuel truck in case it's not in a template.
 	_veh setDir _direction;
-	// _vehiculos = _vehiculos + [_veh];
+	// _vehiclesX = _vehiclesX + [_veh];
 	[_veh] spawn genVEHinit;
 
 	_unit = ( [_posbase, 0, sol_RFL, _grupo] call bis_fnc_spawnvehicle)select 0;

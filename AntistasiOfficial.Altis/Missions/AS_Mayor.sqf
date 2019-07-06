@@ -12,9 +12,9 @@ _source = _this select 1;
 
 _initialPosition = getMarkerPos _initialMarker;
 
-_tiempolim = 60;
-_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-_dateLimitNum = dateToNumber _fechalim;
+_timeLimit = 60;
+_dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
+_dateLimitNum = dateToNumber _dateLimit;
 
 _tam = [_initialMarker] call sizeMarker;
 
@@ -63,7 +63,7 @@ _sol1 = ([_posSol1, 0, opI_SL, _mayorGuards] call bis_fnc_spawnvehicle) select 0
 _sol2 = ([_posSol2, 0, sol_OFF, _mayorGuards] call bis_fnc_spawnvehicle) select 0;
 _mayorGroup selectLeader _mayor;
 
-_spawnData = [_initialPosition, [ciudades, _initialPosition] call BIS_fnc_nearestPosition] call AS_fnc_findRoadspot;
+_spawnData = [_initialPosition, [citiesX, _initialPosition] call BIS_fnc_nearestPosition] call AS_fnc_findRoadspot;
 if (count _spawnData < 1) exitWith {diag_log format ["Error in traitor: no suitable roads found near %1",_initialMarker]};
 _roadPos = _spawnData select 0;
 _roadDir = _spawnData select 1;
@@ -97,8 +97,8 @@ _mrk setMarkerColorLocal "ColorRed";
 _mrk setMarkerBrushLocal "DiagGrid";
 _mrk setMarkerAlphaLocal 0;
 
-_tipoGrupo = [infSquad, side_green] call AS_fnc_pickGroup;
-_grupo = [_initialPosition, side_green, _tipogrupo] call BIS_Fnc_spawnGroup;
+_typeGroup = [infSquad, side_green] call AS_fnc_pickGroup;
+_grupo = [_initialPosition, side_green, _typeGroup] call BIS_Fnc_spawnGroup;
 sleep 1;
 if (random 10 < 2.5) then
 	{

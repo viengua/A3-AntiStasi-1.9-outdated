@@ -31,7 +31,7 @@ if (_onRoad) then {
 		(_data select 1) joinSilent _group;
 		_allGroups pushBack _group;
 	} else {
-		_spawnData = [_markerPos, [ciudades, _markerPos] call BIS_fnc_nearestPosition] call AS_fnc_findRoadspot;
+		_spawnData = [_markerPos, [citiesX, _markerPos] call BIS_fnc_nearestPosition] call AS_fnc_findRoadspot;
 		if (count _spawnData < 1) exitWith {diag_log format ["Roadblock error report -- bad position: %1", _markerPos]};
 		_roadPos = _spawnData select 0;
 		_direction = _spawnData select 1;

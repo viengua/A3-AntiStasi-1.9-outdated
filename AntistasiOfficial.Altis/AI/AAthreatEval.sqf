@@ -28,12 +28,12 @@ if (_esFIA) then {
 			_garrison = garrison getVariable [_analyzed,[]];
 			_threat = _threat + (floor((count _garrison)/4));
 			_size = [_analyzed] call sizeMarker;
-			_estaticas = staticsToSave select {_x distance (getMarkerPos _analyzed) < _size};
-			if (count _estaticas > 0) then {
-				_threat = _threat + ({typeOf _x in statics_allMGs} count _estaticas) + (5*({typeOf _x in statics_allAAs} count _estaticas));
+			_staticsX = staticsToSave select {_x distance (getMarkerPos _analyzed) < _size};
+			if (count _staticsX > 0) then {
+				_threat = _threat + ({typeOf _x in statics_allMGs} count _staticsX) + (5*({typeOf _x in statics_allAAs} count _staticsX));
 			};
 		};
-	} forEach (mrkFIA - ciudades - controlsX - colinas - outpostsFIA);
+	} forEach (mrkFIA - citiesX - controlsX - colinas - outpostsFIA);
 };
 
 _threat

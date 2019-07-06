@@ -1,4 +1,4 @@
-private ["_camion","_objetos","_todo","_proceder","_caja","_armas","_municion","_items","_mochis","_containers","_cuenta","_exists"];
+private ["_camion","_objetos","_todo","_proceder","_caja","_armas","_ammunition","_items","_mochis","_containers","_cuenta","_exists"];
 /*
 spanish to english dictionary:
 camion = truck
@@ -27,11 +27,11 @@ if ((_caja == caja) and (player!=Slowhand)) exitWith {[petros,"hint", "Only the 
 
 
 _armas = weaponCargo _caja;
-_municion = magazineCargo _caja;
+_ammunition = magazineCargo _caja;
 _items = itemCargo _caja;
 _mochis = [];
 
-_todo = _armas + _municion + _items + _mochis;
+_todo = _armas + _ammunition + _items + _mochis;
 _cuenta = count _todo;
 _breakText = "";
 
