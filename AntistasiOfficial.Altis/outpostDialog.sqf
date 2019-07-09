@@ -3,7 +3,7 @@ params ["_type"];
 
 private ["_position","_markerPos","_onRoad","_permission","_text","_groupType","_groupComp","_nearestZone"];
 
-if ("outpostsFIA" in misiones) exitWith {hint localize "STR_TSK_TD_BEMP_RESTR"};
+if ("outpostsFIA" in missionsX) exitWith {hint localize "STR_TSK_TD_BEMP_RESTR"};
 if !([player] call hasRadio) exitWith {hint localize "STR_TSK_TD_BEMP_RADIO"};
 if ((_type == "delete") AND (count outpostsFIA < 1)) exitWith {hint localize "STR_TSK_TD_BEMP_DEL_NR"};
 

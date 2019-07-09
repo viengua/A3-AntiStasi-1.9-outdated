@@ -14,10 +14,10 @@ onMapSingleClick "";
 if (!visibleMap) exitWith {};
 
 _positionTel = positionTel;
-posicionGarr = [];
+positionXGarr = [];
 
 _cercano = [markers,_positionTel] call BIS_fnc_nearestPosition;
-_posicion = getMarkerPos _cercano;
+_positionX = getMarkerPos _cercano;
 
 if (getMarkerPos _cercano distance _positionTel > 40) exitWith {hint "You must click near a marked zone"; CreateDialog "garrison_menu";};
 
@@ -34,7 +34,7 @@ if (_tipo == "rem") then
 	_hr = 0;
 	if (spawner getVariable _cercano) then
 		{
-		if ({(alive _x) and (!captive _x) and ((side _x == side_green) or (side _x == side_red)) and (_x distance _posicion < safeDistance_garrison)} count allUnits > 0) then
+		if ({(alive _x) and (!captive _x) and ((side _x == side_green) or (side _x == side_red)) and (_x distance _positionX < safeDistance_garrison)} count allUnits > 0) then
 			{
 			hint "You cannot remove garrisons while there are enemies nearby";
 			CreateDialog "garrison_menu"
@@ -43,7 +43,7 @@ if (_tipo == "rem") then
 			{
 			_size = [_cercano] call sizeMarker;
 			{
-			if ((side _x == side_blue) and (not(_x getVariable ["BLUFORSpawn",false])) and (_x distance _posicion < _size) and (_x != petros)) then
+			if ((side _x == side_blue) and (not(_x getVariable ["BLUFORSpawn",false])) and (_x distance _positionX < _size) and (_x != petros)) then
 				{
 				if (!alive _x) then
 					{
@@ -75,10 +75,10 @@ else
 	{
 	if (spawner getVariable _cercano) then
 		{
-		if ({(alive _x) and (!captive _x) and ((side _x == side_green) or (side _x == side_red)) and (_x distance _posicion < safeDistance_garrison)} count allUnits > 0) exitWith {hint "You cannot add soldiers to this garrison while there are enemies nearby"; CreateDialog "garrison_menu"};
+		if ({(alive _x) and (!captive _x) and ((side _x == side_green) or (side _x == side_red)) and (_x distance _positionX < safeDistance_garrison)} count allUnits > 0) exitWith {hint "You cannot add soldiers to this garrison while there are enemies nearby"; CreateDialog "garrison_menu"};
 		};
-	posicionGarr = _positionTel;
-	publicVariable "posicionGarr";
+	positionXGarr = _positionTel;
+	publicVariable "positionXGarr";
 	hint format ["Info%1",[_cercano] call AS_fnc_getGarrisonInfo];
 	closeDialog 0;
 	CreateDialog "garrison_recruit";

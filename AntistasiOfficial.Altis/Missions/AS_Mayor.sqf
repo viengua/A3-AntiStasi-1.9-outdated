@@ -74,7 +74,7 @@ if (_source == "civ") then {
 };
 
 _tsk = ["ASS",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_initialMarker],_mayor,"CREATED",5,true,true,"Kill"] call BIS_fnc_setTask;
-misiones pushBack _tsk; publicVariable "misiones";
+missionsX pushBack _tsk; publicVariable "missionsX";
 
 {[_x] spawn CSATinit; _x allowFleeing 0} forEach units _mayorGroup;
 

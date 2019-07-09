@@ -2,23 +2,23 @@ if (!isServer and hasInterface) exitWith{};
 
 private ["_origen"];
 
-_marcador = _this select 0;
+_markerX = _this select 0;
 
-_posicion = getMarkerPos (_marcador);
+_positionX = getMarkerPos (_markerX);
 
 _airportsX = airportsX - mrkAAF + ["spawnNATO"];
 
 _threatEval = 7; //Stef i forced it to 7 untill i manage to check if vehDef and static guns are operative or not.
 
-_origen = [_airportsX,_posicion] call BIS_fnc_nearestPosition;
+_origen = [_airportsX,_positionX] call BIS_fnc_nearestPosition;
 _orig = getMarkerPos _origen;
 
-_nameDest = [_marcador] call AS_fnc_localizar;
+_nameDest = [_markerX] call AS_fnc_localizar;
 _nameOrigin = "the NATO Carrier";
 if (_origen!= "spawnNATO") then {_nameOrigin = [_origen] call AS_fnc_localizar};
-_tsk = ["NATOCA",[side_blue,civilian],[["STR_TSK_DESC_ATTACK",_nameDest,_nameOrigin, A3_Str_BLUE],["STR_TSK_ATTACK", A3_Str_BLUE],_marcador],_posicion,"CREATED",5,true,true,"Attack"] call BIS_fnc_setTask;
-misiones pushBackUnique _tsk; publicVariable "misiones";
-_soldados = [];
+_tsk = ["NATOCA",[side_blue,civilian],[["STR_TSK_DESC_ATTACK",_nameDest,_nameOrigin, A3_Str_BLUE],["STR_TSK_ATTACK", A3_Str_BLUE],_markerX],_positionX,"CREATED",5,true,true,"Attack"] call BIS_fnc_setTask;
+missionsX pushBackUnique _tsk; publicVariable "missionsX";
+_soldiers = [];
 _vehiclesX = [];
 _grupos = [];
 _tipoveh = "";
@@ -27,7 +27,7 @@ _cuenta = 3;
 [-20,0] remoteExec ["prestige",2];
 
 _spawnergroup = createGroup east;
-_spawner = _spawnergroup createUnit [selectrandom CIV_journalists, getmarkerpos _marcador, [], 15,"None"];
+_spawner = _spawnergroup createUnit [selectrandom CIV_journalists, getmarkerpos _markerX, [], 15,"None"];
 _spawner setVariable ["BLUFORSpawn",true,true];
 _spawner disableAI "ALL";
 _spawner allowdamage false;
@@ -51,7 +51,7 @@ for "_i" from 1 to _cuenta do {
 		{_x setskill 1} foreach units _gunnersgroup;
 		{[_x] call NATOinitCA} forEach _heliCrew;
 		[_heli] call NATOVEHinit;
-		_soldados = _soldados + _heliCrew;
+		_soldiers = _soldiers + _heliCrew;
 		_grupos = _grupos + [_groupHeli];
 		_vehiclesX = _vehiclesX + [_heli];
 		_heli lock 3;
@@ -62,21 +62,21 @@ for "_i" from 1 to _cuenta do {
 			//Add troops and init them
 			_typeGroup = [bluSquadWeapons, side_blue] call AS_fnc_pickGroup;
 			_grupo = [_orig, side_blue, _typeGroup] call BIS_Fnc_spawnGroup;
-			{_x assignAsCargo _heli; _x moveInCargo _heli; _soldados = _soldados + [_x]; [_x] spawn NATOinitCA} forEach units _grupo;
+			{_x assignAsCargo _heli; _x moveInCargo _heli; _soldiers = _soldiers + [_x]; [_x] spawn NATOinitCA} forEach units _grupo;
 			_grupos = _grupos + [_grupo];
 			//Decide for aidrop or fastrope/land
-			if ((_marcador in puestos) or (random 10 < _threatEval)) then {
+			if ((_markerX in puestos) or (random 10 < _threatEval)) then {
 				{removebackpack _x; _x addBackpack "B_Parachute"} forEach units _grupo;
-				[_heli,_grupo,_marcador,_threatEval] spawn airdrop;
-				diag_log format ["NATOCA HeliDIS airdropping: %1, %2, %3 ",_heli,_grupo,_marcador];
+				[_heli,_grupo,_markerX,_threatEval] spawn airdrop;
+				diag_log format ["NATOCA HeliDIS airdropping: %1, %2, %3 ",_heli,_grupo,_markerX];
 			} else {
-				if ((_marcador in bases) or (_marcador in puestos)) then {
-					[_heli,_grupo,_posicion,_orig,_groupHeli] spawn fastropeNATO;
+				if ((_markerX in bases) or (_markerX in puestos)) then {
+					[_heli,_grupo,_positionX,_orig,_groupHeli] spawn fastropeNATO;
 				};
-				if ((_marcador in recursos) or (_marcador in power) or (_marcador in fabricas)) then {
+				if ((_markerX in resourcesX) or (_markerX in power) or (_markerX in factories)) then {
 					{_x disableAI "TARGET"; _x disableAI "AUTOTARGET"} foreach units _groupHeli;
 					_landpos = [];
-					_landpos = [_posicion, 0, 500, 10, 0, 0.3, 0] call BIS_Fnc_findSafePos;
+					_landpos = [_positionX, 0, 500, 10, 0, 0.3, 0] call BIS_Fnc_findSafePos;
 					_landPos set [2, 0];
 					_pad = createVehicle ["Land_HelipadEmpty_F", _landpos, [], 0, "NONE"];
 					_vehiclesX = _vehiclesX + [_pad];
@@ -88,7 +88,7 @@ for "_i" from 1 to _cuenta do {
 					_wp3 = _grupo addWaypoint [_landpos, 0];
 					_wp3 setWaypointType "GETOUT";
 					_wp0 synchronizeWaypoint [_wp3];
-					_wp4 = _grupo addWaypoint [_posicion, 1];
+					_wp4 = _grupo addWaypoint [_positionX, 1];
 					_wp4 setWaypointType "SAD";
 					_wp2 = _groupHeli addWaypoint [_orig, 1];
 					_wp2 setWaypointType "MOVE";
@@ -104,10 +104,10 @@ for "_i" from 1 to _cuenta do {
 			//Add troops and init them
 			_typeGroup = [bluTeam, side_blue] call AS_fnc_pickGroup;
 			_grupo = [_orig, side_blue, _typeGroup] call BIS_Fnc_spawnGroup;
-			{_x assignAsCargo _heli; _x moveInCargo _heli; _soldados = _soldados + [_x]; [_x] call NATOinitCA} forEach units _grupo;
+			{_x assignAsCargo _heli; _x moveInCargo _heli; _soldiers = _soldiers + [_x]; [_x] call NATOinitCA} forEach units _grupo;
 			_grupos = _grupos + [_grupo];
 			_landpos = [];
-			_landpos = [_posicion, 0, 500, 10, 0, 0.3, 0] call BIS_Fnc_findSafePos;
+			_landpos = [_positionX, 0, 500, 10, 0, 0.3, 0] call BIS_Fnc_findSafePos;
 			_landPos set [2, 0];
 			_pad = createVehicle ["Land_HelipadEmpty_F", _landpos, [], 0, "NONE"];
 			_vehiclesX = _vehiclesX + [_pad];
@@ -120,7 +120,7 @@ for "_i" from 1 to _cuenta do {
 			_wp3 = _grupo addWaypoint [_landpos, 0];
 			_wp3 setWaypointType "GETOUT";
 			_wp0 synchronizeWaypoint [_wp3];
-			_wp4 = _grupo addWaypoint [_posicion, 1];
+			_wp4 = _grupo addWaypoint [_positionX, 1];
 			_wp4 setWaypointType "SAD";
 			_wp2 = _groupHeli addWaypoint [_orig, 1];
 			_wp2 setWaypointSpeed "FULL";
@@ -128,24 +128,24 @@ for "_i" from 1 to _cuenta do {
 			_wp2 setWaypointStatements ["true", "{deleteVehicle _x} forEach crew this; deleteVehicle this"];
 			[_groupHeli,1] setWaypointBehaviour "AWARE";
 			[_heli,true] spawn entriesLand;
-			diag_log format ["NATOCA HeliTS airdropping: %1, %2, %3 ",_heli,_grupo,_marcador];
+			diag_log format ["NATOCA HeliTS airdropping: %1, %2, %3 ",_heli,_grupo,_markerX];
 		};
 		if (_tipoveh in bluHeliRope) then {			//Chinhook	can aidrop or land
 			{_x disableAI "TARGET"; _x disableAI "AUTOTARGET"} foreach units _groupHeli;
 			//Add troops and init them
 			_typeGroup = [bluSquad, side_blue] call AS_fnc_pickGroup;
 			_grupo = [_orig, side_blue, _typeGroup] call BIS_Fnc_spawnGroup;
-			{_x assignAsCargo _heli; _x moveInCargo _heli; _soldados = _soldados + [_x]; [_x] call NATOinitCA} forEach units _grupo;
+			{_x assignAsCargo _heli; _x moveInCargo _heli; _soldiers = _soldiers + [_x]; [_x] call NATOinitCA} forEach units _grupo;
 			_grupos = _grupos + [_grupo];
 
 			//Decide airdrop or land
-			if (!(_marcador in puestos) or (_marcador in bases) or (random 10 < _threatEval)) then {
+			if (!(_markerX in puestos) or (_markerX in bases) or (random 10 < _threatEval)) then {
 				{removebackpack _x; _x addBackpack "B_Parachute"} forEach units _grupo;
-				[_heli,_grupo,_marcador,_threatEval] spawn airdrop;
-				diag_log format ["NATOCA HeliRope: %1, %2, %3,",_heli,_grupo,_marcador];
+				[_heli,_grupo,_markerX,_threatEval] spawn airdrop;
+				diag_log format ["NATOCA HeliRope: %1, %2, %3,",_heli,_grupo,_markerX];
 			} else {
 				_landpos = [];
-				_landpos = [_posicion, 0, 300, 10, 0, 0.3, 0] call BIS_Fnc_findSafePos;
+				_landpos = [_positionX, 0, 300, 10, 0, 0.3, 0] call BIS_Fnc_findSafePos;
 				_landPos set [2, 0];
 				_pad = createVehicle ["Land_HelipadEmpty_F", _landpos, [], 0, "NONE"];
 				_vehiclesX = _vehiclesX + [_pad];
@@ -157,7 +157,7 @@ for "_i" from 1 to _cuenta do {
 				_wp3 = _grupo addWaypoint [_landpos, 0];
 				_wp3 setWaypointType "GETOUT";
 				_wp0 synchronizeWaypoint [_wp3];
-				_wp4 = _grupo addWaypoint [_posicion, 1];
+				_wp4 = _grupo addWaypoint [_positionX, 1];
 				_wp4 setWaypointType "SAD";
 				_wp2 = _groupHeli addWaypoint [_orig, 1];
 				_wp2 setWaypointType "MOVE";
@@ -171,22 +171,22 @@ for "_i" from 1 to _cuenta do {
 	};
 
 
-_solMax = count _soldados;
+_solMax = count _soldiers;
 _solMax = round (_solMax / 4);
 
 sleep 20;
 //Taking out enemy mortar to balance the fight
-	if ((_marcador in bases) and ((player distance _posicion)>300)) then {
-		[_marcador] spawn artilleryNATO;
+	if ((_markerX in bases) and ((player distance _positionX)>300)) then {
+		[_markerX] spawn artilleryNATO;
 	};
-	if ((_marcador in airportsX) and ((player distance _posicion)>300)) then {
-		[_marcador] spawn artilleryNATO;
+	if ((_markerX in airportsX) and ((player distance _positionX)>300)) then {
+		[_markerX] spawn artilleryNATO;
 	};
 
-waitUntil {sleep 1; (_marcador in mrkFIA) or ({alive _x} count _soldados < _solMax)};
+waitUntil {sleep 1; (_markerX in mrkFIA) or ({alive _x} count _soldiers < _solMax)};
 
-if ({alive _x} count _soldados < _solMax) then {
-	_tsk = ["NATOCA",[side_blue,civilian],[["STR_TSK_DESC_ATTACK",_nameDest,_nameOrigin, A3_Str_BLUE],["STR_TSK_ATTACK", A3_Str_BLUE],_marcador],_posicion,"FAILED",5,true,true,"Attack"] call BIS_fnc_setTask;
+if ({alive _x} count _soldiers < _solMax) then {
+	_tsk = ["NATOCA",[side_blue,civilian],[["STR_TSK_DESC_ATTACK",_nameDest,_nameOrigin, A3_Str_BLUE],["STR_TSK_ATTACK", A3_Str_BLUE],_markerX],_positionX,"FAILED",5,true,true,"Attack"] call BIS_fnc_setTask;
 	[-10,0] remoteExec ["prestige",2];
 };
 
@@ -198,7 +198,7 @@ if ({alive _x} count _soldados < _solMax) then {
 	_soldado = _x;
 	waitUntil {sleep 1; {_x distance _soldado < distanceSPWN} count (allPlayers - (entities "HeadlessClient_F")) == 0};
 	deleteVehicle _soldado;
-} forEach _soldados;
+} forEach _soldiers;
 
 {deleteGroup _x} forEach _grupos;
 

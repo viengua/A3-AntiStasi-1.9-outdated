@@ -3,8 +3,8 @@ if !(worldName == "Tanoa") exitWith {};
 power = []; // power plants
 bases = []; // army bases
 airportsX = []; // airports
-recursos = []; // resources
-fabricas = []; // factories
+resourcesX = []; // resources
+factories = []; // factories
 puestos = []; // outposts
 puestosAA = []; // AA outposts
 puertos = []; // harbours

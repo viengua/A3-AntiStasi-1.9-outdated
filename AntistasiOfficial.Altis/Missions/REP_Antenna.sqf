@@ -11,7 +11,7 @@ _endTime = dateToNumber _endTime;
 _targetName = [_marker] call AS_fnc_localizar;
 
 _task = ["REP",[side_blue,civilian],[[_tskDesc,_targetName,numberToDate [2035,_endTime] select 3,numberToDate [2035,_endTime] select 4],_tskTitle,_marker],_posAntenna,"CREATED",5,true,true,"Destroy"] call BIS_fnc_setTask;
-misiones pushBack _task; publicVariable "misiones";
+missionsX pushBack _task; publicVariable "missionsX";
 
 waitUntil {sleep 1;(dateToNumber date > _endTime) OR (spawner getVariable _marker)};
 

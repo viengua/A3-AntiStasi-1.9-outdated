@@ -13,7 +13,7 @@ _endTime = dateToNumber _endTime;
 _townName = [_marker] call AS_fnc_localizar;
 
 _task = ["RES",[side_blue,civilian],[[_taskDesc,_townName,numberToDate [2035,_endTime] select 3,numberToDate [2035,_endTime] select 4],_taskTitle,_marker],_markerPos,"CREATED",5,true,true,"run"] call BIS_fnc_setTask;
-misiones pushBack _task; publicVariable "misiones";
+missionsX pushBack _task; publicVariable "missionsX";
 
 _blacklistbld = ["Land_Cargo_HQ_V1_F", "Land_Cargo_HQ_V2_F","Land_Cargo_HQ_V3_F","Land_Cargo_Tower_V1_F","Land_Cargo_Tower_V1_No1_F","Land_Cargo_Tower_V1_No2_F","Land_Cargo_Tower_V1_No3_F","Land_Cargo_Tower_V1_No4_F","Land_Cargo_Tower_V1_No5_F","Land_Cargo_Tower_V1_No6_F","Land_Cargo_Tower_V1_No7_F","Land_Cargo_Tower_V2_F","Land_Cargo_Patrol_V1_F","Land_Cargo_Patrol_V2_F","Land_Cargo_Patrol_V3_F"];
 

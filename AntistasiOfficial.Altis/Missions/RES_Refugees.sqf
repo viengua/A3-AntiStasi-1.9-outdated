@@ -19,7 +19,7 @@ while {count _housePositions < 5} do {
 
 
 _task = ["RES",[side_blue,civilian],[[_taskDesc,_townName, A3_Str_INDEP],_taskTitle,_marker],getPos _house,"CREATED",5,true,true,"run"] call BIS_fnc_setTask;
-misiones pushBack _task; publicVariable "misiones";
+missionsX pushBack _task; publicVariable "missionsX";
 
 _groupPOW = createGroup side_blue;
 
@@ -56,7 +56,7 @@ sleep 30;
 	private ["_house"];
 	_house = _this select 0;
 	sleep 300 + (random 1800);
-	if ("RES" in misiones) then {[position _house] remoteExec ["patrolCA", call AS_fnc_getNextWorker]};
+	if ("RES" in missionsX) then {[position _house] remoteExec ["patrolCA", call AS_fnc_getNextWorker]};
 };
 
 waitUntil {sleep 1; ({alive _x} count _POWs == 0) OR ({(alive _x) AND (_x distance getMarkerPos guer_respawn < 50)} count _POWs > 0)};

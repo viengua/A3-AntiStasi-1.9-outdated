@@ -43,7 +43,7 @@ if (_source == "mil") then {
 _nameDest = [_mrkOutpost] call AS_fnc_localizar;
 
 _tsk = ["AS",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_mrkOutpost],_Forest,"CREATED",5,true,true,"Kill"] call BIS_fnc_setTask;
-misiones pushBack _tsk; publicVariable "misiones";
+missionsX pushBack _tsk; publicVariable "missionsX";
 
 _typeGroup = [infSquad, side_green] call AS_fnc_pickGroup;
 _group1 = [_ClearPosOutpost, side_green, _typeGroup] call BIS_Fnc_spawnGroup;

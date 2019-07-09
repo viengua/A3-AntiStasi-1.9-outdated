@@ -109,7 +109,7 @@ call {
 			if (random 8 < 1) then {
 				_mortar = _this select 0;
 				if (_mortar distance posHQ < 200) then {
-					if !("DEF_HQ" in misiones) then {
+					if !("DEF_HQ" in missionsX) then {
 						_leader = leader (gunner _mortar);
 						if (!isPlayer _leader) then {
 							[] remoteExec ["attackHQ", call AS_fnc_getNextWorker];

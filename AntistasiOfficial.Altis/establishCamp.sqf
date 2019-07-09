@@ -1,6 +1,6 @@
 if (!isServer) exitWith {};
 
-private ["_tipo","_coste","_grupo","_unit","_tam","_roads","_road","_pos","_camion","_texto","_mrk","_hr","_unidades","_formato"];
+private ["_tipo","_coste","_grupo","_unit","_tam","_roads","_road","_pos","_camion","_texto","_mrk","_hr","_unitsX","_formato"];
 
 _tipo = _this select 0;
 _positionTel = _this select 1;
@@ -37,7 +37,7 @@ _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date 
 _dateLimitNum = dateToNumber _dateLimit;
 
 _tsk = ["campsFIA",[side_blue,civilian],["STR_TSK_DESC_CAMPSET","STR_TSK_CAMPSET",_mrk],_positionTel,"CREATED",5,true,true,"Move"] call BIS_fnc_setTask;
-misiones pushBackUnique _tsk; publicVariable "misiones";
+missionsX pushBackUnique _tsk; publicVariable "missionsX";
 
 _tam = 10;
 while {true} do {

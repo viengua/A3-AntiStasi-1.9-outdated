@@ -1,7 +1,7 @@
 // Shift+ctrl+Y when mortar and NATO arty are selected.
 if (count hcSelected player != 1) exitWith {hint "You must select an artillery group"};
 
-private ["_grupo","_artyArray","_artyRoundsArr","_hayMuni","_areReady","_hayArty","_areAlive","_soldado","_veh","_tipoMuni","_tipoArty","_positionTel","_artyArrayDef1","_artyRoundsArr1","_pieza","_isInRange","_positionTel2","_rounds","_roundsMax","_marcador","_size","_forzado","_texto","_mrkfin","_mrkfin2","_tiempo","_eta","_cuenta","_pos","_ang"];
+private ["_grupo","_artyArray","_artyRoundsArr","_hayMuni","_areReady","_hayArty","_areAlive","_soldado","_veh","_typeAmmunition","_typeArty","_positionTel","_artyArrayDef1","_artyRoundsArr1","_pieza","_isInRange","_positionTel2","_rounds","_roundsMax","_markerX","_size","_forzado","_texto","_mrkfin","_mrkfin2","_tiempo","_eta","_cuenta","_pos","_ang"];
 
 _grupo = hcSelected player select 0;
 
@@ -28,7 +28,7 @@ if ((_veh != _soldado) and (not(_veh in _artyArray))) then
 					if (replaceFIA) then {
 						"RHS_mag_40Rnd_122mm_rockets";
 					} else {
-						_tipoMuni = "12Rnd_230mm_rockets";
+						_typeAmmunition = "12Rnd_230mm_rockets";
 					};
 				}
 			else
@@ -36,11 +36,11 @@ if ((_veh != _soldado) and (not(_veh in _artyArray))) then
 				if (typeOf _veh in bluArty) then
 					{
 					createDialog "mbt_type";
-					waitUntil {!dialog or !(isNil "tipoMuni")};
-					if !(isNil "tipoMuni") then
+					waitUntil {!dialog or !(isNil "typeAmmunition")};
+					if !(isNil "typeAmmunition") then
 						{
-						_tipoMuni = tipoMuni;
-						tipoMuni = nil;
+						_typeAmmunition = typeAmmunition;
+						typeAmmunition = nil;
 						};
 					}
 				else
@@ -48,19 +48,19 @@ if ((_veh != _soldado) and (not(_veh in _artyArray))) then
 					if ((typeOf _veh in bluStatMortar) || (typeOf _veh in statics_allMortars)) then
 						{
 						createDialog "mortar_type";
-						waitUntil {!dialog or !(isNil "tipoMuni")};
-						if !(isNil "tipoMuni") then
+						waitUntil {!dialog or !(isNil "typeAmmunition")};
+						if !(isNil "typeAmmunition") then
 							{
-							_tipoMuni = tipoMuni;
-							tipoMuni = nil;
+							_typeAmmunition = typeAmmunition;
+							typeAmmunition = nil;
 							};
 						};
 					};
 				};
-			if (! isNil "_tipoMuni") then
+			if (! isNil "_typeAmmunition") then
 				{
 				{
-				if (_x select 0 == _tipoMuni) then
+				if (_x select 0 == _typeAmmunition) then
 					{
 					_hayMuni = _hayMuni + 1;
 					};
@@ -80,7 +80,7 @@ if ((_veh != _soldado) and (not(_veh in _artyArray))) then
 	};
 } forEach units _grupo;
 
-if (isNil "_tipoMuni") exitWith {};
+if (isNil "_typeAmmunition") exitWith {};
 if (!_hayArty) exitWith {hint "You must select an artillery group or it is a Mobile Mortar and it's moving"};
 if (!_areAlive) exitWith {hint "All elements in this Batery cannot fire or are disabled"};
 if ((_hayMuni < 2) and (!_areReady)) exitWith {hint "The Battery has no ammo to fire. Reload it on HQ"};
@@ -89,22 +89,22 @@ if (!_areReady) exitWith {hint "Selected Battery is busy right now"};
 hcShowBar false;
 hcShowBar true;
 
-if (_tipoMuni != "2Rnd_155mm_Mo_LG") then
+if (_typeAmmunition != "2Rnd_155mm_Mo_LG") then
 	{
 	closedialog 0;
 	createDialog "strike_type";
 	}
 else
 	{
-	tipoArty = "NORMAL";
+	typeArty = "NORMAL";
 	};
 
-waitUntil {!dialog or (!isNil "tipoArty")};
+waitUntil {!dialog or (!isNil "typeArty")};
 
-if (isNil "tipoArty") exitWith {};
+if (isNil "typeArty") exitWith {};
 
-_tipoArty = tipoArty;
-tipoArty = nil;
+_typeArty = typeArty;
+typeArty = nil;
 
 
 positionTel = [];
@@ -142,7 +142,7 @@ _mrkfin setMarkerShape "ICON";
 _mrkfin setMarkerType "hd_destroy";
 _mrkfin setMarkerColor "ColorRed";
 
-if (_tipoArty == "BARRAGE") then
+if (_typeArty == "BARRAGE") then
 	{
 	_mrkfin setMarkerText "Arty Barrage Begin";
 	positionTel = [];
@@ -158,11 +158,11 @@ if (_tipoArty == "BARRAGE") then
 	_positionTel2 = positionTel;
 	};
 
-if ((_tipoArty == "BARRAGE") and (isNil "_positionTel2")) exitWith {deleteMarker _mrkfin};
+if ((_typeArty == "BARRAGE") and (isNil "_positionTel2")) exitWith {deleteMarker _mrkfin};
 
-if (_tipoArty != "BARRAGE") then
+if (_typeArty != "BARRAGE") then
 	{
-	if (_tipoMuni != "2Rnd_155mm_Mo_LG") then
+	if (_typeAmmunition != "2Rnd_155mm_Mo_LG") then
 		{
 		closedialog 0;
 		createDialog "rounds_number";
@@ -174,9 +174,9 @@ if (_tipoArty != "BARRAGE") then
 	waitUntil {!dialog or (!isNil "rondas")};
 	};
 
-if ((isNil "rondas") and (_tipoArty != "BARRAGE")) exitWith {deleteMarker _mrkfin};
+if ((isNil "rondas") and (_typeArty != "BARRAGE")) exitWith {deleteMarker _mrkfin};
 
-if (_tipoArty != "BARRAGE") then
+if (_typeArty != "BARRAGE") then
 	{
 	_mrkfin setMarkerText "Arty Strike";
 	_rounds = rondas;
@@ -189,21 +189,21 @@ else
 	_roundsMax = _rounds;
 	};
 
-_marcador = [markers,_positionTel] call BIS_fnc_nearestPosition;
-_size = [_marcador] call sizeMarker;
+_markerX = [markers,_positionTel] call BIS_fnc_nearestPosition;
+_size = [_markerX] call sizeMarker;
 _forzado = false;
 
-if ((not(_marcador in forcedSpawn)) and (_positionTel distance (getMarkerPos _marcador) < _size) and (not(spawner getVariable _marcador))) then
+if ((not(_markerX in forcedSpawn)) and (_positionTel distance (getMarkerPos _markerX) < _size) and (not(spawner getVariable _markerX))) then
 	{
 	_forzado = true;
-	forcedSpawn pushBack _marcador;
+	forcedSpawn pushBack _markerX;
 	publicVariable "forcedSpawn";
 	};
 
 _texto = format ["Requesting fire support on Grid %1. %2 Rounds", mapGridPosition _positionTel, round _rounds];
 [[Slowhand,"sideChat",_texto],"commsMP"] call BIS_fnc_MP;
 
-if (_tipoArty == "BARRAGE") then
+if (_typeArty == "BARRAGE") then
 	{
 	_mrkfin2 = createMarker [format ["Arty%1", random 100], _positionTel2];
 	_mrkfin2 setMarkerShape "ICON";
@@ -233,44 +233,44 @@ for "_i" from 0 to (count _artyArrayDef1) - 1 do {
 		_cuenta = _artyRoundsArr1 select _i;
 		//hint format ["Rondas que faltan: %1, rondas que tiene %2",_rounds,_cuenta];
 		if (_cuenta >= _rounds) then {
-			if (_tipoArty != "BARRAGE") then {
+			if (_typeArty != "BARRAGE") then {
 				if ((typeOf _veh in bluStatMortar) || (typeOf _veh in statics_allMortars) || (typeOf _veh in bluArty)) then {
 					if (replaceFIA && (typeOf _veh in bluArty)) then {
 						sleep 23;
 						for "_r" from 1 to _rounds do {
-							_pieza commandArtilleryFire [_pos,_tipoMuni,1];
+							_pieza commandArtilleryFire [_pos,_typeAmmunition,1];
 							sleep 7;
 						};
 					} else {
 						for "_r" from 1 to _rounds do {
-							_pieza commandArtilleryFire [_pos,_tipoMuni,1];
+							_pieza commandArtilleryFire [_pos,_typeAmmunition,1];
 							sleep 2;
 						};
 					};
 				} else {
-					_pieza commandArtilleryFire [_pos,_tipoMuni,_rounds];
+					_pieza commandArtilleryFire [_pos,_typeAmmunition,_rounds];
 				};
 			} else {
 				for "_r" from 1 to _rounds do {
-					_pieza commandArtilleryFire [_pos,_tipoMuni,1];
+					_pieza commandArtilleryFire [_pos,_typeAmmunition,1];
 					sleep 2;
 					_pos = [_pos,10,_ang + 5 - (random 10)] call BIS_fnc_relPos;
 					};
 				};
 			_rounds = 0;
 		} else {
-			if (_tipoArty != "BARRAGE") then {
+			if (_typeArty != "BARRAGE") then {
 				if ((typeOf _veh in bluStatMortar) || (typeOf _veh in statics_allMortars) || (typeOf _veh in bluArty)) then {
 					for "_r" from 1 to _cuenta do {
-						_pieza commandArtilleryFire [_pos,_tipoMuni,1];
+						_pieza commandArtilleryFire [_pos,_typeAmmunition,1];
 						sleep 2;
 					};
 				} else {
-					_pieza commandArtilleryFire [_pos,_tipoMuni,_cuenta];
+					_pieza commandArtilleryFire [_pos,_typeAmmunition,_cuenta];
 				};
 			} else {
 				for "_r" from 1 to _cuenta do {
-					_pieza commandArtilleryFire [_pos,_tipoMuni,1];
+					_pieza commandArtilleryFire [_pos,_typeAmmunition,1];
 					sleep 2;
 					_pos = [_pos,10,_ang + 5 - (random 10)] call BIS_fnc_relPos;
 				};
@@ -280,7 +280,7 @@ for "_i" from 0 to (count _artyArrayDef1) - 1 do {
 	};
 };
 
-if (_tipoArty != "BARRAGE") then
+if (_typeArty != "BARRAGE") then
 	{
 	sleep 5;
 	_eta = (_artyArrayDef1 select 0) getArtilleryETA [_positionTel, ((getArtilleryAmmo [(_artyArrayDef1 select 0)]) select 0)];
@@ -289,21 +289,21 @@ if (_tipoArty != "BARRAGE") then
 	[[petros,"sideChat",_texto],"commsMP"] call BIS_fnc_MP;
 	};
 
-if (_tipoArty != "BARRAGE") then
+if (_typeArty != "BARRAGE") then
 	{
 	waitUntil {sleep 1; time > _tiempo};
 	[[petros,"sideChat","Splash. Out"],"commsMP"] call BIS_fnc_MP;
 	};
 sleep 10;
 deleteMarker _mrkfin;
-if (_tipoArty == "BARRAGE") then {deleteMarker _mrkfin2};
+if (_typeArty == "BARRAGE") then {deleteMarker _mrkfin2};
 
 if (_forzado) then
 	{
 	sleep 20;
-	if (_marcador in forcedSpawn) then
+	if (_markerX in forcedSpawn) then
 		{
-		forcedSpawn = forcedSpawn - [_marcador];
+		forcedSpawn = forcedSpawn - [_markerX];
 		publicVariable "forcedSpawn";
 		};
 	};

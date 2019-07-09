@@ -6,8 +6,8 @@ _tsk = _this select 1;
 if (_tiempo > 0) then {sleep ((_tiempo/2) + random _tiempo)};
 
 [_tsk] call BIS_fnc_deleteTask;
-misiones = misiones - [_tsk];
-publicVariable "misiones";
+missionsX = missionsX - [_tsk];
+publicVariable "missionsX";
 /*
 [_tsk] call BIS_fnc_deleteTask;
 sleep 10;

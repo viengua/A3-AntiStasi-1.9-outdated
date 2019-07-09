@@ -35,7 +35,7 @@ _originName = ([_base, _airport] select (_base == "")) call AS_fnc_localizar;
 
 _task = ["AttackAAF",[side_blue,civilian],[["STR_TSK_TD_CA_CREATE",A3_Str_INDEP,_originName],["%1 Attack",A3_Str_INDEP],_originMarker],getMarkerPos _originMarker,"CREATED",10,true,true,"Defend"] call BIS_fnc_setTask;
 
-misiones pushbackUnique "AttackAAF"; publicVariable "misiones";
+missionsX pushbackUnique "AttackAAF"; publicVariable "missionsX";
 _attackDuration = time + 2400;
 
 //Adding caching area

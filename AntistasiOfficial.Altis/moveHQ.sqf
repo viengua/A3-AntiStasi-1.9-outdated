@@ -42,12 +42,12 @@ if (count (server getVariable ["obj_vehiclePad",[]]) > 0) then {
 //guer_respawn setMarkerPos [0,0,0];
 guer_respawn setMarkerAlpha 0;
 _garrison = garrison getVariable ["FIA_HQ", []];
-_posicion = getMarkerPos "FIA_HQ";
+_positionX = getMarkerPos "FIA_HQ";
 if (count _garrison > 0) then
 	{
 	_coste = 0;
 	_hr = 0;
-	if ({(alive _x) and (!captive _x) and ((side _x == side_green) or (side _x == side_red)) and (_x distance _posicion < 500)} count allUnits > 0) then
+	if ({(alive _x) and (!captive _x) and ((side _x == side_green) or (side _x == side_red)) and (_x distance _positionX < 500)} count allUnits > 0) then
 		{
 		hint localize "STR_HINTS_MHQ_HQGWSHNHTE";
 		}
@@ -55,7 +55,7 @@ if (count _garrison > 0) then
 		{
 		_size = ["FIA_HQ"] call sizeMarker;
 		{
-		if ((side _x == side_blue) and (not(_x getVariable ["BLUFORSpawn",false])) and (_x distance _posicion < _size) and (_x != petros)) then
+		if ((side _x == side_blue) and (not(_x getVariable ["BLUFORSpawn",false])) and (_x distance _positionX < _size) and (_x != petros)) then
 			{
 			if (!alive _x) then
 				{

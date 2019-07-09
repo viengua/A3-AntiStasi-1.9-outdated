@@ -5,17 +5,17 @@ if (debug) then {_chance = 100};
 
 if (count _this == 1) then
 	{
-	_marcador = _this select 0;
-	if (_marcador isEqualType "") then
+	_markerX = _this select 0;
+	if (_markerX isEqualType "") then
 		{
-		if ((_marcador in bases) or (_marcador in airportsX)) then {_chance = 30} else {_chance = 15};
+		if ((_markerX in bases) or (_markerX in airportsX)) then {_chance = 30} else {_chance = 15};
 		}
 	else
 		{
-		if (typeOf _marcador in infList_officers) then {_chance = 50}
+		if (typeOf _markerX in infList_officers) then {_chance = 50}
 		else
 			{
-			if ((typeOf _marcador in infList_NCO) or (typeOf _marcador in infList_pilots)) then {_chance = 15}
+			if ((typeOf _markerX in infList_NCO) or (typeOf _markerX in infList_pilots)) then {_chance = 15}
 			};
 		};
 	};
@@ -51,11 +51,11 @@ if (random 100 < _chance) then
 	{
 	if (tanksAAFcurrent < 1) then {_texto = format ["%1 AAF Tanks: None<br/>",_texto]} else {_texto = format ["%1 AAF Tanks: %2<br/>",_texto,tanksAAFcurrent]};
 	};
-_minasAAF = allmines - (detectedMines side_blue);
+_minesAAF = allmines - (detectedMines side_blue);
 _revealMineX = false;
-if (count _minasAAF > 0) then
+if (count _minesAAF > 0) then
 	{
-	{if (random 100 < _chance) then {side_blue revealMine _x; _revealMineX = true}} forEach _minasAAF;
+	{if (random 100 < _chance) then {side_blue revealMine _x; _revealMineX = true}} forEach _minesAAF;
 	};
 if (_revealMineX) then {_texto = format ["%1 New Mines marked on your map<br/>",_texto];};
 

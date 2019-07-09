@@ -2,26 +2,26 @@ if (!isServer and hasInterface) exitWith {};
 
 if(true)exitWith{};//disabled because its to slow
 
-private ["_marcador","_destino","_origen","_grupos","_soldados","_vehiclesX","_size","_grupo","_camion","_tam","_roads","_road","_pos"];
+private ["_markerX","_destino","_origen","_grupos","_soldiers","_vehiclesX","_size","_grupo","_camion","_tam","_roads","_road","_pos"];
 
-_marcador = _this select 0;
-if (not(_marcador in smallCAmrk)) exitWith {};
-if (debug) then {Slowhand globalChat format ["AutoGarrison en marcha, destino %1",_marcador]};
-_destino = getMarkerPos _marcador;
+_markerX = _this select 0;
+if (not(_markerX in smallCAmrk)) exitWith {};
+if (debug) then {Slowhand globalChat format ["AutoGarrison en marcha, destino %1",_markerX]};
+_destino = getMarkerPos _markerX;
 _origen = getMarkerPos guer_respawn;
 
 if ((worldName == "Tanoa") AND !([_origen, _destino] call AS_fnc_IslandCheck)) exitWith {};
 
 _grupos = [];
-_soldados = [];
+_soldiers = [];
 _vehiclesX = [];
 
-_size = [_marcador] call sizeMarker;
+_size = [_markerX] call sizeMarker;
 
 _divisor = 50;
 
-if (_marcador in airportsX) then {_divisor = 100};
-if (_marcador in bases) then {_divisor = 30};
+if (_markerX in airportsX) then {_divisor = 100};
+if (_markerX in bases) then {_divisor = 30};
 
 _size = round (_size / _divisor);
 
@@ -47,18 +47,18 @@ while {(_size > 0)} do
 		{[_x] spawn AS_fnc_initialiseFIAUnit} forEach _vehCrew;
 		[_veh] spawn VEHinit;
 		[_veh,"Reinf"] spawn inmuneConvoy;
-		_grupoVeh = _vehicle select 2;
-		_grupoVeh setVariable ["esNATO",true,true];
-		_soldados = _soldados + _vehCrew;
-		_grupos pushBack _grupoVeh;
+		_groupVeh = _vehicle select 2;
+		_groupVeh setVariable ["esNATO",true,true];
+		_soldiers = _soldiers + _vehCrew;
+		_grupos pushBack _groupVeh;
 		_vehiclesX = _vehiclesX + [_veh];
 		if (_tipoVeh != guer_veh_technical) then
 			{
 			if (_tipoVeh == guer_veh_quad) then
 				{
-				_soldado = _grupoVeh createUnit [guer_sol_SN, _pos, [], 0, "NONE"];
+				_soldado = _groupVeh createUnit [guer_sol_SN, _pos, [], 0, "NONE"];
 				[_soldado] spawn AS_fnc_initialiseFIAUnit;
-				_soldados pushBack _soldado;
+				_soldiers pushBack _soldado;
 				_soldado moveInCargo _veh;
 				}
 			else
@@ -66,20 +66,20 @@ while {(_size > 0)} do
 				_typeGroup = guer_grp_squad;
 				if (_tipoVeh == guer_veh_offroad) then {_typeGroup = [guer_grp_team,guer_grp_AT] call BIS_fnc_selectRandom};
 				_grupo = [_origen, side_blue, ([_typeGroup, "guer"] call AS_fnc_pickGroup)] call BIS_Fnc_spawnGroup;
-				{[_x] call AS_fnc_initialiseFIAUnit; [_x] join _grupoVeh; _x moveInCargo _veh; _soldados pushBack _x} forEach units _grupo;
+				{[_x] call AS_fnc_initialiseFIAUnit; [_x] join _groupVeh; _x moveInCargo _veh; _soldiers pushBack _x} forEach units _grupo;
 				deleteGroup _grupo;
 				};
-			//[_marcador,_grupoVeh] spawn attackDrill;
-			_Vwp0 = _grupoVeh addWaypoint [_destino, 0];
+			//[_markerX,_groupVeh] spawn attackDrill;
+			_Vwp0 = _groupVeh addWaypoint [_destino, 0];
 			_Vwp0 setWaypointBehaviour "SAFE";
 			_Vwp0 setWaypointType "GETOUT";
-			_Vwp1 = _grupoVeh addWaypoint [_destino, 1];
+			_Vwp1 = _groupVeh addWaypoint [_destino, 1];
 			_Vwp1 setWaypointType "SAD";
 			_Vwp1 setWaypointBehaviour "AWARE";
 			}
 		else
 			{
-			_Vwp1 = _grupoVeh addWaypoint [_destino, 0];
+			_Vwp1 = _groupVeh addWaypoint [_destino, 0];
 			_Vwp1 setWaypointType "SAD";
 			_Vwp1 setWaypointBehaviour "AWARE";
 			};
@@ -91,9 +91,9 @@ while {(_size > 0)} do
 
 {
 	_x setVariable ["generated",true,true];
-} forEach _soldados;
+} forEach _soldiers;
 
-waitUntil {sleep 1;((not(_marcador in smallCAmrk)) or (_marcador in mrkAAF))};
+waitUntil {sleep 1;((not(_markerX in smallCAmrk)) or (_markerX in mrkAAF))};
 
 {_vehiculo = _x;
 waitUntil {sleep 1; {_x distance _vehiculo < distanceSPWN} count (allPlayers - (entities "HeadlessClient_F")) == 0};
@@ -102,5 +102,5 @@ deleteVehicle _vehiculo;
 {_soldado = _x;
 waitUntil {sleep 1; {_x distance _soldado < distanceSPWN} count (allPlayers - (entities "HeadlessClient_F")) == 0};
 deleteVehicle _soldado;
-} forEach _soldados;
+} forEach _soldiers;
 {deleteGroup _x} forEach _grupos;

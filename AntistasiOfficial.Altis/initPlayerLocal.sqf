@@ -47,7 +47,7 @@ _title = ["A3 - Antistasi","A3 Antistasi Community",antistasiVersion] spawn BIS_
 
 //Multiplayer start
 if (isMultiplayer) then {
-	player setVariable ["elegible",true,true]; //Why? so whoever start will be eligible to be commander?
+	player setVariable ["eligible",true,true]; //Why? so whoever start will be eligible to be commander?
 	musicON = false;
 	waitUntil {scriptdone _introshot};
 	disableUserInput true;

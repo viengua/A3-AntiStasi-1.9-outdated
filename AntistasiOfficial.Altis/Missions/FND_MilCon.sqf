@@ -52,7 +52,7 @@ _break = false;
 _posTsk = (position _bldg) getPos [random 50, random 360];
 
 _tsk = ["FND_M",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_INDEP],_tskTitle,_site],_posDealer,"CREATED",5,true,true,"Find"] call BIS_fnc_setTask;
-misiones pushBack _tsk; publicVariable "misiones";
+missionsX pushBack _tsk; publicVariable "missionsX";
 
 waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) || (not alive Nomad) || ({(side _x isEqualTo civilian) && (_x distance Nomad < 500)} count allPlayers > 0)};
 

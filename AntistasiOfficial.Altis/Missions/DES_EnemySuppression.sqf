@@ -3,12 +3,12 @@ if (!isServer and hasInterface) exitWith {};
 _tskTitle = "STR_TSK_TD_DESSuppression";
 _tskDesc  = "STR_TSK_TD_DESC_DESSuppression";
 
-private ["_poscrash", "_posbase", "_mrkfin", "_mrkTarget", "_tipoveh", "_churches", "_vehiclesX", "_soldados", "_grupos", "_unit", "_roads", "_road", "_vehicle", "_veh", "_typeGroup", "_tsk", "_humo", "_emitterArray", "_poschurch", "_grupo", "_missionchurch", "_posmissionchurch", "_group1", "_MRAP"];
+private ["_poscrash", "_posbase", "_mrkfin", "_mrkTarget", "_tipoveh", "_churches", "_vehiclesX", "_soldiers", "_grupos", "_unit", "_roads", "_road", "_vehicle", "_veh", "_typeGroup", "_tsk", "_humo", "_emitterArray", "_poschurch", "_grupo", "_missionchurch", "_posmissionchurch", "_group1", "_MRAP"];
 
 
-_marcador   = _this select 0;
-_posicion   = getMarkerPos _marcador;
-_nameDest = [_marcador] call AS_fnc_localizar;
+_markerX   = _this select 0;
+_positionX   = getMarkerPos _markerX;
+_nameDest = [_markerX] call AS_fnc_localizar;
 
 _posHQ = getMarkerPos guer_respawn;
 
@@ -25,9 +25,9 @@ _base	  = "";
 {
 	_base	 = _x;
 	_posbase = getMarkerPos _base;
-	if ((_posicion distance _posbase < 7500)and (_posicion distance _posbase > 1500) and (not (spawner getVariable _base))) then {_bases = _bases + [_base]}
+	if ((_positionX distance _posbase < 7500)and (_positionX distance _posbase > 1500) and (not (spawner getVariable _base))) then {_bases = _bases + [_base]}
 		} forEach _basesAAF;
-	if (count _bases > 0) then {_base = [_bases, _posicion] call BIS_fnc_nearestPosition;
+	if (count _bases > 0) then {_base = [_bases, _positionX] call BIS_fnc_nearestPosition;
 		} else                                                                               {_base = ""};
 
 	_posbase = getMarkerPos _base;
@@ -39,7 +39,7 @@ _range = 1000;
 while {true} do {
 	sleep 0.1;
 	_range = _range + 500;
-	_churches = nearestTerrainObjects [_posicion, ["CHURCH", "CHAPEL"], _range];
+	_churches = nearestTerrainObjects [_positionX, ["CHURCH", "CHAPEL"], _range];
 	if (count _churches > 0) exitwith {};
 };
 
@@ -62,13 +62,13 @@ while {true} do {
 	// setting the mission
 
 	_tsk = ["DES", [side_blue, civilian], [[_tskDesc, _nameDest, numberToDate [2035, _dateLimitNum] select 3, numberToDate [2035, _dateLimitNum] select 4, A3_Str_INDEP], _tskTitle, _mrkfin], _missionchurch, "CREATED", 5, true, true, "Destroy"] call BIS_fnc_setTask;
-	misiones pushBack _tsk;
-	publicVariable "misiones";
+	missionsX pushBack _tsk;
+	publicVariable "missionsX";
 
 	// adding groups and vehicle
 
 	_vehiclesX = [];
-	_soldados  = [];
+	_soldiers  = [];
 	_grupos	   = [];
 
 	if ((server getVariable "prestigeCSAT") < 70) then
@@ -78,7 +78,7 @@ while {true} do {
 			[_group1, _mrkchurch, "SAFE", "SPAWNED", "NOVEH2", "NOFOLLOW"] execVM "scripts\UPSMON.sqf";
 
 			{ [_x] spawn genInit;
-			  _soldados = _soldados + [_x]} forEach units _group1;
+			  _soldiers = _soldiers + [_x]} forEach units _group1;
 
 			_grupos = _grupos + [_group1];
 
@@ -105,7 +105,7 @@ while {true} do {
 			_grupos = _grupos + [_grupo];
 
 			{ [_x] spawn genInit;
-			  _soldados = _soldados + [_x]} forEach units _grupo;
+			  _soldiers = _soldiers + [_x]} forEach units _grupo;
 		} else {
 			_typeGroup = [opGroup_Squad, side_red] call AS_fnc_pickGroup;
 			_group1	   = [_posmissionchurch, side_red, _typeGroup] call BIS_Fnc_spawnGroup;
@@ -137,7 +137,7 @@ while {true} do {
 			_grupos = _grupos + [_grupo];
 
 			{ [_x] spawn CSATinit;
-			  _soldados = _soldados + [_x]} forEach units _grupo;
+			  _soldiers = _soldiers + [_x]} forEach units _grupo;
 		};
 
 
@@ -149,16 +149,16 @@ while {true} do {
 	if (dateToNumber date > _dateLimitNum) then
 		{
 			_tsk = ["DES", [side_blue, civilian], [[_tskDesc, _nameDest, numberToDate [2035, _dateLimitNum] select 3, numberToDate [2035, _dateLimitNum] select 4, A3_Str_INDEP], _tskTitle, _mrkfin], _missionchurch, "FAILED", 5, true, true, "Destroy"] call BIS_fnc_setTask;
-			[5, 0, _posicion] remoteExec ["AS_fnc_changeCitySupport", 2];
+			[5, 0, _positionX] remoteExec ["AS_fnc_changeCitySupport", 2];
 			[-50] remoteExec ["AS_fnc_increaseAttackTimer", 2];
 			[-20, Slowhand] call playerScoreAdd;
 		} else {
 			_tsk = ["DES", [side_blue, civilian], [[_tskDesc, _nameDest, numberToDate [2035, _dateLimitNum] select 3, numberToDate [2035, _dateLimitNum] select 4, A3_Str_INDEP], _tskTitle, _mrkfin], _missionchurch, "SUCCEEDED", 5, true, true, "Destroy"] call BIS_fnc_setTask;
 			[3, 200] remoteExec ["resourcesFIA", 2];
-			[0, 5, _posicion] remoteExec ["AS_fnc_changeCitySupport", 2];
+			[0, 5, _positionX] remoteExec ["AS_fnc_changeCitySupport", 2];
 			[_mrkchurch] remoteExec ["patrolCA",  call AS_fnc_getNextWorker];
 
-			{if (isPlayer _x) then { [10, _x] call playerScoreAdd}} forEach ( [500, 0, _posicion, "BLUFORSpawn"] call distanceUnits);
+			{if (isPlayer _x) then { [10, _x] call playerScoreAdd}} forEach ( [500, 0, _positionX, "BLUFORSpawn"] call distanceUnits);
 			 [10, Slowhand] call playerScoreAdd;
 			 [2, 0] remoteExec ["prestige", 2];
 				// BE module
@@ -171,4 +171,4 @@ while {true} do {
 
 			[1200, _tsk] spawn deleteTaskX;
 			deleteMarker _mrkfin;
-			[_grupos, _soldados, _vehiclesX] spawn AS_fnc_despawnUnits;
+			[_grupos, _soldiers, _vehiclesX] spawn AS_fnc_despawnUnits;

@@ -3,23 +3,23 @@ if (!isServer and hasInterface) exitWith{};
 _tskTitle = "STR_TSK_TD_NATOSupply";
 _tskDesc = "STR_TSK_TD_DESC_NATOSupply";
 
-_posicion = _this select 0;
+_positionX = _this select 0;
 _NATOSupp = _this select 1;
 
 private ["_crate","_chute","_humo"];
 
-_mrkfin = createMarker ["AmmoSupp", _posicion];
+_mrkfin = createMarker ["AmmoSupp", _positionX];
 _mrkfin setMarkerShape "ICON";
 _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + 60];
 _dateLimitNum = dateToNumber _dateLimit;
 
-_tsk = ["NATOAmmo",[side_blue,civilian],[[_tskDesc, A3_Str_BLUE],[_tskTitle, A3_Str_BLUE],_mrkfin],_posicion,"CREATED",5,true,true,"rifle"] call BIS_fnc_setTask;
-misiones pushBack _tsk; publicVariable "misiones";
+_tsk = ["NATOAmmo",[side_blue,civilian],[[_tskDesc, A3_Str_BLUE],[_tskTitle, A3_Str_BLUE],_mrkfin],_positionX,"CREATED",5,true,true,"rifle"] call BIS_fnc_setTask;
+missionsX pushBack _tsk; publicVariable "missionsX";
 [-5,0] remoteExec ["prestige",2];
 
 _airportsX = airportsX - mrkAAF + ["spawnNATO"];
 
-_origen = [_airportsX,_posicion] call BIS_fnc_nearestPosition;
+_origen = [_airportsX,_positionX] call BIS_fnc_nearestPosition;
 _orig = getMarkerPos _origen;
 _vehiclesX = [];
 
@@ -40,11 +40,11 @@ _groupHeli setCombatMode "BLUE";
 Slowhand hcSetGroup [_groupHeli];
 _groupHeli setVariable ["isHCgroup", true, true];
 
-waitUntil {sleep 2; (_heli distance _posicion < 300) or (!canMove _heli) or (dateToNumber date > _dateLimitNum)};
+waitUntil {sleep 2; (_heli distance _positionX < 300) or (!canMove _heli) or (dateToNumber date > _dateLimitNum)};
 
 Slowhand hcRemoveGroup _groupHeli;
 
-if (_heli distance _posicion < 300) then {
+if (_heli distance _positionX < 300) then {
 	_chute = createVehicle ["B_Parachute_02_F", [100, 100, 200], [], 0, 'FLY'];
     _chute setPos [getPosASL _heli select 0, getPosASL _heli select 1, (getPosASL _heli select 2) - 50];
     _crate = createVehicle ["B_supplyCrate_F", position _chute, [], 0, 'NONE'];
@@ -61,11 +61,11 @@ if (_heli distance _posicion < 300) then {
     private _pos = getPos _crate;
     _pos set [2, 0.5];
     _crate setPos _pos;
-    _tsk = ["NATOAmmo",[side_blue,civilian],[[_tskDesc, A3_Str_BLUE],[_tskTitle, A3_Str_BLUE],_mrkfin],_posicion,"SUCCEEDED",5,true,true,"rifle"] call BIS_fnc_setTask;
+    _tsk = ["NATOAmmo",[side_blue,civilian],[[_tskDesc, A3_Str_BLUE],[_tskTitle, A3_Str_BLUE],_mrkfin],_positionX,"SUCCEEDED",5,true,true,"rifle"] call BIS_fnc_setTask;
 	_humo = "SmokeShellBlue" createVehicle position _crate;
 	_vehiclesX = _vehiclesX + [_humo];
 } else {
-	_tsk = ["NATOAmmo",[side_blue,civilian],[[_tskDesc, A3_Str_BLUE],[_tskTitle, A3_Str_BLUE],_mrkfin],_posicion,"FAILED",5,true,true,"rifle"] call BIS_fnc_setTask;
+	_tsk = ["NATOAmmo",[side_blue,civilian],[[_tskDesc, A3_Str_BLUE],[_tskTitle, A3_Str_BLUE],_mrkfin],_positionX,"FAILED",5,true,true,"rifle"] call BIS_fnc_setTask;
 };
 
 sleep 15;

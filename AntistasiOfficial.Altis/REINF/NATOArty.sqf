@@ -1,11 +1,11 @@
 if (!isServer and hasInterface) exitWith {};
 
-private ["_prestigio","_marcador","_posicion","_timeLimit","_dateLimit","_dateLimitNum","_nameDest","_tsk","_soldados","_vehiclesX","_grupo","_tipoVeh","_cuenta","_size"];
+private ["_prestigio","_markerX","_positionX","_timeLimit","_dateLimit","_dateLimitNum","_nameDest","_tsk","_soldiers","_vehiclesX","_grupo","_tipoVeh","_cuenta","_size"];
 
 _prestigio = server getVariable "prestigeNATO";
 
-_marcador = _this select 0;
-_posicion = getMarkerPos _marcador;
+_markerX = _this select 0;
+_positionX = getMarkerPos _markerX;
 
 [-10,0] remoteExec ["prestige",2];
 
@@ -13,13 +13,13 @@ _timeLimit = _prestigio;
 _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
 _dateLimitNum = dateToNumber _dateLimit;
 
-_nameDest = [_marcador] call AS_fnc_localizar;
+_nameDest = [_markerX] call AS_fnc_localizar;
 
-_tsk = ["NATOArty",[west,civilian],[["STR_TSK_ARTY_DESC",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_BLUE],["STR_TSK_ARTY_TITLE", A3_Str_BLUE],_marcador],_posicion,"CREATED",5,true,true,"target"] call BIS_fnc_setTask;
-misiones pushBack _tsk; publicVariable "misiones";
+_tsk = ["NATOArty",[west,civilian],[["STR_TSK_ARTY_DESC",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_BLUE],["STR_TSK_ARTY_TITLE", A3_Str_BLUE],_markerX],_positionX,"CREATED",5,true,true,"target"] call BIS_fnc_setTask;
+missionsX pushBack _tsk; publicVariable "missionsX";
 
-_size = [_marcador] call sizeMarker;
-_soldados = [];
+_size = [_markerX] call sizeMarker;
+_soldiers = [];
 _vehiclesX = [];
 _grupo = createGroup side_blue;
 _tipoVeh = selectRandom bluStatMortar;
@@ -37,15 +37,15 @@ else
 	};
 for "_i" from 1 to _cuenta do
 	{
-	_unit = ([_posicion, 0, bluGunner, _grupo] call bis_fnc_spawnvehicle) select 0;
+	_unit = ([_positionX, 0, bluGunner, _grupo] call bis_fnc_spawnvehicle) select 0;
 	[_unit] spawn NATOinitCA;
 	sleep 1;
-	_pos = [_marcador, "base_4", true] call AS_fnc_findSpawnSpots;
+	_pos = [_markerX, "base_4", true] call AS_fnc_findSpawnSpots;
 	_veh = createVehicle [_tipoVeh, _pos, [], _spread, "NONE"];
 	[_veh] spawn NATOvehInit;
 	sleep 1;
 	_unit moveInGunner _veh;
-	_soldados pushBack _unit;
+	_soldiers pushBack _unit;
 	_vehiclesX pushBack _veh;
 	sleep 2;
 	};
@@ -61,12 +61,12 @@ if ({alive _x} count _vehiclesX == 0) then
 	{
 	[-5,0] remoteExec ["prestige",2];
 
-	_tsk = ["NATOArty",[west,civilian],[["STR_TSK_ARTY_DESC",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_BLUE],["STR_TSK_ARTY_TITLE", A3_Str_BLUE],_marcador],_posicion,"FAILED",5,true,true,"target"] call BIS_fnc_setTask;
+	_tsk = ["NATOArty",[west,civilian],[["STR_TSK_ARTY_DESC",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_BLUE],["STR_TSK_ARTY_TITLE", A3_Str_BLUE],_markerX],_positionX,"FAILED",5,true,true,"target"] call BIS_fnc_setTask;
 	};
 
 //[_tsk,true] call BIS_fnc_deleteTask;
 [0,_tsk] spawn deleteTaskX;
 
-{deleteVehicle _x} forEach _soldados;
+{deleteVehicle _x} forEach _soldiers;
 {deleteVehicle _x} forEach _vehiclesX;
 deleteGroup _grupo;

@@ -294,7 +294,7 @@ _camps = [];
 if (!isDedicated) then {
 	_missionTypes = [];
 	{
-		if (_x in misiones) then {
+		if (_x in missionsX) then {
 			if (([_x] call BIS_fnc_taskState) == "CREATED") then {
 				_missionTypes pushBack _x;
 			};

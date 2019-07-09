@@ -5,28 +5,28 @@ _tskDesc = "STR_TSK_TD_DESC_logAmmo";
 
 private ["_pos","_camion","_truckCreated","_grupo","_grupo1","_mrk"];
 
-_marcador = _this select 0;
-_posicion = getMarkerPos _marcador;
+_markerX = _this select 0;
+_positionX = getMarkerPos _markerX;
 
 _timeLimit = 60;
 _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
 _dateLimitNum = dateToNumber _dateLimit;
 
-_nameDest = [_marcador] call AS_fnc_localizar;
+_nameDest = [_markerX] call AS_fnc_localizar;
 
-_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_marcador],_posicion,"CREATED",5,true,true,"rearm"] call BIS_fnc_setTask;
-misiones pushBack _tsk; publicVariable "misiones";
+_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_markerX],_positionX,"CREATED",5,true,true,"rearm"] call BIS_fnc_setTask;
+missionsX pushBack _tsk; publicVariable "missionsX";
 _truckCreated = false;
 
-waitUntil {sleep 1;(dateToNumber date > _dateLimitNum) or (spawner getVariable _marcador)};
+waitUntil {sleep 1;(dateToNumber date > _dateLimitNum) or (spawner getVariable _markerX)};
 
-if (spawner getVariable _marcador) then
+if (spawner getVariable _markerX) then
 	{
 	sleep 10;
-	_size = [_marcador] call sizeMarker;
+	_size = [_markerX] call sizeMarker;
 	while {true} do
 		{
-		_pos = _posicion findEmptyPosition [10,_size, vehAmmo];
+		_pos = _positionX findEmptyPosition [10,_size, vehAmmo];
 		if (count _pos > 0) exitWith {};
 		_size = _size + 20
 		};
@@ -47,7 +47,7 @@ if (spawner getVariable _marcador) then
 	sleep 1;
 	if (random 10 < 33) then
 		{
-		_perro = _grupo createUnit ["Fin_random_F",_posicion,[],0,"FORM"];
+		_perro = _grupo createUnit ["Fin_random_F",_positionX,[],0,"FORM"];
 		[_perro] spawn guardDog;
 		};
 
@@ -64,14 +64,14 @@ if (spawner getVariable _marcador) then
 
 	if (dateToNumber date > _dateLimitNum) then
 		{
-		_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_marcador],_posicion,"FAILED",5,true,true,"rearm"] call BIS_fnc_setTask;
+		_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_markerX],_positionX,"FAILED",5,true,true,"rearm"] call BIS_fnc_setTask;
 		[-1200] remoteExec ["AS_fnc_increaseAttackTimer",2];
 		[-10,Slowhand] call playerScoreAdd;
 		};
 	if ((not alive _camion) or ({_x getVariable ["BLUFORSpawn",false]} count crew _camion > 0)) then
 		{
 		[position _camion] spawn patrolCA;
-		_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_marcador],_posicion,"SUCCEEDED",5,true,true,"rearm"] call BIS_fnc_setTask;
+		_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_markerX],_positionX,"SUCCEEDED",5,true,true,"rearm"] call BIS_fnc_setTask;
 		[0,300] remoteExec ["resourcesFIA",2];
 		[1200] remoteExec ["AS_fnc_increaseAttackTimer",2];
 		{if (_x distance _camion < 500) then {[10,_x] call playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
@@ -85,7 +85,7 @@ if (spawner getVariable _marcador) then
 	}
 else
 	{
-	_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_marcador],_posicion,"FAILED",5,true,true,"rearm"] call BIS_fnc_setTask;
+	_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_markerX],_positionX,"FAILED",5,true,true,"rearm"] call BIS_fnc_setTask;
 	[-1200] remoteExec ["AS_fnc_increaseAttackTimer",2];
 	[-10,Slowhand] call playerScoreAdd;
 	};

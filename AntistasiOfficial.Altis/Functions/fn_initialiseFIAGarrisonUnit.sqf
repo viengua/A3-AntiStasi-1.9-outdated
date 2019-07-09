@@ -1,7 +1,7 @@
 params ["_unit", ["_marker", ""]];
 private ["_skill","_skillFIA","_aiming","_spotD","_spotT","_cour","_comm","_aimingSh","_aimingSp","_reload","_unitType","_skillSet"];
 
-if !(_marker == "") then {_unit setVariable ["marcador", _marker]};
+if !(_marker == "") then {_unit setVariable ["markerX", _marker]};
 [_unit] call initRevive;
 
 _skillFIA = server getVariable ["skillFIA", 1];
@@ -301,15 +301,15 @@ _EHkilledIdx = _unit addEventHandler ["killed", {
 		};
 	};
 	[0,-0.25,getPos _muerto] remoteExec ["AS_fnc_changeCitySupport",2];
-	_marcador = _muerto getVariable "marcador";
-	if (!isNil "_marcador") then {
-		if (_marcador in mrkFIA) then {
-			_garrison = garrison getVariable [_marcador,[]];
+	_markerX = _muerto getVariable "markerX";
+	if (!isNil "_markerX") then {
+		if (_markerX in mrkFIA) then {
+			_garrison = garrison getVariable [_markerX,[]];
 			for "_i" from 0 to (count _garrison -1) do {
 				if (typeOf _muerto == (_garrison select _i)) exitWith {_garrison deleteAt _i};
 			};
-			garrison setVariable [_marcador,_garrison,true];
-			[_marcador] call AS_fnc_markerUpdate;
+			garrison setVariable [_markerX,_garrison,true];
+			[_markerX] call AS_fnc_markerUpdate;
 		};
 	};
 }];

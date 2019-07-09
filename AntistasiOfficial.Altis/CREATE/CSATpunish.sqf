@@ -1,5 +1,5 @@
 if (!isServer and hasInterface) exitWith {};
-private ["_posOrigin","_typeGroup","_nameOrigin","_markTsk","_wp1","_soldados","_landpos","_pad","_vehiclesX","_wp0","_wp3","_wp4","_wp2","_grupo","_grupos","_tipoveh","_vehicle","_heli","_heliCrew","_groupHeli","_pilotos","_rnd","_resourcesAAF","_nVeh","_tam","_roads","_Vwp1","_tanques","_road","_veh","_vehCrew","_grupoVeh","_Vwp0","_size","_Hwp0","_grupo1","_uav","_grupouav","_uwp0","_tsk","_vehiculo","_soldado","_piloto","_mrkDestination","_posDestination","_prestigeCSAT","_base","_airportX","_nameDest","_tiempo","_solMax","_pos","_timeOut"];
+private ["_posOrigin","_typeGroup","_nameOrigin","_markTsk","_wp1","_soldiers","_landpos","_pad","_vehiclesX","_wp0","_wp3","_wp4","_wp2","_grupo","_grupos","_tipoveh","_vehicle","_heli","_heliCrew","_groupHeli","_pilotos","_rnd","_resourcesAAF","_nVeh","_tam","_roads","_Vwp1","_tanques","_road","_veh","_vehCrew","_groupVeh","_Vwp0","_size","_Hwp0","_grupo1","_uav","_groupUAV","_uwp0","_tsk","_vehiculo","_soldado","_piloto","_mrkDestination","_posDestination","_prestigeCSAT","_base","_airportX","_nameDest","_tiempo","_solMax","_pos","_timeOut"];
 _mrkDestination = _this select 0;
 
 forcedSpawn = forcedSpawn + [_mrkDestination]; publicVariable "forcedSpawn";
@@ -7,14 +7,14 @@ forcedSpawn = forcedSpawn + [_mrkDestination]; publicVariable "forcedSpawn";
 _posDestination = getMarkerPos _mrkDestination;
 
 _grupos = [];
-_soldados = [];
+_soldiers = [];
 _pilotos = [];
 _vehiclesX = [];
 _civiles = [];
 
 _nameDest = [_mrkDestination] call AS_fnc_localizar;
 _tsk = ["AttackAAF",[side_blue,civilian],[["CSAT is making a punishment expedition to %1. They will kill everybody there. Defend the city at all costs",_nameDest],"CSAT Punishment",_mrkDestination],getMarkerPos _mrkDestination,"CREATED",10,true,true,"Defend"] call BIS_fnc_setTask;
-misiones pushBack _tsk; publicVariable "misiones";
+missionsX pushBack _tsk; publicVariable "missionsX";
 //Ataque de artillería
 [_mrkDestination] spawn artilleryX;
 
@@ -59,7 +59,7 @@ for "_i" from 1 to 3 do {
 		{_x setBehaviour "CARELESS";} forEach units _groupHeli;
 		_typeGroup = [opGroup_Squad, side_red] call AS_fnc_pickGroup;
 		_grupo = [_posOrigin, side_red, _typeGroup] call BIS_Fnc_spawnGroup;
-		{_x assignAsCargo _heli; _x moveInCargo _heli; _soldados = _soldados + [_x]; [_x] spawn CSATinit} forEach units _grupo;
+		{_x assignAsCargo _heli; _x moveInCargo _heli; _soldiers = _soldiers + [_x]; [_x] spawn CSATinit} forEach units _grupo;
 		_grupos = _grupos + [_grupo];
 		[_heli,"CSAT Air Transport"] spawn inmuneConvoy;
 
@@ -128,10 +128,10 @@ _grupos pushBack _groupCivil;
 [_groupCivil, _mrkDestination, "AWARE","SPAWNED","NOVEH2"] execVM "scripts\UPSMON.sqf";
 
 _civilMax = {alive _x} count _civiles;
-_solMax = count _soldados;
+_solMax = count _soldiers;
 
 //Loop to make civis get killed at some point, could be done better by beeing sure CSAF find where they hide
-	[_groupCivil,_soldados,_posDestination]  spawn {sleep 900; //15 min, can be tweaked on need
+	[_groupCivil,_soldiers,_posDestination]  spawn {sleep 900; //15 min, can be tweaked on need
 		diag_log format ["CSAT: civilians: %1 enemies: %2",_this select 0,_this select 1];
 		{(_this select 0) reveal [_x,4]} foreach (_this select 1);
 		_wp7 = (_this select 0) addWaypoint [_this select 2, 1];
@@ -153,20 +153,20 @@ for "_i" from 0 to round random 2 do {
 	sleep 30;
 };
 
-{if ((surfaceIsWater position _x) and (vehicle _x == _x)) then {_x setDamage 1}} forEach _soldados;
+{if ((surfaceIsWater position _x) and (vehicle _x == _x)) then {_x setDamage 1}} forEach _soldiers;
 
 waitUntil {sleep 5;
-	(({not (captive _x)} count _soldados) < ({captive _x} count _soldados)) or
-	({alive _x} count _soldados < round (_solMax / 3)) or
+	(({not (captive _x)} count _soldiers) < ({captive _x} count _soldiers)) or
+	({alive _x} count _soldiers < round (_solMax / 3)) or
 	(
-	 	({(_x distance _posDestination < _size*2) and (not(vehicle _x isKindOf "Air")) and (alive _x) and (!captive _x)} count _soldados)
+	 	({(_x distance _posDestination < _size*2) and (not(vehicle _x isKindOf "Air")) and (alive _x) and (!captive _x)} count _soldiers)
 	 	> 4*
 	 	({(alive _x) and (_x distance _posDestination < _size*2)} count _civiles)
 	) or
 	(time > _tiempo)};
 
-		if ((({!(captive _x)} count _soldados) < ({captive _x} count _soldados)) or ({alive _x} count _soldados < round (_solMax / 3)) or (time > _tiempo)) then {
-			{_x doMove [0,0,0]} forEach _soldados;
+		if ((({!(captive _x)} count _soldiers) < ({captive _x} count _soldiers)) or ({alive _x} count _soldiers < round (_solMax / 3)) or (time > _tiempo)) then {
+			{_x doMove [0,0,0]} forEach _soldiers;
 			_tsk = ["AttackAAF",[side_blue,civilian],[["CSAT is making a punishment expedition to %1. They will kill everybody there. Defend the city at all costs",_nameDest],"CSAT Punishment",_mrkDestination],getMarkerPos _mrkDestination,"SUCCEEDED",10,true,true,"Defend"] call BIS_fnc_setTask;
 			[-5,20,_posDestination] remoteExec ["AS_fnc_changeCitySupport",2];
 			[10,0] remoteExec ["prestige",2];
@@ -197,7 +197,7 @@ waitUntil {sleep 5;
 	{
 	waitUntil {sleep 1; !([distanceSPWN,1,_x,"BLUFORSpawn"] call distanceUnits)};
 	deleteVehicle _x;
-	} forEach _soldados;
+	} forEach _soldiers;
 	{
 	waitUntil {sleep 1; !([distanceSPWN,1,_x,"BLUFORSpawn"] call distanceUnits)};
 	deleteVehicle _x;

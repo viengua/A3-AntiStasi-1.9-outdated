@@ -1,4 +1,4 @@
-private ["_camion","_objetos","_todo","_proceder","_caja","_armas","_ammunition","_items","_mochis","_containers","_cuenta","_exists"];
+private ["_camion","_objetos","_todo","_proceed","_caja","_armas","_ammunition","_items","_mochis","_containers","_cuenta","_exists"];
 /*
 spanish to english dictionary:
 camion = truck
@@ -14,7 +14,7 @@ if (_jugador getVariable ["loadingCrate", false]) exitWith {[petros,"hint", "Alr
 
 _objetos = [];
 _todo = [];
-_proceder = false;
+_proceed = false;
 _active = false;
 _counter = 0;
 
@@ -38,14 +38,14 @@ _breakText = "";
 if (_cuenta < 1) then
 	{
 	[petros,"hint", "Closest Ammobox is empty"] remoteExec ["commsMP",_jugador];
-	_proceder = true;
+	_proceed = true;
 	};
 
 if (_cuenta > 0) then
 	{
 	if (_caja == caja) then
 		{
-		if ("DEF_HQ" in misiones) then {_cuenta = round (_cuenta / 10)} else {_cuenta = round (_cuenta / 100)};
+		if ("DEF_HQ" in missionsX) then {_cuenta = round (_cuenta / 10)} else {_cuenta = round (_cuenta / 100)};
 		}
 	else
 		{
@@ -66,16 +66,16 @@ if (_cuenta > 0) then
 		if !(_cuenta > _counter) then
 			{
 			[_caja,_camion] remoteExec ["AS_fnc_transferGear",2];
-			_proceder = true;
+			_proceed = true;
 			};
 		if ((_camion != vehicle player) or (speed _camion != 0)) then
 				{
-				_proceder = true;
+				_proceed = true;
 				};
 		};
 
 		if ((_camion != vehicle _jugador) or (speed _camion > 2)) then {
-			_proceder = true;
+			_proceed = true;
 			_breakText = "Transfer cancelled due to movement of Truck or Player";
 		};
 	};

@@ -7,7 +7,7 @@ groupPetros = createGroup side_blue;
 publicVariable "groupPetros";
 petros = groupPetros createUnit [guer_sol_OFF, _spawnPos, [], 0,"NONE"];
 groupPetros setGroupId ["Petros","GroupColor4"];
-petros setIdentity "amiguete";
+petros setIdentity "friendlyX";
 petros setName "Petros";
 petros forceSpeed 0;
 if (group _corpse == groupPetros) then {

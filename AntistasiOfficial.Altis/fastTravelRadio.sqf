@@ -1,4 +1,4 @@
-private ["_roads","_pos","_posicion","_grupo"];
+private ["_roads","_pos","_positionX","_grupo"];
 
 _markers = markers + [guer_respawn] - campsFIA;
 
@@ -61,8 +61,8 @@ if (count _positionTel > 0) then
 
 	if (_positionTel distance getMarkerPos _base < 50) then
 		{
-		_posicion = [getMarkerPos _base, 10, random 360] call BIS_Fnc_relPos;
-		_distancia = round (((position _jefe) distance _posicion)/200);
+		_positionX = [getMarkerPos _base, 10, random 360] call BIS_Fnc_relPos;
+		_distancia = round (((position _jefe) distance _positionX)/200);
 		if (!_esHC) then {disableUserInput true; cutText ["Fast traveling, please wait","BLACK",2]; sleep 2;} else {hcShowBar false;hcShowBar true;hint format [localize "STR_HINTS_FTR_MG1TD",groupID _grupo]; sleep _distancia;};
 		_forzado = false;
 		if (!isMultiplayer) then {if (not(_base in forcedSpawn)) then {_forzado = true; forcedSpawn = forcedSpawn + [_base]}};
@@ -79,7 +79,7 @@ if (count _positionTel > 0) then
 				_tam = 10;
 				while {true} do
 					{
-					_roads = _posicion nearRoads _tam;
+					_roads = _positionX nearRoads _tam;
 					if (count _roads < 1) then {_tam = _tam + 10};
 					if (count _roads > 0) exitWith {};
 					};
@@ -89,7 +89,7 @@ if (count _positionTel > 0) then
 				};
 			if ((vehicle _unit isKindOf "StaticWeapon") and (!isPlayer (leader _unit))) then
 				{
-				_pos = _posicion findEmptyPosition [1,50,typeOf (vehicle _unit)];
+				_pos = _positionX findEmptyPosition [1,50,typeOf (vehicle _unit)];
 				vehicle _unit setPosATL _pos;
 				};
 			}
@@ -99,8 +99,8 @@ if (count _positionTel > 0) then
 				{
 				if (!(_unit getVariable "ASunconscious")) then
 					{
-					_posicion = _posicion findEmptyPosition [1,50,typeOf _unit];
-					_unit setPosATL _posicion;
+					_positionX = _positionX findEmptyPosition [1,50,typeOf _unit];
+					_unit setPosATL _positionX;
 					if (isPlayer leader _unit) then {_unit setVariable ["ASrearming",false]};
 					_unit doWatch objNull;
 					_unit doFollow leader _unit;
@@ -108,8 +108,8 @@ if (count _positionTel > 0) then
 				}
 			else
 				{
-				_posicion = _posicion findEmptyPosition [1,50,typeOf _unit];
-				_unit setPosATL _posicion;
+				_positionX = _positionX findEmptyPosition [1,50,typeOf _unit];
+				_unit setPosATL _positionX;
 				};
 			};
 

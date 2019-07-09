@@ -80,7 +80,7 @@ while {visibleMap} do {
 			if (_sitio in destroyedCities) then {_texto = format ["%1\nDESTROYED",_texto]};
 		};
 
-		if (_sitio in recursos) then {
+		if (_sitio in resourcesX) then {
 			if (_sitio in mrkAAF) then {
 				_texto = "AAF Resources";
 			} else {
@@ -91,7 +91,7 @@ while {visibleMap} do {
 			//if (_sitio in mrkAAF) then {if ([_sitio] call AS_fnc_radiocheck) then {_texto = format ["%1\nRadio Comms ON",_texto]} else {_texto = format ["%1\nRadio Comms OFF",_texto]}};
 			if (_sitio in destroyedCities) then {_texto = format ["%1\nDESTROYED",_texto]};
 			};
-		if (_sitio in fabricas) then {
+		if (_sitio in factories) then {
 			if (_sitio in mrkAAF) then {
 				_texto = "AAF Factory";
 			} else {

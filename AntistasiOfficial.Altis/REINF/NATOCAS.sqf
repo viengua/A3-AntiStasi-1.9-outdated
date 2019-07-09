@@ -16,7 +16,7 @@ _nameOrigin = format ["the %1 Carrier", A3_Str_BLUE];
 if (_origen!= "spawnNATO") then {_nameOrigin = [_origen] call AS_fnc_localizar};
 
 _tsk = ["NATOCAS",[side_blue,civilian],[["%4 is providing Air support from %1. They will be under our command until %2:%3.",_nameOrigin,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_BLUE],["%1 CAS", A3_Str_BLUE],_origen],_orig,"CREATED",5,true,true,"Attack"] call BIS_fnc_setTask;
-misiones pushBack _tsk; publicVariable "misiones";
+missionsX pushBack _tsk; publicVariable "missionsX";
 
 _tipoVeh = bluHeliArmed;
 
@@ -28,7 +28,7 @@ if (_prestigio > 70) then{
 	};
 };
 
-_soldados = [];
+_soldiers = [];
 _vehiclesX = [];
 
 _groupHeli = createGroup side_blue;
@@ -43,7 +43,7 @@ for "_i" from 1 to 3 do{
 	_vehiclesX pushBack _heli;
 	_heliCrew = _helifn select 1;
 	_groupHeliTmp = _helifn select 2;
-	{[_x] spawn NATOinitCA; _soldados pushBack _x; [_x] join _groupHeli} forEach _heliCrew;
+	{[_x] spawn NATOinitCA; _soldiers pushBack _x; [_x] join _groupHeli} forEach _heliCrew;
 	deleteGroup _groupHeliTmp;
 	//[_heli] spawn NATOVEHinit; //This despawns the CAS vehicles as soon as they appear so i removed this. Sparker.
 	_heli setPosATL [getPosATL _heli select 0, getPosATL _heli select 1, 1000];
@@ -70,6 +70,6 @@ else
 
 [0,_tsk] spawn deleteTaskX;
 
-{deleteVehicle _x} forEach _soldados;
+{deleteVehicle _x} forEach _soldiers;
 {deleteVehicle _x} forEach _vehiclesX;
 deleteGroup _groupHeli;

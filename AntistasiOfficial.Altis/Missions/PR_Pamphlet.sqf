@@ -29,7 +29,7 @@ _endTime = [date select 0, date select 1, date select 2, date select 3, (date se
 _endTime = dateToNumber _endTime;
 
 _task = ["PR",[side_blue,civilian],[[_tskDesc,_targetName,numberToDate [2035,_endTime] select 3,numberToDate [2035,_endTime] select 4],_tskTitle,_marker],_targetPosition,"CREATED",5,true,true,"Heal"] call BIS_fnc_setTask;
-misiones pushBack _task; publicVariable "misiones";
+missionsX pushBack _task; publicVariable "missionsX";
 
 _spawnPosition = (getMarkerPos guer_respawn) findEmptyPosition [5,50,"C_Van_01_transport_F"];
 sleep 1;

@@ -118,7 +118,7 @@ call {
 
 _tsk = ["CONVOY",[side_blue,civilian],[[_tskDesc,_originName,numberToDate [2035,_startTimeNumber] select 3,numberToDate [2035,_startTimeNumber] select 4,_destinationName],[_tskTitle, A3_Str_INDEP],_destination],_posDestination,"CREATED",5,true,true,_icon] call BIS_fnc_setTask;
 
-misiones pushBack _tsk; publicVariable "misiones";
+missionsX pushBack _tsk; publicVariable "missionsX";
 
 _posData = [_posbase, _posDestination] call AS_fnc_findSpawnSpots;
 _posRoad = _posData select 0;

@@ -63,7 +63,7 @@ if (_source == "civ") then {
 };
 
 _tsk = ["ASS",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_initialMarker],_posTsk,"CREATED",5,true,true,"Kill"] call BIS_fnc_setTask;
-misiones pushBack _tsk; publicVariable "misiones";
+missionsX pushBack _tsk; publicVariable "missionsX";
 
 {[_x] spawn CSATinit; _x allowFleeing 0} forEach units _traitorGroup;
 
@@ -153,17 +153,17 @@ else
 		{
 		if (isPlayer Slowhand) then
 			{
-			if (!("DEF_HQ" in misiones)) then
+			if (!("DEF_HQ" in missionsX)) then
 				{
 				[] remoteExec ["attackHQ", call AS_fnc_getNextWorker];
 				};
 			}
 		else
 			{
-			_minasFIA = allmines - (detectedMines side_red);
-			if (count _minasFIA > 0) then
+			_minesFIA = allmines - (detectedMines side_red);
+			if (count _minesFIA > 0) then
 				{
-				{if (random 100 < 30) then {side_red revealMine _x;}} forEach _minasFIA;
+				{if (random 100 < 30) then {side_red revealMine _x;}} forEach _minesFIA;
 				};
 			};
 		};

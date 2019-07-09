@@ -7,7 +7,7 @@ _chequeo = false;
 
 if (_chequeo) exitWith {Hint "You cannot buy vehicles with enemies nearby"};
 
-private ["_tipoVeh","_coste","_resourcesFIA","_marcador","_pos","_veh"];
+private ["_tipoVeh","_coste","_resourcesFIA","_markerX","_pos","_veh"];
 
 _tipoVeh = _this select 0;
 _milveh = vfs select [3,10];

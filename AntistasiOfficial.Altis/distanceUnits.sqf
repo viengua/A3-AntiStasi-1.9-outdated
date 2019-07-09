@@ -2,7 +2,7 @@
     _distance = _this select 0;//la distancia requisito, normalmente distanceSPWN)
     _mode = _this select 1;//lo que devuelve la función, 0 un array, un número mayor un boolean cuando la cuenta llegue a ese número.
     _ref = _this select 2; // posición en formato array u objeto
-    _varName = _this select 3;//"OPFORSpawn" o "BLUFORSpawn" según queramos ver unidades de uno u otro bando
+    _varName = _this select 3;//"OPFORSpawn" o "BLUFORSpawn" según queramos ver unitsX de uno u otro bando
     ejemplo: _result = [distanceSPWN,0,posHQ,"OPFORSpawn"] call distanceUnits: devuelve un array con todas las que estén a menos de distanceSPWN
     ejemplo: _result = [distanceSPWN,1,posHQ,"BLUFORSpawn"] call distanceUnits: devuelve un boolean si hay una que esté a menos de distanceSPWN
 */

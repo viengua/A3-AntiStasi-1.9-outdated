@@ -3,18 +3,18 @@ if (!isServer and hasInterface) exitWith {};
 _tskTitle = "STR_TSK_TD_logMedical";
 _tskDesc = "STR_TSK_TD_DESC_logMedical";
 
-private ["_poscrash","_posbase","_mrkfin","_mrkTarget","_tipoveh","_heli","_vehiclesX","_soldados","_grupos","_unit","_roads","_road","_vehicle","_veh","_typeGroup","_tsk","_humo","_emitterArray"];
+private ["_poscrash","_posbase","_mrkfin","_mrkTarget","_tipoveh","_heli","_vehiclesX","_soldiers","_grupos","_unit","_roads","_road","_vehicle","_veh","_typeGroup","_tsk","_humo","_emitterArray"];
 
 /*
-_posicion -> location of the destination, town
+_positionX -> location of the destination, town
 _posCrash -> location of the vehicle
 _posCrashMrk -> marker for the vehicle
 _posBase -> location of the base sending reinforcements
 */
 
-_marcador = _this select 0;
-_posicion = getMarkerPos _marcador;
-_nameDest = [_marcador] call AS_fnc_localizar;
+_markerX = _this select 0;
+_positionX = getMarkerPos _markerX;
+_nameDest = [_markerX] call AS_fnc_localizar;
 
 _posHQ = getMarkerPos guer_respawn;
 
@@ -31,9 +31,9 @@ _base = "";
 {
 	_base = _x;
 	_posbase = getMarkerPos _base;
-	if ((_posicion distance _posbase < 7500) and (_posicion distance _posbase > 1500) and (not (spawner getVariable _base))) then {_bases = _bases + [_base]}
+	if ((_positionX distance _posbase < 7500) and (_positionX distance _posbase > 1500) and (not (spawner getVariable _base))) then {_bases = _bases + [_base]}
 } forEach _basesAAF;
-if (count _bases > 0) then {_base = [_bases,_posicion] call BIS_fnc_nearestPosition;} else {_base = ""};
+if (count _bases > 0) then {_base = [_bases,_positionX] call BIS_fnc_nearestPosition;} else {_base = ""};
 
 _posbase = getMarkerPos _base;
 
@@ -41,7 +41,7 @@ _nameOrigin = [_base] call AS_fnc_localizar;
 
 while {true} do {
 	sleep 0.1;
-	_poscrash = [_posicion,2000,random 360] call BIS_fnc_relPos;
+	_poscrash = [_positionX,2000,random 360] call BIS_fnc_relPos;
 	_nfMarker = [_fMarkers,_poscrash] call BIS_fnc_nearestPosition;
 	_nhMarker = [_hMarkers,_poscrash] call BIS_fnc_nearestPosition;
 	if ((!surfaceIsWater _poscrash) && (_poscrash distance _posHQ < 4000) && (getMarkerPos _nfMarker distance _poscrash > 500) && (getMarkerPos _nhMarker distance _poscrash > 800)) exitWith {};
@@ -56,10 +56,10 @@ _mrkfin setMarkerShape "ICON";
 
 _tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, _nameOrigin, A3_Str_INDEP],_tskTitle,_mrkfin],_posCrashMrk,"CREATED",5,true,true,"Heal"] call BIS_fnc_setTask;
 
-misiones pushBack _tsk; publicVariable "misiones";
+missionsX pushBack _tsk; publicVariable "missionsX";
 
 _vehiclesX = [];
-_soldados = [];
+_soldiers = [];
 _grupos = [];
 
 _sboxempty = createVehicle [_tipoVeh, _poscrash, [], 0, "CAN_COLLIDE"];
@@ -99,7 +99,7 @@ _typeGroup = [infGarrisonSmall, side_green] call AS_fnc_pickGroup;
 _grupo = [_poscrash, side_green, _typeGroup] call BIS_Fnc_spawnGroup;
 _grupos = _grupos + [_grupo];
 
-{[_x] spawn genInit; _soldados = _soldados + [_x]} forEach units _grupo;
+{[_x] spawn genInit; _soldiers = _soldiers + [_x]} forEach units _grupo;
 
 
 sleep 30;
@@ -121,9 +121,9 @@ _veh = _vehicle select 0;
 [_veh,"AAF Escort"] spawn inmuneConvoy;
 _vehCrew = _vehicle select 1;
 {[_x] spawn genInit} forEach _vehCrew;
-_grupoVeh = _vehicle select 2;
-_soldados = _soldados + _vehCrew;
-_grupos = _grupos + [_grupoVeh];
+_groupVeh = _vehicle select 2;
+_soldiers = _soldiers + _vehCrew;
+_grupos = _grupos + [_groupVeh];
 _vehiclesX = _vehiclesX + [_veh];
 
 sleep 1;
@@ -131,12 +131,12 @@ sleep 1;
 _typeGroup = [infSquad, side_green] call AS_fnc_pickGroup;
 _grupo = [_posbase, side_green, _typeGroup] call BIS_Fnc_spawnGroup;
 
-{_x assignAsCargo _veh; _x moveInCargo _veh; _soldados = _soldados + [_x]; [_x] spawn genInit} forEach units _grupo;
+{_x assignAsCargo _veh; _x moveInCargo _veh; _soldiers = _soldiers + [_x]; [_x] spawn genInit} forEach units _grupo;
 _grupos = _grupos + [_grupo];
 
 //[_veh] spawn smokeCover;
 
-_Vwp0 = _grupoVeh addWaypoint [_poscrash, 0];
+_Vwp0 = _groupVeh addWaypoint [_poscrash, 0];
 _Vwp0 setWaypointType "TR UNLOAD";
 _Vwp0 setWaypointBehaviour "SAFE";
 _Gwp0 = _grupo addWaypoint [_poscrash, 0];
@@ -150,7 +150,7 @@ _mrkfin setMarkerShape "ICON";
 
 if (dateToNumber date > _dateLimitNum) then {
 	_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, _nameOrigin, A3_Str_INDEP],_tskTitle,_mrkfin],_posCrashMrk,"FAILED",5,true,true,"Heal"] call BIS_fnc_setTask;
-	[5,-5,_posicion] remoteExec ["AS_fnc_changeCitySupport",2];
+	[5,-5,_positionX] remoteExec ["AS_fnc_changeCitySupport",2];
 	[-10,Slowhand] call playerScoreAdd;
 } else {
 	_tsk = ["LOG",[side_blue,civilian],[["Secure the vehicle, load the cargo, and deliver the supplies to the people in %1 before %2:%3. AAF command has probably dispatched a patrol from %4 to retrieve the goods, so you better hurry. Note: no cargo left behind!",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, _nameOrigin, A3_Str_INDEP],_tskTitle,_mrkfin],_poscrash,"AUTOASSIGNED",5,true,true,"Heal"] call BIS_fnc_setTask;
@@ -237,13 +237,13 @@ deleteVehicle _sboxempty;
 	"",
 	"(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"
 	];
-	_mrkTarget = createMarker [format ["REC%1", random 100], _posicion];
+	_mrkTarget = createMarker [format ["REC%1", random 100], _positionX];
 	_mrkTarget setMarkerShape "ICON";
 	_active = false;
 
-	_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, _nameOrigin, A3_Str_INDEP],_tskTitle,_mrkTarget],_posicion,"AUTOASSIGNED",5,true,true,"Heal"] call BIS_fnc_setTask;
-	hint format ["%1 is the box, %2 is posicion",_sbox,_posicion];
-	waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) or ( (_sbox distance _posicion < 40) and (isNull attachedTo _sbox) ) };
+	_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, _nameOrigin, A3_Str_INDEP],_tskTitle,_mrkTarget],_positionX,"AUTOASSIGNED",5,true,true,"Heal"] call BIS_fnc_setTask;
+	hint format ["%1 is the box, %2 is positionX",_sbox,_positionX];
+	waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) or ( (_sbox distance _positionX < 40) and (isNull attachedTo _sbox) ) };
 
 	if (dateToNumber date < _dateLimitNum) then {
 		_counter = 0;
@@ -265,9 +265,9 @@ deleteVehicle _sboxempty;
 			if (alive _sbox) then {
 				[[petros,"hint","Supplies Delivered"],"commsMP"] call BIS_fnc_MP;
 				_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, _nameOrigin, A3_Str_INDEP],_tskTitle,_mrkfin],_posCrashMrk,"SUCCEEDED",5,true,true,"Heal"] call BIS_fnc_setTask;
-				[0,15,_marcador] remoteExec ["AS_fnc_changeCitySupport",2];
+				[0,15,_markerX] remoteExec ["AS_fnc_changeCitySupport",2];
 				[5,0] remoteExec ["prestige",2];
-				{if (_x distance _posicion < 500) then {[10,_x] call playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
+				{if (_x distance _positionX < 500) then {[10,_x] call playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
 				[5,Slowhand] call playerScoreAdd;
 				// BE module
 				if (activeBE) then {
@@ -296,13 +296,13 @@ deleteVehicle _sboxempty;
 			}
 			else {
 				_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, _nameOrigin, A3_Str_INDEP],_tskTitle,_mrkfin],_posCrashMrk,"FAILED",5,true,true,"Heal"] call BIS_fnc_setTask;
-				[5,-5,_posicion] remoteExec ["AS_fnc_changeCitySupport",2];
+				[5,-5,_positionX] remoteExec ["AS_fnc_changeCitySupport",2];
 				[-10,Slowhand] call playerScoreAdd;
 			};
 	}
 	else {
 			_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, _nameOrigin, A3_Str_INDEP],_tskTitle,_mrkfin],_posCrashMrk,"FAILED",5,true,true,"Heal"] call BIS_fnc_setTask;
-			[5,-5,_posicion] remoteExec ["AS_fnc_changeCitySupport",2];
+			[5,-5,_positionX] remoteExec ["AS_fnc_changeCitySupport",2];
 			[-10,Slowhand] call playerScoreAdd;
 	};
 };
@@ -311,5 +311,5 @@ deleteVehicle _sboxempty;
 deleteMarker _mrkfin;
 {waitUntil {sleep 1;(!([distanceSPWN,1,_x,"BLUFORSpawn"] call distanceUnits))};
 deleteVehicle _x} forEach _vehiclesX;
-{deleteVehicle _x} forEach _soldados;
+{deleteVehicle _x} forEach _soldiers;
 {deleteGroup _x} forEach _grupos;

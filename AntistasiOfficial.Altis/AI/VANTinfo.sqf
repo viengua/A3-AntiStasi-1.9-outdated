@@ -1,22 +1,22 @@
-private ["_veh","_marcador","_posicion","_grupos","_knownX","_grupo","_lider"];
+private ["_veh","_markerX","_positionX","_grupos","_knownX","_grupo","_lider"];
 
 _veh = _this select 0;
-_marcador = _this select 1;
+_markerX = _this select 1;
 
-_posicion = getMarkerPos _marcador;
+_positionX = getMarkerPos _markerX;
 
 while {alive _veh} do
 	{
 	_knownX = [];
 	_grupos = [];
-	_enemigos = [distanceSPWN,0,_posicion,"OPFORSpawn"] call distanceUnits;
+	_enemiesX = [distanceSPWN,0,_positionX,"OPFORSpawn"] call distanceUnits;
 	sleep 60;
 	{
 	_lider = leader _x;
-	if ((_lider in _enemigos) and (vehicle _lider != _lider)) then {_grupos pushBack _x};
+	if ((_lider in _enemiesX) and (vehicle _lider != _lider)) then {_grupos pushBack _x};
 	} forEach allGroups;
 	{
-	if ((side _x == side_blue) and (alive _x) and (_x distance _posicion < 500)) then
+	if ((side _x == side_blue) and (alive _x) and (_x distance _positionX < 500)) then
 		{
 		_knownX pushBack _x;
 		};

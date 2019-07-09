@@ -1,4 +1,4 @@
-private ["_camiones","_camion","_armas","_ammunition","_items","_mochis","_containers","_todo"];
+private ["_trucksX","_camion","_armas","_ammunition","_items","_mochis","_containers","_todo"];
 
 _camion = objNull;
 
@@ -9,12 +9,12 @@ if (count _this > 0) then
 	}
 else
 	{
-	//_camiones = nearestObjects [caja, ["LandVehicle"], 20];
-	_camiones = nearestObjects [caja, ["LandVehicle", "ReammoBox_F", "Box_IED_Exp_F", "Land_PlasticCase_01_medium_F", "Box_Syndicate_Wps_F"], 20]; //To enable jeroen's loading script. Sparker.
-	_camiones = _camiones select {not (_x isKindOf "StaticWeapon")};
-	_camiones = _camiones - [caja];
-	_camiones = _camiones - [cajaVeh]; //To enable jeroen's unloading script. Sparker.
-	if (count _camiones < 1) then {_camion = cajaVeh} else {_camion = _camiones select 0};
+	//_trucksX = nearestObjects [caja, ["LandVehicle"], 20];
+	_trucksX = nearestObjects [caja, ["LandVehicle", "ReammoBox_F", "Box_IED_Exp_F", "Land_PlasticCase_01_medium_F", "Box_Syndicate_Wps_F"], 20]; //To enable jeroen's loading script. Sparker.
+	_trucksX = _trucksX select {not (_x isKindOf "StaticWeapon")};
+	_trucksX = _trucksX - [caja];
+	_trucksX = _trucksX - [cajaVeh]; //To enable jeroen's unloading script. Sparker.
+	if (count _trucksX < 1) then {_camion = cajaVeh} else {_camion = _trucksX select 0};
 	};
 
 if (isNull _camion) exitWith {};

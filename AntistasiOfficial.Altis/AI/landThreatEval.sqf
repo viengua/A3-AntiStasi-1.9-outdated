@@ -1,4 +1,4 @@
-private ["_marcador","_threat","_posicion","_analyzed","_size"];
+private ["_markerX","_threat","_positionX","_analyzed","_size"];
 
 _threat = 0;
 
@@ -6,13 +6,13 @@ _threat = 0;
 
 if (activeAFRF) then {{if (_x in unlockedWeapons) then {_threat = 2};} forEach genATLaunchers;};
 
-_marcador = _this select 0;
+_markerX = _this select 0;
 
-if (_marcador isEqualType []) then {_posicion = _marcador} else {_posicion = getMarkerPos _marcador};
-_threat = _threat + 2 * ({(isOnRoad getMarkerPos _x) and (getMarkerPos _x distance _posicion < distanceSPWN)} count outpostsFIA);
+if (_markerX isEqualType []) then {_positionX = _markerX} else {_positionX = getMarkerPos _markerX};
+_threat = _threat + 2 * ({(isOnRoad getMarkerPos _x) and (getMarkerPos _x distance _positionX < distanceSPWN)} count outpostsFIA);
 
 {
-if (getMarkerPos _x distance _posicion < distanceSPWN) then {
+if (getMarkerPos _x distance _positionX < distanceSPWN) then {
 	_analyzed = _x;
 	_garrison = garrison getVariable [_analyzed,[]];
 	_threat = _threat + (2*({(_x == guer_sol_LAT)} count _garrison)) + (floor((count _garrison)/8));

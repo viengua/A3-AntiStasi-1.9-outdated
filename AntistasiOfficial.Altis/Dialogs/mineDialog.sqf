@@ -1,6 +1,6 @@
-private ["_tipo","_coste","_positionTel","_cantidad","_quantityMax"];
+private ["_tipo","_coste","_positionTel","_quantity","_quantityMax"];
 
-if ("Mines" in misiones) exitWith {hint "We can only deploy one minefield at a time."};
+if ("Mines" in missionsX) exitWith {hint "We can only deploy one minefield at a time."};
 
 if (!([player] call hasRadio)) exitWith {hint "You need a radio in your inventory to be able to give orders to other squads"};
 
@@ -35,33 +35,33 @@ if (!visibleMap) exitWith {};
 _positionTel = positionTel;
 
 _quantityMax = 40;
-_cantidad = 0;
+_quantity = 0;
 
 if (_tipo == "ATMine") then {
 	_quantityMax = 20;
 	if (atMine in unlockedMagazines) then {
-		_cantidad = 20;
+		_quantity = 20;
 	} else {
-		_cantidad = {_x == atMine} count (magazineCargo caja);
+		_quantity = {_x == atMine} count (magazineCargo caja);
 	};
-	diag_log format ["AT mines: %1", _cantidad];
+	diag_log format ["AT mines: %1", _quantity];
 };
 
 
 if (_tipo == "APERSMine") then {
 	if (apMine in unlockedMagazines) then {
-		_cantidad = 40;
+		_quantity = 40;
 	} else {
-		_cantidad = {_x == apMine} count (magazineCargo caja);
+		_quantity = {_x == apMine} count (magazineCargo caja);
 	};
-	diag_log format ["AP mines: %1", _cantidad];
+	diag_log format ["AP mines: %1", _quantity];
 };
 
-if (_cantidad < 5) exitWith {hint "You need at least 5 mines of this type to build a Minefield"};
+if (_quantity < 5) exitWith {hint "You need at least 5 mines of this type to build a Minefield"};
 
-if (_cantidad > _quantityMax) then
+if (_quantity > _quantityMax) then
 	{
-	_cantidad = _quantityMax;
+	_quantity = _quantityMax;
 	};
 
-[[_tipo,_positionTel,_cantidad], "REINF\buildMinefield.sqf"] remoteExec ["execVM", call AS_fnc_getNextWorker];
+[[_tipo,_positionTel,_quantity], "REINF\buildMinefield.sqf"] remoteExec ["execVM", call AS_fnc_getNextWorker];

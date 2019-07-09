@@ -8,8 +8,8 @@ colinasAA = [];
 power = [];
 bases = [];
 airportsX = [];
-recursos = [];
-fabricas = [];
+resourcesX = [];
+factories = [];
 puestos = [];
 puestosAA = [];
 puertos = [];
@@ -66,8 +66,8 @@ if !(count controlsX > 0) then {
             if (toLower _x find "base" >= 0) exitWith {bases pushBackUnique _x};
             if (toLower _x find "power" >= 0) exitWith {power pushBackUnique _x};
             if (toLower _x find "airport" >= 0) exitWith {airportsX pushBackUnique _x};
-            if (toLower _x find "resource" >= 0) exitWith {recursos pushBackUnique _x};
-            if (toLower _x find "factory" >= 0) exitWith {fabricas pushBackUnique _x};
+            if (toLower _x find "resource" >= 0) exitWith {resourcesX pushBackUnique _x};
+            if (toLower _x find "factory" >= 0) exitWith {factories pushBackUnique _x};
             if (toLower _x find "artillery" >= 0) exitWith {artyEmplacements pushBackUnique _x};
             if (toLower _x find "mtn_comp" >= 0) exitWith {colinasAA pushBackUnique _x};
             if (toLower _x find "mtn" >= 0) exitWith {colinas pushBackUnique _x};
@@ -81,7 +81,7 @@ if !(count controlsX > 0) then {
 
 mrkFIA = ["FIA_HQ"];
 garrison setVariable ["FIA_HQ",[],true];
-markers = power + bases + airportsX + recursos + fabricas + puestos + puertos + controlsX + colinas + colinasAA + puestosAA + ["FIA_HQ"];
+markers = power + bases + airportsX + resourcesX + factories + puestos + puertos + controlsX + colinas + colinasAA + puestosAA + ["FIA_HQ"];
 
 // Make sure all markers are invisible and not currently marked as having been spawned in.
 {_x setMarkerAlpha 0;
@@ -220,11 +220,11 @@ if (worldName in ["Altis", "altis", "Bornholm", "bornholm", "Tanoa", "tanoa", "N
 
 {
     [_x, "loc_rock", localize "STR_GL_MAP_RS"] call _fnc_marker;
-} forEach recursos;
+} forEach resourcesX;
 
 {
     [_x, "u_installation", localize "STR_GL_MAP_FAC"] call _fnc_marker;
-} forEach fabricas;
+} forEach factories;
 
 {
     [_x, "loc_bunker", format [localize "STR_GL_MAP_AA", A3_Str_INDEP]] call _fnc_marker;
@@ -249,8 +249,8 @@ publicVariable "colinasAA";
 publicVariable "power";
 publicVariable "bases";
 publicVariable "airportsX";
-publicVariable "recursos";
-publicVariable "fabricas";
+publicVariable "resourcesX";
+publicVariable "factories";
 publicVariable "puestos";
 publicVariable "puestosAA";
 publicVariable "controlsX";

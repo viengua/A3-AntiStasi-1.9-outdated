@@ -8,7 +8,7 @@ params [["_type","LOG"],["_muted",false],["_manual",false]];
 private ["_currentZone","_markerPos","_nearestZone","_gearCount","_threshold","_base","_data","_prestigeOPFOR","_prestigeBLUFOR"];
 _prestigeCSAT = server getVariable ["prestigeCSAT",0];
 
-if (_type in misiones) exitWith {
+if (_type in missionsX) exitWith {
 	if (!_muted) then {
 		[petros,"locGlobalChat","STR_HINTS_MIS_TYPE_ACTIVE"] remoteExec ["commsMP",[0,-2] select isDedicated];
 	};

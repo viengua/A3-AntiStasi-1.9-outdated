@@ -14,14 +14,14 @@ call {
 	if (_marker in power) exitWith {
 		_mrkD setMarkerText format [localize "STR_GL_MAP_PP"+": %1", count (garrison getVariable _marker)];
 	};
-	if (_marker in recursos) exitWith {
+	if (_marker in resourcesX) exitWith {
 		_mrkD setMarkerText format [localize "STR_GL_MAP_RS"+": %1", count (garrison getVariable _marker)];
 	};
 	if (_marker in airportsX) exitWith {
 		_mrkD setMarkerText format [localize "STR_GL_MAP_AP1", count (garrison getVariable _marker), A3_Str_BLUE];
 		_mrkD setMarkerType guer_marker_type;
 	};
-	if (_marker in fabricas) exitWith {
+	if (_marker in factories) exitWith {
 		_mrkD setMarkerText format [localize "STR_GL_MAP_FAC"+": %1", count (garrison getVariable _marker)];
 	};
 	if (_marker in puertos) exitWith {

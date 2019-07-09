@@ -1,4 +1,4 @@
-private ["_display","_childControl","_coste","_costeHR","_unidades","_formato"];
+private ["_display","_childControl","_coste","_costeHR","_unitsX","_formato"];
 if (!([player] call hasRadio)) exitWith {hint "You need a radio in your inventory to be able to give orders to other squads"};
 createDialog "squad_recruit";
 

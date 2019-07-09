@@ -3,7 +3,7 @@ if (!isServer and hasInterface) exitWith {};
 _tskTitle = "STR_TSK_TD_DESfuel";
 _tskDesc  = "STR_TSK_TD_DESC_DESfuel";
 
-private ["_posbase", "_mrkfin", "_mrkTarget", "_tipoveh", "_range", "_vehiclesX", "_soldados", "_grupos", "_returntime", "_roads", "_road", "_vehicle", "_veh", "_TypeOfGroup", "_tsk", "_humo", "_emitterArray", "_poschurch", "_grupo", "_fuelstop", "_posfuelstop", "_fuelstops"];
+private ["_posbase", "_mrkfin", "_mrkTarget", "_tipoveh", "_range", "_vehiclesX", "_soldiers", "_grupos", "_returntime", "_roads", "_road", "_vehicle", "_veh", "_TypeOfGroup", "_tsk", "_humo", "_emitterArray", "_poschurch", "_grupo", "_fuelstop", "_posfuelstop", "_fuelstops"];
 
 
 _InitialMarker = _this select 0;
@@ -66,13 +66,13 @@ _base	  = "";
 
 	_nearestbase = [_base] call AS_fnc_localizar;
 	_tsk	     = ["DES", [side_blue, civilian], [[_tskDesc, _nearestbase, numberToDate [2035, _TimeLeft] select 3, numberToDate [2035, _TimeLeft] select 4, A3_Str_INDEP], _tskTitle, _mrkfin], _fuelstop, "CREATED", 5, true, true, "Destroy"] call BIS_fnc_setTask;
-	misiones pushBack _tsk;
-	publicVariable "misiones";
+	missionsX pushBack _tsk;
+	publicVariable "missionsX";
 
 	// adding groups and vehicle
 
 	_vehiclesX = [];
-	_soldados  = [];
+	_soldiers  = [];
 	_grupos	   = [];
 
 
@@ -100,7 +100,7 @@ _base	  = "";
 	_grupos = _grupos + [_grupo];
 
 	{ [_x] spawn genInit;
-	  _soldados = _soldados + [_x]} forEach units _grupo;
+	  _soldiers = _soldiers + [_x]} forEach units _grupo;
 
 
 	_wp0 = _grupo addWaypoint [_posfuelstop, 0];

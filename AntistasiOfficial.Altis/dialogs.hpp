@@ -735,8 +735,8 @@ class mortar_type{
 	AS_FRAME_D(FRAME_H_2, $STR_D_SEMA);
 	BTN_BACK(A_CLOSE);
 
-	BTN_L1(-1, $STR_D_HE, "", "closeDialog 0; if (activeAFRF) then {tipoMuni = ""rhs_mag_3vo18_10""} else {tipoMuni = ""8Rnd_82mm_Mo_shells""};");
-	BTN_R1(-1, $STR_D_SMOKE, "", "closeDialog 0; if (activeAFRF) then {tipoMuni = ""rhs_mag_3vs25m_10""} else {tipoMuni = ""8Rnd_82mm_Mo_Smoke_white""};");
+	BTN_L1(-1, $STR_D_HE, "", "closeDialog 0; if (activeAFRF) then {typeAmmunition = ""rhs_mag_3vo18_10""} else {typeAmmunition = ""8Rnd_82mm_Mo_shells""};");
+	BTN_R1(-1, $STR_D_SMOKE, "", "closeDialog 0; if (activeAFRF) then {typeAmmunition = ""rhs_mag_3vs25m_10""} else {typeAmmunition = ""8Rnd_82mm_Mo_Smoke_white""};");
 
 	};
 };
@@ -774,8 +774,8 @@ class strike_type{
 	AS_FRAME_D(FRAME_H_2, $STR_D_STOS);
 	BTN_BACK(A_CLOSE);
 
-	BTN_L1(-1, $STR_D_SINPS, "", "closeDialog 0; tipoArty = ""NORMAL"";");
-	BTN_R1(-1, $STR_D_BARRS, "", "closeDialog 0; tipoArty = ""BARRAGE"";");
+	BTN_L1(-1, $STR_D_SINPS, "", "closeDialog 0; typeArty = ""NORMAL"";");
+	BTN_R1(-1, $STR_D_BARRS, "", "closeDialog 0; typeArty = ""BARRAGE"";");
 
 	};
 };
@@ -789,10 +789,10 @@ class mbt_type {
 	AS_FRAME_D(FRAME_H_4, $STR_D_STAFTS);
 	BTN_BACK(A_CLOSE);
 
-	BTN_L1(-1, $STR_D_HE, "", "closeDialog 0; tipoMuni = bluArtyAmmoHE;");
-	BTN_R1(-1, $STR_D_LAS_GUI, "", "closeDialog 0; tipoMuni = bluArtyAmmoLaser;");
+	BTN_L1(-1, $STR_D_HE, "", "closeDialog 0; typeAmmunition = bluArtyAmmoHE;");
+	BTN_R1(-1, $STR_D_LAS_GUI, "", "closeDialog 0; typeAmmunition = bluArtyAmmoLaser;");
 
-	BTN_M(BTN_Y_2, -1, $STR_D_SMOKE, "", "closeDialog 0; tipoMuni = bluArtyAmmoSmoke;");
+	BTN_M(BTN_Y_2, -1, $STR_D_SMOKE, "", "closeDialog 0; typeAmmunition = bluArtyAmmoSmoke;");
 
 	};
 };

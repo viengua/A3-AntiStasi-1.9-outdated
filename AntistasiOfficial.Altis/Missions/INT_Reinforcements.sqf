@@ -6,8 +6,8 @@ private ["_posTarget", "_posBase", "_soldiers", "_groups", "_vehicles", "_endTim
 #define DURATION 30
 #define DELAY 5
 
-if ("INT" in misiones) exitWith {"Info: Reinforcement task killed, reinforcements task active already."};
-//if ((format ["INT_%1",_target]) in misiones) exitWith {format ["Info: Reinforcement task killed, %1 already receiving reinforcements.", _target]};
+if ("INT" in missionsX) exitWith {"Info: Reinforcement task killed, reinforcements task active already."};
+//if ((format ["INT_%1",_target]) in missionsX) exitWith {format ["Info: Reinforcement task killed, %1 already receiving reinforcements.", _target]};
 
 _tskTitle = "STR_TSK_TD_INTREINF";
 _tskDesc = "STR_TSK_TD_DESC_INTREINF";
@@ -27,7 +27,7 @@ _baseName = [_base] call AS_fnc_localizar;
 [_base, 15] spawn AS_fnc_addTimeForIdle;
 
 _tsk = ["INT",[side_blue,civilian],[[_tskDesc, A3_Str_INDEP, _targetName, _baseName],[_tskTitle, A3_Str_INDEP],_target],_posTarget,"CREATED",5,true,true,"Destroy"] call BIS_fnc_setTask;
-misiones pushBack _tsk; publicVariable "misiones";
+missionsX pushBack _tsk; publicVariable "missionsX";
 
 sleep (DELAY * 60);
 

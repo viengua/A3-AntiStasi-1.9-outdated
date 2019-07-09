@@ -9,7 +9,7 @@ private ["_mrk","_posCmp","_p1","_p2","_dirveh"];
 
 _grupos = [];
 _vehiclesX = [];
-_soldados = [];
+_soldiers = [];
 
 _nameDest = [_site] call AS_fnc_localizar;
 _posSite = getMarkerPos _site;
@@ -54,7 +54,7 @@ _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date 
 _dateLimitNum = dateToNumber _dateLimit;
 
 _tsk = ["FND_E",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_site],_posCmp,"CREATED",5,true,true,"Find"] call BIS_fnc_setTask;
-misiones pushBack _tsk; publicVariable "misiones";
+missionsX pushBack _tsk; publicVariable "missionsX";
 
 _objs = [_posCmp, ([_posCmp,_p1] call BIS_fnc_DirTo), call (compile (preprocessFileLineNumbers "Compositions\cmpExp.sqf"))] call BIS_fnc_ObjectsMapper;
 sleep 3;
@@ -113,9 +113,9 @@ if (random 8 < 1) then {
 	[_veh,"AAF Escort"] spawn inmuneConvoy;
 	_vehCrew = _vehicle select 1;
 	{[_x] spawn genInit} forEach _vehCrew;
-	_grupoVeh = _vehicle select 2;
-	_soldados = _soldados + _vehCrew;
-	_grupos = _grupos + [_grupoVeh];
+	_groupVeh = _vehicle select 2;
+	_soldiers = _soldiers + _vehCrew;
+	_grupos = _grupos + [_groupVeh];
 	_vehiclesX = _vehiclesX + [_veh];
 
 	sleep 1;
@@ -123,12 +123,12 @@ if (random 8 < 1) then {
 	_typeGroup = [infSquad, side_green] call AS_fnc_pickGroup;
 	_grupo = [_posbase, side_green, _typeGroup] call BIS_Fnc_spawnGroup;
 
-	{_x assignAsCargo _veh; _x moveInCargo _veh; _soldados = _soldados + [_x]; [_x] spawn genInit} forEach units _grupo;
+	{_x assignAsCargo _veh; _x moveInCargo _veh; _soldiers = _soldiers + [_x]; [_x] spawn genInit} forEach units _grupo;
 	_grupos = _grupos + [_grupo];
 
 	//[_veh] spawn smokeCover;
 
-	_Vwp0 = _grupoVeh addWaypoint [_posCmp, 0];
+	_Vwp0 = _groupVeh addWaypoint [_posCmp, 0];
 	_Vwp0 setWaypointType "TR UNLOAD";
 	_Vwp0 setWaypointBehaviour "SAFE";
 	_Gwp0 = _grupo addWaypoint [_posCmp, 0];
@@ -191,7 +191,7 @@ deleteMarker "Devin";
 deleteMarker "DevPat";
 waitUntil {sleep 1; {_x distance Devin < distanceSPWN/2} count (allPlayers - (entities "HeadlessClient_F")) == 0};
 {deleteVehicle _x} forEach _vehiclesX;
-{deleteVehicle _x} forEach _soldados;
+{deleteVehicle _x} forEach _soldiers;
 {deleteGroup _x} forEach _grupos;
 deleteVehicle Devin;
 deleteGroup _groupDev;

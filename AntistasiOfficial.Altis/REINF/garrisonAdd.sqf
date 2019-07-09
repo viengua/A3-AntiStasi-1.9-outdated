@@ -18,7 +18,7 @@ if (_kind == guer_sol_HMG) then
 
 if (_cost > _resourcesFIA) exitWith {hint format ["You do not have enough money for this kind of unit (%1 € needed)",_cost]};
 
-_marker = [markers,posicionGarr] call BIS_fnc_nearestPosition;
+_marker = [markers,positionXGarr] call BIS_fnc_nearestPosition;
 _position = getMarkerPos _marker;
 _check = false;
 

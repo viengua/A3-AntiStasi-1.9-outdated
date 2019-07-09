@@ -30,7 +30,7 @@ private ["_city","_position","_power","_powered", "_factRes", "_location"];
 	};
 } forEach citiesX;
 
-_factRes = fabricas + recursos;
+_factRes = factories + resourcesX;
 {
 	_location = _x;
 	_position = getMarkerPos _x;

@@ -2,7 +2,7 @@
 _tipo = _this select 0;
 
 if (!allowPlayerRecruit) exitWith {hint localize "STR_HINTS_NATOD_SIVLWOMOCFPS"};
-if (_tipo in misiones) exitWith {hint localize "STR_HINTS_NATOD_NATOIABWTKOM"};
+if (_tipo in missionsX) exitWith {hint localize "STR_HINTS_NATOD_NATOIABWTKOM"};
 if (!([player] call hasRadio)) exitWith {hint localize "STR_HINTS_NATOD_YNARIYITBATGOTOS"};
 
 // check if FIA controls a radio tower

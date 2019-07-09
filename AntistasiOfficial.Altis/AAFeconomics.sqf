@@ -32,13 +32,13 @@ if (_resourcesAAF > 5000) then{
 			};
 		} forEach _destroyedCities;
 	} else {
-		/*if ((count antennasDead > 0) and (not("REP" in misiones))) then{
+		/*if ((count antennasDead > 0) and (not("REP" in missionsX))) then{
 			{
-				if ((_resourcesAAF > 5000) and (not("REP" in misiones))) then{
-					_marcador = [markers, _x] call BIS_fnc_nearestPosition;
-					if ((_marcador in mrkAAF) and (not(spawner getVariable _marcador))) then {
-						diag_log format ["Repairing antenna: %1", _marcador];
-						[_marcador,_x] remoteExec ["REP_Antenna", call AS_fnc_getNextWorker];
+				if ((_resourcesAAF > 5000) and (not("REP" in missionsX))) then{
+					_markerX = [markers, _x] call BIS_fnc_nearestPosition;
+					if ((_markerX in mrkAAF) and (not(spawner getVariable _markerX))) then {
+						diag_log format ["Repairing antenna: %1", _markerX];
+						[_markerX,_x] remoteExec ["REP_Antenna", call AS_fnc_getNextWorker];
 						_resourcesAAF = _resourcesAAF - (5000*_multiplier);
 					};
 				};

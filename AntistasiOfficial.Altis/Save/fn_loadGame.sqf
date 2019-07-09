@@ -124,8 +124,8 @@ _markers = _markers + controlsX;
 				if (_x in destroyedCities) then {[_x] call AS_fnc_destroyCity};
 			};
 
-			if ((_x in recursos) OR (_x in fabricas)) exitWith {
-				if (_x in recursos) then {_mrkD setMarkerText format [localize "STR_GL_MAP_RS"+": %1",count (garrison getVariable _x)]} else {_mrkD setMarkerText format [localize "STR_GL_MAP_FAC"+": %1",count (garrison getVariable _x)]};
+			if ((_x in resourcesX) OR (_x in factories)) exitWith {
+				if (_x in resourcesX) then {_mrkD setMarkerText format [localize "STR_GL_MAP_RS"+": %1",count (garrison getVariable _x)]} else {_mrkD setMarkerText format [localize "STR_GL_MAP_FAC"+": %1",count (garrison getVariable _x)]};
 				_power = [power, getMarkerPos _x] call BIS_fnc_nearestPosition;
 				if (!(_power in mrkFIA) OR (_power in destroyedCities)) then {
 					[_x,false] spawn AS_fnc_adjustLamps;
@@ -154,7 +154,7 @@ _markers = _markers + controlsX;
 				if (_x in destroyedCities) then {[_x] call AS_fnc_destroyCity};
 			};
 
-			if ((_x in recursos) OR (_x in fabricas)) exitWith {
+			if ((_x in resourcesX) OR (_x in factories)) exitWith {
 				_power = [power, getMarkerPos _x] call BIS_fnc_nearestPosition;
 				if (!(_power in mrkAAF) OR (_power in destroyedCities)) then {
 					[_x,false] spawn AS_fnc_adjustLamps;

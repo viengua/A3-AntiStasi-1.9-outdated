@@ -90,7 +90,7 @@ while {visibleMap} do {
 				if (_location in destroyedCities) then {_text = format ["%1\nDESTROYED",_text]};
 			};
 
-			if (_location in recursos) exitWith {
+			if (_location in resourcesX) exitWith {
 				if (_location in mrkAAF) then {
 					_text = format ["%1 Resources", A3_Str_INDEP];
 					_text = [_text, "all"] call _fn_text;
@@ -101,7 +101,7 @@ while {visibleMap} do {
 				if (_location in destroyedCities) then {_text = format ["%1\nDESTROYED",_text]};
 			};
 
-			if (_location in fabricas) exitWith {
+			if (_location in factories) exitWith {
 				if (_location in mrkAAF) then {
 					_text = format ["%1 Factory", A3_Str_INDEP];
 					_text = [_text, "all"] call _fn_text;

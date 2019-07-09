@@ -1,15 +1,15 @@
 if (!isServer and hasInterface) exitWith {};
 
-private ["_marcador","_posicion","_isRoad","_tam","_road","_veh","_grupo","_unit","_roadcon"];
+private ["_markerX","_positionX","_isRoad","_tam","_road","_veh","_grupo","_unit","_roadcon"];
 
-_marcador = _this select 0;
-_posicion = getMarkerPos _marcador;
+_markerX = _this select 0;
+_positionX = getMarkerPos _markerX;
 
 _NATOSupp = server getVariable "prestigeNATO";
 
 _grupo = createGroup side_blue;
 
-_spawnData = [_posicion, [citiesX, _posicion] call BIS_fnc_nearestPosition] call AS_fnc_findRoadspot;
+_spawnData = [_positionX, [citiesX, _positionX] call BIS_fnc_nearestPosition] call AS_fnc_findRoadspot;
 _spawnPos = _spawnData select 0;
 _spawnDir = _spawnData select 1;
 
@@ -52,11 +52,11 @@ if (_NATOSupp < 50) then {
 	};
 }
 else {
-	_unit = ([_posicion, 0, bluCrew, _grupo] call bis_fnc_spawnvehicle) select 0;
+	_unit = ([_positionX, 0, bluCrew, _grupo] call bis_fnc_spawnvehicle) select 0;
 	_unit moveInGunner _AA1;
 
 	if !(activeUSAF) then {
-		_unit = ([_posicion, 0, bluCrew, _grupo] call bis_fnc_spawnvehicle) select 0;
+		_unit = ([_positionX, 0, bluCrew, _grupo] call bis_fnc_spawnvehicle) select 0;
 		_unit moveInGunner _AA2;
 	};
 };
@@ -74,28 +74,28 @@ _grupoInf = [getpos _tempPos, side_blue, _typeGroup] call BIS_Fnc_spawnGroup;
 
 _grupoInf setFormDir _spawnDir;
 
-_unit = ([_posicion, 0, bluCrew, _grupo] call bis_fnc_spawnvehicle) select 0;
+_unit = ([_positionX, 0, bluCrew, _grupo] call bis_fnc_spawnvehicle) select 0;
 _unit moveInGunner _HMG;
-_unit = ([_posicion, 0, bluCrew, _grupo] call bis_fnc_spawnvehicle) select 0;
+_unit = ([_positionX, 0, bluCrew, _grupo] call bis_fnc_spawnvehicle) select 0;
 _unit moveInGunner _veh;
-_unit = ([_posicion, 0, bluCrew, _grupo] call bis_fnc_spawnvehicle) select 0;
+_unit = ([_positionX, 0, bluCrew, _grupo] call bis_fnc_spawnvehicle) select 0;
 _unit moveInCommander _veh;
 
 {[_x] spawn NATOinitCA} forEach units _grupo;
 {[_x] spawn NATOinitCA} forEach units _grupoInf;
 
 
-waitUntil {sleep 1; (not(spawner getVariable _marcador)) or (({alive _x} count units _grupo == 0) && ({alive _x} count units _grupoInf == 0)) or (not(_marcador in puestosNATO))};
+waitUntil {sleep 1; (not(spawner getVariable _markerX)) or (({alive _x} count units _grupo == 0) && ({alive _x} count units _grupoInf == 0)) or (not(_markerX in puestosNATO))};
 
 if ({alive _x} count units _grupo == 0) then {
-	puestosNATO = puestosNATO - [_marcador]; publicVariable "puestosNATO";
-	markers = markers - [_marcador]; publicVariable "markers";
-	[5,-5,_posicion] remoteExec ["AS_fnc_changeCitySupport",2];
-	deleteMarker _marcador;
+	puestosNATO = puestosNATO - [_markerX]; publicVariable "puestosNATO";
+	markers = markers - [_markerX]; publicVariable "markers";
+	[5,-5,_positionX] remoteExec ["AS_fnc_changeCitySupport",2];
+	deleteMarker _markerX;
 	{["TaskFailed", ["", localize "STR_NTS_RBLOST"]] call BIS_fnc_showNotification} remoteExec ["call", 0];
 };
 
-waitUntil {sleep 1; (not(spawner getVariable _marcador)) or (not(_marcador in puestosNATO))};
+waitUntil {sleep 1; (not(spawner getVariable _markerX)) or (not(_markerX in puestosNATO))};
 
 {deleteVehicle _x} forEach _vehArray + _turretArray;
 {deleteVehicle _x} forEach units _grupo;

@@ -30,7 +30,7 @@ _mrk setMarkerShape "ICON";
 
 
 _tsk = ["NATORoadblock",[side_blue,civilian],[["%1 is dispatching a team to establish a Roadblock. Send and cover the team until reaches its destination.", A3_Str_BLUE],["%1 Roadblock Deployment", A3_Str_BLUE],_mrk],_positionTel,"CREATED",5,true,true,"Move"] call BIS_fnc_setTask;
-misiones pushBackUnique _tsk; publicVariable "misiones";
+missionsX pushBackUnique _tsk; publicVariable "missionsX";
 _grupo = [_orig, side_blue, _typeGroup] call BIS_Fnc_spawnGroup;
 _grupo setGroupId ["Watch"];
 

@@ -1,7 +1,7 @@
 if (isDedicated) exitWith {};
 
 params ["_newUnit","_oldUnit"];
-private ["_owner","_score","_rapSheet","_cash","_rank","_elegible"];
+private ["_owner","_score","_rapSheet","_cash","_rank","_eligible"];
 
 if (isNull _oldUnit) exitWith {};
 
@@ -24,7 +24,7 @@ _score = _oldUnit getVariable ["score",0];
 _rapSheet = _oldUnit getVariable ["punish",0];
 _cash = _oldUnit getVariable ["dinero",0];
 _cash = (round (_cash - (_cash * 0.15))) max 0;
-_elegible = _oldUnit getVariable ["elegible",true];
+_eligible = _oldUnit getVariable ["eligible",true];
 _rank = _oldUnit getVariable ["ASrank","PRIVATE"];
 
 _newUnit setVariable ["score",_score -1,true];
@@ -33,7 +33,7 @@ _newUnit setVariable ["punish",_rapSheet,true];
 _newUnit setVariable ["ASrespawning",false];
 _newUnit setVariable ["dinero",_cash,true];
 _newUnit setVariable ["compromised",0];
-_newUnit setVariable ["elegible",_elegible,true];
+_newUnit setVariable ["eligible",_eligible,true];
 _newUnit setVariable ["BLUFORSpawn",true,true];
 _newUnit setCaptive false;
 _newUnit setRank (_rank);

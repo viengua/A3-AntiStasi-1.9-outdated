@@ -128,7 +128,7 @@ while {true} do {
 			[_city,_power] spawn AS_fnc_adjustLamps;
 			sleep 5;
 			{[_city,_x] spawn AS_fnc_deleteRoadblock} forEach controlsX;
-			if !("CONVOY" in misiones) then {
+			if !("CONVOY" in missionsX) then {
 				_base = [_city] call AS_fnc_findBaseForConvoy;
 				if ((_base != "") AND (random 3 < 1)) then {
 					[_city,_base,"city"] remoteExec ["CONVOY", call AS_fnc_getNextWorker];
@@ -180,7 +180,7 @@ while {true} do {
 			if (_factory in mrkFIA) then {_bonusFIA = _bonusFIA + 0.25};
 			if (_factory in mrkAAF) then {_bonusEnemy = _bonusEnemy + 0.25};
 		};
-	} forEach fabricas;
+	} forEach factories;
 
 	{
 		_resource = _x;
@@ -195,7 +195,7 @@ while {true} do {
 				if (_resource in mrkAAF) then {_incomeEnemy = _incomeEnemy + (100 * _bonusEnemy)};
 			};
 		};
-	} forEach recursos;
+	} forEach resourcesX;
 
 	if (server getVariable ["easyMode",false]) then {
 		_hrFIA = _hrFIA * 2;
@@ -234,7 +234,7 @@ while {true} do {
 	if (isMultiplayer) then {_resourcesAAF = _resourcesAAF + (round (_incomeEnemy + (_incomeEnemy * ((server getVariable "prestigeCSAT")/100))))} else {_resourcesAAF = _resourcesAAF + (round _incomeEnemy)};
 	server setVariable ["resourcesAAF",_resourcesAAF,true];
 	if (isMultiplayer) then {[] spawn assignStavros};
-	if (!("AttackAAF" in misiones) AND (random 100 < 50)) then {[] call missionRequestAUTO};
+	if (!("AttackAAF" in missionsX) AND (random 100 < 50)) then {[] call missionRequestAUTO};
 	if (AAFpatrols < 3) then {[] remoteExec ["genRoadPatrol", call AS_fnc_getNextWorker]};
 
 	/* Remove static auto rearm 28.07.2017 Sparker
@@ -251,7 +251,7 @@ while {true} do {
 	if ((countCA < 1) AND (diag_fps > minimoFPS) AND ((count allUnits) < 170)) then { //If there are not too many units on the map already, 17/08 Stef increased from 150 to 170
 
 		[1200] remoteExec ["AS_fnc_increaseAttackTimer",2];
-		if ((count mrkFIA > 0) AND !("AttackAAF" in misiones) AND !(server getVariable ["waves_active",false])) then {
+		if ((count mrkFIA > 0) AND !("AttackAAF" in missionsX) AND !(server getVariable ["waves_active",false])) then {
 			_script = [] spawn AS_fnc_spawnAttack;
 			waitUntil {sleep 5; scriptDone _script};
 		};

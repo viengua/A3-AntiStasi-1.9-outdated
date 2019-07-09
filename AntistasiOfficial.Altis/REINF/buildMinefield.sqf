@@ -1,20 +1,20 @@
 if (!isServer and hasInterface) exitWith {};
 
-private ["_tipo","_cantidad","_tipoMuni","_grupo","_unit","_tam","_roads","_road","_pos","_camion","_texto","_mrk","_ATminesAdd","_APminesAdd","_positionTel","_tsk","_magazines","_typeMagazines","_cantMagazines","_newCantMagazines","_mina","_tipo","_camion"];
+private ["_tipo","_quantity","_typeAmmunition","_grupo","_unit","_tam","_roads","_road","_pos","_camion","_texto","_mrk","_ATminesAdd","_APminesAdd","_positionTel","_tsk","_magazines","_typeMagazines","_cantMagazines","_newCantMagazines","_mina","_tipo","_camion"];
 
 _tipo = _this select 0;
 _positionTel = _this select 1;
-_cantidad = _this select 2;
+_quantity = _this select 2;
 _coste = (2*(server getVariable guer_sol_EXP)) + ([guer_veh_truck] call vehiclePrice);
 [-2,-1*_coste] remoteExec [resourcesFIA,2];
 
 if (_tipo == "ATMine") then
 	{
-	_tipoMuni = atMine;
+	_typeAmmunition = atMine;
 	};
 if (_tipo == "APERSMine") then
 	{
-	_tipoMuni = apMine;
+	_typeAmmunition = apMine;
 	};
 
 _magazines = getMagazineCargo caja;
@@ -24,14 +24,14 @@ _newCantMagazines = [];
 
 for "_i" from 0 to (count _typeMagazines) - 1 do
 	{
-	if ((_typeMagazines select _i) != _tipoMuni) then
+	if ((_typeMagazines select _i) != _typeAmmunition) then
 		{
 		_newCantMagazines pushBack (_cantMagazines select _i);
 		}
 	else
 		{
 		_hasQuantity = (_cantMagazines select _i);
-		_hasQuantity = _hasQuantity - _cantidad;
+		_hasQuantity = _hasQuantity - _quantity;
 		if (_hasQuantity < 0) then {_cuentasHay = 0};
 		_newCantMagazines pushBack _hasQuantity;
 		};
@@ -52,8 +52,8 @@ _mrk setMarkerColor "ColorRed";
 _mrk setMarkerBrush "DiagGrid";
 _mrk setMarkerText _texto;
 
-_tsk = ["Mines",[side_blue,civilian],[["STR_TSK_MINEFIELD_DESC",_cantidad],"STR_MINEFIELD_TITLE",_mrk],_positionTel,"CREATED",5,true,true,"map"] call BIS_fnc_setTask;
-misiones pushBack _tsk; publicVariable "misiones";
+_tsk = ["Mines",[side_blue,civilian],[["STR_TSK_MINEFIELD_DESC",_quantity],"STR_MINEFIELD_TITLE",_mrk],_positionTel,"CREATED",5,true,true,"map"] call BIS_fnc_setTask;
+missionsX pushBack _tsk; publicVariable "missionsX";
 
 _grupo = createGroup side_blue;
 
@@ -101,18 +101,18 @@ if ((_camion distance _positionTel < 50) and ({alive _x} count units _grupo > 0)
 	Slowhand hcRemoveGroup _grupo;
 	[[petros,"locHint","STR_TSK_MINEFIELD_HINT"],"commsMP"] call BIS_fnc_MP;
 	[_grupo, _mrk, "SAFE","SPAWNED", "SHOWMARKER"] execVM "scripts\UPSMON.sqf";
-	sleep 30*_cantidad;
+	sleep 30*_quantity;
 	if ((alive _camion) and ({alive _x} count units _grupo > 0)) then
 		{
 		{deleteVehicle _x} forEach units _grupo;
 		deleteGroup _grupo;
 		deleteVehicle _camion;
-		for "_i" from 1 to _cantidad do
+		for "_i" from 1 to _quantity do
 			{
 			_mina = createMine [_tipo,_positionTel,[],100];
 			side_blue revealMine _mina;
 			};
-		_tsk = ["Mines",[side_blue,civilian],[["STR_TSK_MINEFIELD_DESC",_cantidad],"STR_MINEFIELD_TITLE",_mrk],_positionTel,"SUCCEEDED",5,true,true,"Map"] call BIS_fnc_setTask;
+		_tsk = ["Mines",[side_blue,civilian],[["STR_TSK_MINEFIELD_DESC",_quantity],"STR_MINEFIELD_TITLE",_mrk],_positionTel,"SUCCEEDED",5,true,true,"Map"] call BIS_fnc_setTask;
 		sleep 15;
 		//[_tsk,true] call BIS_fnc_deleteTask;
 		[0,_tsk] spawn deleteTaskX;
@@ -120,7 +120,7 @@ if ((_camion distance _positionTel < 50) and ({alive _x} count units _grupo > 0)
 		}
 	else
 		{
-		_tsk = ["Mines",[side_blue,civilian],[["STR_TSK_MINEFIELD_DESC",_cantidad],"STR_MINEFIELD_TITLE",_mrk],_positionTel,"FAILED",5,true,true,"Map"] call BIS_fnc_setTask;
+		_tsk = ["Mines",[side_blue,civilian],[["STR_TSK_MINEFIELD_DESC",_quantity],"STR_MINEFIELD_TITLE",_mrk],_positionTel,"FAILED",5,true,true,"Map"] call BIS_fnc_setTask;
 		sleep 15;
 		Slowhand hcRemoveGroup _grupo;
 		//[_tsk,true] call BIS_fnc_deleteTask;
@@ -133,7 +133,7 @@ if ((_camion distance _positionTel < 50) and ({alive _x} count units _grupo > 0)
 	}
 else
 	{
-	_tsk = ["Mines",[side_blue,civilian],[["STR_TSK_MINEFIELD_DESC",_cantidad],"STR_MINEFIELD_TITLE",_mrk],_positionTel,"FAILED",5,true,true,"Map"] call BIS_fnc_setTask;
+	_tsk = ["Mines",[side_blue,civilian],[["STR_TSK_MINEFIELD_DESC",_quantity],"STR_MINEFIELD_TITLE",_mrk],_positionTel,"FAILED",5,true,true,"Map"] call BIS_fnc_setTask;
 	sleep 15;
 	Slowhand hcRemoveGroup _grupo;
 	//[_tsk,true] call BIS_fnc_deleteTask;

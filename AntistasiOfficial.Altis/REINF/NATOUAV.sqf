@@ -16,9 +16,9 @@ _nameOrigin = format ["the %1 Carrier", A3_Str_BLUE];
 if (_origen!= "spawnNATO") then {_nameOrigin = [_origen] call AS_fnc_localizar};
 
 _tsk = ["NATOUAV",[side_blue,civilian],[["STR_TSK_UAV_DESC",_nameOrigin,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_BLUE],["STR_TSK_UAV_TITLE", A3_Str_BLUE],_origen],_orig,"CREATED",5,true,true,"Attack"] call BIS_fnc_setTask;
-misiones pushBack _tsk; publicVariable "misiones";
+missionsX pushBack _tsk; publicVariable "missionsX";
 
-_soldados = [];
+_soldiers = [];
 _vehiclesX = [];
 
 _groupHeli = createGroup side_blue;
@@ -34,7 +34,7 @@ for "_i" from 1 to 1 do
 	_vehiclesX pushBack _heli;
 	createVehicleCrew _heli;
 	_heliCrew = crew _heli;
-	{[_x] spawn NATOinitCA; _soldados pushBack _x; [_x] join _groupHeli} forEach _heliCrew;
+	{[_x] spawn NATOinitCA; _soldiers pushBack _x; [_x] join _groupHeli} forEach _heliCrew;
 	_heli setPosATL [getPosATL _heli select 0, getPosATL _heli select 1, 1000];
 	_heli flyInHeight 300;
 
@@ -57,6 +57,6 @@ else
 
 [0,_tsk] spawn deleteTaskX;
 
-{deleteVehicle _x} forEach _soldados;
+{deleteVehicle _x} forEach _soldiers;
 {deleteVehicle _x} forEach _vehiclesX;
 deleteGroup _groupHeli;

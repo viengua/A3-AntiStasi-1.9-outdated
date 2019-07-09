@@ -74,7 +74,7 @@ _scoreNeededAirBase = [0, 5] select (count (unlockedWeapons arrayIntersect genAA
 					};
 				};
 			} forEach _possibleTargets;
-			diag_log format ["Marcador: %1. ScoreneededLand: %2. ScoreneededAir: %3. ScoreLand: %4. ScoreAir: %5",_objective, _scoreNeededLand, _scoreNeededAir,_scoreLand,_scoreAir];
+			diag_log format ["markerX: %1. ScoreneededLand: %2. ScoreneededAir: %3. ScoreLand: %4. ScoreAir: %5",_objective, _scoreNeededLand, _scoreNeededAir,_scoreLand,_scoreAir];
 
 			if (_scoreNeededLand > _scoreLand) then {
 				_base = "";
@@ -111,15 +111,15 @@ _scoreNeededAirBase = [0, 5] select (count (unlockedWeapons arrayIntersect genAA
 					};
 				};
 			};
-			diag_log format ["fn_spawnAttack.sqf: Marcador: %1. ScoreNeededLand: %2. ScoreLand: %3. ScoreNeededAir: %4. ScoreAir: %5",_objective,_scoreNeededLand,_scoreLand,_scoreNeededAir,_scoreAir];
+			diag_log format ["fn_spawnAttack.sqf: markerX: %1. ScoreNeededLand: %2. ScoreLand: %3. ScoreNeededAir: %4. ScoreAir: %5",_objective,_scoreNeededLand,_scoreLand,_scoreNeededAir,_scoreAir];
 
 			diag_log format ["fn_spawnAttack.sqf: source base: %1 source airport: %2 easy target: %3", _base, _airport, _easyTarget];
 
 			if ((!(_base == "") or !(_airport == "")) and !(_easyTarget)) then {
 				_priority = 1;
-				if ((_objective in power) or (_objective in fabricas)) then {_priority = 4};
+				if ((_objective in power) or (_objective in factories)) then {_priority = 4};
 				if ((_objective in bases) or (_objective in airportsX)) then {_priority = 5};
-				if (_objective in recursos) then {_priority = 3};
+				if (_objective in resourcesX) then {_priority = 3};
 
 				if !(_base == "") then {
 					if !(_airport == "") then {_priority = _priority *2};
@@ -155,7 +155,7 @@ if ((count _objectives > 0) and (_difficulty < 3)) then {
 	countCA = countCA - 600; //experimental
 };
 
-if !("CONVOY" in misiones) then {
+if !("CONVOY" in missionsX) then {
 	if (_objectives isEqualTo []) then {
 		{
 			_base = [_x] call AS_fnc_findBaseForConvoy;

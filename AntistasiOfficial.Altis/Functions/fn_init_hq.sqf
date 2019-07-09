@@ -163,7 +163,7 @@
 //petros
 	groupPetros = group petros;
 	groupPetros setGroupId ["Petros","GroupColor4"];
-	petros setIdentity "amiguete";
+	petros setIdentity "friendlyX";
 	petros setName "Petros";
 	petros forceSpeed 0;
 	petros setCombatMode "GREEN";

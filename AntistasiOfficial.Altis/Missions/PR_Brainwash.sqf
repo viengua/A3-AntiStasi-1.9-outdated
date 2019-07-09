@@ -21,7 +21,7 @@ _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date 
 _dateLimitNum = dateToNumber _dateLimit;
 
 _tsk = ["PR",[side_blue,civilian],[[_tskDesc,_targetName,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_targetMarker],_targetPosition,"CREATED",5,true,true,"Heal"] call BIS_fnc_setTask;
-misiones pushBack _tsk; publicVariable "misiones";
+missionsX pushBack _tsk; publicVariable "missionsX";
 
 
 // find bases and airports to serve as spawnpoints for reinforcements

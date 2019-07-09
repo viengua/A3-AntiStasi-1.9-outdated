@@ -86,7 +86,7 @@ _endTime = dateToNumber _endTime;
 
 // arrays of all spawned units/groups
 _grupos = [];
-_soldados = [];
+_soldiers = [];
 _vehiclesX = [];
 
 // initialise groups, two for vehicles, three for dismounts
@@ -110,7 +110,7 @@ private _dir = [_orig, _dest] call BIS_fnc_dirTo;
 // initialisation of vehicles
 _initVehs = {
 	params ["_specs"];
-	_specs = _specs + [_dir, _side, _vehiclesX, _grupos, _soldados, true];
+	_specs = _specs + [_dir, _side, _vehiclesX, _grupos, _soldiers, true];
 	_specs call AS_fnc_initialiseVehicle;
 };
 
@@ -123,7 +123,7 @@ if (_type == "air") then {
 		private _vehData = [[_orig, _lead]] call _initVehs;
 		_vehiclesX = _vehData select 0;
 		_grupos = _vehData select 1;
-		_soldados = _vehData select 2;
+		_soldiers = _vehData select 2;
 
 		_heli1 = (_vehData select 3) select 0;
 		_grpVeh1 = (_vehData select 3) select 1;
@@ -162,7 +162,7 @@ if (_type == "air") then {
 		private _vehData = [[_pos2, _transport]] call _initVehs;
 		_vehiclesX = _vehData select 0;
 		_grupos = _vehData select 1;
-		_soldados = _vehData select 2;
+		_soldiers = _vehData select 2;
 
 		_heli2 = (_vehData select 3) select 0;
 		_grpVeh2 = (_vehData select 3) select 1;
@@ -173,7 +173,7 @@ if (_type == "air") then {
 		_grpDis2 = [_orig, _side, _dismountGroup] call BIS_Fnc_spawnGroup;
 		[_grpDis2, _side, true, "none"] call AS_fnc_initialiseUnits;
 		{
-			_soldados pushBack _x;
+			_soldiers pushBack _x;
 			_x assignAsCargo _heli2;
 			_x moveInCargo _heli2;
 		} forEach units _grpDis2;
@@ -185,7 +185,7 @@ if (_type == "air") then {
 			_grpDis1 = [_orig, _side, _dismountGroup] call BIS_Fnc_spawnGroup;
 			[_grpDis1, _side, true, "none"] call AS_fnc_initialiseUnits;
 			{
-				_soldados pushBack _x;
+				_soldiers pushBack _x;
 				_x assignAsCargo _heli2;
 				_x moveInCargo _heli2;
 			} forEach units _grpDis1;
@@ -221,7 +221,7 @@ else {
 		private _vehData = [[_posRoad, _lead]] call _initVehs;
 		_vehiclesX = _vehData select 0;
 		_grupos = _vehData select 1;
-		_soldados = _vehData select 2;
+		_soldiers = _vehData select 2;
 
 		_veh1 = (_vehData select 3) select 0;
 		_grpVeh1 = (_vehData select 3) select 1;
@@ -231,7 +231,7 @@ else {
 			_grpDisEsc = [_orig, _side, _dismountGroupEscort] call BIS_Fnc_spawnGroup;
 			[_grpDisEsc, _side, true, "none"] call AS_fnc_initialiseUnits;
 			{
-				_soldados pushBack _x;
+				_soldiers pushBack _x;
 				_x assignAsCargo _veh1;
 				_x moveInCargo _veh1;
 			} forEach units _grpDisEsc;
@@ -259,7 +259,7 @@ else {
 		private _vehData = [[_posRoad, _transport]] call _initVehs;
 		_vehiclesX = _vehData select 0;
 		_grupos = _vehData select 1;
-		_soldados = _vehData select 2;
+		_soldiers = _vehData select 2;
 
 		_veh2 = (_vehData select 3) select 0;
 		_grpVeh2 = (_vehData select 3) select 1;
@@ -268,7 +268,7 @@ else {
 		_grpDis2 = [_orig, _side, _dismountGroup] call BIS_Fnc_spawnGroup;
 		[_grpDis2, _side, true, "none"] call AS_fnc_initialiseUnits;
 		{
-			_soldados pushBack _x;
+			_soldiers pushBack _x;
 			_x assignAsCargo _veh2;
 			_x moveInCargo _veh2;
 		} forEach units _grpDis2;
@@ -278,7 +278,7 @@ else {
 			_grpDis1 = [_orig, _side, _dismountGroup] call BIS_Fnc_spawnGroup;
 			[_grpDis1, _side, true, "none"] call AS_fnc_initialiseUnits;
 			{
-				_soldados pushBack _x;
+				_soldiers pushBack _x;
 				_x assignAsCargo _veh2;
 				_x moveInCargo _veh2;
 			} forEach units _grpDis1;
@@ -293,7 +293,7 @@ else {
 
 {_x allowDamage true} forEach _vehiclesX;
 
-waitUntil {sleep 10; (dateToNumber date > _endTime) or ({alive _x AND !captive _x} count _soldados == 0)};
+waitUntil {sleep 10; (dateToNumber date > _endTime) or ({alive _x AND !captive _x} count _soldiers == 0)};
 
 if !(_varName isEqualTo "") then {
 	server setVariable [_varName,true,true];
@@ -304,7 +304,7 @@ if !(_varName isEqualTo "") then {
 	_soldado = _x;
 	waitUntil {sleep 1; {_x distance _soldado < distanceSPWN} count (allPlayers - (entities "HeadlessClient_F")) == 0};
 	deleteVehicle _soldado;
-} forEach _soldados;
+} forEach _soldiers;
 
 {deleteGroup _x} forEach _grupos;
 
@@ -314,4 +314,4 @@ if !(_varName isEqualTo "") then {
 	deleteVehicle _x
 } forEach _vehiclesX;
 
-_data = [_soldados, _grupos, _vehiclesX] //Added this because it's required in INT_Reinforcements.sqf
+_data = [_soldiers, _grupos, _vehiclesX] //Added this because it's required in INT_Reinforcements.sqf
