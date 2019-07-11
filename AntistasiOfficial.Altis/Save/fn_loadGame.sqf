@@ -23,7 +23,7 @@ if(isnil "supplySaveArray") then {supplySaveArray = [];}; publicVariable "supply
 ["destroyedCities"] call fn_loadData; publicVariable "destroyedCities";
 ["mines"] call fn_loadData;
 ["countCA"] call fn_loadData; publicVariable "countCA";
-["antenas"] call fn_loadData; publicVariable "antenas";
+["antennas"] call fn_loadData; publicVariable "antennas";
 ["prestigeNATO"] call fn_loadData;
 ["prestigeCSAT"] call fn_loadData;
 ["hr"] call fn_loadData;
@@ -112,7 +112,7 @@ _markers = _markers + controlsX;
 		    	tanksAAFmax = tanksAAFmax - 1;
 			};
 
-			if (_x in puestos) exitWith {
+			if (_x in outposts) exitWith {
 				_mrkD setMarkerText format [localize "STR_GL_MAP_OP1",count (garrison getVariable _x), A3_Str_PLAYER];
 			};
 
@@ -133,7 +133,7 @@ _markers = _markers + controlsX;
 				if (_x in destroyedCities) then {[_x] call AS_fnc_destroyCity};
 			};
 
-			if (_x in puertos) exitWith {
+			if (_x in seaports) exitWith {
 				_mrkD setMarkerText format [localize "STR_GL_MAP_SP"+": %1",count (garrison getVariable _x)];
 			};
 

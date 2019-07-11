@@ -1,4 +1,4 @@
-private ["_tipo","_positionTel","_cercano","_garrison","_coste","_hr","_size"];
+private ["_tipo","_positionTel","_nearX","_garrison","_coste","_hr","_size"];
 _tipo = _this select 0;
 
 if (_tipo == "add") then {hint "Select a zone to add garrisoned troops"} else {hint "Select a zone to remove it's Garrison"};
@@ -16,23 +16,23 @@ if (!visibleMap) exitWith {};
 _positionTel = positionTel;
 positionXGarr = [];
 
-_cercano = [markers,_positionTel] call BIS_fnc_nearestPosition;
-_positionX = getMarkerPos _cercano;
+_nearX = [markers,_positionTel] call BIS_fnc_nearestPosition;
+_positionX = getMarkerPos _nearX;
 
-if (getMarkerPos _cercano distance _positionTel > 40) exitWith {hint "You must click near a marked zone"; CreateDialog "garrison_menu";};
+if (getMarkerPos _nearX distance _positionTel > 40) exitWith {hint "You must click near a marked zone"; CreateDialog "garrison_menu";};
 
-if (_cercano in mrkAAF) exitWith {hint "That zone does not belong to FIA"; CreateDialog "garrison_menu";};
+if (_nearX in mrkAAF) exitWith {hint "That zone does not belong to FIA"; CreateDialog "garrison_menu";};
 
-if ((_cercano in outpostsFIA) or (_cercano in citiesX)) exitWith {hint "You cannot manage garrisons on this kind of zone"; CreateDialog "garrison_menu"};
+if ((_nearX in outpostsFIA) or (_nearX in citiesX)) exitWith {hint "You cannot manage garrisons on this kind of zone"; CreateDialog "garrison_menu"};
 
-_garrison = garrison getVariable [_cercano,[]];
+_garrison = garrison getVariable [_nearX,[]];
 
 if (_tipo == "rem") then
 	{
 	if (count _garrison == 0) exitWith {hint "The place has no garrisoned troops to remove"; CreateDialog "garrison_menu";};
 	_coste = 0;
 	_hr = 0;
-	if (spawner getVariable _cercano) then
+	if (spawner getVariable _nearX) then
 		{
 		if ({(alive _x) and (!captive _x) and ((side _x == side_green) or (side _x == side_red)) and (_x distance _positionX < safeDistance_garrison)} count allUnits > 0) then
 			{
@@ -41,7 +41,7 @@ if (_tipo == "rem") then
 			}
 		else
 			{
-			_size = [_cercano] call sizeMarker;
+			_size = [_nearX] call sizeMarker;
 			{
 			if ((side _x == side_blue) and (not(_x getVariable ["BLUFORSpawn",false])) and (_x distance _positionX < _size) and (_x != petros)) then
 				{
@@ -66,20 +66,20 @@ if (_tipo == "rem") then
 	_coste = _coste + (server getVariable _x);
 	} forEach _garrison;
 	[_hr,_coste] remoteExec ["resourcesFIA",2];
-	garrison setVariable [_cercano,[],true];
-	[_cercano] call AS_fnc_markerUpdate;
+	garrison setVariable [_nearX,[],true];
+	[_nearX] call AS_fnc_markerUpdate;
 	hint format ["Garrison removed\n\nRecovered Money: %1 €\nRecovered HR: %2",_coste,_hr];
 	CreateDialog "garrison_menu";
 	}
 else
 	{
-	if (spawner getVariable _cercano) then
+	if (spawner getVariable _nearX) then
 		{
 		if ({(alive _x) and (!captive _x) and ((side _x == side_green) or (side _x == side_red)) and (_x distance _positionX < safeDistance_garrison)} count allUnits > 0) exitWith {hint "You cannot add soldiers to this garrison while there are enemies nearby"; CreateDialog "garrison_menu"};
 		};
 	positionXGarr = _positionTel;
 	publicVariable "positionXGarr";
-	hint format ["Info%1",[_cercano] call AS_fnc_getGarrisonInfo];
+	hint format ["Info%1",[_nearX] call AS_fnc_getGarrisonInfo];
 	closeDialog 0;
 	CreateDialog "garrison_recruit";
 	sleep 1;

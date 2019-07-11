@@ -22,18 +22,18 @@ _tsk = ["AS",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateL
 missionsX pushBack _tsk; publicVariable "missionsX";
 _grp = createGroup side_red;
 
-_oficial = ([_positionX, 0, opI_OFF, _grp] call bis_fnc_spawnvehicle) select 0;
+_official = ([_positionX, 0, opI_OFF, _grp] call bis_fnc_spawnvehicle) select 0;
 _piloto = ([_positionX, 0, opI_PIL, _grp] call bis_fnc_spawnvehicle) select 0;
 
-_grp selectLeader _oficial;
+_grp selectLeader _official;
 sleep 1;
 [_grp, _markerX, "SAFE", "SPAWNED", "NOVEH", "NOFOLLOW"] execVM "scripts\UPSMON.sqf";
 
 {[_x] spawn CSATinit; _x allowFleeing 0} forEach units _grp;
 
-waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) or (not alive _oficial)};
+waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) or (not alive _official)};
 
-if (not alive _oficial) then {
+if (not alive _official) then {
 	_tsk = ["AS",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_markerX],_positionX,"SUCCEEDED",5,true,true,"Kill"] call BIS_fnc_setTask;
 	[0,300] remoteExec ["resourcesFIA",2];
 	[1800] remoteExec ["AS_fnc_increaseAttackTimer",2];

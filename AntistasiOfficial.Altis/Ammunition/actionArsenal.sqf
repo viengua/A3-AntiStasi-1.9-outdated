@@ -27,9 +27,9 @@ if (_backpack != "") then {
 _armas = [];
 _items = [];
 _mags = [];
-_destino = cajaVeh;
+_destinationX = vehicleBox;
 
-if ([_unit] call isMember) then {_destino = caja} else {"Your locked items will be placed in the vehicle ammo box." remoteExec ["hint", player];};
+if ([_unit] call isMember) then {_destinationX = caja} else {"Your locked items will be placed in the vehicle ammo box." remoteExec ["hint", player];};
 
 _casco = headgear _unit;
 
@@ -116,10 +116,10 @@ if (count _armas > 0) then
 		};
 	} forEach _armas;
 	_texto = "";
-	if (_destino == cajaVeh) then {_texto = "The following weapons have been added to the Vehicle Ammobox:"} else {_texto = "The following weapons have been added to the Main Ammobox:"};
+	if (_destinationX == vehicleBox) then {_texto = "The following weapons have been added to the Vehicle Ammobox:"} else {_texto = "The following weapons have been added to the Main Ammobox:"};
 	for "_i" from 0 to (count _armasDef - 1) do
 		{
-		_destino addWeaponCargoGlobal [_armasDef select _i,_armasDefCount select _i];
+		_destinationX addWeaponCargoGlobal [_armasDef select _i,_armasDefCount select _i];
 		if (_i == 0) then {_texto = format ["%1 %2",_texto, getText (configfile >> "CfgWeapons" >> (_armasDef select _i) >> "displayName")]} else {_texto = format ["%1, %2",_texto, getText (configfile >> "CfgWeapons" >> (_armasDef select _i) >> "displayName")]};
 		};
 	player globalChat _texto;
@@ -140,11 +140,11 @@ if (count _items > 0) then
 		};
 	} forEach _items;
 	_texto = "";
-	if (_destino == cajaVeh) then {_texto = "The following items have been added to the Vehicle Ammobox:"} else {_texto = "The following items have been added to the Main Ammobox:"};
+	if (_destinationX == vehicleBox) then {_texto = "The following items have been added to the Vehicle Ammobox:"} else {_texto = "The following items have been added to the Main Ammobox:"};
 	for "_i" from 0 to (count _itemsDef) - 1 do
 		{
 		if (_i == 0) then {_texto = format ["%1 %2",_texto, getText (configfile >> "CfgWeapons" >> (_itemsDef select _i) >> "displayName")]} else {_texto = format ["%1, %2",_texto, getText (configfile >> "CfgWeapons" >> (_itemsDef select _i) >> "displayName")]};
-		_destino addItemCargoGlobal [_itemsDef select _i,_itemsDefCount select _i];
+		_destinationX addItemCargoGlobal [_itemsDef select _i,_itemsDefCount select _i];
 		};
 	player globalChat _texto;
 	};
@@ -186,11 +186,11 @@ if (count _mags > 0) then
 		};
 	} forEach _mags;
 	_texto = "";
-	if (_destino == cajaVeh) then {_texto = "The following magazines have been added to the Vehicle Ammobox:"} else {_texto = "The following magazines have been added to the Main Ammobox:"};
+	if (_destinationX == vehicleBox) then {_texto = "The following magazines have been added to the Vehicle Ammobox:"} else {_texto = "The following magazines have been added to the Main Ammobox:"};
 	for "_i" from 0 to (count _magsDef) - 1 do
 		{
 		if (_i == 0) then {_texto = format ["%1 %2",_texto, getText (configfile >> "CfgMagazines" >> (_magsDef select _i) >> "displayName")]} else {_texto = format ["%1, %2",_texto, getText (configfile >> "CfgMagazines" >> (_magsDef select _i) >> "displayName")]};
-		_destino addMagazineCargoGlobal [_magsDef select _i,_magsDefCount select _i];
+		_destinationX addMagazineCargoGlobal [_magsDef select _i,_magsDefCount select _i];
 		};
 	player globalChat _texto;
 	};

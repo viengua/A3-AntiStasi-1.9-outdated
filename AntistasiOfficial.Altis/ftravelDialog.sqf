@@ -48,9 +48,9 @@ if ((_tipo == "create") && (count campsFIA > _maxCamps)) exitWith {hint localize
 
 if (_tipo == "create") then {
 	_typeGroup = guer_grp_sniper;
-	_formato = ([guer_grp_sniper, "guer"] call AS_fnc_pickGroup);
+	_formatX = ([guer_grp_sniper, "guer"] call AS_fnc_pickGroup);
 	if !(typeName _typeGroup == "ARRAY") then {
-		_typeGroup = [_formato] call groupComposition;
+		_typeGroup = [_formatX] call groupComposition;
 	};
 	{_coste = _coste + (server getVariable _x); _hr = _hr +1} forEach _typeGroup;
 };

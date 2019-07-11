@@ -86,8 +86,8 @@ if (_tipo == "DES") then {
 					if (not(spawner getVariable _sitio)) then {_potentials = _potentials + [_sitio]};
 				}
 				else {
-					_cercano = [markers, getPos _sitio] call BIS_fnc_nearestPosition;
-					if (_cercano in mrkAAF) then {_potentials = _potentials + [_sitio]};
+					_nearX = [markers, getPos _sitio] call BIS_fnc_nearestPosition;
+					if (_nearX in mrkAAF) then {_potentials = _potentials + [_sitio]};
 				};
 			};
 		};

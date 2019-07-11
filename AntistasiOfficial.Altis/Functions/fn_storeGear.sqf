@@ -15,7 +15,7 @@ if (typeName _container == "STRING") then {
 	if (count _containers > 0) then {
 		_container = _containers select 0;
 	} else {
-		if (_unit distance2D cajaVeh < DIS) then {_container = cajaVeh};
+		if (_unit distance2D vehicleBox < DIS) then {_container = vehicleBox};
 	} ;
 };
 

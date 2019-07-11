@@ -2,15 +2,15 @@ if (!isServer and hasInterface) exitWith {};
 
 if(true)exitWith{};//disabled because its to slow
 
-private ["_markerX","_destino","_origen","_grupos","_soldiers","_vehiclesX","_size","_grupo","_camion","_tam","_roads","_road","_pos"];
+private ["_markerX","_destinationX","_origen","_grupos","_soldiers","_vehiclesX","_size","_grupo","_camion","_tam","_roads","_road","_pos"];
 
 _markerX = _this select 0;
 if (not(_markerX in smallCAmrk)) exitWith {};
-if (debug) then {Slowhand globalChat format ["AutoGarrison en marcha, destino %1",_markerX]};
-_destino = getMarkerPos _markerX;
+if (debug) then {Slowhand globalChat format ["AutoGarrison en marcha, destinationX %1",_markerX]};
+_destinationX = getMarkerPos _markerX;
 _origen = getMarkerPos guer_respawn;
 
-if ((worldName == "Tanoa") AND !([_origen, _destino] call AS_fnc_IslandCheck)) exitWith {};
+if ((worldName == "Tanoa") AND !([_origen, _destinationX] call AS_fnc_IslandCheck)) exitWith {};
 
 _grupos = [];
 _soldiers = [];
@@ -70,16 +70,16 @@ while {(_size > 0)} do
 				deleteGroup _grupo;
 				};
 			//[_markerX,_groupVeh] spawn attackDrill;
-			_Vwp0 = _groupVeh addWaypoint [_destino, 0];
+			_Vwp0 = _groupVeh addWaypoint [_destinationX, 0];
 			_Vwp0 setWaypointBehaviour "SAFE";
 			_Vwp0 setWaypointType "GETOUT";
-			_Vwp1 = _groupVeh addWaypoint [_destino, 1];
+			_Vwp1 = _groupVeh addWaypoint [_destinationX, 1];
 			_Vwp1 setWaypointType "SAD";
 			_Vwp1 setWaypointBehaviour "AWARE";
 			}
 		else
 			{
-			_Vwp1 = _groupVeh addWaypoint [_destino, 0];
+			_Vwp1 = _groupVeh addWaypoint [_destinationX, 0];
 			_Vwp1 setWaypointType "SAD";
 			_Vwp1 setWaypointBehaviour "AWARE";
 			};

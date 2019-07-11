@@ -6,14 +6,14 @@ params ["_veh", "_text"];
 TRACE_2("START inmuneConvoy", _veh, _text);
 private ["_veh","_text","_mrkfin","_pos","_side","_tipo","_newPos","_road","_amigos"];
 
-_enemigo = true;
+_enemyX = true;
 _convoy = false;
 
 waitUntil {sleep 1; (not(isNull driver _veh))};
 
 _side = side (driver _veh);
 _tipo = "hd_destroy";
-if ((_side == side_blue) or (_side == civilian)) then {_enemigo = false};
+if ((_side == side_blue) or (_side == civilian)) then {_enemyX = false};
 
 if (_side == side_green) then {
 	if ((typeOf _veh) in CIV_vehicles) then {_tipo = "n_unknown"}
@@ -67,17 +67,17 @@ if (!_convoy) exitWith {};
 
 if (debug) then {revelar = true};
 
-waitUntil {sleep 1;(not alive _veh) or ({(_x knowsAbout _veh > 1.4) and (side _x == side_blue)} count allUnits >0) or (!_enemigo) or (revelar)};
+waitUntil {sleep 1;(not alive _veh) or ({(_x knowsAbout _veh > 1.4) and (side _x == side_blue)} count allUnits >0) or (!_enemyX) or (revelar)};
 
 if (!alive _veh) exitWith {};
 
-if (_enemigo) then {[_text,{["TaskSucceeded", ["", format ["%1 Spotted",_this]]] call BIS_fnc_showNotification}] remoteExec ["call", 0];};
+if (_enemyX) then {[_text,{["TaskSucceeded", ["", format ["%1 Spotted",_this]]] call BIS_fnc_showNotification}] remoteExec ["call", 0];};
 _mrkfin = createMarker [format ["%2%1", random 100,_text], position _veh];
 _mrkfin setMarkerShape "ICON";
 _mrkfin setMarkerType _tipo;
 if (_tipo == "hd_destroy") then
 	{
-	if (_enemigo) then {_mrkfin setMarkerColor OPFOR_marker_colour} else {_mrkfin setMarkerColor BLUFOR_marker_colour};
+	if (_enemyX) then {_mrkfin setMarkerColor OPFOR_marker_colour} else {_mrkfin setMarkerColor BLUFOR_marker_colour};
 	};
 _mrkfin setMarkerText _text;
 while {(alive _veh) and ((side (driver _veh) == _side) or _convoy)} do

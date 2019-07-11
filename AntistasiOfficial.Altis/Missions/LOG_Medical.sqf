@@ -23,7 +23,7 @@ _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date 
 _dateLimitNum = dateToNumber _dateLimit;
 
 _fMarkers = mrkFIA + campsFIA;
-_hMarkers = bases + airportsX + puestos - mrkFIA;
+_hMarkers = bases + airportsX + outposts - mrkFIA;
 
 _basesAAF = bases - mrkFIA;
 _bases = [];
@@ -211,8 +211,8 @@ if (dateToNumber date > _dateLimitNum) then {
 					(dateToNumber date > _dateLimitNum)};
 		};
 		if !(_counter < _cuenta) exitWith {
-			_formato = format ["Good to go. Deliver these supplies to %1.",_nameDest];
-			{if (isPlayer _x) then {[petros,"hint",_formato] remoteExec ["commsMP",_x]}} forEach ([80,0,position _sboxempty,"BLUFORSpawn"] call distanceUnits);
+			_formatX = format ["Good to go. Deliver these supplies to %1.",_nameDest];
+			{if (isPlayer _x) then {[petros,"hint",_formatX] remoteExec ["commsMP",_x]}} forEach ([80,0,position _sboxempty,"BLUFORSpawn"] call distanceUnits);
 		};
 	};
 
@@ -224,10 +224,10 @@ deleteVehicle _sboxempty;
 // Create the repacked box add delivery info
 	_sbox = AS_misSupplyBox createVehicle _pos1;
 	_sbox call jn_fnc_logistics_addAction;
-	_sbox setVariable ["destino",_nameDest,true];
+	_sbox setVariable ["destinationX",_nameDest,true];
 	_sbox addAction ["Delivery infos",
 	{
-	_text = format ["Deliver this box to %1, unload it to start distributing to people",(_this select 0) getVariable "destino"];
+	_text = format ["Deliver this box to %1, unload it to start distributing to people",(_this select 0) getVariable "destinationX"];
 	_text remoteExecCall ["hint",_this select 2];
 	},
 	nil,
@@ -280,14 +280,14 @@ deleteVehicle _sboxempty;
 						for [{_i=1},{_i<=(1 + round random 2)},{_i=_i+1}] do {
 							_cosa = genMines call BIS_Fnc_selectRandom;
 							_num = 1 + (floor random 5);
-							if (not(_cosa in unlockedMagazines)) then {cajaVeh addMagazineCargoGlobal [_cosa, _num]};
+							if (not(_cosa in unlockedMagazines)) then {vehicleBox addMagazineCargoGlobal [_cosa, _num]};
 						};
 					}
 					else {
 						for [{_i=1},{_i<=(1 + round random 2)},{_i=_i+1}] do {
 							_cosa = genOptics call BIS_Fnc_selectRandom;
 							_num = 1 + (floor random 5);
-							if (not(_cosa in unlockedOptics)) then {cajaVeh addItemCargoGlobal [_cosa, _num]};
+							if (not(_cosa in unlockedOptics)) then {vehicleBox addItemCargoGlobal [_cosa, _num]};
 						};
 					};
 					[[petros,"globalChat","Someone dropped off a crate near HQ while you were gone. Check the vehicle ammo box."],"commsMP"] call BIS_fnc_MP;

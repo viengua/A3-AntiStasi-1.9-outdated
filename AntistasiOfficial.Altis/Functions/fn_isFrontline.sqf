@@ -2,7 +2,7 @@ params ["_marker"];
 private ["_isFrontline","_position", "_mrkFIA"];
 
 _isFrontline = false;
-_mrkFIA = airportsX + bases + puestos - mrkAAF;
+_mrkFIA = airportsX + bases + outposts - mrkAAF;
 
 if (count _mrkFIA > 0) then {
 	_position = getMarkerPos _marker;

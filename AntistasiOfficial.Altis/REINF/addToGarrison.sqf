@@ -1,4 +1,4 @@
-private ["_positionTel","_cercano","_cosa","_grupo","_unitsX","_salir"];
+private ["_positionTel","_nearX","_cosa","_grupo","_unitsX","_salir"];
 openMap true;
 positionTel = [];
 _cosa = _this select 0;
@@ -14,13 +14,13 @@ if (!visibleMap) exitWith {};
 
 _positionTel = positionTel;
 
-_cercano = [markers,_positionTel] call BIS_fnc_nearestPosition;
+_nearX = [markers,_positionTel] call BIS_fnc_nearestPosition;
 
-if !(_positionTel inArea _cercano) exitWith {hint "You must click near a marked zone"};
+if !(_positionTel inArea _nearX) exitWith {hint "You must click near a marked zone"};
 
-if (not(_cercano in mrkFIA)) exitWith {hint "That zone does not belong to Syndikat"};
+if (not(_nearX in mrkFIA)) exitWith {hint "That zone does not belong to Syndikat"};
 
-if ((_cercano in outpostsFIA) and !(isOnRoad getMarkerPos _cercano)) exitWith {hint "You cannot manage garrisons on this kind of zone"};
+if ((_nearX in outpostsFIA) and !(isOnRoad getMarkerPos _nearX)) exitWith {hint "You cannot manage garrisons on this kind of zone"};
 
 _cosa = _this select 0;
 
@@ -61,20 +61,20 @@ else
 	};
 
 _garrison = [];
-_garrison = _garrison + (garrison getVariable [_cercano,[]]);
+_garrison = _garrison + (garrison getVariable [_nearX,[]]);
 {_garrison pushBack (typeOf _x)} forEach _unitsX;
-garrison setVariable [_cercano,_garrison,true];
-[_cercano] call  AS_fnc_markerUpdate;
+garrison setVariable [_nearX,_garrison,true];
+[_nearX] call  AS_fnc_markerUpdate;
 
 _noBorrar = false;
 
-if (spawner getVariable _cercano) then
+if (spawner getVariable _nearX) then
 	{
 	{deleteWaypoint _x} forEach waypoints _grupo;
-	_wp = _grupo addWaypoint [(getMarkerPos _cercano), 0];
+	_wp = _grupo addWaypoint [(getMarkerPos _nearX), 0];
 	_wp setWaypointType "MOVE";
 	{
-	_x setVariable ["markerX",_cercano,true];
+	_x setVariable ["markerX",_nearX,true];
 	_x addEventHandler ["killed",
 		{
 		_muerto = _this select 0;
@@ -100,8 +100,8 @@ if (spawner getVariable _cercano) then
 		}];
 	} forEach _unitsX;
 
-	waitUntil {sleep 1; (!(spawner getVariable _cercano) or !(_cercano in mrkFIA))};
-	if (!(_cercano in mrkFIA)) then {_noBorrar = true};
+	waitUntil {sleep 1; (!(spawner getVariable _nearX) or !(_nearX in mrkFIA))};
+	if (!(_nearX in mrkFIA)) then {_noBorrar = true};
 	};
 
 if (!_noBorrar) then

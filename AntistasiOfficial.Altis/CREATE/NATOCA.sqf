@@ -65,12 +65,12 @@ for "_i" from 1 to _cuenta do {
 			{_x assignAsCargo _heli; _x moveInCargo _heli; _soldiers = _soldiers + [_x]; [_x] spawn NATOinitCA} forEach units _grupo;
 			_grupos = _grupos + [_grupo];
 			//Decide for aidrop or fastrope/land
-			if ((_markerX in puestos) or (random 10 < _threatEval)) then {
+			if ((_markerX in outposts) or (random 10 < _threatEval)) then {
 				{removebackpack _x; _x addBackpack "B_Parachute"} forEach units _grupo;
 				[_heli,_grupo,_markerX,_threatEval] spawn airdrop;
 				diag_log format ["NATOCA HeliDIS airdropping: %1, %2, %3 ",_heli,_grupo,_markerX];
 			} else {
-				if ((_markerX in bases) or (_markerX in puestos)) then {
+				if ((_markerX in bases) or (_markerX in outposts)) then {
 					[_heli,_grupo,_positionX,_orig,_groupHeli] spawn fastropeNATO;
 				};
 				if ((_markerX in resourcesX) or (_markerX in power) or (_markerX in factories)) then {
@@ -139,7 +139,7 @@ for "_i" from 1 to _cuenta do {
 			_grupos = _grupos + [_grupo];
 
 			//Decide airdrop or land
-			if (!(_markerX in puestos) or (_markerX in bases) or (random 10 < _threatEval)) then {
+			if (!(_markerX in outposts) or (_markerX in bases) or (random 10 < _threatEval)) then {
 				{removebackpack _x; _x addBackpack "B_Parachute"} forEach units _grupo;
 				[_heli,_grupo,_markerX,_threatEval] spawn airdrop;
 				diag_log format ["NATOCA HeliRope: %1, %2, %3,",_heli,_grupo,_markerX];

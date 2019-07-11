@@ -68,10 +68,10 @@ if (dateToNumber date > _endTime) then {
 	_antenna = nearestBuilding _posAntenna;
 	if (isMultiplayer) then {_antenna hideObjectGlobal true} else {_antenna hideObject true};
 	_antenna = createVehicle ["Land_Communication_F", _posAntenna, [], 0, "NONE"];
-	antenas pushBack _antenna;
-	publicVariable "antenas";
+	antennas pushBack _antenna;
+	publicVariable "antennas";
 
-	_mrkfin = createMarker [format ["Ant%1", count antenas], _posAntenna];
+	_mrkfin = createMarker [format ["Ant%1", count antennas], _posAntenna];
 	_mrkfin setMarkerShape "ICON";
 	_mrkfin setMarkerType "loc_Transmitter";
 	_mrkfin setMarkerColor "ColorBlack";
@@ -81,7 +81,7 @@ if (dateToNumber date > _endTime) then {
 		params ["_object"];
 		_object = _this select 0;
 		private _mrk = [mrkAntennas, _object] call BIS_fnc_nearestPosition;
-		antenas = antenas - [_object];
+		antennas = antennas - [_object];
 		antennasDead pushBack (getPos _object);
 		deleteMarker _mrk;
 		{["TaskSucceeded", ["", localize "STR_TSK_TD_RADIO_DESTROYED"]] call BIS_fnc_showNotification} remoteExec ["call", 0];

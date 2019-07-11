@@ -77,7 +77,7 @@ if ({(alive _x) and (_x distance _positionTel < 10)} count units _grupo > 0) the
 	deleteGroup _grupo;
 	sleep 1;
 
-	puestosNATO = puestosNATO + [_mrk]; publicVariable "puestosNATO";
+	outpostsNATO = outpostsNATO + [_mrk]; publicVariable "outpostsNATO";
 	markers = markers + [_mrk]; publicVariable "markers";
 	spawner setVariable [_mrk,false,true];
 	_tsk = ["NATORoadblock",[side_blue,civilian],[["%3 successfully deployed a roadblock, They will hold their position until %1:%2.",numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_BLUE],["%1 Roadblock Deployment", A3_Str_BLUE],_mrk],_positionTel,"SUCCEEDED",5,true,true,"Move"] call BIS_fnc_setTask;
@@ -89,7 +89,7 @@ if ({(alive _x) and (_x distance _positionTel < 10)} count units _grupo > 0) the
 
 	waitUntil {sleep 60; (dateToNumber date > _dateLimitNum)};
 
-	puestosNATO = puestosNATO - [_mrk]; publicVariable "puestosNATO";
+	outpostsNATO = outpostsNATO - [_mrk]; publicVariable "outpostsNATO";
 	markers = markers - [_mrk]; publicVariable "markers";
 	deleteMarker _mrk;
 	sleep 15;

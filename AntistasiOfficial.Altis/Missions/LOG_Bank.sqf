@@ -27,12 +27,12 @@ _camion allowDamage false;
 
 {_x reveal _camion} forEach (allPlayers - (entities "HeadlessClient_F"));
 [_camion] spawn vehInit;
-_camion setVariable ["destino",_nameDest,true];
+_camion setVariable ["destinationX",_nameDest,true];
 _camion addEventHandler ["GetIn",
 	{
 	if (_this select 1 == "driver") then
 		{
-		_texto = format ["Bring this truck to %1 Bank and park it in the main entrance",(_this select 0) getVariable "destino"];
+		_texto = format ["Bring this truck to %1 Bank and park it in the main entrance",(_this select 0) getVariable "destinationX"];
 		_texto remoteExecCall ["hint",_this select 2];
 		};
 	}];
@@ -85,8 +85,8 @@ else
 		{
 		while {(_cuenta > 0) and (_camion distance _positionX < 7) and (alive _camion)} do
 			{
-			_formato = format ["%1", _cuenta];
-			{if (isPlayer _x) then {[petros,"countdown",_formato] remoteExec ["commsMP",_x]}} forEach ([80,0,_camion,"BLUFORSpawn"] call distanceUnits);
+			_formatX = format ["%1", _cuenta];
+			{if (isPlayer _x) then {[petros,"countdown",_formatX] remoteExec ["commsMP",_x]}} forEach ([80,0,_camion,"BLUFORSpawn"] call distanceUnits);
 			sleep 1;
 			_cuenta = _cuenta - 1;
 			};

@@ -77,7 +77,7 @@ _crate = "I_supplyCrate_F" createVehicle _markerPos;
 _allVehicles pushBack _crate;
 sleep 0.5;
 
-if (_marker in puertos) then {
+if (_marker in seaports) then {
 	if !(activeAFRF) then {    //17/10 Stef removing speedboats from RHS
         _position = [_markerPos,_size,_size*3,25,2,0,0] call BIS_Fnc_findSafePos;
         _vehicleData = [_position, 0, (selectRandom vehPatrolBoat), side_green] call bis_fnc_spawnvehicle;
@@ -167,7 +167,7 @@ _strength = 1 max (round (_size/50));
 _currentStrength = 0;
 if (_isFrontline) then {_strength = _strength * 1}; //Stef 27/10 disabled the frontline unit increase untill AI caps is better handled
 
-if (_marker in puestosAA) then {
+if (_marker in outpostsAA) then {
 	_groupType = [infAA, side_green] call AS_fnc_pickGroup;
 	_group = [_markerPos, side_green, _groupType] call BIS_Fnc_spawnGroup;
 	[_group, _marker, "SAFE","SPAWNED","NOVEH2","NOFOLLOW"] execVM "scripts\UPSMON.sqf";
@@ -192,7 +192,7 @@ while {(spawner getVariable _marker) AND (_currentStrength < _strength)} do {
 	_currentStrength = _currentStrength + 1;
 };
 
-if (_marker in puertos) then {
+if (_marker in seaports) then {
 	_crate addItemCargo ["V_RebreatherIA",round random 5];
 	_crate addItemCargo ["G_I_Diving",round random 5];
 };

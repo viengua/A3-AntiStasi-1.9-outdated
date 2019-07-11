@@ -112,7 +112,7 @@ while {visibleMap} do {
 				if (_location in destroyedCities) then {_text = format ["%1\nDESTROYED",_text]};
 				};
 
-			if (_location in puestos) exitWith {
+			if (_location in outposts) exitWith {
 				if (_location in mrkAAF) then {
 					_text = format ["%1 Grand Outpost", A3_Str_INDEP];
 					_text = [_text, "radio"] call _fn_text;
@@ -122,7 +122,7 @@ while {visibleMap} do {
 				};
 			};
 
-			if (_location in puertos) exitWith {
+			if (_location in seaports) exitWith {
 				if (_location in mrkAAF) then {
 					_text = format ["%1 Seaport", A3_Str_INDEP];
 					_text = [_text, "radio"] call _fn_text;

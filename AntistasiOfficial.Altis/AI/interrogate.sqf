@@ -1,10 +1,10 @@
 _unit = _this select 0;
-_jugador = _this select 1;
+_playerX = _this select 1;
 
 [[_unit,"remove"],"AS_fnc_addActionMP"] call BIS_fnc_MP;
 if (!alive _unit) exitWith {};
 
-_jugador globalChat "You souvlaki! Tell me what you know!";
+_playerX globalChat "You souvlaki! Tell me what you know!";
 
 _chance = (server getVariable "prestigeNATO") - (server getVariable "prestigeCSAT");
 

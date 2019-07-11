@@ -16,18 +16,18 @@ petros setBehaviour "AWARE";
 if (isMultiplayer) then
 	{
 	//caja hideObjectGlobal true; //Redo it with Jeroen's crate loading script. Sparker
-	//cajaVeh hideObjectGlobal true;
+	//vehicleBox hideObjectGlobal true;
 	mapa hideObjectGlobal true;
 	fuego hideObjectGlobal true;
-	bandera hideObjectGlobal true;
+	flagX hideObjectGlobal true;
 	}
 else
 	{
 	//caja hideObject true;
-	//cajaVeh hideObject true;
+	//vehicleBox hideObject true;
 	mapa hideObject true;
 	fuego hideObject true;
-	bandera hideObject true;
+	flagX hideObject true;
 	};
 
 fuego inflame false;
@@ -87,4 +87,4 @@ petros addAction [localize "STR_act_buildHQ", {[] spawn buildHQ},nil,0,false,tru
 
 //Add actions to load the cargo boxes
 caja call jn_fnc_logistics_addAction;
-cajaVeh call jn_fnc_logistics_addAction;
+vehicleBox call jn_fnc_logistics_addAction;

@@ -10,19 +10,19 @@ bases = [];
 airportsX = [];
 resourcesX = [];
 factories = [];
-puestos = [];
-puestosAA = [];
-puertos = [];
+outposts = [];
+outpostsAA = [];
+seaports = [];
 controlsX = [];
 artyEmplacements = [];
 seaMarkers = [];
 outpostsFIA = [];
-puestosNATO = [];
+outpostsNATO = [];
 campsFIA = [];
 mrkAAF = [];
 destroyedCities = [];
 posAntennas = [];
-antenas = [];
+antennas = [];
 mrkAntennas = [];
 bancos = [];
 posBank = [];
@@ -60,8 +60,8 @@ if !(count controlsX > 0) then {
     {
         call {
             if (toLower _x find "control" >= 0) exitWith {controlsX pushBackUnique _x};
-            if (toLower _x find "puestoAA" >= 0) exitWith {puestosAA pushBackUnique _x};
-            if (toLower _x find "puesto" >= 0) exitWith {puestos pushBackUnique _x};
+            if (toLower _x find "puestoAA" >= 0) exitWith {outpostsAA pushBackUnique _x};
+            if (toLower _x find "puesto" >= 0) exitWith {outposts pushBackUnique _x};
             if (toLower _x find "seaPatrol" >= 0) exitWith {seaMarkers pushBackUnique _x};
             if (toLower _x find "base" >= 0) exitWith {bases pushBackUnique _x};
             if (toLower _x find "power" >= 0) exitWith {power pushBackUnique _x};
@@ -71,17 +71,17 @@ if !(count controlsX > 0) then {
             if (toLower _x find "artillery" >= 0) exitWith {artyEmplacements pushBackUnique _x};
             if (toLower _x find "mtn_comp" >= 0) exitWith {colinasAA pushBackUnique _x};
             if (toLower _x find "mtn" >= 0) exitWith {colinas pushBackUnique _x};
-            if (toLower _x find "puerto" >= 0) exitWith {puertos pushBackUnique _x};
+            if (toLower _x find "puerto" >= 0) exitWith {seaports pushBackUnique _x};
         };
     } forEach _allMarkers;
 
-    puestos = puestos + puestosAA;
-    puestos = puestos arrayIntersect puestos;
+    outposts = outposts + outpostsAA;
+    outposts = outposts arrayIntersect outposts;
 };
 
 mrkFIA = ["FIA_HQ"];
 garrison setVariable ["FIA_HQ",[],true];
-markers = power + bases + airportsX + resourcesX + factories + puestos + puertos + controlsX + colinas + colinasAA + puestosAA + ["FIA_HQ"];
+markers = power + bases + airportsX + resourcesX + factories + outposts + seaports + controlsX + colinas + colinasAA + outpostsAA + ["FIA_HQ"];
 
 // Make sure all markers are invisible and not currently marked as having been spawned in.
 {_x setMarkerAlpha 0;
@@ -228,15 +228,15 @@ if (worldName in ["Altis", "altis", "Bornholm", "bornholm", "Tanoa", "tanoa", "N
 
 {
     [_x, "loc_bunker", format [localize "STR_GL_MAP_AA", A3_Str_INDEP]] call _fnc_marker;
-} forEach puestosAA;
+} forEach outpostsAA;
 
 {
     [_x, "loc_bunker", format [localize "STR_GL_MAP_OP", A3_Str_INDEP]] call _fnc_marker;
-} forEach puestos;
+} forEach outposts;
 
 {
     [_x, "b_naval", localize "STR_GL_MAP_SP"] call _fnc_marker;
-} forEach puertos;
+} forEach seaports;
 
 markers = markers arrayIntersect markers;
 mrkAAF = markers - ["FIA_HQ"];
@@ -251,16 +251,16 @@ publicVariable "bases";
 publicVariable "airportsX";
 publicVariable "resourcesX";
 publicVariable "factories";
-publicVariable "puestos";
-publicVariable "puestosAA";
+publicVariable "outposts";
+publicVariable "outpostsAA";
 publicVariable "controlsX";
-publicVariable "puertos";
+publicVariable "seaports";
 publicVariable "destroyedCities";
 publicVariable "forcedSpawn";
 publicVariable "outpostsFIA";
 publicVariable "seaMarkers";
 publicVariable "campsFIA";
-publicVariable "puestosNATO";
+publicVariable "outpostsNATO";
 publicVariable "supplySaveArray";
 publicVariable "safeDistance_undercover";
 publicVariable "safeDistance_garage";
@@ -278,7 +278,7 @@ if (count posAntennas > 0) then {
         _antennaArray = nearestObjects [posAntennas select _i,["Land_TTowerBig_1_F","Land_TTowerBig_2_F","Land_Communication_F"], 25];
         if (count _antennaArray > 0) then {
             _antenna = _antennaArray select 0;
-            antenas = antenas + [_antenna];
+            antennas = antennas + [_antenna];
             _mrkfin = createMarker [format ["Ant%1", _i], posAntennas select _i];
             _mrkfin setMarkerShape "ICON";
             _mrkfin setMarkerType "loc_Transmitter";
@@ -288,7 +288,7 @@ if (count posAntennas > 0) then {
             _antenna addEventHandler ["Killed", {
                 _antenna = _this select 0;
                 _mrk = [mrkAntennas, _antenna] call BIS_fnc_nearestPosition;
-                antenas = antenas - [_antenna]; antennasDead = antennasDead + [getPos _antenna]; deleteMarker _mrk;
+                antennas = antennas - [_antenna]; antennasDead = antennasDead + [getPos _antenna]; deleteMarker _mrk;
                 if (activeBE) then {["cl_loc"] remoteExec ["fnc_BE_XP", 2]};
                 {["TaskSucceeded", ["", localize "STR_TSK_TD_RADIO_DESTROYED"]] call BIS_fnc_showNotification} remoteExec ["call", 0];
             }];
@@ -296,7 +296,7 @@ if (count posAntennas > 0) then {
     };
 };
 
-publicVariable "antenas";
+publicVariable "antennas";
 antennasDead = [];
 
 if (count posBank > 0) then {

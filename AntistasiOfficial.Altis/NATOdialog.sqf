@@ -8,14 +8,14 @@ if (!([player] call hasRadio)) exitWith {hint localize "STR_HINTS_NATOD_YNARIYIT
 // check if FIA controls a radio tower
 // /begin
 /*
-_s = antenas - mrkAAF;
+_s = antennas - mrkAAF;
 _c = 0;
 
 if (count _s > 0) then {
 	for "_i" from 0 to (count _s - 1) do {
 		_antenna = _s select _i;
-		_cercano = [markers, getPos _antenna] call BIS_fnc_nearestPosition;
-		if (_cercano in mrkFIA) then {_c = _c + 1};
+		_nearX = [markers, getPos _antenna] call BIS_fnc_nearestPosition;
+		if (_nearX in mrkFIA) then {_c = _c + 1};
 	};
 };
 
@@ -131,12 +131,12 @@ if (_tipo == "NATOQRF") exitWith {
 
 	if (!visibleMap) exitWith {};
 
-	_destino =+ positionTel;
+	_destinationX =+ positionTel;
 	openMap false;
 
-	if (surfaceIsWater _destino) exitWith {hint localize "STR_HINTS_NATOD_NLCSATDQRFIRTL"};
+	if (surfaceIsWater _destinationX) exitWith {hint localize "STR_HINTS_NATOD_NLCSATDQRFIRTL"};
 	hint localize "STR_HINTS_NATOD_QRFI";
-	[_loc,_destino] remoteExec ["NATOQRF", call AS_fnc_getNextWorker];
+	[_loc,_destinationX] remoteExec ["NATOQRF", call AS_fnc_getNextWorker];
 };
 
 if (_positionTel distance getMarkerPos _sitio > 50) exitWith {hint localize "STR_HINTS_NATOD_YMCNAMM"};
@@ -165,13 +165,13 @@ if (_tipo == "NATOArmor") then {
 
 		_positionTel =+ positionTel;
 		openMap false;
-		_destino = [markers, _positionTel] call BIS_Fnc_nearestPosition;
-		if (_positionTel distance getMarkerPos _destino > 50) then {
+		_destinationX = [markers, _positionTel] call BIS_Fnc_nearestPosition;
+		if (_positionTel distance getMarkerPos _destinationX > 50) then {
 			hint localize "STR_HINTS_NATOD_YMCNAMM";
 			_salir = true
 		}
 		else {
-			[[_sitio,_destino], "CREATE\NATOArmor.sqf"] remoteExec ["execVM", call AS_fnc_getNextWorker];
+			[[_sitio,_destinationX], "CREATE\NATOArmor.sqf"] remoteExec ["execVM", call AS_fnc_getNextWorker];
 		};
 	};
 };

@@ -22,8 +22,8 @@ if (_coste == 0) then {
 	}
 else
 	{
-	//_coste = _coste + (_coste * ({_x in mrkAAF} count puertos));
-	_coste = round (_coste - (_coste * (0.1 * ({_x in mrkFIA} count puertos))));
+	//_coste = _coste + (_coste * ({_x in mrkAAF} count seaports));
+	_coste = round (_coste - (_coste * (0.1 * ({_x in mrkFIA} count seaports))));
 	};
 
 _coste

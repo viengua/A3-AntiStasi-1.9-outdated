@@ -2,7 +2,7 @@ params [["_defPos", "none"]];
 private ["_dir"];
 
 if !(typeName "_defPos" == "ARRAY") then {
-	_dir = fuego getdir cajaVeh;
+	_dir = fuego getdir vehicleBox;
 	_defPos = [getPos fuego, 3, _dir + 45] call BIS_Fnc_relPos;
 };
 

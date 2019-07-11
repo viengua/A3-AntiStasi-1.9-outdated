@@ -1,29 +1,29 @@
-private ["_camion","_objetos","_todo","_proceed","_caja","_armas","_ammunition","_items","_mochis","_containers","_cuenta","_exists"];
+private ["_camion","_objectsX","_todo","_proceed","_caja","_armas","_ammunition","_items","_mochis","_containers","_cuenta","_exists"];
 /*
 spanish to english dictionary:
 camion = truck
 caja = box
 cuenta = count
-jugador = player
+playerX = player
 */
-_jugador = _this select 0;
-_camion = vehicle _jugador;
+_playerX = _this select 0;
+_camion = vehicle _playerX;
 _id = _this select 2;
 
-if (_jugador getVariable ["loadingCrate", false]) exitWith {[petros,"hint", "Already loading a crate..."] remoteExec ["commsMP",_jugador]};
+if (_playerX getVariable ["loadingCrate", false]) exitWith {[petros,"hint", "Already loading a crate..."] remoteExec ["commsMP",_playerX]};
 
-_objetos = [];
+_objectsX = [];
 _todo = [];
 _proceed = false;
 _active = false;
 _counter = 0;
 
-_objetos = nearestObjects [_camion, ["ReammoBox_F","Land_PlasticCase_01_medium_F"], 20];
+_objectsX = nearestObjects [_camion, ["ReammoBox_F","Land_PlasticCase_01_medium_F"], 20];
 
-if (count _objetos == 0) exitWith {[petros,"hint", "No crates nearby."] remoteExec ["commsMP",_jugador]};
-_caja = _objetos select 0;
+if (count _objectsX == 0) exitWith {[petros,"hint", "No crates nearby."] remoteExec ["commsMP",_playerX]};
+_caja = _objectsX select 0;
 
-if ((_caja == caja) and (player!=Slowhand)) exitWith {[petros,"hint", "Only the Commander can transfer this ammobox content to any truck"] remoteExec ["commsMP",_jugador]};
+if ((_caja == caja) and (player!=Slowhand)) exitWith {[petros,"hint", "Only the Commander can transfer this ammobox content to any truck"] remoteExec ["commsMP",_playerX]};
 
 
 _armas = weaponCargo _caja;
@@ -37,7 +37,7 @@ _breakText = "";
 
 if (_cuenta < 1) then
 	{
-	[petros,"hint", "Closest Ammobox is empty"] remoteExec ["commsMP",_jugador];
+	[petros,"hint", "Closest Ammobox is empty"] remoteExec ["commsMP",_playerX];
 	_proceed = true;
 	};
 
@@ -53,7 +53,7 @@ if (_cuenta > 0) then
 		};
 	if (_cuenta < 1) then {_cuenta = 1};
 	_cuenta = _cuenta * 10;
-	_jugador setVariable ["loadingCrate", true];
+	_playerX setVariable ["loadingCrate", true];
 	while {(_camion == vehicle player) and (speed _camion == 0) and (_cuenta > _counter)} do
 		{
 		if !(_active) then {
@@ -74,12 +74,12 @@ if (_cuenta > 0) then
 				};
 		};
 
-		if ((_camion != vehicle _jugador) or (speed _camion > 2)) then {
+		if ((_camion != vehicle _playerX) or (speed _camion > 2)) then {
 			_proceed = true;
 			_breakText = "Transfer cancelled due to movement of Truck or Player";
 		};
 	};
 	[0,true] remoteExec ["pBarMP",player];
-	_jugador setVariable ["loadingCrate", false];
+	_playerX setVariable ["loadingCrate", false];
 
-if !(_breakText == "") then {[petros,"hint", _breakText] remoteExec ["commsMP",_jugador]};
+if !(_breakText == "") then {[petros,"hint", _breakText] remoteExec ["commsMP",_playerX]};

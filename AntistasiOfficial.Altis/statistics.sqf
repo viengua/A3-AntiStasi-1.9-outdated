@@ -14,17 +14,17 @@ _setText ctrlSetBackgroundColor [0,0,0,0];
 _viejoTexto = "";
 if (isMultiplayer) then
 	{
-	private ["_nombreC"];
+	private ["_nameC"];
 	while {showStatistics} do
 		{
 		waitUntil {sleep 0.5; player == player getVariable ["owner",player]};
 		if (player != Slowhand) then
 			{
-			if (isPlayer Slowhand) then {_nombreC = name Slowhand} else {_nombreC = "NONE"};
+			if (isPlayer Slowhand) then {_nameC = name Slowhand} else {_nameC = "NONE"};
 			if (activeBE) then {
-				_texto = format ["<t size='0.55'>" + localize "STR_UI_TOP_TEXT1", server getVariable "hr", player getVariable ["Rank_PBar", "Init"], _nombreC, player getVariable "dinero",server getVariable "PrestigeNATO", server getVariable "prestigeCSAT", server getVariable "BE_PBar", [localize "STR_UI_TOP_OVERT",localize "STR_UI_TOP_INCOGNITO"] select (captive player), A3_Str_BLUE, A3_Str_RED];
+				_texto = format ["<t size='0.55'>" + localize "STR_UI_TOP_TEXT1", server getVariable "hr", player getVariable ["Rank_PBar", "Init"], _nameC, player getVariable "dinero",server getVariable "PrestigeNATO", server getVariable "prestigeCSAT", server getVariable "BE_PBar", [localize "STR_UI_TOP_OVERT",localize "STR_UI_TOP_INCOGNITO"] select (captive player), A3_Str_BLUE, A3_Str_RED];
 			} else {
-				_texto = format ["<t size='0.55'>" + localize "STR_UI_TOP_TEXT2", server getVariable "hr", player getVariable ["Rank_PBar", "Init"], _nombreC, player getVariable "dinero",server getVariable "PrestigeNATO", server getVariable "prestigeCSAT", [localize "STR_UI_TOP_OVERT",localize "STR_UI_TOP_INCOGNITO"] select (captive player), A3_Str_BLUE, A3_Str_RED];
+				_texto = format ["<t size='0.55'>" + localize "STR_UI_TOP_TEXT2", server getVariable "hr", player getVariable ["Rank_PBar", "Init"], _nameC, player getVariable "dinero",server getVariable "PrestigeNATO", server getVariable "prestigeCSAT", [localize "STR_UI_TOP_OVERT",localize "STR_UI_TOP_INCOGNITO"] select (captive player), A3_Str_BLUE, A3_Str_RED];
 			};
 		}
 		else

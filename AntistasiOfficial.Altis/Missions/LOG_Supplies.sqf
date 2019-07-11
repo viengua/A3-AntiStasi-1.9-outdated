@@ -18,10 +18,10 @@ _pos = (getMarkerPos guer_respawn) findEmptyPosition [1,50,AS_misSupplyBox];
 _sbox = AS_misSupplyBox createVehicle _pos;
 _sbox call jn_fnc_logistics_addAction;
 //{_x reveal _sbox} forEach (allPlayers - (entities "HeadlessClient_F")); No sense to reveal an object to players
-_sbox setVariable ["destino",_nameDest,true];
+_sbox setVariable ["destinationX",_nameDest,true];
 _sbox addAction ["Delivery infos",
 	{
-		_text = format ["Deliver this box to %1, unload it to start distributing to people",(_this select 0) getVariable "destino"];
+		_text = format ["Deliver this box to %1, unload it to start distributing to people",(_this select 0) getVariable "destinationX"];
 		_text remoteExecCall ["hint",_this select 2];
 	},
 	nil,

@@ -13,7 +13,7 @@ flag_savingServer = true;
 ["countCA", countCA] call fn_saveData;
 ["smallCAmrk", smallCAmrk] call fn_saveData;
 ["membersPool", membersPool] call fn_saveData;
-["antenas", antennasDead] call fn_saveData;
+["antennas", antennasDead] call fn_saveData;
 ["mrkAAF", mrkAAF - controlsX] call fn_saveData;
 ["mrkFIA", mrkFIA - outpostsFIA - controlsX] call fn_saveData;
 ["supplySaveArray", supplySaveArray] call fn_saveData;
@@ -206,7 +206,7 @@ _vehiclesToSave = [];
 			};
 		};
 	};
-} forEach vehicles - [caja,bandera,fuego,cajaveh,mapa];
+} forEach vehicles - [caja,flagX,fuego,vehicleBox,mapa];
 
 ["vehicles",_vehiclesToSave] call fn_saveData;
 ["weapons",_weapons] call fn_saveData;
@@ -221,7 +221,7 @@ _objectsHQ = [];
 	private _pos = call compile format ["getPosATLVisual %1", _x];
 	private _dir = call compile format ["getDir %1", _x];
 	_objectsHQ pushBackUnique [str _x,getPosATLVisual _x, getDir _x];
-} forEach [bandera,caja,cajaveh,fuego,mapa,petros];
+} forEach [flagX,caja,vehicleBox,fuego,mapa,petros];
 */
 
 _objectsHQ = [];
@@ -229,7 +229,7 @@ _objectsHQ = [];
 	private _pos = call compile format ["getPosATLVisual %1", _x];
 	private _dir = call compile format ["getDir %1", _x];
 	_objectsHQ pushBackUnique [_x, _pos, _dir];
-} forEach ["bandera","caja","cajaveh","fuego","mapa","petros"];
+} forEach ["flagX","caja","vehicleBox","fuego","mapa","petros"];
 
 ["objectsHQ",_objectsHQ] call fn_saveData;
 

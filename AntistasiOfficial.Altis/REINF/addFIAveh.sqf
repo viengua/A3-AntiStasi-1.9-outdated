@@ -1,11 +1,11 @@
 if (player != player getVariable ["owner",player]) exitWith {hint "You cannot buy vehicles while you are controlling AI"};
 
-_chequeo = false;
+_checkX = false;
 {
-	if (((side _x == side_red) or (side _x == side_green)) and (_x distance player < safeDistance_recruit) and (not(captive _x))) then {_chequeo = true};
+	if (((side _x == side_red) or (side _x == side_green)) and (_x distance player < safeDistance_recruit) and (not(captive _x))) then {_checkX = true};
 } forEach allUnits;
 
-if (_chequeo) exitWith {Hint "You cannot buy vehicles with enemies nearby"};
+if (_checkX) exitWith {Hint "You cannot buy vehicles with enemies nearby"};
 
 private ["_tipoVeh","_coste","_resourcesFIA","_markerX","_pos","_veh"];
 

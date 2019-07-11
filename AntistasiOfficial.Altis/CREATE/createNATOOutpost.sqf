@@ -85,17 +85,17 @@ _unit moveInCommander _veh;
 {[_x] spawn NATOinitCA} forEach units _grupoInf;
 
 
-waitUntil {sleep 1; (not(spawner getVariable _markerX)) or (({alive _x} count units _grupo == 0) && ({alive _x} count units _grupoInf == 0)) or (not(_markerX in puestosNATO))};
+waitUntil {sleep 1; (not(spawner getVariable _markerX)) or (({alive _x} count units _grupo == 0) && ({alive _x} count units _grupoInf == 0)) or (not(_markerX in outpostsNATO))};
 
 if ({alive _x} count units _grupo == 0) then {
-	puestosNATO = puestosNATO - [_markerX]; publicVariable "puestosNATO";
+	outpostsNATO = outpostsNATO - [_markerX]; publicVariable "outpostsNATO";
 	markers = markers - [_markerX]; publicVariable "markers";
 	[5,-5,_positionX] remoteExec ["AS_fnc_changeCitySupport",2];
 	deleteMarker _markerX;
 	{["TaskFailed", ["", localize "STR_NTS_RBLOST"]] call BIS_fnc_showNotification} remoteExec ["call", 0];
 };
 
-waitUntil {sleep 1; (not(spawner getVariable _markerX)) or (not(_markerX in puestosNATO))};
+waitUntil {sleep 1; (not(spawner getVariable _markerX)) or (not(_markerX in outpostsNATO))};
 
 {deleteVehicle _x} forEach _vehArray + _turretArray;
 {deleteVehicle _x} forEach units _grupo;

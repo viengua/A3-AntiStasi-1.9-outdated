@@ -15,21 +15,21 @@ if (({isPlayer _x} count units _grupo > 1) and (!_esHC)) exitWith {hint localize
 
 if (player != player getVariable ["owner",player]) exitWith {hint localize "STR_HINTS_FTR_YCFTWYACAI"};
 
-_chequeo = false;
-{_enemigo = _x;
-{if (((side _enemigo == side_red) or (side _enemigo == side_green)) and (_enemigo distance _x < 500) and (not(captive _enemigo))) exitWith {_chequeo = true}} forEach units _grupo;
-if (_chequeo) exitWith {};
+_checkX = false;
+{_enemyX = _x;
+{if (((side _enemyX == side_red) or (side _enemyX == side_green)) and (_enemyX distance _x < 500) and (not(captive _enemyX))) exitWith {_checkX = true}} forEach units _grupo;
+if (_checkX) exitWith {};
 } forEach allUnits;
 
-if (_chequeo) exitWith {Hint localize "STR_HINTS_FTR_YCFTWENTG"};
+if (_checkX) exitWith {Hint localize "STR_HINTS_FTR_YCFTWENTG"};
 
 {if ((vehicle _x!= _x) and ((isNull (driver vehicle _x)) or (!canMove vehicle _x))) then
 	{
-	if (not(vehicle _x isKindOf "StaticWeapon")) then {_chequeo = true};
+	if (not(vehicle _x isKindOf "StaticWeapon")) then {_checkX = true};
 	}
 } forEach units _grupo;
 
-if (_chequeo) exitWith {Hint localize "STR_HINTS_FTR_YCFTIYDHADIAY"};
+if (_checkX) exitWith {Hint localize "STR_HINTS_FTR_YCFTIYDHADIAY"};
 
 positionTel = [];
 
@@ -54,18 +54,18 @@ if (count _positionTel > 0) then
 	//if (_base in outpostsFIA) exitWith {hint localize "STR_HINTS_FTR_YCFTTRNW"; openMap [false,false]};
 
 	{
-		if (((side _x == side_red) or (side _x == side_green)) and (_x distance (getMarkerPos _base) < 500) and (not(captive _x))) then {_chequeo = true};
+		if (((side _x == side_red) or (side _x == side_green)) and (_x distance (getMarkerPos _base) < 500) and (not(captive _x))) then {_checkX = true};
 	} forEach allUnits;
 
-	if (_chequeo) exitWith {Hint localize "STR_HINTS_FTR_YCFTTAAUAOWE"; openMap [false,false]};
+	if (_checkX) exitWith {Hint localize "STR_HINTS_FTR_YCFTTAAUAOWE"; openMap [false,false]};
 
 	if (_positionTel distance getMarkerPos _base < 50) then
 		{
 		_positionX = [getMarkerPos _base, 10, random 360] call BIS_Fnc_relPos;
 		_distancia = round (((position _jefe) distance _positionX)/200);
 		if (!_esHC) then {disableUserInput true; cutText ["Fast traveling, please wait","BLACK",2]; sleep 2;} else {hcShowBar false;hcShowBar true;hint format [localize "STR_HINTS_FTR_MG1TD",groupID _grupo]; sleep _distancia;};
-		_forzado = false;
-		if (!isMultiplayer) then {if (not(_base in forcedSpawn)) then {_forzado = true; forcedSpawn = forcedSpawn + [_base]}};
+		_forcedX = false;
+		if (!isMultiplayer) then {if (not(_base in forcedSpawn)) then {_forcedX = true; forcedSpawn = forcedSpawn + [_base]}};
 		if (!_esHC) then {sleep _distancia};
 		{
 		_unit = _x;
@@ -116,7 +116,7 @@ if (count _positionTel > 0) then
 		//_unit hideObject false;
 		} forEach units _grupo;
 		if (!_esHC) then {disableUserInput false;cutText ["You arrived to destination","BLACK IN",3]} else {hint format [localize "STR_HINTS_FTR_G1ATD",groupID _grupo]};
-		if (_forzado) then {forcedSpawn = forcedSpawn - [_base]};
+		if (_forcedX) then {forcedSpawn = forcedSpawn - [_base]};
 		sleep 5;
 		{_x allowDamage true} forEach units _grupo;
 		}

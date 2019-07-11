@@ -1,7 +1,7 @@
 if (!isServer) exitWith {};
 private ["_subCosa","_ammunition"];
 _origen = _this select 0;
-_destino = _this select 1;
+_destinationX = _this select 1;
 
 _ammunition= [];
 _items = [];
@@ -87,7 +87,7 @@ if (count _weaponsFinal > 0) then
 	{
 	for "_i" from 0 to (count _weaponsFinal) - 1 do
 		{
-		_destino addWeaponCargoGlobal [_weaponsFinal select _i,_weaponsFinalCount select _i];
+		_destinationX addWeaponCargoGlobal [_weaponsFinal select _i,_weaponsFinalCount select _i];
 		};
 	};
 
@@ -113,7 +113,7 @@ if (count _ammunitionFinalX > 0) then
 	{
 	for "_i" from 0 to (count _ammunitionFinalX) - 1 do
 		{
-		_destino addMagazineCargoGlobal [_ammunitionFinalX select _i,_ammunitionFinalCount select _i];
+		_destinationX addMagazineCargoGlobal [_ammunitionFinalX select _i,_ammunitionFinalCount select _i];
 		};
 	};
 
@@ -134,7 +134,7 @@ if (count _itemsFinal > 0) then
 	{
 	for "_i" from 0 to (count _itemsFinal) - 1 do
 		{
-		_destino addItemCargoGlobal [_itemsFinal select _i,_itemsFinalCount select _i];
+		_destinationX addItemCargoGlobal [_itemsFinal select _i,_itemsFinalCount select _i];
 		};
 	};
 
@@ -154,7 +154,7 @@ if (count _backpcksFinal > 0) then
 	{
 	for "_i" from 0 to (count _backpcksFinal) - 1 do
 		{
-		_destino addBackpackCargoGlobal [_backpcksFinal select _i,_backpcksFinalCount select _i];
+		_destinationX addBackpackCargoGlobal [_backpcksFinal select _i,_backpcksFinalCount select _i];
 		};
 	};
 
@@ -170,7 +170,7 @@ else
 	clearBackpackCargoGlobal _origen;
 	};
 
-if (_destino == caja) then {
+if (_destinationX == caja) then {
 	if (isMultiplayer) then {{if (_x distance caja < 10) then {[petros,"hint","Ammobox Loaded"] remoteExec ["commsMP",_x]}} forEach playableUnits} else {hint "Ammobox Loaded"};
 	if !(activeJNA) then {_updated = [] call AS_fnc_updateArsenal};
 	if (count _updated > 0) then
@@ -181,5 +181,5 @@ if (_destino == caja) then {
 	}
 else
 	{
-	[petros,"hint","Truck Loaded"] remoteExec ["commsMP",driver _destino];
+	[petros,"hint","Truck Loaded"] remoteExec ["commsMP",driver _destinationX];
 	};

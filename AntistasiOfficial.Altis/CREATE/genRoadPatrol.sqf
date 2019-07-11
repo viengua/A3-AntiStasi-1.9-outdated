@@ -16,7 +16,7 @@ while {true} do {
 			_arrayBases = airportsX - mrkFIA; //Stef disabled heli patrol, better use QRF instead
 		};
 		if (_vehicleType in vehPatrolBoat) exitWith {
-			_arrayBases = puertos - mrkFIA;
+			_arrayBases = seaports - mrkFIA;
 		};
 		_arrayBases = bases - mrkFIA;
 	};

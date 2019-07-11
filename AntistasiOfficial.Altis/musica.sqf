@@ -7,7 +7,7 @@ _stealth = ["LeadTrack06_F", "AmbientTrack01_F", "AmbientTrack01a_F", "AmbientTr
 _stance = behaviour player;
 _newstance = _stance;
 cambioMUS = true;
-_cancion = "LeadTrack01_F";
+_song = "LeadTrack01_F";
 
 while {musicON} do
 
@@ -21,21 +21,21 @@ while {musicON} do
 		_stance = _newstance;
 		if (_newstance == "COMBAT") then
 			{
-			_cancion = _combat call BIS_Fnc_selectRandom;
+			_song = _combat call BIS_Fnc_selectRandom;
 			};
 		if (_newstance == "STEALTH") then
 			{
-			_cancion = _stealth call BIS_Fnc_selectRandom;
+			_song = _stealth call BIS_Fnc_selectRandom;
 			};
 		if ((_newstance == "AWARE") or (_newstance == "SAFE")) then
 			{
 			if ((daytime > 18) or (daytime < 6)) then
 				{
-				_cancion = _normalNight call BIS_Fnc_selectRandom;
+				_song = _normalNight call BIS_Fnc_selectRandom;
 				};
 			if ((daytime > 5) or (daytime < 19)) then
 				{
-				_cancion = _normalDay call BIS_Fnc_selectRandom;
+				_song = _normalDay call BIS_Fnc_selectRandom;
 				};
 			};
 		cambioMUS = true;
@@ -48,7 +48,7 @@ while {musicON} do
 		cambioMUS = false;
 		sleep 5;
 		1 fadeMusic 0.5;
-		playmusic _cancion;
+		playmusic _song;
 		};
 	};
 1 fadeMusic 0.5;

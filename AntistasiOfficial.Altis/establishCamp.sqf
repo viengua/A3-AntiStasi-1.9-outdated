@@ -1,6 +1,6 @@
 if (!isServer) exitWith {};
 
-private ["_tipo","_coste","_grupo","_unit","_tam","_roads","_road","_pos","_camion","_texto","_mrk","_hr","_unitsX","_formato"];
+private ["_tipo","_coste","_grupo","_unit","_tam","_roads","_road","_pos","_camion","_texto","_mrk","_hr","_unitsX","_formatX"];
 
 _tipo = _this select 0;
 _positionTel = _this select 1;
@@ -12,9 +12,9 @@ if (_tipo == "delete") exitWith {
 	hint format ["Deleting %1", _txt];
 	_coste = 0;
 	_hr = 0;
-	_formato = ([guer_grp_sniper, "guer"] call AS_fnc_pickGroup);
+	_formatX = ([guer_grp_sniper, "guer"] call AS_fnc_pickGroup);
 	if !(typeName _typeGroup == "ARRAY") then {
-		_typeGroup = [_formato] call groupComposition;
+		_typeGroup = [_formatX] call groupComposition;
 	};
 	{_coste = _coste + (server getVariable _x); _hr = _hr +1} forEach _typeGroup;
 	[_hr,_coste] remoteExec ["resourcesFIA",2];

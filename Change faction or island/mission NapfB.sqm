@@ -35428,7 +35428,7 @@ class Mission
 			class Attributes
 			{
 				skill=0.2;
-				name="bandera";
+				name="flagX";
 			};
 			id=6083;
 			type="Flag_FIA_F";
@@ -35484,7 +35484,7 @@ class Mission
 			class Attributes
 			{
 				skill=0.60000002;
-				name="cajaveh";
+				name="vehicleBox";
 			};
 			id=6086;
 			type="Box_NATO_AmmoVeh_F";

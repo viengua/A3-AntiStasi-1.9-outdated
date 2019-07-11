@@ -99,10 +99,10 @@ if (visiblemap) then {
 	mapa setDir ([fuego, mapa] call BIS_fnc_dirTo);
 	_direction = _direction + 45;
 	_spawnPos = [getPos fuego, 3, _direction] call BIS_Fnc_relPos;
-	bandera setPos _spawnPos;
+	flagX setPos _spawnPos;
 	_direction = _direction + 45;
 	_spawnPos = [getPos fuego, 3, _direction] call BIS_Fnc_relPos;
-	cajaVeh setPos _spawnPos;
+	vehicleBox setPos _spawnPos;
 
 	if (isNil "placementDone") then {
 		if (isMultiplayer) then {
@@ -118,16 +118,16 @@ if (visiblemap) then {
 
 	if (isMultiplayer) then {
 		caja hideObjectGlobal false;
-		cajaVeh hideObjectGlobal false;
+		vehicleBox hideObjectGlobal false;
 		mapa hideObjectGlobal false;
 		fuego hideObjectGlobal false;
-		bandera hideObjectGlobal false;
+		flagX hideObjectGlobal false;
 	} else {
 		caja hideObject false;
-		cajaVeh hideObject false;
+		vehicleBox hideObject false;
 		mapa hideObject false;
 		fuego hideObject false;
-		bandera hideObject false;
+		flagX hideObject false;
 	};
     LOG("Unlock map");
 	openmap [false,false];

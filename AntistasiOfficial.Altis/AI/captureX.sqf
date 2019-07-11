@@ -1,12 +1,12 @@
 // Ask a surrender to join FIA
 _unit = _this select 0;
-_jugador = _this select 1;
+_playerX = _this select 1;
 
 [[_unit,"remove"],"AS_fnc_addActionMP"] call BIS_fnc_MP;
 
 if (!alive _unit) exitWith {};
 
-_jugador globalChat format [localize "STR_DIALOG_SURRENDER_REQ", worldName];
+_playerX globalChat format [localize "STR_DIALOG_SURRENDER_REQ", worldName];
 
 _chance = (server getVariable "prestigeNATO") - (server getVariable "prestigeCSAT");
 

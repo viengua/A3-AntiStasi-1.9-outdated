@@ -17,7 +17,7 @@ if (_isMarker) then {
 			if (getMarkerPos _x distance _positionX < (distanceSPWN*1.5)) then {
 				if ((_x in bases) or (_x in airportsX)) then {_threat = _threat + 3} else {_threat = _threat + 1};
 			};
-		} forEach (controlsX + puestos + colinas + bases + airportsX - mrkFIA);
+		} forEach (controlsX + outposts + colinas + bases + airportsX - mrkFIA);
 	} else {_esFIA = true;};
 } else { _esFIA = true;};
 

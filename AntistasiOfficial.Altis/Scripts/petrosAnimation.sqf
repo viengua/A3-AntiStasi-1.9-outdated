@@ -16,13 +16,13 @@ private _animType = _anim_safe;
 private _timer = AS_AP_duration * 60;
 private _loopTime = 30;
 
-private _dir = fuego getdir cajaVeh;
+private _dir = fuego getdir vehicleBox;
 private _defPos = [getPos fuego, 8, _dir + 90] call BIS_Fnc_relPos;
 
 _fnc_terminate = {
 	[petros] remoteExec ["BIS_fnc_ambientAnim__terminate", [0,-2] select isDedicated, true];
 	if (primaryweapon petros != "") then {petros selectweapon primaryWeapon petros};
-	_dir = fuego getdir cajaVeh;
+	_dir = fuego getdir vehicleBox;
 	_defPos = [getPos fuego, 3, _dir + 90] call BIS_Fnc_relPos;
 	petros setpos _defPos;
 	sleep 0.25;

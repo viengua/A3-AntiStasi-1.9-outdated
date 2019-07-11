@@ -126,9 +126,9 @@ if (_resourcesAAF > 2000) then{
 	{
 		if (_resourcesAAF < 2000) exitWith {};
 		if ([_x] call AS_fnc_isFrontline) then {
-			_cercano = [mrkFIA,getMarkerPos _x] call BIS_fnc_nearestPosition;
+			_nearX = [mrkFIA,getMarkerPos _x] call BIS_fnc_nearestPosition;
 			_minefieldDone = false;
-			_minefieldDone = [_cercano,_x] call minefieldAAF;
+			_minefieldDone = [_nearX,_x] call minefieldAAF;
 			if (_minefieldDone) then {_resourcesAAF = _resourcesAAF - 2000};
 			diag_log format ["Econ: minefield deployed. Location: %1; current resources: %2", _x, _resourcesAAF];
 		};

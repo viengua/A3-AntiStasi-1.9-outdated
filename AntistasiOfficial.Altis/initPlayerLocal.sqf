@@ -161,7 +161,7 @@ if (_isJip) then { waitUntil {scriptdone _introshot};
 					};
 				};
 			};
-		} forEach vehicles - [bandera,fuego,caja,cajaVeh];
+		} forEach vehicles - [flagX,fuego,caja,vehicleBox];
 
 		// Add actions to POWs
 		{

@@ -5,9 +5,9 @@ if (captive player) exitWith {hint localize "STR_HINTS_UND_DISGUISED"};
 ["",false] params ["_reason","_spotted"];
 private ["_milThreatGround","_milThreatAir","_civVehicles","_size","_compromised","_base","_size","_vehicle","_vehicleType","_break"];
 
-//_milThreatGround = (bases + puestos + controlsX) arrayIntersect mrkAAF; //Sparker: allow players to go through roadblocks undercover
-_milThreatGround = (bases + puestos) arrayIntersect mrkAAF;
-_milThreatAir = (bases + airportsX + puestos + colinas) arrayIntersect mrkAAF;
+//_milThreatGround = (bases + outposts + controlsX) arrayIntersect mrkAAF; //Sparker: allow players to go through roadblocks undercover
+_milThreatGround = (bases + outposts) arrayIntersect mrkAAF;
+_milThreatAir = (bases + airportsX + outposts + colinas) arrayIntersect mrkAAF;
 _compromised = player getVariable ["compromised",dateToNumber date];
 
 /*
@@ -92,7 +92,7 @@ call {
 		};
 
     	_revealdist = 100;
-    	if (_base in puestos) then {_revealdist = 60} else {_revealdist = 300};
+    	if (_base in outposts) then {_revealdist = 60} else {_revealdist = 300};
     	if (player distance getMarkerPos _base < _revealdist) exitWith {_reason = localize "STR_HINTS_UND_FAC_GRND"};
     }
 

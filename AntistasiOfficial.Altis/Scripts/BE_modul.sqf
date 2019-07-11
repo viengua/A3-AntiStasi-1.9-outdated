@@ -498,7 +498,7 @@ fnc_BE_C_TER = {
 			BE_STR_CTER = BE_STR_CTER2;
 		};
 		if (BE_currentStage == 0) exitWith {
-			_base = _base + puestos + puestosAA;
+			_base = _base + outposts + outpostsAA;
 			BE_STR_CTER = BE_STR_CTER1;
 		};
 	};

@@ -17,7 +17,7 @@ _dateLimit    = [date select 0, date select 1, date select 2, date select 3, (da
 _dateLimitNum = dateToNumber _dateLimit;
 
 _fMarkers = mrkFIA + campsFIA;
-_hMarkers = bases + airportsX + puestos - mrkFIA;
+_hMarkers = bases + airportsX + outposts - mrkFIA;
 
 _basesAAF = bases - mrkFIA;
 _bases	  = [];

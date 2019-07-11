@@ -30,12 +30,12 @@ _units = [_units] call UPSMON_getunits;
 if (UPSMON_Debug>0) then {diag_log format["UPSMON_moveNearestBuildings _units=%1 _blds=%2",_units,_blds];};
 if (_units isEqualTo []) exitwith {_units};
 
-//Obtenemos los edificios cercanos al lider
+//Obtenemos los edificios nearXs al lider
 _blds = [getposATL _npc,"RANDOMA",_distance,"",false] call UPSMON_GetNearestBuildings;
 
 if (_blds isEqualTo []) exitwith {_units};
 
-//Movemos a la unitsX a los edificios cercanos.
+//Movemos a la unitsX a los edificios nearXs.
 _units = [_units,_blds,_wait] call UPSMON_moveBuildings;
 
 _units

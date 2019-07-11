@@ -1,6 +1,6 @@
 if (!isServer) exitWith {};
 
-private ["_tipo","_coste","_grupo","_unit","_tam","_roads","_road","_pos","_camion","_texto","_mrk","_hr","_unitsX","_formato"];
+private ["_tipo","_coste","_grupo","_unit","_tam","_roads","_road","_pos","_camion","_texto","_mrk","_hr","_unitsX","_formatX"];
 
 _tipo = _this select 0;
 _positionTel = _this select 1;
@@ -18,9 +18,9 @@ if (_tipo == "delete") exitWith {
 		_coste = _coste + ([guer_veh_technical] call vehiclePrice) + (server getVariable guer_sol_RFL);
 		_hr = _hr + 1;
 		};
-	_formato = ([_typeGroup, "guer"] call AS_fnc_pickGroup);
+	_formatX = ([_typeGroup, "guer"] call AS_fnc_pickGroup);
 	if !(typeName _typeGroup == "ARRAY") then {
-		_typeGroup = [_formato] call groupComposition;
+		_typeGroup = [_formatX] call groupComposition;
 	};
 	{_coste = _coste + (server getVariable _x); _hr = _hr +1} forEach _typeGroup;
 	[_hr,_coste] remoteExec ["resourcesFIA",2];

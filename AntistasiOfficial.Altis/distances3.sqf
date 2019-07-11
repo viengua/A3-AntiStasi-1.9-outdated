@@ -56,7 +56,7 @@ while {true} do {
 						if (_marker in controlsX) exitWith {[_marker, roadblocksEnemy getVariable [_marker, nil]] remoteExec ["createRoadblock2", call AS_fnc_getNextWorker]}; // Server must take the composition of the roadblock from its roadblockEnemy logic object and sends it to the worker
 						if (_marker in airportsX) exitWith {[_marker] remoteExec ["createAirbase", call AS_fnc_getNextWorker]};
 						if ((_marker in resourcesX) OR (_marker in factories)) exitWith {[_marker] remoteExec ["createResources", call AS_fnc_getNextWorker]};
-						if ((_marker in puestos) OR (_marker in puertos)) exitWith {[_marker] remoteExec ["createOutpost", call AS_fnc_getNextWorker]};
+						if ((_marker in outposts) OR (_marker in seaports)) exitWith {[_marker] remoteExec ["createOutpost", call AS_fnc_getNextWorker]};
 						//if ((_marker in artyEmplacements) AND (_marker in forcedSpawn)) exitWith {[_marker] remoteExec ["createArtillery", call AS_fnc_getNextWorker]};
                         if (_marker in markerSupplyCrates) exitWith {[_marker] remoteExec ["createSupplyGroup", call AS_fnc_getNextWorker]};
 					};
@@ -82,9 +82,9 @@ while {true} do {
 							if (_marker in airportsX) exitWith {[_marker] remoteExec ["createNATOairplane", call AS_fnc_getNextWorker]};
 							if (_marker in bases) exitWith {[_marker] remoteExec ["createNATObases", call AS_fnc_getNextWorker]};
 							if (_marker in outpostsFIA) exitWith {[_marker] remoteExec ["createFIAEmplacement", call AS_fnc_getNextWorker]};
-							if ((_marker in puestos) OR (_marker in puertos)) exitWith {[_marker] remoteExec ["createFIAOutpost", call AS_fnc_getNextWorker]};
+							if ((_marker in outposts) OR (_marker in seaports)) exitWith {[_marker] remoteExec ["createFIAOutpost", call AS_fnc_getNextWorker]};
 							if (_marker in campsFIA) exitWith {[_marker] remoteExec ["createCampFIA", call AS_fnc_getNextWorker]};
-							if (_marker in puestosNATO) exitWith {[_marker] remoteExec ["createNATOOutpost", call AS_fnc_getNextWorker]};
+							if (_marker in outpostsNATO) exitWith {[_marker] remoteExec ["createNATOOutpost", call AS_fnc_getNextWorker]};
                             if (_marker in markerSupplyCrates) exitWith {[_marker] remoteExec ["createSupplyGroup", call AS_fnc_getNextWorker]};
 						};
 					};

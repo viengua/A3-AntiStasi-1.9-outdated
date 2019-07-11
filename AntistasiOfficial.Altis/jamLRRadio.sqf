@@ -6,14 +6,14 @@ if (server getVariable "blockCSAT") exitWith {[[_l1],"DIRECT",0.15] execVM "crea
 if ((server getVariable "jTime") > dateToNumber date) exitWith {[[_l2],"DIRECT",0.15] execVM "createConv.sqf";};
 
 
-_s = antenas - mrkAAF;
+_s = antennas - mrkAAF;
 _c = 0;
 
 if (count _s > 0) then {
 	for "_i" from 0 to (count _s - 1) do {
 		_antenna = _s select _i;
-		_cercano = [markers, getPos _antenna] call BIS_fnc_nearestPosition;
-		if (_cercano in mrkFIA) then {_c = _c + 1};
+		_nearX = [markers, getPos _antenna] call BIS_fnc_nearestPosition;
+		if (_nearX in mrkFIA) then {_c = _c + 1};
 	};
 };
 

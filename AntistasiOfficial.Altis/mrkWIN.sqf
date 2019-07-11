@@ -1,29 +1,29 @@
 //This script is triggered only when a player capture the flag. Passive winning conditions are somewhere else.
-private ["_bandera","_pos","_markerX","_positionX","_size","_powerpl","_arevelar"];
+private ["_flagX","_pos","_markerX","_positionX","_size","_powerpl","_arevelar"];
 
-_bandera = _this select 0;
-_jugador = objNull;
-if (count _this > 1) then {_jugador = _this select 1};
+_flagX = _this select 0;
+_playerX = objNull;
+if (count _this > 1) then {_playerX = _this select 1};
 
-if ((player != _jugador) and (!isServer)) exitWith {};
+if ((player != _playerX) and (!isServer)) exitWith {};
 
-_pos = getPos _bandera;
+_pos = getPos _flagX;
 _markerX = [markers,_pos] call BIS_fnc_nearestPosition;
 if (_markerX in mrkFIA) exitWith {};
 _positionX = getMarkerPos _markerX;
 _size = [_markerX] call sizeMarker;
 
-if ((!isNull _jugador) and (captive _jugador)) exitWith {hint localize "STR_HINTS_MRKW_YCCTFWIUM"};
+if ((!isNull _playerX) and (captive _playerX)) exitWith {hint localize "STR_HINTS_MRKW_YCCTFWIUM"};
 
 //Reveal enemy units to player within a range
-	if (!isNull _jugador) then {
+	if (!isNull _playerX) then {
 		if (_size > 300) then {_size = 300};
 		_arevelar = [];
 		{ if (((side _x == side_green) or (side _x == side_red)) and (alive _x) and (not(fleeing _x)) and (_x distance _positionX < _size)) then {_arevelar pushBack _x};} forEach allUnits;
-		if (player == _jugador) then {
-			_jugador playMove "MountSide";
+		if (player == _playerX) then {
+			_playerX playMove "MountSide";
 			sleep 8;
-			_jugador playMove "";
+			_playerX playMove "";
 			{player reveal _x} forEach _arevelar;
 		};
 	};
@@ -38,14 +38,14 @@ if (!isServer) exitWith {};
 	}
 } forEach ([_size,0,_positionX,"BLUFORSpawn"] call distanceUnits);
 
-//if (!isNull _jugador) then {[5,_jugador] call playerScoreAdd};
-[[_bandera,"remove"],"AS_fnc_addActionMP"] call BIS_fnc_MP;
-_bandera setFlagTexture guer_flag_texture;
+//if (!isNull _playerX) then {[5,_playerX] call playerScoreAdd};
+[[_flagX,"remove"],"AS_fnc_addActionMP"] call BIS_fnc_MP;
+_flagX setFlagTexture guer_flag_texture;
 
 sleep 5;
-[[_bandera,"unit"],"AS_fnc_addActionMP"] call BIS_fnc_MP;
-[[_bandera,"vehicle"],"AS_fnc_addActionMP"] call BIS_fnc_MP;
-_bandera addAction [localize "str_act_mapInfo",
+[[_flagX,"unit"],"AS_fnc_addActionMP"] call BIS_fnc_MP;
+[[_flagX,"vehicle"],"AS_fnc_addActionMP"] call BIS_fnc_MP;
+_flagX addAction [localize "str_act_mapInfo",
 		{
 			nul = [] execVM "cityinfo.sqf";
 		},
@@ -56,11 +56,11 @@ _bandera addAction [localize "str_act_mapInfo",
 		"",
 		"(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"
 	];
-// [[_bandera,"garage"],"AS_fnc_addActionMP"] call BIS_fnc_MP; Stef 27/10 disabled old garage
+// [[_flagX,"garage"],"AS_fnc_addActionMP"] call BIS_fnc_MP; Stef 27/10 disabled old garage
 
-_antenna = [antenas,_positionX] call BIS_fnc_nearestPosition;
+_antenna = [antennas,_positionX] call BIS_fnc_nearestPosition;
 if (getPos _antenna distance _positionX < 100) then {
-	[_bandera,"jam"] remoteExec ["AS_fnc_addActionMP"];
+	[_flagX,"jam"] remoteExec ["AS_fnc_addActionMP"];
 };
 
 mrkAAF = mrkAAF - [_markerX];
@@ -103,15 +103,15 @@ publicVariable "reducedGarrisons";
 		if (activeBE) then {["con_ter"] remoteExec ["fnc_BE_XP", 2]};
 		[_markerX] call AS_fnc_powerReorg;
 	};
-	if (_markerX in puestos) then{
+	if (_markerX in outposts) then{
 		{["TaskSucceeded", ["", localize "STR_NTS_OP_TKN"]] call BIS_fnc_showNotification} remoteExec ["call", 0];
 		if (activeBE) then {["con_ter"] remoteExec ["fnc_BE_XP", 2]};
 	};
-	if (_markerX in puertos) then {
+	if (_markerX in seaports) then {
 		{["TaskSucceeded", ["", localize "STR_NTS_SEA_TKN"]] call BIS_fnc_showNotification} remoteExec ["call", 0];
 		[0,0] remoteExec ["prestige",2];
 		if (activeBE) then {["con_ter"] remoteExec ["fnc_BE_XP", 2]};
-		[[_bandera,"seaport"],"AS_fnc_addActionMP"] call BIS_fnc_MP;
+		[[_flagX,"seaport"],"AS_fnc_addActionMP"] call BIS_fnc_MP;
 	};
 	if ((_markerX in factories) or (_markerX in resourcesX)) then {
 		if (_markerX in factories) then {{["TaskSucceeded", ["", localize "STR_NTS_FACT_TKN"]] call BIS_fnc_showNotification} remoteExec ["call", 0];};

@@ -3,7 +3,7 @@ File: UPSMON_GetNearestCombat.sqf
 Author: Azroul13
 
 Description:
-	Funci�n que busca vehiclesX cercanos y hace entrar a las unitsX del lider
+	Funci�n que busca vehiclesX nearXs y hace entrar a las unitsX del lider
 Parameter(s):
 	<--- leader
 	<--- Vehicle types
@@ -26,7 +26,7 @@ _Gunnercount = 0;
 _Commandercount = 0;
 _Drivercount = 0;
 	
-//Buscamos objetos cercanos
+//Buscamos objectsX nearXs
 _closeX = _npc nearentities [["CAR","TANK","SHIP","HELICOPTER"], _distance];
 		
 {

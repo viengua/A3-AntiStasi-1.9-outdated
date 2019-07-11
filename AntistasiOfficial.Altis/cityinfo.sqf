@@ -103,7 +103,7 @@ while {visibleMap} do {
 			//if (_sitio in mrkAAF) then {if ([_sitio] call AS_fnc_radiocheck) then {_texto = format ["%1\nRadio Comms ON",_texto]} else {_texto = format ["%1\nRadio Comms OFF",_texto]}};
 			if (_sitio in destroyedCities) then {_texto = format ["%1\nDESTROYED",_texto]};
 		};
-		if (_sitio in puestos) then {
+		if (_sitio in outposts) then {
 			if (_sitio in mrkAAF) then {
 				_texto = "AAF Grand Outpost";
 				//if ([_sitio] call AS_fnc_radiocheck) then {_texto = format ["%1\n\nRadio Comms ON",_texto]} else {_texto = format ["%1\n\nRadio Comms OFF",_texto]};
@@ -118,7 +118,7 @@ while {visibleMap} do {
 			_texto = "AAF Roadblock";
 			};
 		*/
-		if (_sitio in puertos) then {
+		if (_sitio in seaports) then {
 			if (_sitio in mrkAAF) then {
 				_texto = "AAF Seaport";
 				//if ([_sitio] call AS_fnc_radiocheck) then {_texto = format ["%1\n\nRadio Comms ON",_texto]} else {_texto = format ["%1\n\nRadio Comms OFF",_texto]};

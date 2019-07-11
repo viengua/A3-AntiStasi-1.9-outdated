@@ -177,7 +177,7 @@ fn_saveProfile = {
 
 //ADD VARIABLES TO THIS ARRAY THAT NEED SPECIAL SCRIPTING TO LOAD
 specialVarLoads =
-["campaign_playerList","countCA","membersPool","antenas","posHQ","prestigeNATO","prestigeCSAT","APCAAFcurrent","tanksAAFcurrent","planesAAFcurrent","helisAAFcurrent","time","resourcesAAF","skillFIA","skillAAF","destroyedBuildings","flag_chopForest","BE_data","enableOldFT","enableMemAcc","hr","resourcesFIA","vehicles","weapons","magazines","items","backpacks","objectsHQ","addObjectsHQ","supportOPFOR","supportBLUFOR", "supplyLevels","garrison","mines","emplacements","campList","tasks","idleBases","unlockedWeapons","unlockedItems","unlockedMagazines","unlockedBackpacks"];
+["campaign_playerList","countCA","membersPool","antennas","posHQ","prestigeNATO","prestigeCSAT","APCAAFcurrent","tanksAAFcurrent","planesAAFcurrent","helisAAFcurrent","time","resourcesAAF","skillFIA","skillAAF","destroyedBuildings","flag_chopForest","BE_data","enableOldFT","enableMemAcc","hr","resourcesFIA","vehicles","weapons","magazines","items","backpacks","objectsHQ","addObjectsHQ","supportOPFOR","supportBLUFOR", "supplyLevels","garrison","mines","emplacements","campList","tasks","idleBases","unlockedWeapons","unlockedItems","unlockedMagazines","unlockedBackpacks"];
 
 /*
 	Variables that are loaded, but do not require special procedures
@@ -334,8 +334,8 @@ fn_setData = {
 					};
 					if !(_unknownMine) then {
 						_posMine = _varValue select _i select 1;
-						_dirMina = _varValue select _i select 2;
-						_mina = createMine [_typeMine, _posMine, [], _dirMina];
+						_dirMine = _varValue select _i select 2;
+						_mina = createMine [_typeMine, _posMine, [], _dirMine];
 						_detected = _varValue select _i select 3;
 						if (_detected) then {side_blue revealMine _mina};
 					};
@@ -384,13 +384,13 @@ fn_setData = {
 			};
 			if(_varName == 'enableOldFT') exitWith {server setVariable ["enableFTold",_varValue,true]};
 			if(_varName == 'enableMemAcc') exitWith {server setVariable ["enableMemAcc",_varValue,true]};
-			if(_varName == 'antenas') exitWith {
+			if(_varName == 'antennas') exitWith {
 				antennasDead = _varValue;
 				for "_i" from 0 to (count _varValue - 1) do {
 				    _posAnt = _varValue select _i;
 				    _mrk = [mrkAntennas, _posAnt] call BIS_fnc_nearestPosition;
-				    _antena = [antenas,_mrk] call BIS_fnc_nearestPosition;
-				    antenas = antenas - [_antena];
+				    _antena = [antennas,_mrk] call BIS_fnc_nearestPosition;
+				    antennas = antennas - [_antena];
 				    _antena removeAllEventHandlers "Killed";
 				    sleep 1;
 				    _antena setDamage 1;
@@ -485,17 +485,17 @@ fn_setData = {
 				{
 					_type = _x select 0;
 					switch (_type) do {
-						case "bandera": {
-							bandera setDir (_x select 2);
-							bandera setPosATL (_x select 1);
+						case "flagX": {
+							flagX setDir (_x select 2);
+							flagX setPosATL (_x select 1);
 						};
 						case "caja": {
 							caja setDir (_x select 2);
 							caja setPosATL (_x select 1);
 						};
-						case "cajaveh": {
-							cajaveh setDir (_x select 2);
-							cajaveh setPosATL (_x select 1);
+						case "vehicleBox": {
+							vehicleBox setDir (_x select 2);
+							vehicleBox setPosATL (_x select 1);
 						};
 						case "fuego": {
 							fuego setDir (_x select 2);

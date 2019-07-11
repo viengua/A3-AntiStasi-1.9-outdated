@@ -2,7 +2,7 @@
 //The effect is enemy capture the territory.
 if (!isServer) exitWith {};
 
-private ["_markerX","_positionX","_mrk","_powerpl","_bandera"];
+private ["_markerX","_positionX","_mrk","_powerpl","_flagX"];
 
 _markerX = _this select 0;
 if (_markerX in mrkAAF) exitWith {};
@@ -21,15 +21,15 @@ publicVariable "mrkFIA";
 //remove FIA garrison variable
 	garrison setVariable [_markerX,[],true];
 
-_bandera = objNull;
+_flagX = objNull;
 _dist = 10;
-while {isNull _bandera} do {
+while {isNull _flagX} do {
 	_dist = _dist + 10;
 	_flagsX = nearestObjects [_positionX, ["FlagCarrier"], _dist];
-	_bandera = _flagsX select 0;
+	_flagX = _flagsX select 0;
 };
 
-[[_bandera,"take"],"AS_fnc_addActionMP"] call BIS_fnc_MP;
+[[_flagX,"take"],"AS_fnc_addActionMP"] call BIS_fnc_MP;
 
 _mrk = format ["Dum%1",_markerX];
 _mrk setMarkerColor IND_marker_colour;
@@ -37,11 +37,11 @@ _mrk setMarkerColor IND_marker_colour;
 //Effects depending on marker type
 	if ((not (_markerX in bases)) and (not (_markerX in airportsX))) then {
 		[10,-10,_positionX] remoteExec ["AS_fnc_changeCitySupport",2];
-		if (_markerX in puestos) then {
+		if (_markerX in outposts) then {
 			_mrk setMarkerText localize "STR_GL_AAFOP";
 			{["TaskFailed", ["", localize "STR_NTS_OPLOST"]] call BIS_fnc_showNotification} remoteExec ["call", 0];
 		};
-		if (_markerX in puertos) then {
+		if (_markerX in seaports) then {
 			_mrk setMarkerText localize "STR_GL_MAP_SP";
 			{["TaskFailed", ["", localize "STR_NTS_SPLOST"]] call BIS_fnc_showNotification} remoteExec ["call", 0];
 		};
@@ -115,4 +115,4 @@ _size = [_markerX] call sizeMarker;
 		)
 	};
 
-	if (spawner getVariable _markerX) then{[_bandera] spawn mrkWIN;};
+	if (spawner getVariable _markerX) then{[_flagX] spawn mrkWIN;};

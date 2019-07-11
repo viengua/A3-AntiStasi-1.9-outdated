@@ -1,7 +1,7 @@
-private ["_staticX","_cercano","_jugador"];
+private ["_staticX","_nearX","_playerX"];
 
 _staticX = _this select 0;
-_jugador = _this select 1;
+_playerX = _this select 1;
 
 if (!alive _staticX) exitWith {hint "You cannot steal a destroyed static weapon"};
 
@@ -9,11 +9,11 @@ if (alive gunner _staticX) exitWith {hint "You cannot steal a static weapon when
 
 if ((alive assignedGunner _staticX) and (!isPlayer (assignedGunner _staticX))) exitWith {hint "The gunner of this static weapon is still alive"};
 
-_cercano = [markers,_staticX] call BIS_fnc_nearestPosition;
+_nearX = [markers,_staticX] call BIS_fnc_nearestPosition;
 
-if (_cercano in mrkAAF) exitWith {hint "You have to conquer this zone in order to be able to steal this Static Weapon"};
+if (_nearX in mrkAAF) exitWith {hint "You have to conquer this zone in order to be able to steal this Static Weapon"};
 
-_staticX setOwner (owner _jugador);
+_staticX setOwner (owner _playerX);
 
 _tipoEst = typeOf _staticX;
 _tipoB1 = "";
@@ -47,8 +47,8 @@ switch _tipoEst do {
 	default {hint "You cannot steal this weapon."};
 	};
 
-_positionX1 = [_jugador, 1, (getDir _jugador) - 90] call BIS_fnc_relPos;
-_positionX2 = [_jugador, 1, (getDir _jugador) + 90] call BIS_fnc_relPos;
+_positionX1 = [_playerX, 1, (getDir _playerX) - 90] call BIS_fnc_relPos;
+_positionX2 = [_playerX, 1, (getDir _playerX) + 90] call BIS_fnc_relPos;
 
 deleteVehicle _staticX;
 

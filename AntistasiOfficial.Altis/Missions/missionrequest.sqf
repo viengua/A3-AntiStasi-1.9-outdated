@@ -16,7 +16,7 @@ if (_type in missionsX) exitWith {
 
 call {
 	if (_type == "DES") exitWith {
-		_zones = citiesX + antenas - mrkFIA;
+		_zones = citiesX + antennas - mrkFIA;
 		if (count _zones > 0) then {
 			for "_i" from 0 to ((count _zones) - 1) do {
 				_currentZone = _zones select _i;
@@ -44,14 +44,14 @@ call {
 			};
 		} else {
 			_currentZone = selectRandom _options;
-			if (_currentZone in antenas) then {[_currentZone, "mil"] remoteExec ["DES_Antenna", call AS_fnc_getNextWorker]};
+			if (_currentZone in antennas) then {[_currentZone, "mil"] remoteExec ["DES_Antenna", call AS_fnc_getNextWorker]};
 			if (_currentZone in citiesX) then {
 				[_currentZone, "mil"] remoteExec [([["DES_fuel","DES_EnemySuppression"],[0.5,0.5]] call BIS_fnc_selectRandomWeighted), call AS_fnc_getNextWorker]};
 		};
 	};
 
 	if (_type == "LOG") exitWith {
-		_zones = puestos + citiesX - ["puesto_13"];
+		_zones = outposts + citiesX - ["puesto_13"];
 		if (random 100 < 20) then {_zones = _zones + bancos};
 		_zones = _zones - mrkFIA;
 		if (count _zones > 0) then {
@@ -67,7 +67,7 @@ call {
 					if (_currentZone in citiesX) then {
 						_options pushBackUnique _currentZone;
 					} else {
-						if (_currentZone in puestos) then {
+						if (_currentZone in outposts) then {
 							_gearCount = (count unlockedWeapons) + (count unlockedMagazines) + (count unlockedItems) + (count unlockedBackpacks);
 							_threshold = gear_threshold select activeACE;
 							if (_gearCount < _threshold) then {_options pushBackUnique _currentZone};
@@ -96,7 +96,7 @@ call {
 				if (_currentZone in citiesX) exitWith {
 					[_currentZone] remoteExec ["LOG_Medical", call AS_fnc_getNextWorker]
 				};
-				if (_currentZone in puestos) exitWith {
+				if (_currentZone in outposts) exitWith {
 					[_currentZone] remoteExec ["LOG_Ammo", call AS_fnc_getNextWorker];
 				};
 				if (_currentZone in bancos) then {
@@ -107,7 +107,7 @@ call {
 	};
 
 	if (_type == "RES") exitWith {
-		_zones = citiesX + bases + puestos - mrkFIA;
+		_zones = citiesX + bases + outposts - mrkFIA;
 		if (_manual) then {_zones = citiesX - mrkFIA};
 
 		if (count _zones > 0) then {
@@ -250,7 +250,7 @@ call {
 	};
 
 	if (_type == "ASS") exitWith {
-		_zones = citiesX + puestos - mrkFIA;
+		_zones = citiesX + outposts - mrkFIA;
 		if (count _zones > 0) then {
 			for "_i" from 0 to ((count _zones) - 1) do {
 				_currentZone = _zones select _i;
@@ -268,7 +268,7 @@ call {
 			};
 		} else {
 			_currentZone = selectRandom _options;
-			if((random 100 < _prestigeCSAT) and (_prestigeCSAT > 21)) then {[_currentZone, "civ"] remoteExec [(["ASS_Traitor","AS_forest"] select (_currentZone in puestos)), call AS_fnc_getNextWorker];} else {}
+			if((random 100 < _prestigeCSAT) and (_prestigeCSAT > 21)) then {[_currentZone, "civ"] remoteExec [(["ASS_Traitor","AS_forest"] select (_currentZone in outposts)), call AS_fnc_getNextWorker];} else {}
 		};
 	};
 

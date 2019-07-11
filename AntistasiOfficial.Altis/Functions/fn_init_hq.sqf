@@ -91,9 +91,9 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
-//bandera
-	bandera allowDamage false;
-	bandera addAction [localize "str_act_hqOptions",
+//flagX
+	flagX allowDamage false;
+	flagX addAction [localize "str_act_hqOptions",
 		{
 			nul=[] execVM "Dialogs\dialogHQ.sqf";
 		},
@@ -104,7 +104,7 @@
 		"",
 		"(isPlayer _this) and (player == Slowhand) and (_this == _this getVariable ['owner',objNull]) and (petros == leader group petros)"
 	];
-	bandera addAction [localize "str_act_recruitUnit",
+	flagX addAction [localize "str_act_recruitUnit",
 		{
 			nul=[] execVM "Dialogs\unit_recruit.sqf";
 		},
@@ -115,7 +115,7 @@
 		"",
 		"(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"
 	];
-	bandera addAction [localize "str_act_moveAsset",
+	flagX addAction [localize "str_act_moveAsset",
 		"moveObject.sqf",
 		nil,
 		0,
@@ -128,10 +128,10 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
-//cajaVeh
-	cajaVeh allowDamage false;
-	cajaVeh addAction [localize "str_act_healRepair", "healandrepair.sqf",nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"];
-	cajaVeh addAction [localize "str_act_buyVehicle",
+//vehicleBox
+	vehicleBox allowDamage false;
+	vehicleBox addAction [localize "str_act_healRepair", "healandrepair.sqf",nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"];
+	vehicleBox addAction [localize "str_act_buyVehicle",
 		{
 			nul = createDialog "vehicle_option"
 		},
@@ -142,8 +142,8 @@
 		"",
 		"(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"
 	];
-	cajaVeh addAction [localize "STR_ACT_BUYB", "REINF\buyBoat.sqf",nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"];
-	cajaVeh addAction [localize "str_act_moveAsset", "moveObject.sqf",nil,0,false,true,"","(_this == Slowhand)",5];
+	vehicleBox addAction [localize "STR_ACT_BUYB", "REINF\buyBoat.sqf",nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"];
+	vehicleBox addAction [localize "str_act_moveAsset", "moveObject.sqf",nil,0,false,true,"","(_this == Slowhand)",5];
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //campFire
 	fuego allowDamage false;

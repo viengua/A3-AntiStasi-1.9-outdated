@@ -65,7 +65,7 @@ _statics = staticsToSave select {_x distance _markerPos < (_size max 50)};
 	};*/ //Disabled, those are added out from no-where, in future this can become a sort of upgrade
 
 /*Jam  feature disabled untill jam will have a function in AirControl patch
-	_antenna = [antenas,_markerPos] call BIS_fnc_nearestPosition;
+	_antenna = [antennas,_markerPos] call BIS_fnc_nearestPosition;
 	if (getPos _antenna distance _markerPos < 100) then {
 		[_flag,"jam"] remoteExec ["AS_fnc_addActionMP"];
 	};
@@ -179,7 +179,7 @@ _statics = staticsToSave select {_x distance _markerPos < (_size max 50)};
 		"",
 		"(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"
 	];
-	if (_marker in puertos) then {
+	if (_marker in seaports) then {
 		[_flag,"seaport"] remoteExec ["AS_fnc_addActionMP"];
 	};
 

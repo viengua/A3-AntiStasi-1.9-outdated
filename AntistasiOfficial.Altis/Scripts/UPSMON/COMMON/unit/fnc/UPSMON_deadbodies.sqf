@@ -3,7 +3,7 @@ File: UPSMON_deadbodies.sqf
 Author: Monsada
 
 Description:
-	Funci�n que devuelve un array con los vehiclesX terrestres m�s cercanos
+	Funci�n que devuelve un array con los vehiclesX terrestres m�s nearXs
 Parameter(s):
 	<--- object for  position search
 	<---  max distance from npc
@@ -18,7 +18,7 @@ _distance = _this select 1;
 _closeX = [];
 _bodies = objNull;
 
-//Buscamos objetos cercanos
+//Buscamos objectsX nearXs
 _closeX = nearestObjects [_npc,["Man"],_distance];
 
 {

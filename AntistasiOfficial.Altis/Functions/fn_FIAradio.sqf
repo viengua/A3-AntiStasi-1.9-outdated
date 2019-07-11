@@ -4,7 +4,7 @@ _chance = 5;
 {_position = getPos _x;
 	_marker = [markers,_position] call BIS_fnc_nearestPosition;
 	if (!(_marker in mrkAAF) and (alive _x)) then {_chance = _chance + 2.25};
-} forEach antenas;
+} forEach antennas;
 
 if (debug) then {_chance = 100};
 

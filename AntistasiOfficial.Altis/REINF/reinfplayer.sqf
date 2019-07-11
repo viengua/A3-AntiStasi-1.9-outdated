@@ -1,5 +1,5 @@
 if (not([player] call isMember)) exitWith {hint "Only Server Members can recruit AI units"};
-private ["_chequeo","_hr","_typeUnit","_coste","_resourcesFIA","_unit"];
+private ["_checkX","_hr","_typeUnit","_coste","_resourcesFIA","_unit"];
 
 if (!allowPlayerRecruit) exitWith {hint "Server is very loaded. \nWait one minute or change FPS settings in order to fulfill this request"};
 
@@ -7,12 +7,12 @@ if (recruitCooldown > time) exitWith {hint format ["You need to wait %1 seconds 
 
 if (player != player getVariable ["owner",player]) exitWith {hint "You cannot buy units while you are controlling AI"};
 
-_chequeo = false;
+_checkX = false;
 {
-	if (((side _x == side_red) or (side _x == side_green)) and (_x distance player < safeDistance_recruit) and (not(captive _x))) then {_chequeo = true};
+	if (((side _x == side_red) or (side _x == side_green)) and (_x distance player < safeDistance_recruit) and (not(captive _x))) then {_checkX = true};
 } forEach allUnits;
 
-if (_chequeo) exitWith {Hint "You cannot Recruit Units with enemies nearby"};
+if (_checkX) exitWith {Hint "You cannot Recruit Units with enemies nearby"};
 
 if (player != leader group player) exitWith {hint "You cannot recruit units as you are not your group leader"};
 
