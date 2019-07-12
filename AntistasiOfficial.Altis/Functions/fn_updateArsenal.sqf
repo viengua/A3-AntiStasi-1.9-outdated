@@ -1,5 +1,5 @@
 if !(isServer) exitWith {};
-private ["_weapons","_baseWeapons","_addedWeapons","_lockedWeapon","_weaponCargo","_precio","_weapon","_priceAdd","_updated","_magazines","_addedMagazines","_magazine","_magazineCargo","_items","_addedItems","_item","_cuenta","_itemCargo","_backpacks","_baseBackpacks","_addedBackpacks","_lockedBackpack","_backpackCargo","_mochi","_backpack","_weaponsItems","_wpnItem", "_itemReq","_tempList","_magList","_delList","_baseWeapon"];
+private ["_weapons","_baseWeapons","_addedWeapons","_lockedWeapon","_weaponCargo","_precio","_weapon","_priceAdd","_updated","_magazines","_addedMagazines","_magazine","_magazineCargo","_items","_addedItems","_item","_countX","_itemCargo","_backpacks","_baseBackpacks","_addedBackpacks","_lockedBackpack","_backpackCargo","_mochi","_backpack","_weaponsItems","_wpnItem", "_itemReq","_tempList","_magList","_delList","_baseWeapon"];
 
 _updated = "";
 

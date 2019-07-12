@@ -35,7 +35,7 @@ if (_hr < 1) exitWith {hint "You do not have enough HR for this request"};
 
 _coste = server getVariable [_typeUnit,150];
 if (_typeUnit == "Soldier_AA") then {_coste = server getVariable [guer_sol_AA,150]};
-if (!isMultiPlayer) then {_resourcesFIA = server getVariable "resourcesFIA"} else {_resourcesFIA = player getVariable "dinero";};
+if (!isMultiPlayer) then {_resourcesFIA = server getVariable "resourcesFIA"} else {_resourcesFIA = player getVariable "moneyX";};
 
 if (_coste > _resourcesFIA) exitWith {hint format ["You do not have enough money for this kind of unit (%1 € needed)",_coste]};
 

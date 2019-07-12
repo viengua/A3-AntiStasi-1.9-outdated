@@ -112,8 +112,8 @@ for "_i" from 1 to _patrolCounter do {
 					_vehicle = _this select 0;
 					if (side(_this select 3) == WEST) then
 						{
-						_condu = driver _vehicle;
-						if (side _condu == civilian) then {_condu leaveVehicle _vehicle};
+						_driverX = driver _vehicle;
+						if (side _driverX == civilian) then {_driverX leaveVehicle _vehicle};
 						};
 					}
 					];

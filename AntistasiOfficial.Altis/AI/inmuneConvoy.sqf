@@ -4,7 +4,7 @@
 if (!isServer and hasInterface) exitWith{};
 params ["_veh", "_text"];
 TRACE_2("START inmuneConvoy", _veh, _text);
-private ["_veh","_text","_mrkfin","_pos","_side","_tipo","_newPos","_road","_amigos"];
+private ["_veh","_text","_mrkfin","_pos","_side","_tipo","_newPos","_road","_friendlies"];
 
 _enemyX = true;
 _convoy = false;
@@ -65,9 +65,9 @@ if ((_text == "AAF Convoy Objective") or (_text == "Mission Vehicle") or (debug)
 
 if (!_convoy) exitWith {};
 
-if (debug) then {revelar = true};
+if (debug) then {revealX = true};
 
-waitUntil {sleep 1;(not alive _veh) or ({(_x knowsAbout _veh > 1.4) and (side _x == side_blue)} count allUnits >0) or (!_enemyX) or (revelar)};
+waitUntil {sleep 1;(not alive _veh) or ({(_x knowsAbout _veh > 1.4) and (side _x == side_blue)} count allUnits >0) or (!_enemyX) or (revealX)};
 
 if (!alive _veh) exitWith {};
 

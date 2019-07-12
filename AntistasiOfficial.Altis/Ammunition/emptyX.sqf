@@ -1,11 +1,11 @@
-private ["_trucksX","_camion","_armas","_ammunition","_items","_mochis","_containers","_todo"];
+private ["_trucksX","_truckX","_weaponsX","_ammunition","_items","_backpcks","_containers","_todo"];
 
-_camion = objNull;
+_truckX = objNull;
 
 if (count _this > 0) then
 	{
-	_camion = _this select 0;
-	if (_camion isKindOf "StaticWeapon") then {_camion = objNull};
+	_truckX = _this select 0;
+	if (_truckX isKindOf "StaticWeapon") then {_truckX = objNull};
 	}
 else
 	{
@@ -14,10 +14,10 @@ else
 	_trucksX = _trucksX select {not (_x isKindOf "StaticWeapon")};
 	_trucksX = _trucksX - [caja];
 	_trucksX = _trucksX - [vehicleBox]; //To enable jeroen's unloading script. Sparker.
-	if (count _trucksX < 1) then {_camion = vehicleBox} else {_camion = _trucksX select 0};
+	if (count _trucksX < 1) then {_truckX = vehicleBox} else {_truckX = _trucksX select 0};
 	};
 
-if (isNull _camion) exitWith {};
+if (isNull _truckX) exitWith {};
 
 
 if (server getVariable ["lockTransfer",false]) exitWith {
@@ -33,12 +33,12 @@ if (server getVariable ["lockTransfer",false]) exitWith {
 };
 
 
-_armas = weaponCargo _camion;
-_ammunition = magazineCargo _camion;
-_items = itemCargo _camion;
-_mochis = backpackCargo _camion;
+_weaponsX = weaponCargo _truckX;
+_ammunition = magazineCargo _truckX;
+_items = itemCargo _truckX;
+_backpcks = backpackCargo _truckX;
 
-_todo = _armas + _ammunition + _items + _mochis;
+_todo = _weaponsX + _ammunition + _items + _backpcks;
 
 if (count _todo < 1) exitWith
 	{
@@ -47,12 +47,12 @@ if (count _todo < 1) exitWith
 		if (count (nearestObjects [getPos fuego, ["AllVehicles"], 50]) > 0) then {
 			{[[_x,player], SA_Put_Away_Tow_Ropes] remoteExec ["call", 0];} forEach nearestObjects [getPos fuego, ["AllVehicles"], 50];
 		};
-		deleteVehicle _camion};
+		deleteVehicle _truckX};
 	};
 
 server setVariable ["lockTransfer", true, true];
 if (isMultiplayer) then {{if (_x distance caja < 20) then {[petros,"hint","Unloading ammobox..."] remoteExec ["commsMP",_x]}} forEach playableUnits} else {hint "Unloading ammobox..."};
-if (count _this == 2) then {[_camion,caja,true] remoteExec ["AS_fnc_transferGear",2]} else {[_camion,caja] remoteExec ["AS_fnc_transferGear",2]};
+if (count _this == 2) then {[_truckX,caja,true] remoteExec ["AS_fnc_transferGear",2]} else {[_truckX,caja] remoteExec ["AS_fnc_transferGear",2]};
 [] spawn {
 	sleep 5;
 	server setVariable ["lockTransfer", false, true];

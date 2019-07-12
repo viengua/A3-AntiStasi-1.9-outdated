@@ -3,7 +3,7 @@ if (!isServer and hasInterface) exitWith {};
 _tskTitle = "STR_TSK_TD_DESSuppression";
 _tskDesc  = "STR_TSK_TD_DESC_DESSuppression";
 
-private ["_poscrash", "_posbase", "_mrkfin", "_mrkTarget", "_tipoveh", "_churches", "_vehiclesX", "_soldiers", "_grupos", "_unit", "_roads", "_road", "_vehicle", "_veh", "_typeGroup", "_tsk", "_humo", "_emitterArray", "_poschurch", "_grupo", "_missionchurch", "_posmissionchurch", "_group1", "_MRAP"];
+private ["_poscrash", "_posbase", "_mrkfin", "_mrkTarget", "_typeVehX", "_churches", "_vehiclesX", "_soldiers", "_groups", "_unit", "_roads", "_road", "_vehicle", "_veh", "_typeGroup", "_tsk", "_humo", "_emitterArray", "_poschurch", "_grupo", "_missionchurch", "_posmissionchurch", "_group1", "_MRAP"];
 
 
 _markerX   = _this select 0;
@@ -69,7 +69,7 @@ while {true} do {
 
 	_vehiclesX = [];
 	_soldiers  = [];
-	_grupos	   = [];
+	_groups	   = [];
 
 	if ((server getVariable "prestigeCSAT") < 70) then
 		{
@@ -80,7 +80,7 @@ while {true} do {
 			{ [_x] spawn genInit;
 			  _soldiers = _soldiers + [_x]} forEach units _group1;
 
-			_grupos = _grupos + [_group1];
+			_groups = _groups + [_group1];
 
 
 			private _grupo = createGroup side_green;
@@ -88,11 +88,11 @@ while {true} do {
 			_MRAP = "";
 			{if (_x in standardMRAP) exitWith {_MRAP = _x};
 			} forEach enemyMotorpool;
-			if (_MRAP != "") then {_tipoVeh = selectRandom standardMRAP;
-				} else                                                        {_tipoVeh = selectRandom vehTrucks;
+			if (_MRAP != "") then {_typeVehX = selectRandom standardMRAP;
+				} else                                                        {_typeVehX = selectRandom vehTrucks;
 				};
 
-			_veh = _tipoVeh createVehicle _clearspot;
+			_veh = _typeVehX createVehicle _clearspot;
 			_veh setDir random 360;
 			[_veh] spawn genVEHinit;
 
@@ -102,7 +102,7 @@ while {true} do {
 			_unit moveInCommander _veh;
 			_unit = ( [_posmissionchurch, 0, sol_RFL, _grupo] call bis_fnc_spawnvehicle)select 0;
 			_unit moveInDriver _veh;
-			_grupos = _grupos + [_grupo];
+			_groups = _groups + [_grupo];
 
 			{ [_x] spawn genInit;
 			  _soldiers = _soldiers + [_x]} forEach units _grupo;
@@ -115,7 +115,7 @@ while {true} do {
 			{ [_x] spawn CSATinit;
 			  _x allowFleeing 0} forEach units _group1;
 
-			_grupos = _grupos + [_group1];
+			_groups = _groups + [_group1];
 
 
 			private _grupo = createGroup side_red;
@@ -134,7 +134,7 @@ while {true} do {
 			_unit moveInDriver _veh;
 				_wp0 = _grupo addWaypoint [_clearspot, 50];
 				_wp0 setWaypointType "HOLD";
-			_grupos = _grupos + [_grupo];
+			_groups = _groups + [_grupo];
 
 			{ [_x] spawn CSATinit;
 			  _soldiers = _soldiers + [_x]} forEach units _grupo;
@@ -171,4 +171,4 @@ while {true} do {
 
 			[1200, _tsk] spawn deleteTaskX;
 			deleteMarker _mrkfin;
-			[_grupos, _soldiers, _vehiclesX] spawn AS_fnc_despawnUnits;
+			[_groups, _soldiers, _vehiclesX] spawn AS_fnc_despawnUnits;

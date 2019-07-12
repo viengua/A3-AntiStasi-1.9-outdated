@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith {};
 
-private ["_tipo","_posbase","_potentials","_sitios","_exists","_sitio","_pos","_ciudad"];
+private ["_tipo","_posbase","_potentials","_sitios","_exists","_sitio","_pos","_cityX"];
 
 _tipo = _this select 0;
 

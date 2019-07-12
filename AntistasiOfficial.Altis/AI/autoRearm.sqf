@@ -1,4 +1,4 @@
-private ["_unit","_Pweapon","_Sweapon","_cuenta","_magazines","_hasBox","_distancia","_objectsX","_target","_muerto","_check","_timeOut","_arma","_armas","_rearming","_basePossible","_hmd","_casco"];
+private ["_unit","_Pweapon","_Sweapon","_countX","_magazines","_hasBox","_distancia","_objectsX","_target","_muerto","_check","_timeOut","_arma","_weaponsX","_rearming","_basePossible","_hmd","_casco"];
 
 _unit = _this select 0;
 
@@ -17,7 +17,7 @@ _Sweapon = secondaryWeapon _unit;
 _objectsX = [];
 _hasBox = false;
 _arma = "";
-_armas = [];
+_weaponsX = [];
 _distancia = 51;
 _objectsX = nearestObjects [_unit, ["ReammoBox_F","LandVehicle","WeaponHolderSimulated", "GroundWeaponHolder", "WeaponHolder"], 50];
 if (caja in _objectsX) then {_objectsX = _objectsX - [caja]};
@@ -50,10 +50,10 @@ if (_Pweapon != "") then
 				_busy = _objeto getVariable "busy";
 				if ((count weaponCargo _objeto > 0) and (isNil "_busy")) then
 					{
-					_armas = weaponCargo _objeto;
-					for "_i" from 0 to (count _armas - 1) do
+					_weaponsX = weaponCargo _objeto;
+					for "_i" from 0 to (count _weaponsX - 1) do
 						{
-						_potential = _armas select _i;
+						_potential = _weaponsX select _i;
 						_basePossible = [_potential] call BIS_fnc_baseWeapon;
 						if (!(_potential in baseRifles) and ((_basePossible in gear_assaultRifles) or (_basePossible in gear_sniperRifles) or (_basePossible in gear_machineGuns))) then
 							{
@@ -102,10 +102,10 @@ if (_Pweapon != "") then
 		sleep 3;
 		};
 	_hasBox = false;
-	_cuenta = 4;
-	if (_Pweapon in gear_machineGuns) then {_cuenta = 2};
+	_countX = 4;
+	if (_Pweapon in gear_machineGuns) then {_countX = 2};
 	_magazines = getArray (configFile / "CfgWeapons" / _Pweapon / "magazines");
-	if ({_x in _magazines} count (magazines _unit) < _cuenta) then
+	if ({_x in _magazines} count (magazines _unit) < _countX) then
 		{
 		_necesita = true;
 		_hasBox = false;
@@ -147,7 +147,7 @@ if (_Pweapon != "") then
 		if (_unit distance _target < 3) then
 			{
 			_unit action ["rearm",_target];
-			if ({_x in _magazines} count (magazines _unit) >= _cuenta) then
+			if ({_x in _magazines} count (magazines _unit) >= _countX) then
 				{
 				_unit groupChat "Rearmed";
 				}
@@ -180,10 +180,10 @@ if ((_Sweapon == "") and (loadAbs _unit < 340)) then
 			_busy = _objeto getVariable "busy";
 			if ((count weaponCargo _objeto > 0) and (isNil "_busy")) then
 				{
-				_armas = weaponCargo _objeto;
-				for "_i" from 0 to (count _armas - 1) do
+				_weaponsX = weaponCargo _objeto;
+				for "_i" from 0 to (count _weaponsX - 1) do
 					{
-					_potential = _armas select _i;
+					_potential = _weaponsX select _i;
 					if ((_potential in gear_missileLaunchers) or (_potential in gear_rocketLaunchers)) then
 						{
 						_target = _objeto;

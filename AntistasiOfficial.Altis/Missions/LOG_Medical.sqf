@@ -3,7 +3,7 @@ if (!isServer and hasInterface) exitWith {};
 _tskTitle = "STR_TSK_TD_logMedical";
 _tskDesc = "STR_TSK_TD_DESC_logMedical";
 
-private ["_poscrash","_posbase","_mrkfin","_mrkTarget","_tipoveh","_heli","_vehiclesX","_soldiers","_grupos","_unit","_roads","_road","_vehicle","_veh","_typeGroup","_tsk","_humo","_emitterArray"];
+private ["_poscrash","_posbase","_mrkfin","_mrkTarget","_typeVehX","_heli","_vehiclesX","_soldiers","_groups","_unit","_roads","_road","_vehicle","_veh","_typeGroup","_tsk","_humo","_emitterArray"];
 
 /*
 _positionX -> location of the destination, town
@@ -47,10 +47,10 @@ while {true} do {
 	if ((!surfaceIsWater _poscrash) && (_poscrash distance _posHQ < 4000) && (getMarkerPos _nfMarker distance _poscrash > 500) && (getMarkerPos _nhMarker distance _poscrash > 800)) exitWith {};
 };
 
-_tipoVeh = AS_misSupplyBoxEmpty;
+_typeVehX = AS_misSupplyBoxEmpty;
 
 _posCrashMrk = [_poscrash,random 200,random 360] call BIS_fnc_relPos;
-_posCrash = _posCrash findEmptyPosition [0,100,_tipoVeh];
+_posCrash = _posCrash findEmptyPosition [0,100,_typeVehX];
 _mrkfin = createMarker [format ["REC%1", random 100], _posCrashMrk];
 _mrkfin setMarkerShape "ICON";
 
@@ -60,9 +60,9 @@ missionsX pushBack _tsk; publicVariable "missionsX";
 
 _vehiclesX = [];
 _soldiers = [];
-_grupos = [];
+_groups = [];
 
-_sboxempty = createVehicle [_tipoVeh, _poscrash, [], 0, "CAN_COLLIDE"];
+_sboxempty = createVehicle [_typeVehX, _poscrash, [], 0, "CAN_COLLIDE"];
 [_sboxempty,"Supply Crate"] spawn inmuneConvoy; //necessary for marker icon
 
 // number of crate offsets = number of spawned crates
@@ -97,7 +97,7 @@ _crates = [];
 
 _typeGroup = [infGarrisonSmall, side_green] call AS_fnc_pickGroup;
 _grupo = [_poscrash, side_green, _typeGroup] call BIS_Fnc_spawnGroup;
-_grupos = _grupos + [_grupo];
+_groups = _groups + [_grupo];
 
 {[_x] spawn genInit; _soldiers = _soldiers + [_x]} forEach units _grupo;
 
@@ -123,7 +123,7 @@ _vehCrew = _vehicle select 1;
 {[_x] spawn genInit} forEach _vehCrew;
 _groupVeh = _vehicle select 2;
 _soldiers = _soldiers + _vehCrew;
-_grupos = _grupos + [_groupVeh];
+_groups = _groups + [_groupVeh];
 _vehiclesX = _vehiclesX + [_veh];
 
 sleep 1;
@@ -132,7 +132,7 @@ _typeGroup = [infSquad, side_green] call AS_fnc_pickGroup;
 _grupo = [_posbase, side_green, _typeGroup] call BIS_Fnc_spawnGroup;
 
 {_x assignAsCargo _veh; _x moveInCargo _veh; _soldiers = _soldiers + [_x]; [_x] spawn genInit} forEach units _grupo;
-_grupos = _grupos + [_grupo];
+_groups = _groups + [_grupo];
 
 //[_veh] spawn smokeCover;
 
@@ -155,7 +155,7 @@ if (dateToNumber date > _dateLimitNum) then {
 } else {
 	_tsk = ["LOG",[side_blue,civilian],[["Secure the vehicle, load the cargo, and deliver the supplies to the people in %1 before %2:%3. AAF command has probably dispatched a patrol from %4 to retrieve the goods, so you better hurry. Note: no cargo left behind!",_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, _nameOrigin, A3_Str_INDEP],_tskTitle,_mrkfin],_poscrash,"AUTOASSIGNED",5,true,true,"Heal"] call BIS_fnc_setTask;
 
-	_cuenta = 120;
+	_countX = 120;
 	_counter = 0;
 
 	_active = false;
@@ -173,10 +173,10 @@ if (dateToNumber date > _dateLimitNum) then {
 	} forEach ([300,0,position _sboxempty,"BLUFORSpawn"] call distanceUnits);
 
 
-	while {(_counter < _cuenta) and (dateToNumber date < _dateLimitNum)} do {
+	while {(_counter < _countX) and (dateToNumber date < _dateLimitNum)} do {
 
 		while {
-			(_counter < _cuenta) and
+			(_counter < _countX) and
 			(_sboxempty distance _posCrash < 40) and
 			!({[_x] call AS_fnc_isUnconscious} count
 			  	([80,0,position _sboxempty,"BLUFORSpawn"] call distanceUnits)
@@ -187,7 +187,7 @@ if (dateToNumber date > _dateLimitNum) then {
 					(dateToNumber date < _dateLimitNum)}
 		do {
 			if !(_active) then {
-				{if (isPlayer _x) then {[(_cuenta - _counter),false] remoteExec ["pBarMP",_x]}} forEach ([80,0,position _sboxempty,"BLUFORSpawn"] call distanceUnits);
+				{if (isPlayer _x) then {[(_countX - _counter),false] remoteExec ["pBarMP",_x]}} forEach ([80,0,position _sboxempty,"BLUFORSpawn"] call distanceUnits);
 				_active = true;
 				[[petros,"globalChat","Keep area clear while repacking"],"commsMP"] call BIS_fnc_MP;
 			};
@@ -195,7 +195,7 @@ if (dateToNumber date > _dateLimitNum) then {
   			sleep 1;
 		};
 
-		if (_counter < _cuenta) then {
+		if (_counter < _countX) then {
 			_counter = 0;
 			_active = false;
 			{if (isPlayer _x) then {[0,true] remoteExec ["pBarMP",_x]}} forEach ([100,0,position _sboxempty,"BLUFORSpawn"] call distanceUnits);
@@ -210,7 +210,7 @@ if (dateToNumber date > _dateLimitNum) then {
 					({(side _x == side_green) and (_x distance _sboxempty < 50) and (lifeState _x != "INCAPACITATED")} count allUnits == 0)) or
 					(dateToNumber date > _dateLimitNum)};
 		};
-		if !(_counter < _cuenta) exitWith {
+		if !(_counter < _countX) exitWith {
 			_formatX = format ["Good to go. Deliver these supplies to %1.",_nameDest];
 			{if (isPlayer _x) then {[petros,"hint",_formatX] remoteExec ["commsMP",_x]}} forEach ([80,0,position _sboxempty,"BLUFORSpawn"] call distanceUnits);
 		};
@@ -247,11 +247,11 @@ deleteVehicle _sboxempty;
 
 	if (dateToNumber date < _dateLimitNum) then {
 		_counter = 0;
-		_cuenta = 10;
-		while {(_counter < _cuenta) and (isNull attachedTo _sbox) and !({[_x] call AS_fnc_isUnconscious} count ([80,0,_sbox,"BLUFORSpawn"] call distanceUnits) == count ([80,0,_sbox,"BLUFORSpawn"] call distanceUnits)) and (dateToNumber date < _dateLimitNum)} do {
+		_countX = 10;
+		while {(_counter < _countX) and (isNull attachedTo _sbox) and !({[_x] call AS_fnc_isUnconscious} count ([80,0,_sbox,"BLUFORSpawn"] call distanceUnits) == count ([80,0,_sbox,"BLUFORSpawn"] call distanceUnits)) and (dateToNumber date < _dateLimitNum)} do {
 
 			if !(_active) then {
-				{if (isPlayer _x) then {[(_cuenta - _counter),false] remoteExec ["pBarMP",_x]}} forEach ([80,0,_sbox,"BLUFORSpawn"] call distanceUnits);
+				{if (isPlayer _x) then {[(_countX - _counter),false] remoteExec ["pBarMP",_x]}} forEach ([80,0,_sbox,"BLUFORSpawn"] call distanceUnits);
 				_active = true;
 				[[petros,"globalChat","Leave the vehicle here, they'll come pick it up."],"commsMP"] call BIS_fnc_MP;
 			};
@@ -312,4 +312,4 @@ deleteMarker _mrkfin;
 {waitUntil {sleep 1;(!([distanceSPWN,1,_x,"BLUFORSpawn"] call distanceUnits))};
 deleteVehicle _x} forEach _vehiclesX;
 {deleteVehicle _x} forEach _soldiers;
-{deleteGroup _x} forEach _grupos;
+{deleteGroup _x} forEach _groups;

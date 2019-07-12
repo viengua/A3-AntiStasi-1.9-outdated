@@ -24,7 +24,7 @@ destroyedCities = [];
 posAntennas = [];
 antennas = [];
 mrkAntennas = [];
-bancos = [];
+banks = [];
 posBank = [];
 supplySaveArray = [];
 safeDistance_undercover = 350;
@@ -304,7 +304,7 @@ if (count posBank > 0) then {
 		_bankArray = nearestObjects [posBank select _i,["Land_Offices_01_V1_F"], 25];
 		if (count _bankArray > 0) then {
 			_bank = _bankArray select 0;
-			bancos = bancos + [_bank];
+			banks = banks + [_bank];
 		};
 	};
 };

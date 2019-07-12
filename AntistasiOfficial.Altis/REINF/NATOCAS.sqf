@@ -18,13 +18,13 @@ if (_origen!= "spawnNATO") then {_nameOrigin = [_origen] call AS_fnc_localizar};
 _tsk = ["NATOCAS",[side_blue,civilian],[["%4 is providing Air support from %1. They will be under our command until %2:%3.",_nameOrigin,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_BLUE],["%1 CAS", A3_Str_BLUE],_origen],_orig,"CREATED",5,true,true,"Attack"] call BIS_fnc_setTask;
 missionsX pushBack _tsk; publicVariable "missionsX";
 
-_tipoVeh = bluHeliArmed;
+_typeVehX = bluHeliArmed;
 
 if (_prestigio > 70) then{
-	_tipoVeh = bluHeliGunship; //17/10 Stef - Removed fixed wings, too difficult to assing where to fly.
+	_typeVehX = bluHeliGunship; //17/10 Stef - Removed fixed wings, too difficult to assing where to fly.
 }else{
 	if (_prestigio > 30) then{
-		_tipoVeh = bluHeliGunship;
+		_typeVehX = bluHeliGunship;
 	};
 };
 
@@ -37,7 +37,7 @@ _groupHeli setGroupId ["CAS"];
 hint format ["%1 CAS will be available on HC module in 35 seconds.", A3_Str_BLUE];
 
 for "_i" from 1 to 3 do{
-	_helifn = [_orig, 0, selectRandom _tipoVeh, side_blue] call bis_fnc_spawnvehicle;
+	_helifn = [_orig, 0, selectRandom _typeVehX, side_blue] call bis_fnc_spawnvehicle;
 	_heli = _helifn select 0;
 	_heli setVariable ["BLUFORSpawn",false];
 	_vehiclesX pushBack _heli;

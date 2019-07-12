@@ -1,7 +1,7 @@
 // Shift+ctrl+Y when mortar and NATO arty are selected.
 if (count hcSelected player != 1) exitWith {hint "You must select an artillery group"};
 
-private ["_grupo","_artyArray","_artyRoundsArr","_hasBox","_areReady","_hasArty","_areAlive","_soldado","_veh","_typeAmmunition","_typeArty","_positionTel","_artyArrayDef1","_artyRoundsArr1","_pieza","_isInRange","_positionTel2","_rounds","_roundsMax","_markerX","_size","_forcedX","_texto","_mrkfin","_mrkfin2","_tiempo","_eta","_cuenta","_pos","_ang"];
+private ["_grupo","_artyArray","_artyRoundsArr","_hasBox","_areReady","_hasArty","_areAlive","_soldierX","_veh","_typeAmmunition","_typeArty","_positionTel","_artyArrayDef1","_artyRoundsArr1","_piece","_isInRange","_positionTel2","_rounds","_roundsMax","_markerX","_size","_forcedX","_texto","_mrkfin","_mrkfin2","_tiempo","_eta","_countX","_pos","_ang"];
 
 _grupo = hcSelected player select 0;
 
@@ -13,9 +13,9 @@ _areReady = false;
 _hasArty = false;
 _areAlive = false;
 {
-_soldado = _x;
-_veh = vehicle _soldado;
-if ((_veh != _soldado) and (not(_veh in _artyArray))) then
+_soldierX = _x;
+_veh = vehicle _soldierX;
+if ((_veh != _soldierX) and (not(_veh in _artyArray))) then
 	{
 	if (( "Artillery" in (getArray (configfile >> "CfgVehicles" >> typeOf _veh >> "availableForSupportTypes")))) then
 		{
@@ -126,11 +126,11 @@ _artyRoundsArr1 = [];
 
 for "_i" from 0 to (count _artyArray) - 1 do
 	{
-	_pieza = _artyArray select _i;
-	_isInRange = _positionTel inRangeOfArtillery [[_pieza], ((getArtilleryAmmo [_pieza]) select 0)];
+	_piece = _artyArray select _i;
+	_isInRange = _positionTel inRangeOfArtillery [[_piece], ((getArtilleryAmmo [_piece]) select 0)];
 	if (_isInRange) then
 		{
-		_artyArrayDef1 pushBack _pieza;
+		_artyArrayDef1 pushBack _piece;
 		_artyRoundsArr1 pushBack (_artyRoundsArr select _i);
 		};
 	};
@@ -229,30 +229,30 @@ _pos = [_positionTel,random 10,random 360] call BIS_fnc_relPos;
 
 for "_i" from 0 to (count _artyArrayDef1) - 1 do {
 	if (_rounds > 0) then {
-		_pieza = _artyArrayDef1 select _i;
-		_cuenta = _artyRoundsArr1 select _i;
-		//hint format ["Rondas que faltan: %1, rondas que tiene %2",_rounds,_cuenta];
-		if (_cuenta >= _rounds) then {
+		_piece = _artyArrayDef1 select _i;
+		_countX = _artyRoundsArr1 select _i;
+		//hint format ["Rondas que faltan: %1, rondas que tiene %2",_rounds,_countX];
+		if (_countX >= _rounds) then {
 			if (_typeArty != "BARRAGE") then {
 				if ((typeOf _veh in bluStatMortar) || (typeOf _veh in statics_allMortars) || (typeOf _veh in bluArty)) then {
 					if (replaceFIA && (typeOf _veh in bluArty)) then {
 						sleep 23;
 						for "_r" from 1 to _rounds do {
-							_pieza commandArtilleryFire [_pos,_typeAmmunition,1];
+							_piece commandArtilleryFire [_pos,_typeAmmunition,1];
 							sleep 7;
 						};
 					} else {
 						for "_r" from 1 to _rounds do {
-							_pieza commandArtilleryFire [_pos,_typeAmmunition,1];
+							_piece commandArtilleryFire [_pos,_typeAmmunition,1];
 							sleep 2;
 						};
 					};
 				} else {
-					_pieza commandArtilleryFire [_pos,_typeAmmunition,_rounds];
+					_piece commandArtilleryFire [_pos,_typeAmmunition,_rounds];
 				};
 			} else {
 				for "_r" from 1 to _rounds do {
-					_pieza commandArtilleryFire [_pos,_typeAmmunition,1];
+					_piece commandArtilleryFire [_pos,_typeAmmunition,1];
 					sleep 2;
 					_pos = [_pos,10,_ang + 5 - (random 10)] call BIS_fnc_relPos;
 					};
@@ -261,21 +261,21 @@ for "_i" from 0 to (count _artyArrayDef1) - 1 do {
 		} else {
 			if (_typeArty != "BARRAGE") then {
 				if ((typeOf _veh in bluStatMortar) || (typeOf _veh in statics_allMortars) || (typeOf _veh in bluArty)) then {
-					for "_r" from 1 to _cuenta do {
-						_pieza commandArtilleryFire [_pos,_typeAmmunition,1];
+					for "_r" from 1 to _countX do {
+						_piece commandArtilleryFire [_pos,_typeAmmunition,1];
 						sleep 2;
 					};
 				} else {
-					_pieza commandArtilleryFire [_pos,_typeAmmunition,_cuenta];
+					_piece commandArtilleryFire [_pos,_typeAmmunition,_countX];
 				};
 			} else {
-				for "_r" from 1 to _cuenta do {
-					_pieza commandArtilleryFire [_pos,_typeAmmunition,1];
+				for "_r" from 1 to _countX do {
+					_piece commandArtilleryFire [_pos,_typeAmmunition,1];
 					sleep 2;
 					_pos = [_pos,10,_ang + 5 - (random 10)] call BIS_fnc_relPos;
 				};
 			};
-		_rounds = _rounds - _cuenta;
+		_rounds = _rounds - _countX;
 		};
 	};
 };

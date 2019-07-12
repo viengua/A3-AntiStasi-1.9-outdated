@@ -2,9 +2,9 @@
 if (player != Slowhand) exitWith {hint "Only Commander has the ability to control HC units"};
 if ({((side _x == side_green) or (side _x == side_red)) and (not (captive _x)) and (_x distance player < 500)} count allUnits > 0) exitWith {hint "You cannot remote control with enemies nearby"};
 
-_grupos = _this select 0;
+_groups = _this select 0;
 
-_grupo = _grupos select 0;
+_grupo = _groups select 0;
 _unit = leader _grupo;
 
 if ([_unit] call AS_fnc_isUnconscious) exitWith {hint "You cannot control an unconscious unit"};

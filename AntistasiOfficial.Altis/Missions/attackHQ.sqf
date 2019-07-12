@@ -7,7 +7,7 @@ _positionX = getMarkerPos guer_respawn;
 
 _pilotos = [];
 _vehiclesX = [];
-_grupos = [];
+_groups = [];
 _soldiers = [];
 
 if (server getVariable "blockCSAT") exitWith {};
@@ -23,7 +23,7 @@ _heli = _vehicle select 0;
 _heliCrew = _vehicle select 1;
 _groupHeli = _vehicle select 2;
 _pilotos = _pilotos + _heliCrew;
-_grupos = _grupos + [_groupHeli];
+_groups = _groups + [_groupHeli];
 _vehiclesX = _vehiclesX + [_heli];
 [_heli] spawn CSATVEHinit;
 {[_x] spawn CSATinit} forEach _heliCrew;
@@ -40,14 +40,14 @@ for "_i" from 0 to (round random 2) do
 	_heliCrew = _vehicle select 1;
 	_groupHeli = _vehicle select 2;
 	_pilotos = _pilotos + _heliCrew;
-	_grupos = _grupos + [_groupHeli];
+	_groups = _groups + [_groupHeli];
 	_vehiclesX = _vehiclesX + [_heli];
 
 	{_x setBehaviour "CARELESS";} forEach units _groupHeli;
 	_typeGroup = [opGroup_SpecOps, side_red] call AS_fnc_pickGroup;
 	_grupo = [_pos, side_red, _typeGroup] call BIS_Fnc_spawnGroup;
 	{_x assignAsCargo _heli; _x moveInCargo _heli; _soldiers = _soldiers + [_x]; [_x] spawn CSATinit} forEach units _grupo;
-	_grupos = _grupos + [_grupo];
+	_groups = _groups + [_grupo];
 	[_heli,"CSAT Air Transport"] spawn inmuneConvoy;
 	[_heli,_grupo,_positionX,_pos,_groupHeli] spawn fastropeCSAT;
 	sleep 10;
@@ -83,4 +83,4 @@ deleteVehicle _x;
 {
 if (!([distanceSPWN,1,_x,"BLUFORSpawn"] call distanceUnits)) then {deleteVehicle _x};
 } forEach _vehiclesX;
-{deleteGroup _x} forEach _grupos;
+{deleteGroup _x} forEach _groups;

@@ -85,32 +85,32 @@ _endTime = [date select 0, date select 1, date select 2, date select 3, (date se
 _endTime = dateToNumber _endTime;
 
 // arrays of all spawned units/groups
-_grupos = [];
+_groups = [];
 _soldiers = [];
 _vehiclesX = [];
 
 // initialise groups, two for vehicles, three for dismounts
 _grpVeh1 = createGroup _side;
-_grupos pushBack _grpVeh1;
+_groups pushBack _grpVeh1;
 
 _grpVeh2 = createGroup _side;
-_grupos pushBack _grpVeh2;
+_groups pushBack _grpVeh2;
 
 _grpDis1 = createGroup _side;
-_grupos pushBack _grpDis1;
+_groups pushBack _grpDis1;
 
 _grpDis2 = createGroup _side;
-_grupos pushBack _grpDis2;
+_groups pushBack _grpDis2;
 
 _grpDisEsc = createGroup _side;
-_grupos pushBack _grpDisEsc;
+_groups pushBack _grpDisEsc;
 
 private _dir = [_orig, _dest] call BIS_fnc_dirTo;
 
 // initialisation of vehicles
 _initVehs = {
 	params ["_specs"];
-	_specs = _specs + [_dir, _side, _vehiclesX, _grupos, _soldiers, true];
+	_specs = _specs + [_dir, _side, _vehiclesX, _groups, _soldiers, true];
 	_specs call AS_fnc_initialiseVehicle;
 };
 
@@ -122,7 +122,7 @@ if (_type == "air") then {
 
 		private _vehData = [[_orig, _lead]] call _initVehs;
 		_vehiclesX = _vehData select 0;
-		_grupos = _vehData select 1;
+		_groups = _vehData select 1;
 		_soldiers = _vehData select 2;
 
 		_heli1 = (_vehData select 3) select 0;
@@ -161,7 +161,7 @@ if (_type == "air") then {
 		// troop transport chopper
 		private _vehData = [[_pos2, _transport]] call _initVehs;
 		_vehiclesX = _vehData select 0;
-		_grupos = _vehData select 1;
+		_groups = _vehData select 1;
 		_soldiers = _vehData select 2;
 
 		_heli2 = (_vehData select 3) select 0;
@@ -220,7 +220,7 @@ else {
 		// first MRAP, escort
 		private _vehData = [[_posRoad, _lead]] call _initVehs;
 		_vehiclesX = _vehData select 0;
-		_grupos = _vehData select 1;
+		_groups = _vehData select 1;
 		_soldiers = _vehData select 2;
 
 		_veh1 = (_vehData select 3) select 0;
@@ -258,7 +258,7 @@ else {
 		// second vehicle
 		private _vehData = [[_posRoad, _transport]] call _initVehs;
 		_vehiclesX = _vehData select 0;
-		_grupos = _vehData select 1;
+		_groups = _vehData select 1;
 		_soldiers = _vehData select 2;
 
 		_veh2 = (_vehData select 3) select 0;
@@ -301,12 +301,12 @@ if !(_varName isEqualTo "") then {
 
 // remove the remains
 {
-	_soldado = _x;
-	waitUntil {sleep 1; {_x distance _soldado < distanceSPWN} count (allPlayers - (entities "HeadlessClient_F")) == 0};
-	deleteVehicle _soldado;
+	_soldierX = _x;
+	waitUntil {sleep 1; {_x distance _soldierX < distanceSPWN} count (allPlayers - (entities "HeadlessClient_F")) == 0};
+	deleteVehicle _soldierX;
 } forEach _soldiers;
 
-{deleteGroup _x} forEach _grupos;
+{deleteGroup _x} forEach _groups;
 
 {
 	_vehiculo = _x;
@@ -314,4 +314,4 @@ if !(_varName isEqualTo "") then {
 	deleteVehicle _x
 } forEach _vehiclesX;
 
-_data = [_soldiers, _grupos, _vehiclesX] //Added this because it's required in INT_Reinforcements.sqf
+_data = [_soldiers, _groups, _vehiclesX] //Added this because it's required in INT_Reinforcements.sqf

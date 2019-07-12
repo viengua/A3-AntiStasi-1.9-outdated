@@ -22,7 +22,7 @@ _nameOrigin = [_origen] call AS_fnc_localizar;
 
 _texto = "STR_GL_NATORB";
 _typeGroup = [bluATTeam, side_blue] call AS_fnc_pickGroup;
-_tipoVeh = bluAPC select 0;
+_typeVehX = bluAPC select 0;
 
 
 _mrk = createMarker [format ["NATOPost%1", random 1000], _positionTel];
@@ -43,12 +43,12 @@ while {true} do
 	};
 _road = _roads select 0;
 _pos = position _road findEmptyPosition [1,30,"B_APC_Wheeled_01_cannon_F"];
-_camion = _tipoVeh createVehicle _pos;
-_grupo addVehicle _camion;
+_truckX = _typeVehX createVehicle _pos;
+_grupo addVehicle _truckX;
 
 {
-	_x assignAsCargo _camion;
-	_x moveInCargo _camion;
+	_x assignAsCargo _truckX;
+	_x moveInCargo _truckX;
 } forEach units _grupo;
 
 {[_x] call NATOinitCA} forEach units _grupo;
@@ -73,7 +73,7 @@ if ({(alive _x) and (_x distance _positionTel < 10)} count units _grupo > 0) the
 
 	Slowhand hcRemoveGroup _grupo;
 	{deleteVehicle _x} forEach units _grupo;
-	deleteVehicle _camion;
+	deleteVehicle _truckX;
 	deleteGroup _grupo;
 	sleep 1;
 
@@ -102,7 +102,7 @@ else {
 
 	Slowhand hcRemoveGroup _grupo;
 	{deleteVehicle _x} forEach units _grupo;
-	deleteVehicle _camion;
+	deleteVehicle _truckX;
 	deleteGroup _grupo;
 
 	sleep 15;

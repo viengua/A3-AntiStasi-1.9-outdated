@@ -3,7 +3,7 @@ if (!isServer and hasInterface) exitWith {};
 _tskTitle = "STR_TSK_TD_DESfuel";
 _tskDesc  = "STR_TSK_TD_DESC_DESfuel";
 
-private ["_posbase", "_mrkfin", "_mrkTarget", "_tipoveh", "_range", "_vehiclesX", "_soldiers", "_grupos", "_returntime", "_roads", "_road", "_vehicle", "_veh", "_TypeOfGroup", "_tsk", "_humo", "_emitterArray", "_poschurch", "_grupo", "_fuelstop", "_posfuelstop", "_fuelstops"];
+private ["_posbase", "_mrkfin", "_mrkTarget", "_typeVehX", "_range", "_vehiclesX", "_soldiers", "_groups", "_returntime", "_roads", "_road", "_vehicle", "_veh", "_TypeOfGroup", "_tsk", "_humo", "_emitterArray", "_poschurch", "_grupo", "_fuelstop", "_posfuelstop", "_fuelstops"];
 
 
 _InitialMarker = _this select 0;
@@ -73,7 +73,7 @@ _base	  = "";
 
 	_vehiclesX = [];
 	_soldiers  = [];
-	_grupos	   = [];
+	_groups	   = [];
 
 
 	[_mrkfuelstop] remoteExec ["patrolCA",  call AS_fnc_getNextWorker];
@@ -97,7 +97,7 @@ _base	  = "";
 	_unit disableAI "AUTOCOMBAT";
 	_unit setBehaviour "CARELESS";
 	_unit allowFleeing 0;
-	_grupos = _grupos + [_grupo];
+	_groups = _groups + [_grupo];
 
 	{ [_x] spawn genInit;
 	  _soldiers = _soldiers + [_x]} forEach units _grupo;

@@ -15,11 +15,11 @@ if (_nearX in mrkAAF) exitWith {hint "You have to conquer this zone in order to 
 
 _staticX setOwner (owner _playerX);
 
-_tipoEst = typeOf _staticX;
+_typeStaticX = typeOf _staticX;
 _tipoB1 = "";
 _tipoB2 = "";
 
-switch _tipoEst do {
+switch _typeStaticX do {
 	case statMG: {
 		_tipoB1 = statMGBackpacks select 0;
 		_tipoB2 = statMGBackpacks select 1;

@@ -74,9 +74,9 @@ deleteMarker _mrkFin;
 
 [300,_tsk] spawn deleteTaskX;
 {
-_soldado = _x;
-waitUntil {sleep 1; {_x distance _soldado < distanceSPWN} count (allPlayers - (entities "HeadlessClient_F")) == 0};
-deleteVehicle _soldado;
+_soldierX = _x;
+waitUntil {sleep 1; {_x distance _soldierX < distanceSPWN} count (allPlayers - (entities "HeadlessClient_F")) == 0};
+deleteVehicle _soldierX;
 } forEach _heliCrew;
 deleteGroup _groupHeli;
 {_vehiculo = _x;

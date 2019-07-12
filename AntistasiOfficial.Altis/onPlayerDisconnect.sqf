@@ -1,4 +1,4 @@
-private ["_player","_resourcesX","_hr","_armas","_ammunition","_items","_pos"];
+private ["_player","_resourcesX","_hr","_weaponsX","_ammunition","_items","_pos"];
 
 params ["_player","_id","_uid","_name"];
 
@@ -25,17 +25,17 @@ if (_player isEqualTo Slowhand) then{
 					Needs a fix, it removes vehicles from other players when he leaves.
 					if (!isNull (assignedVehicle _unit)) then{
 						_veh = assignedVehicle _unit;
-						_tipoVeh = typeOf _veh;
+						_typeVehX = typeOf _veh;
 						if ((_veh isKindOf "StaticWeapon") and (not(_veh in staticsToSave))) then{
-							_resourcesX = _resourcesX + ([_tipoVeh] call vehiclePrice) + ([typeOf (vehicle leader _unit)] call vehiclePrice);
+							_resourcesX = _resourcesX + ([_typeVehX] call vehiclePrice) + ([typeOf (vehicle leader _unit)] call vehiclePrice);
 						}else{
-							if (_tipoVeh in guer_vehicleArray) then {_resourcesX = _resourcesX + ([_tipoVeh] call vehiclePrice);};
-							if (_tipoVeh in (vehTrucks + vehPatrol + vehSupply)) then {_resourcesX = _resourcesX + 300};
-							if (_tipoVeh in enemyMotorpool) then {
+							if (_typeVehX in guer_vehicleArray) then {_resourcesX = _resourcesX + ([_typeVehX] call vehiclePrice);};
+							if (_typeVehX in (vehTrucks + vehPatrol + vehSupply)) then {_resourcesX = _resourcesX + 300};
+							if (_typeVehX in enemyMotorpool) then {
 								call {
-									if (_tipoVeh in vehAPC) exitWith {_resourcesX = _resourcesX + 1000};
-									if (_tipoVeh in vehIFV) exitWith {_resourcesX = _resourcesX + 2000};
-									if (_tipoVeh in vehTank) exitWith {_resourcesX = _resourcesX + 5000};
+									if (_typeVehX in vehAPC) exitWith {_resourcesX = _resourcesX + 1000};
+									if (_typeVehX in vehIFV) exitWith {_resourcesX = _resourcesX + 2000};
+									if (_typeVehX in vehTank) exitWith {_resourcesX = _resourcesX + 5000};
 								};
 							};
 							if (count attachedObjects _veh > 0) then

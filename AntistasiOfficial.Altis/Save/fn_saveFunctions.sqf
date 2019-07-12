@@ -106,7 +106,7 @@ fn_setPlayerData = {
                 ] remoteExec ["call", _player];
             };
 		};
-		if(_varName isEqualTo 'funds') exitWith {_player setVariable ["dinero",_varValue,true];};
+		if(_varName isEqualTo 'funds') exitWith {_player setVariable ["moneyX",_varValue,true];};
 		if(_varName isEqualTo 'score') exitWith {_player setVariable ["score",_varValue,true];};
 		if(_varName isEqualTo 'rank') exitWith {
 			_player setUnitRank _varValue;
@@ -420,43 +420,43 @@ fn_setData = {
 
 			if(_varname == 'supportOPFOR') exitWith {
 				for "_i" from 0 to (count citiesX) - 1 do {
-					_ciudad = citiesX select _i;
-					_datos = server getVariable _ciudad;
+					_cityX = citiesX select _i;
+					_datos = server getVariable _cityX;
 					_numCiv = _datos select 0;
 					_numVeh = _datos select 1;
 					_prestigeOPFOR = _varValue select _i;
 					_prestigeBLUFOR = _datos select 3;
 					_supplyLevels = ["LOW", "LOW", "LOW"];
 					_datos = [_numCiv,_numVeh,_prestigeOPFOR,_prestigeBLUFOR, _supplyLevels];
-					server setVariable [_ciudad,_datos,true];
+					server setVariable [_cityX,_datos,true];
 				};
 			};
 			if(_varname == 'supportBLUFOR') exitWith {
 				for "_i" from 0 to (count citiesX) - 1 do {
-					_ciudad = citiesX select _i;
-					_datos = server getVariable _ciudad;
+					_cityX = citiesX select _i;
+					_datos = server getVariable _cityX;
 					_numCiv = _datos select 0;
 					_numVeh = _datos select 1;
 					_prestigeOPFOR = _datos select 2;
 					_prestigeBLUFOR = _varValue select _i;
 					_supplyLevels = _datos select 4;
 					_datos = [_numCiv,_numVeh,_prestigeOPFOR,_prestigeBLUFOR, _supplyLevels];
-					server setVariable [_ciudad,_datos,true];
+					server setVariable [_cityX,_datos,true];
 				};
 			};
 
 			if(_varName == 'supplyLevels') exitWith
 			{
 				for "_i" from 0 to (count citiesX) - 1 do {
-					_ciudad = citiesX select _i;
-					_datos = server getVariable _ciudad;
+					_cityX = citiesX select _i;
+					_datos = server getVariable _cityX;
 					_numCiv = _datos select 0;
 					_numVeh = _datos select 1;
 					_prestigeOPFOR = _datos select 2;
 					_prestigeBLUFOR = _datos select 3;
 					_supplyLevels = _varValue select _i;
 					_datos = [_numCiv,_numVeh,_prestigeOPFOR,_prestigeBLUFOR, _supplyLevels];
-					server setVariable [_ciudad,_datos,true];
+					server setVariable [_cityX,_datos,true];
 				};
 			};
 
@@ -534,16 +534,16 @@ fn_setData = {
 
 			if(_varname == 'vehicles') exitWith {
 				for "_i" from 0 to (count _varValue) - 1 do {
-					_tipoVeh = _varValue select _i select 0;
+					_typeVehX = _varValue select _i select 0;
 					_posVeh = _varValue select _i select 1;
 					_dirVeh = _varValue select _i select 2;
 
-					_veh = _tipoVeh createVehicle [0,0,0];
+					_veh = _typeVehX createVehicle [0,0,0];
 					_veh setDir _dirVeh;
 					_veh setPosATL _posVeh;
 					_veh setCenterOfMass [(getCenterOfMass _veh) vectorAdd [0, 0, -1], 0];
 
-					if (_tipoVeh in (statics_allMGs + statics_allATs + statics_allAAs + statics_allMortars)) then {
+					if (_typeVehX in (statics_allMGs + statics_allATs + statics_allAAs + statics_allMortars)) then {
 						staticsToSave pushBack _veh;
 					};
 					_veh setVariable ["HQ_vehicle", 1]; //Means that this vehicle has been added during HQ loading.

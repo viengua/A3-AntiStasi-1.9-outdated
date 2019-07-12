@@ -1,5 +1,5 @@
 //This script is triggered only when a player capture the flag. Passive winning conditions are somewhere else.
-private ["_flagX","_pos","_markerX","_positionX","_size","_powerpl","_arevelar"];
+private ["_flagX","_pos","_markerX","_positionX","_size","_powerpl","_arevealX"];
 
 _flagX = _this select 0;
 _playerX = objNull;
@@ -18,13 +18,13 @@ if ((!isNull _playerX) and (captive _playerX)) exitWith {hint localize "STR_HINT
 //Reveal enemy units to player within a range
 	if (!isNull _playerX) then {
 		if (_size > 300) then {_size = 300};
-		_arevelar = [];
-		{ if (((side _x == side_green) or (side _x == side_red)) and (alive _x) and (not(fleeing _x)) and (_x distance _positionX < _size)) then {_arevelar pushBack _x};} forEach allUnits;
+		_arevealX = [];
+		{ if (((side _x == side_green) or (side _x == side_red)) and (alive _x) and (not(fleeing _x)) and (_x distance _positionX < _size)) then {_arevealX pushBack _x};} forEach allUnits;
 		if (player == _playerX) then {
 			_playerX playMove "MountSide";
 			sleep 8;
 			_playerX playMove "";
-			{player reveal _x} forEach _arevelar;
+			{player reveal _x} forEach _arevealX;
 		};
 	};
 

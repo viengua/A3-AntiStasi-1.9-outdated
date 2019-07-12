@@ -1,4 +1,4 @@
-private ["_unit","_coste","_armas","_ammunition","_caja","_items"];
+private ["_unit","_coste","_weaponsX","_ammunition","_caja","_items"];
 
 _unit = _this select 0;
 
@@ -19,7 +19,7 @@ else
 	[-2,2,getPos _unit] remoteExec ["AS_fnc_changeCitySupport",2];
 	[1,0] remoteExec ["prestige",2];
 	};
-_armas = [];
+_weaponsX = [];
 _ammunition = [];
 _items = [];
 _unit allowDamage false;
@@ -37,8 +37,8 @@ clearMagazineCargoGlobal _caja;
 clearWeaponCargoGlobal _caja;
 clearItemCargoGlobal _caja;
 clearBackpackCargoGlobal _caja;
-_armas = weapons _unit;
-{_caja addWeaponCargoGlobal [[_x] call BIS_fnc_baseWeapon,1]} forEach _armas;
+_weaponsX = weapons _unit;
+{_caja addWeaponCargoGlobal [[_x] call BIS_fnc_baseWeapon,1]} forEach _weaponsX;
 _ammunition = magazines _unit;
 {_caja addMagazineCargoGlobal [_x,1]} forEach _ammunition;
 _items = assignedItems _unit + items _unit + primaryWeaponItems _unit;

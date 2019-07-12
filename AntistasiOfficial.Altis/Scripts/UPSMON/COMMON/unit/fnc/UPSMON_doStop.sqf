@@ -3,7 +3,7 @@ File: UPSMON_doStop.sqf
 Author: MONSADA
 
 Description:
-	Función que detiene al soldado y lo hace esperar x segundos
+	Funciï¿½n que detiene al soldierX y lo hace esperar x segundos
 Parameter(s):
 	<--- unit
 	<--- Wait time
@@ -19,7 +19,7 @@ sleep 0.05;
 if (!alive _npc  || !canmove _npc ) exitwith{};
 if 	( _sleep == 0 ) then {_sleep = 0.1};	
 	
-//Restauramos valores por defecto de movimiento
+//Restauramos valores por deffect de movimiento
 if 	(((group _npc) getvariable "UPSMON_Grpstatus") select 0 == "FORTIFY") then 
 {	
 	dostop _npc ;

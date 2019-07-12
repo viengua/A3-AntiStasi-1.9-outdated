@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith {};
 
-private ["_coste","_grupo","_unit","_minas","_tam","_roads","_camion","_mina"];
+private ["_coste","_grupo","_unit","_minas","_tam","_roads","_truckX","_mina"];
 
 _coste = (server getVariable guer_sol_EXP) + ([guer_veh_engineer] call vehiclePrice);
 
@@ -22,13 +22,13 @@ while {true} do
 _road = _roads select 0;
 _pos = position _road findEmptyPosition [1,30,guer_veh_truck];
 
-_camion = guer_veh_engineer createVehicle _pos;
+_truckX = guer_veh_engineer createVehicle _pos;
 
-[_camion] spawn VEHinit;
+[_truckX] spawn VEHinit;
 [_unit] spawn AS_fnc_initialiseFIAUnit;
-_grupo addVehicle _camion;
-_camion setVariable ["owner",_grupo,true];
-_unit assignAsDriver _camion;
+_grupo addVehicle _truckX;
+_truckX setVariable ["owner",_grupo,true];
+_unit assignAsDriver _truckX;
 [_unit] orderGetIn true;
 //_unit setBehaviour "SAFE";
 Slowhand hcSetGroup [_grupo];
@@ -39,11 +39,11 @@ while {alive _unit} do
 	waitUntil {sleep 1;(!alive _unit) or (unitReady _unit)};
 	if (alive _unit) then
 		{
-		if (alive _camion) then
+		if (alive _truckX) then
 			{
-			if ((count magazineCargo _camion > 0) and (_unit distance (getMarkerPos guer_respawn) < 50)) then
+			if ((count magazineCargo _truckX > 0) and (_unit distance (getMarkerPos guer_respawn) < 50)) then
 				{
-				[_camion,caja] remoteExec ["AS_fnc_transferGear",2];
+				[_truckX,caja] remoteExec ["AS_fnc_transferGear",2];
 				sleep 30;
 				};
 			};
@@ -57,11 +57,11 @@ while {alive _unit} do
 			moveOut _unit;
 			[_unit] orderGetin false;
 			_minas = [_minas,[],{_unit distance _x},"ASCEND"] call BIS_fnc_sortBy;
-			_cuenta = 0;
+			_countX = 0;
 			_total = count _minas;
-			while {(alive _unit) and (_cuenta < _total)} do
+			while {(alive _unit) and (_countX < _total)} do
 				{
-				_mina = _minas select _cuenta;
+				_mina = _minas select _countX;
 				_unit doMove position _mina;
 				_timeOut = time + 120;
 				waitUntil {sleep 0.5; (_unit distance _mina < 8) or (!alive _unit) or (time > _timeOut)};
@@ -74,11 +74,11 @@ while {alive _unit} do
 					if (count _toDelete > 0) then
 						{
 						_wh = _toDelete select 0;
-						if (alive _camion) then {_camion addMagazineCargoGlobal [((magazineCargo _wh) select 0),1]};
+						if (alive _truckX) then {_truckX addMagazineCargoGlobal [((magazineCargo _wh) select 0),1]};
 						deleteVehicle _mina;
 						deleteVehicle _wh;
 						};
-					_cuenta = _cuenta + 1;
+					_countX = _countX + 1;
 					};
 				};
 			[_unit] orderGetIn true;

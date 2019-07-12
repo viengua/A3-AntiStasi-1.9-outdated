@@ -50,22 +50,22 @@ missionsX pushBackUnique _tsk; publicVariable "missionsX";
 
 
 // arrays of all spawned units/groups
-_grupos = [];
+_groups = [];
 _soldiers = [];
 _vehiclesX = [];
 
 // initialise groups, two for vehicles, two for dismounts
 _grpVeh1 = createGroup side_blue;
-_grupos pushBack _grpVeh1;
+_groups pushBack _grpVeh1;
 
 _grpVeh2 = createGroup side_blue;
-_grupos pushBack _grpVeh2;
+_groups pushBack _grpVeh2;
 
 _grpDis1 = createGroup side_blue;
-_grupos pushBack _grpDis1;
+_groups pushBack _grpDis1;
 
 _grpDis2 = createGroup side_blue;
-_grupos pushBack _grpDis2;
+_groups pushBack _grpDis2;
 
 // air cav
 if (_type == "air") then {
@@ -86,7 +86,7 @@ if (_type == "air") then {
 	{[_x] spawn NATOinitCA} forEach _heliCrew;
 	[_heli1] spawn NATOVEHinit;
 	_soldiers = _soldiers + _heliCrew;
-	_grupos = _grupos + [_grpVeh1];
+	_groups = _groups + [_grpVeh1];
 	_vehiclesX = _vehiclesX + [_heli1];
 	_heli1 lock 3;
 
@@ -109,7 +109,7 @@ if (_type == "air") then {
 	{[_x] spawn NATOinitCA} forEach _heliCrew2;
 	[_heli2] spawn NATOVEHinit;
 	_soldiers = _soldiers + _heliCrew2;
-	_grupos = _grupos + [_grpVeh2];
+	_groups = _groups + [_grpVeh2];
 	_vehiclesX = _vehiclesX + [_heli2];
 	_heli2 lock 3;
 
@@ -195,7 +195,7 @@ else {
 
 {
 	_x setVariable ["esNATO",true,true];
-} foreach _grupos;
+} foreach _groups;
 
 
 // you lose if all soldiers die before the timer runs out
@@ -215,12 +215,12 @@ deleteMarker "NATOQRF";
 
 // despawn everything
 {
-	_soldado = _x;
-	waitUntil {sleep 1; {_x distance _soldado < distanceSPWN} count (allPlayers - (entities "HeadlessClient_F")) == 0};
-	deleteVehicle _soldado;
+	_soldierX = _x;
+	waitUntil {sleep 1; {_x distance _soldierX < distanceSPWN} count (allPlayers - (entities "HeadlessClient_F")) == 0};
+	deleteVehicle _soldierX;
 } forEach _soldiers;
 
-{deleteGroup _x} forEach _grupos;
+{deleteGroup _x} forEach _groups;
 
 {
 	_vehiculo = _x;

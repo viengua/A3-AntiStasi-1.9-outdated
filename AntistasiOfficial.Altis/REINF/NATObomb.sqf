@@ -39,8 +39,8 @@ positionTel = [];
 _ang = [_pos1,_pos2] call BIS_fnc_dirTo;
 
 _central = [_pos1, 100, _ang] call BIS_fnc_relPos;
-_ciudad = [citiesX,_central] call BIS_fnc_nearestPosition;
-if (_central distance getMarkerPos _ciudad < ([_ciudad] call sizeMarker) * 1.5) exitWith {hint format ["That path is very close to %1.\n\n%2 won't perform any bomb run that may cause civilian casualties",_ciudad, A3_Str_BLUE]; deleteMarker _mrkOrig; openMap false};
+_cityX = [citiesX,_central] call BIS_fnc_nearestPosition;
+if (_central distance getMarkerPos _cityX < ([_cityX] call sizeMarker) * 1.5) exitWith {hint format ["That path is very close to %1.\n\n%2 won't perform any bomb run that may cause civilian casualties",_cityX, A3_Str_BLUE]; deleteMarker _mrkOrig; openMap false};
 
 [-10,0] remoteExec ["prestige",2];
 

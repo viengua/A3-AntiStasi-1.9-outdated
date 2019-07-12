@@ -52,7 +52,7 @@ call {
 
 	if (_type == "LOG") exitWith {
 		_zones = outposts + citiesX - ["puesto_13"];
-		if (random 100 < 20) then {_zones = _zones + bancos};
+		if (random 100 < 20) then {_zones = _zones + banks};
 		_zones = _zones - mrkFIA;
 		if (count _zones > 0) then {
 			for "_i" from 0 to ((count _zones) - 1) do {
@@ -77,7 +77,7 @@ call {
 					};
 				};
 
-				if (_currentZone in bancos) then {
+				if (_currentZone in banks) then {
 					_nearestZone = [citiesX, _markerPos] call BIS_fnc_nearestPosition;
 					if (_nearestZone in mrkFIA) then {_options pushBackUnique _currentZone};
 				};
@@ -99,7 +99,7 @@ call {
 				if (_currentZone in outposts) exitWith {
 					[_currentZone] remoteExec ["LOG_Ammo", call AS_fnc_getNextWorker];
 				};
-				if (_currentZone in bancos) then {
+				if (_currentZone in banks) then {
 					[_currentZone] remoteExec ["LOG_Bank", call AS_fnc_getNextWorker];
 				};
 			};

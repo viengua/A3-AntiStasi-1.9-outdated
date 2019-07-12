@@ -1,6 +1,6 @@
 // Not working properly, check what's wrong
 _unit = _this select 0;
-_camion = _this select 1;
+_truckX = _this select 1;
 
 if ((!alive _unit) or (isPlayer _unit) or (player != leader group player) or (captive _unit)) exitWith {};
 if (lifestate _unit == "INCAPACITATED") exitWith {};
@@ -8,13 +8,13 @@ _medHelping = _unit getVariable "ASmedHelping";
 if (!(isNil "_medHelping")) exitWith {_unit groupChat "I cannot rearm right now. I'm healing a comrade"};
 _rearming = _unit getVariable "ASrearming";
 if (_rearming) exitWith {_unit groupChat "I am currently rearming. Cancelling."; _unit setVariable ["ASrearming",false]};
-if (_unit == gunner _camion) exitWith {_unit groupChat "I cannot rearm right now. I'm manning this gun"};
-if (!canMove _camion) exitWith {_unit groupChat "It is useless to load my vehicle, as it needs repairs"};
+if (_unit == gunner _truckX) exitWith {_unit groupChat "I cannot rearm right now. I'm manning this gun"};
+if (!canMove _truckX) exitWith {_unit groupChat "It is useless to load my vehicle, as it needs repairs"};
 
 _objectsX = [];
 _hasBox = false;
 _arma = "";
-_armas = [];
+_weaponsX = [];
 _bigTimeOut = time + 120;
 _objectsX = nearestObjects [_unit, ["WeaponHolderSimulated", "GroundWeaponHolder", "WeaponHolder"], 50];
 if (count _objectsX == 0) exitWith {_unit groupChat "I see no corpses here to loot"};
@@ -27,10 +27,10 @@ if (_unit distance _objeto < _distancia) then
 	{
 	if ((count weaponCargo _objeto > 0) and !(_objeto getVariable ["busy",false])) then
 		{
-		_armas = weaponCargo _objeto;
-		for "_i" from 0 to (count _armas - 1) do
+		_weaponsX = weaponCargo _objeto;
+		for "_i" from 0 to (count _weaponsX - 1) do
 			{
-			_potential = _armas select _i;
+			_potential = _weaponsX select _i;
 			_basePossible = [_potential] call BIS_fnc_baseWeapon;
 			if ((not(_basePossible in unlockedWeapons)) and ((_basePossible in arifles) or (_basePossible in srifles) or (_basePossible in mguns) or (_potential in mlaunchers) or (_potential in rlaunchers))) then
 				{
@@ -51,15 +51,15 @@ _unit groupChat "Starting looting";
 _Pweapon = primaryWeapon _unit;
 _Sweapon = secondaryWeapon _unit;
 
-_unit action ["GetOut",_camion];
+_unit action ["GetOut",_truckX];
 [_unit] orderGetin false;
 sleep 3;
-if (_Pweapon != "") then {_unit action ["DropWeapon",_camion,_Pweapon]; sleep 3};
-if (_Sweapon != "") then {_unit action ["DropWeapon",_camion,_Sweapon]};
+if (_Pweapon != "") then {_unit action ["DropWeapon",_truckX,_Pweapon]; sleep 3};
+if (_Sweapon != "") then {_unit action ["DropWeapon",_truckX,_Sweapon]};
 
 _continuar = true;
 
-while {_continuar and (alive _unit) and (!(lifestate _unit == "INCAPACITATED")) and (_unit getVariable "ASrearming") and (alive _camion) and (_bigTimeout > time)} do
+while {_continuar and (alive _unit) and (!(lifestate _unit == "INCAPACITATED")) and (_unit getVariable "ASrearming") and (alive _truckX) and (_bigTimeout > time)} do
 	{
 	if (isNull _target) exitWith {_continuar = false};
 	_target setVariable ["busy",true];
@@ -103,19 +103,19 @@ while {_continuar and (alive _unit) and (!(lifestate _unit == "INCAPACITATED")) 
 			};
 		};
 
-	_unit doMove (getPosATL _camion);
+	_unit doMove (getPosATL _truckX);
 	_timeOut = time + 60;
-	waitUntil {sleep 1; (!alive _unit) or (!alive _camion) or (_unit distance _camion < 8) or (_timeOut < time)};
-	if ((alive _camion) and (alive _unit)) then
+	waitUntil {sleep 1; (!alive _unit) or (!alive _truckX) or (_unit distance _truckX < 8) or (_timeOut < time)};
+	if ((alive _truckX) and (alive _unit)) then
 		{
 		if (_tempPrimary != "") then
 			{
-			_unit action ["DropWeapon",_camion,_tempPrimary];
+			_unit action ["DropWeapon",_truckX,_tempPrimary];
 			sleep 3;
 			};
 		if (secondaryWeapon _unit != "") then
 			{
-			_unit action ["DropWeapon",_camion,secondaryWeapon _unit];
+			_unit action ["DropWeapon",_truckX,secondaryWeapon _unit];
 			sleep 3;
 			};
 		};
@@ -127,10 +127,10 @@ while {_continuar and (alive _unit) and (!(lifestate _unit == "INCAPACITATED")) 
 		{
 		if ((count weaponCargo _objeto > 0) and !(_objeto getVariable ["busy",false])) then
 			{
-			_armas = weaponCargo _objeto;
-			for "_i" from 0 to (count _armas - 1) do
+			_weaponsX = weaponCargo _objeto;
+			for "_i" from 0 to (count _weaponsX - 1) do
 				{
-				_potential = _armas select _i;
+				_potential = _weaponsX select _i;
 				_basePossible = [_potential] call BIS_fnc_baseWeapon;
 				if ((not(_basePossible in unlockedWeapons)) and ((_basePossible in arifles) or (_basePossible in srifles) or (_basePossible in mguns) or (_potential in mlaunchers) or (_potential in rlaunchers))) then
 					{
@@ -147,7 +147,7 @@ if (!_continuar) then
 	{
 	_unit groupChat "No more weapons to loot"
 	};
-if (primaryWeapon _unit == "") then {_unit action ["TakeWeapon",_camion,_Pweapon]; sleep 3};
-if ((secondaryWeapon _unit == "") and (_Sweapon != "")) then {_unit action ["TakeWeapon",_camion,_Sweapon]};
+if (primaryWeapon _unit == "") then {_unit action ["TakeWeapon",_truckX,_Pweapon]; sleep 3};
+if ((secondaryWeapon _unit == "") and (_Sweapon != "")) then {_unit action ["TakeWeapon",_truckX,_Sweapon]};
 _unit doFollow player;
 _unit setVariable ["ASrearming",false];

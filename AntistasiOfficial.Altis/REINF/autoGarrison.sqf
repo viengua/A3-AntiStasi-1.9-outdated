@@ -2,7 +2,7 @@ if (!isServer and hasInterface) exitWith {};
 
 if(true)exitWith{};//disabled because its to slow
 
-private ["_markerX","_destinationX","_origen","_grupos","_soldiers","_vehiclesX","_size","_grupo","_camion","_tam","_roads","_road","_pos"];
+private ["_markerX","_destinationX","_origen","_groups","_soldiers","_vehiclesX","_size","_grupo","_truckX","_tam","_roads","_road","_pos"];
 
 _markerX = _this select 0;
 if (not(_markerX in smallCAmrk)) exitWith {};
@@ -12,7 +12,7 @@ _origen = getMarkerPos guer_respawn;
 
 if ((worldName == "Tanoa") AND !([_origen, _destinationX] call AS_fnc_IslandCheck)) exitWith {};
 
-_grupos = [];
+_groups = [];
 _soldiers = [];
 _vehiclesX = [];
 
@@ -39,9 +39,9 @@ while {(_size > 0)} do
 			if (count _roads > 0) exitWith {};
 			};
 		_road = _roads select 0;
-		_tipoVeh = [guer_veh_truck,guer_veh_offroad,guer_veh_quad,guer_veh_technical] call BIS_fnc_selectRandom;
-		_pos = position _road findEmptyPosition [1,30,_tipoVeh];
-		_vehicle=[_pos, random 360,_tipoVeh, side_blue] call bis_fnc_spawnvehicle;
+		_typeVehX = [guer_veh_truck,guer_veh_offroad,guer_veh_quad,guer_veh_technical] call BIS_fnc_selectRandom;
+		_pos = position _road findEmptyPosition [1,30,_typeVehX];
+		_vehicle=[_pos, random 360,_typeVehX, side_blue] call bis_fnc_spawnvehicle;
 		_veh = _vehicle select 0;
 		_vehCrew = _vehicle select 1;
 		{[_x] spawn AS_fnc_initialiseFIAUnit} forEach _vehCrew;
@@ -50,21 +50,21 @@ while {(_size > 0)} do
 		_groupVeh = _vehicle select 2;
 		_groupVeh setVariable ["esNATO",true,true];
 		_soldiers = _soldiers + _vehCrew;
-		_grupos pushBack _groupVeh;
+		_groups pushBack _groupVeh;
 		_vehiclesX = _vehiclesX + [_veh];
-		if (_tipoVeh != guer_veh_technical) then
+		if (_typeVehX != guer_veh_technical) then
 			{
-			if (_tipoVeh == guer_veh_quad) then
+			if (_typeVehX == guer_veh_quad) then
 				{
-				_soldado = _groupVeh createUnit [guer_sol_SN, _pos, [], 0, "NONE"];
-				[_soldado] spawn AS_fnc_initialiseFIAUnit;
-				_soldiers pushBack _soldado;
-				_soldado moveInCargo _veh;
+				_soldierX = _groupVeh createUnit [guer_sol_SN, _pos, [], 0, "NONE"];
+				[_soldierX] spawn AS_fnc_initialiseFIAUnit;
+				_soldiers pushBack _soldierX;
+				_soldierX moveInCargo _veh;
 				}
 			else
 				{
 				_typeGroup = guer_grp_squad;
-				if (_tipoVeh == guer_veh_offroad) then {_typeGroup = [guer_grp_team,guer_grp_AT] call BIS_fnc_selectRandom};
+				if (_typeVehX == guer_veh_offroad) then {_typeGroup = [guer_grp_team,guer_grp_AT] call BIS_fnc_selectRandom};
 				_grupo = [_origen, side_blue, ([_typeGroup, "guer"] call AS_fnc_pickGroup)] call BIS_Fnc_spawnGroup;
 				{[_x] call AS_fnc_initialiseFIAUnit; [_x] join _groupVeh; _x moveInCargo _veh; _soldiers pushBack _x} forEach units _grupo;
 				deleteGroup _grupo;
@@ -99,8 +99,8 @@ waitUntil {sleep 1;((not(_markerX in smallCAmrk)) or (_markerX in mrkAAF))};
 waitUntil {sleep 1; {_x distance _vehiculo < distanceSPWN} count (allPlayers - (entities "HeadlessClient_F")) == 0};
 deleteVehicle _vehiculo;
 } forEach _vehiclesX;
-{_soldado = _x;
-waitUntil {sleep 1; {_x distance _soldado < distanceSPWN} count (allPlayers - (entities "HeadlessClient_F")) == 0};
-deleteVehicle _soldado;
+{_soldierX = _x;
+waitUntil {sleep 1; {_x distance _soldierX < distanceSPWN} count (allPlayers - (entities "HeadlessClient_F")) == 0};
+deleteVehicle _soldierX;
 } forEach _soldiers;
-{deleteGroup _x} forEach _grupos;
+{deleteGroup _x} forEach _groups;

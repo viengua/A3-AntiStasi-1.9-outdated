@@ -3,7 +3,7 @@ if (!isServer and hasInterface) exitWith {};
 _tskTitle = "STR_TSK_TD_logAmmo";
 _tskDesc = "STR_TSK_TD_DESC_logAmmo";
 
-private ["_pos","_camion","_truckCreated","_grupo","_grupo1","_mrk"];
+private ["_pos","_truckX","_truckCreated","_grupo","_grupo1","_mrk"];
 
 _markerX = _this select 0;
 _positionX = getMarkerPos _markerX;
@@ -30,9 +30,9 @@ if (spawner getVariable _markerX) then
 		if (count _pos > 0) exitWith {};
 		_size = _size + 20
 		};
-	_camion = vehAmmo createVehicle _pos;
+	_truckX = vehAmmo createVehicle _pos;
 	_truckCreated = true;
-	[_camion] call boxAAF;
+	[_truckX] call boxAAF;
 
 	_mrk = createMarkerLocal [format ["%1patrolarea", floor random 100], _pos];
 	_mrk setMarkerShapeLocal "RECTANGLE";
@@ -60,7 +60,7 @@ if (spawner getVariable _markerX) then
 	{[_x] spawn genInitBASES} forEach units _grupo;
 	{[_x] spawn genInitBASES} forEach units _grupo1;
 
-	waitUntil {sleep 1; (not alive _camion) or (dateToNumber date > _dateLimitNum) or ({_x getVariable ["BLUFORSpawn",false]} count crew _camion > 0)};
+	waitUntil {sleep 1; (not alive _truckX) or (dateToNumber date > _dateLimitNum) or ({_x getVariable ["BLUFORSpawn",false]} count crew _truckX > 0)};
 
 	if (dateToNumber date > _dateLimitNum) then
 		{
@@ -68,13 +68,13 @@ if (spawner getVariable _markerX) then
 		[-1200] remoteExec ["AS_fnc_increaseAttackTimer",2];
 		[-10,Slowhand] call playerScoreAdd;
 		};
-	if ((not alive _camion) or ({_x getVariable ["BLUFORSpawn",false]} count crew _camion > 0)) then
+	if ((not alive _truckX) or ({_x getVariable ["BLUFORSpawn",false]} count crew _truckX > 0)) then
 		{
-		[position _camion] spawn patrolCA;
+		[position _truckX] spawn patrolCA;
 		_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_markerX],_positionX,"SUCCEEDED",5,true,true,"rearm"] call BIS_fnc_setTask;
 		[0,300] remoteExec ["resourcesFIA",2];
 		[1200] remoteExec ["AS_fnc_increaseAttackTimer",2];
-		{if (_x distance _camion < 500) then {[10,_x] call playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
+		{if (_x distance _truckX < 500) then {[10,_x] call playerScoreAdd}} forEach (allPlayers - (entities "HeadlessClient_F"));
 		[5,Slowhand] call playerScoreAdd;
 		// BE module
 		if (activeBE) then {
@@ -98,6 +98,6 @@ if (_truckCreated) then
 	{deleteVehicle _x} forEach units _grupo1;
 	deleteGroup _grupo1;
 	deleteMarker _mrk;
-	waitUntil {sleep 1; not ([300,1,_camion,"BLUFORSpawn"] call distanceUnits)};
-	deleteVehicle _camion;
+	waitUntil {sleep 1; not ([300,1,_truckX,"BLUFORSpawn"] call distanceUnits)};
+	deleteVehicle _truckX;
 	};

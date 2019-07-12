@@ -1,5 +1,5 @@
 params ["_unit"];
-private ["_grupo","_grupos","_isLeader","_dummyGroup","_bleedOut","_suicide","_saveVolume","_ayuda","_isHelped","_texto","_isPlayer","_camTarget","_saveVolumeVoice"];
+private ["_grupo","_groups","_isLeader","_dummyGroup","_bleedOut","_suicide","_saveVolume","_ayuda","_isHelped","_texto","_isPlayer","_camTarget","_saveVolumeVoice"];
 
 if ([_unit] call AS_fnc_isUnconscious) exitWith {};
 if (damage _unit < 0.9) exitWith {};

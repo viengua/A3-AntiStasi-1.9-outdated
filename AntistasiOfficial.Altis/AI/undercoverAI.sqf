@@ -36,12 +36,12 @@ _unit addEventHandler ["FIRED",
 			}
 		else
 			{
-			_ciudad = [citiesX,_unit] call BIS_fnc_nearestPosition;
-			_size = [_ciudad] call sizeMarker;
-			_datos = server getVariable _ciudad;
+			_cityX = [citiesX,_unit] call BIS_fnc_nearestPosition;
+			_size = [_cityX] call sizeMarker;
+			_datos = server getVariable _cityX;
 			if (random 100 < _datos select 2) then
 				{
-				if (_unit distance getMarkerPos _ciudad < _size * 1.5) then
+				if (_unit distance getMarkerPos _cityX < _size * 1.5) then
 					{
 					_unit setCaptive false;
 					};

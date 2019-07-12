@@ -24,7 +24,7 @@ if (_backpack != "") then {
 	};
 };
 
-_armas = [];
+_weaponsX = [];
 _items = [];
 _mags = [];
 _destinationX = vehicleBox;
@@ -58,7 +58,7 @@ _arma = _x select 0;
 _armaTrad = [_arma] call BIS_fnc_baseWeapon;
 if (!(_armaTrad in unlockedWeapons)) then
 	{
-	_armas pushBack _armaTrad;
+	_weaponsX pushBack _armaTrad;
 	_ameter = true;
 	};
 for "_i" from 1 to (count _x) - 1 do
@@ -103,24 +103,24 @@ if (_ameter) then
 } forEach weaponsItems _unit;
 
 
-if (count _armas > 0) then
+if (count _weaponsX > 0) then
 	{
-	_armasDef = [];
-	_armasDefCount = [];
+	_weaponsXDef = [];
+	_weaponsXDefCount = [];
 	{
 	_arma = _x;
-	if (!(_arma in _armasDef)) then
+	if (!(_arma in _weaponsXDef)) then
 		{
-		_armasDef pushBack _arma;
-		_armasDefCount pushBack ({_x == _arma} count _armas);
+		_weaponsXDef pushBack _arma;
+		_weaponsXDefCount pushBack ({_x == _arma} count _weaponsX);
 		};
-	} forEach _armas;
+	} forEach _weaponsX;
 	_texto = "";
 	if (_destinationX == vehicleBox) then {_texto = "The following weapons have been added to the Vehicle Ammobox:"} else {_texto = "The following weapons have been added to the Main Ammobox:"};
-	for "_i" from 0 to (count _armasDef - 1) do
+	for "_i" from 0 to (count _weaponsXDef - 1) do
 		{
-		_destinationX addWeaponCargoGlobal [_armasDef select _i,_armasDefCount select _i];
-		if (_i == 0) then {_texto = format ["%1 %2",_texto, getText (configfile >> "CfgWeapons" >> (_armasDef select _i) >> "displayName")]} else {_texto = format ["%1, %2",_texto, getText (configfile >> "CfgWeapons" >> (_armasDef select _i) >> "displayName")]};
+		_destinationX addWeaponCargoGlobal [_weaponsXDef select _i,_weaponsXDefCount select _i];
+		if (_i == 0) then {_texto = format ["%1 %2",_texto, getText (configfile >> "CfgWeapons" >> (_weaponsXDef select _i) >> "displayName")]} else {_texto = format ["%1, %2",_texto, getText (configfile >> "CfgWeapons" >> (_weaponsXDef select _i) >> "displayName")]};
 		};
 	player globalChat _texto;
 	};

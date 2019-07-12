@@ -1,5 +1,5 @@
 if (!isServer) exitWith {};
-private ["_subCosa","_ammunition"];
+private ["_subObject","_ammunition"];
 _origen = _this select 0;
 _destinationX = _this select 1;
 
@@ -7,14 +7,14 @@ _ammunition= [];
 _items = [];
 _ammunition = magazineCargo _origen;
 _items = itemCargo _origen;
-_armas = [];
+_weaponsX = [];
 _weaponsItemsCargo = weaponsItemsCargo _origen;
-_mochis = [];
+_backpcks = [];
 
 if (count backpackCargo _origen > 0) then
 	{
 	{
-	_mochis pushBack (_x call BIS_fnc_basicBackpack);
+	_backpcks pushBack (_x call BIS_fnc_basicBackpack);
 	} forEach backpackCargo _origen;
 	};
 _containers = everyContainer _origen;
@@ -22,8 +22,8 @@ if (count _containers > 0) then
 	{
 	for "_i" from 0 to (count _containers) - 1 do
 		{
-		_subCosa = magazineCargo ((_containers select _i) select 1);
-		if (!isNil "_subCosa") then {_ammunition = _ammunition + _subCosa} else {diag_log format ["Error from %1",magazineCargo (_containers select _i)]};
+		_subObject = magazineCargo ((_containers select _i) select 1);
+		if (!isNil "_subObject") then {_ammunition = _ammunition + _subObject} else {diag_log format ["Error from %1",magazineCargo (_containers select _i)]};
 		//_ammunition = _ammunition + (magazineCargo ((_containers select _i) select 1));
 		_items = _items + (itemCargo ((_containers select _i) select 1));
 		_weaponsItemsCargo = _weaponsItemsCargo + weaponsItemsCargo ((_containers select _i) select 1);
@@ -35,7 +35,7 @@ if (!isNil "_weaponsItemsCargo") then
 		{
 		{
 			_weapon = [(_x select 0)] call BIS_fnc_baseWeapon;
-		_armas pushBack ([(_x select 0)] call BIS_fnc_baseWeapon);
+		_weaponsX pushBack ([(_x select 0)] call BIS_fnc_baseWeapon);
 
 		if ((activeAFRF) && (isNumber (configFile >> "CfgWeapons" >> (_x select 0) >> "rhs_disposable"))) then {
 			_ammo = (getArray (configFile >> "CfgWeapons" >> (_x select 0) >> "magazines")) select 0;
@@ -58,8 +58,8 @@ if (!isNil "_weaponsItemsCargo") then
 					{
 					if (count _cosa > 0) then
 						{
-						_subCosa = _cosa select 0;
-						if (!isNil "_subCosa") then {_ammunition pushBack _subCosa; Slowhand sidechat format ["%1,%2",_ammunition,_subCosa];} else {diag_log format ["Error transfering ammo on %1",_cosa]};
+						_subObject = _cosa select 0;
+						if (!isNil "_subObject") then {_ammunition pushBack _subObject; Slowhand sidechat format ["%1,%2",_ammunition,_subObject];} else {diag_log format ["Error transfering ammo on %1",_cosa]};
 						};
 					};
 				}
@@ -79,9 +79,9 @@ _weaponsFinalCount = [];
 		} else {
 			_weaponsFinal pushBack _arma;
 		};
-		_weaponsFinalCount pushBack ({_x == _arma} count _armas);
+		_weaponsFinalCount pushBack ({_x == _arma} count _weaponsX);
 	};
-} forEach _armas;
+} forEach _weaponsX;
 
 if (count _weaponsFinal > 0) then
 	{
@@ -140,14 +140,14 @@ if (count _itemsFinal > 0) then
 
 _backpcksFinal = [];
 _backpcksFinalCount = [];
-if (count _mochis > 0) then {
+if (count _backpcks > 0) then {
 	{
 		_arma = _x;
 		if ((not(_arma in _backpcksFinal)) and (not(_arma in unlockedBackpacks))) then {
 			_backpcksFinal pushBack _arma;
-			_backpcksFinalCount pushBack ({_x == _arma} count _mochis);
+			_backpcksFinalCount pushBack ({_x == _arma} count _backpcks);
 		};
-	} forEach _mochis;
+	} forEach _backpcks;
 };
 
 if (count _backpcksFinal > 0) then

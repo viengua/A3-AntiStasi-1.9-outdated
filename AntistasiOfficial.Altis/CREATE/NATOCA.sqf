@@ -20,9 +20,9 @@ _tsk = ["NATOCA",[side_blue,civilian],[["STR_TSK_DESC_ATTACK",_nameDest,_nameOri
 missionsX pushBackUnique _tsk; publicVariable "missionsX";
 _soldiers = [];
 _vehiclesX = [];
-_grupos = [];
-_tipoveh = "";
-_cuenta = 3;
+_groups = [];
+_typeVehX = "";
+_countX = 3;
 
 [-20,0] remoteExec ["prestige",2];
 
@@ -37,10 +37,10 @@ hideObjectGlobal _spawner;
 
 sleep 15;
 
-for "_i" from 1 to _cuenta do {
+for "_i" from 1 to _countX do {
 	//Create and initialise aircraft
-		_tipoveh = planesNATOTrans call BIS_fnc_selectRandom;
-		_vehicle=[_orig, 0, _tipoveh, side_blue] call bis_fnc_spawnvehicle;
+		_typeVehX = planesNATOTrans call BIS_fnc_selectRandom;
+		_vehicle=[_orig, 0, _typeVehX, side_blue] call bis_fnc_spawnvehicle;
 		_heli = _vehicle select 0;
 		_heliCrew = _vehicle select 1;
 		_groupHeli = _vehicle select 2;
@@ -52,18 +52,18 @@ for "_i" from 1 to _cuenta do {
 		{[_x] call NATOinitCA} forEach _heliCrew;
 		[_heli] call NATOVEHinit;
 		_soldiers = _soldiers + _heliCrew;
-		_grupos = _grupos + [_groupHeli];
+		_groups = _groups + [_groupHeli];
 		_vehiclesX = _vehiclesX + [_heli];
 		_heli lock 3;
 		{_x setBehaviour "CARELESS";} forEach units _groupHeli;
 		[_heli,"NATO Air Transport"] call inmuneConvoy;
 	//Depending on kind of heli
-		if (_tipoveh in bluHeliDis) then {		//Apache transport, can land, fastrope or paradrop
+		if (_typeVehX in bluHeliDis) then {		//Apache transport, can land, fastrope or paradrop
 			//Add troops and init them
 			_typeGroup = [bluSquadWeapons, side_blue] call AS_fnc_pickGroup;
 			_grupo = [_orig, side_blue, _typeGroup] call BIS_Fnc_spawnGroup;
 			{_x assignAsCargo _heli; _x moveInCargo _heli; _soldiers = _soldiers + [_x]; [_x] spawn NATOinitCA} forEach units _grupo;
-			_grupos = _grupos + [_grupo];
+			_groups = _groups + [_grupo];
 			//Decide for aidrop or fastrope/land
 			if ((_markerX in outposts) or (random 10 < _threatEval)) then {
 				{removebackpack _x; _x addBackpack "B_Parachute"} forEach units _grupo;
@@ -99,13 +99,13 @@ for "_i" from 1 to _cuenta do {
 				};
 			};
 		};
-		if (_tipoveh in bluHeliTS) then {  		//Littlebird will land only
+		if (_typeVehX in bluHeliTS) then {  		//Littlebird will land only
 			{_x disableAI "TARGET"; _x disableAI "AUTOTARGET"} foreach units _groupHeli;
 			//Add troops and init them
 			_typeGroup = [bluTeam, side_blue] call AS_fnc_pickGroup;
 			_grupo = [_orig, side_blue, _typeGroup] call BIS_Fnc_spawnGroup;
 			{_x assignAsCargo _heli; _x moveInCargo _heli; _soldiers = _soldiers + [_x]; [_x] call NATOinitCA} forEach units _grupo;
-			_grupos = _grupos + [_grupo];
+			_groups = _groups + [_grupo];
 			_landpos = [];
 			_landpos = [_positionX, 0, 500, 10, 0, 0.3, 0] call BIS_Fnc_findSafePos;
 			_landPos set [2, 0];
@@ -130,13 +130,13 @@ for "_i" from 1 to _cuenta do {
 			[_heli,true] spawn entriesLand;
 			diag_log format ["NATOCA HeliTS airdropping: %1, %2, %3 ",_heli,_grupo,_markerX];
 		};
-		if (_tipoveh in bluHeliRope) then {			//Chinhook	can aidrop or land
+		if (_typeVehX in bluHeliRope) then {			//Chinhook	can aidrop or land
 			{_x disableAI "TARGET"; _x disableAI "AUTOTARGET"} foreach units _groupHeli;
 			//Add troops and init them
 			_typeGroup = [bluSquad, side_blue] call AS_fnc_pickGroup;
 			_grupo = [_orig, side_blue, _typeGroup] call BIS_Fnc_spawnGroup;
 			{_x assignAsCargo _heli; _x moveInCargo _heli; _soldiers = _soldiers + [_x]; [_x] call NATOinitCA} forEach units _grupo;
-			_grupos = _grupos + [_grupo];
+			_groups = _groups + [_grupo];
 
 			//Decide airdrop or land
 			if (!(_markerX in outposts) or (_markerX in bases) or (random 10 < _threatEval)) then {
@@ -195,12 +195,12 @@ if ({alive _x} count _soldiers < _solMax) then {
 [0,_tsk] spawn deleteTaskX;
 
 {
-	_soldado = _x;
-	waitUntil {sleep 1; {_x distance _soldado < distanceSPWN} count (allPlayers - (entities "HeadlessClient_F")) == 0};
-	deleteVehicle _soldado;
+	_soldierX = _x;
+	waitUntil {sleep 1; {_x distance _soldierX < distanceSPWN} count (allPlayers - (entities "HeadlessClient_F")) == 0};
+	deleteVehicle _soldierX;
 } forEach _soldiers;
 
-{deleteGroup _x} forEach _grupos;
+{deleteGroup _x} forEach _groups;
 
 {
 	_vehiculo = _x;

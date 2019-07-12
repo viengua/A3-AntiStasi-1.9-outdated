@@ -7,7 +7,7 @@ _delta = _delta + minimoFPS;
 
 if (_delta < 0) then {_delta = 0};
 
-_average = fpsTotal / fpsCuenta;
+_average = fpsTotal / fpscountX;
 _text = "";
 
 if ((_delta > _average * 0.6) and (_average > 24)) then {

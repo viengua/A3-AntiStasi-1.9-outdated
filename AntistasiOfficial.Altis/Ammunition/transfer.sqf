@@ -1,13 +1,13 @@
-private ["_camion","_objectsX","_todo","_proceed","_caja","_armas","_ammunition","_items","_mochis","_containers","_cuenta","_exists"];
+private ["_truckX","_objectsX","_todo","_proceed","_caja","_weaponsX","_ammunition","_items","_backpcks","_containers","_countX","_exists"];
 /*
 spanish to english dictionary:
-camion = truck
+truckX = truck
 caja = box
-cuenta = count
+countX = count
 playerX = player
 */
 _playerX = _this select 0;
-_camion = vehicle _playerX;
+_truckX = vehicle _playerX;
 _id = _this select 2;
 
 if (_playerX getVariable ["loadingCrate", false]) exitWith {[petros,"hint", "Already loading a crate..."] remoteExec ["commsMP",_playerX]};
@@ -18,7 +18,7 @@ _proceed = false;
 _active = false;
 _counter = 0;
 
-_objectsX = nearestObjects [_camion, ["ReammoBox_F","Land_PlasticCase_01_medium_F"], 20];
+_objectsX = nearestObjects [_truckX, ["ReammoBox_F","Land_PlasticCase_01_medium_F"], 20];
 
 if (count _objectsX == 0) exitWith {[petros,"hint", "No crates nearby."] remoteExec ["commsMP",_playerX]};
 _caja = _objectsX select 0;
@@ -26,55 +26,55 @@ _caja = _objectsX select 0;
 if ((_caja == caja) and (player!=Slowhand)) exitWith {[petros,"hint", "Only the Commander can transfer this ammobox content to any truck"] remoteExec ["commsMP",_playerX]};
 
 
-_armas = weaponCargo _caja;
+_weaponsX = weaponCargo _caja;
 _ammunition = magazineCargo _caja;
 _items = itemCargo _caja;
-_mochis = [];
+_backpcks = [];
 
-_todo = _armas + _ammunition + _items + _mochis;
-_cuenta = count _todo;
+_todo = _weaponsX + _ammunition + _items + _backpcks;
+_countX = count _todo;
 _breakText = "";
 
-if (_cuenta < 1) then
+if (_countX < 1) then
 	{
 	[petros,"hint", "Closest Ammobox is empty"] remoteExec ["commsMP",_playerX];
 	_proceed = true;
 	};
 
-if (_cuenta > 0) then
+if (_countX > 0) then
 	{
 	if (_caja == caja) then
 		{
-		if ("DEF_HQ" in missionsX) then {_cuenta = round (_cuenta / 10)} else {_cuenta = round (_cuenta / 100)};
+		if ("DEF_HQ" in missionsX) then {_countX = round (_countX / 10)} else {_countX = round (_countX / 100)};
 		}
 	else
 		{
-		_cuenta = round (_cuenta / 5);
+		_countX = round (_countX / 5);
 		};
-	if (_cuenta < 1) then {_cuenta = 1};
-	_cuenta = _cuenta * 10;
+	if (_countX < 1) then {_countX = 1};
+	_countX = _countX * 10;
 	_playerX setVariable ["loadingCrate", true];
-	while {(_camion == vehicle player) and (speed _camion == 0) and (_cuenta > _counter)} do
+	while {(_truckX == vehicle player) and (speed _truckX == 0) and (_countX > _counter)} do
 		{
 		if !(_active) then {
-			[round ((_cuenta - _counter) / 10),false] remoteExec ["pBarMP",player];
+			[round ((_countX - _counter) / 10),false] remoteExec ["pBarMP",player];
 			_active = true;
 		};
 
 			_counter = _counter + 1;
   			sleep 0.1;
-		if !(_cuenta > _counter) then
+		if !(_countX > _counter) then
 			{
-			[_caja,_camion] remoteExec ["AS_fnc_transferGear",2];
+			[_caja,_truckX] remoteExec ["AS_fnc_transferGear",2];
 			_proceed = true;
 			};
-		if ((_camion != vehicle player) or (speed _camion != 0)) then
+		if ((_truckX != vehicle player) or (speed _truckX != 0)) then
 				{
 				_proceed = true;
 				};
 		};
 
-		if ((_camion != vehicle _playerX) or (speed _camion > 2)) then {
+		if ((_truckX != vehicle _playerX) or (speed _truckX > 2)) then {
 			_proceed = true;
 			_breakText = "Transfer cancelled due to movement of Truck or Player";
 		};

@@ -6,7 +6,7 @@ _stealth = ["LeadTrack06_F", "AmbientTrack01_F", "AmbientTrack01a_F", "AmbientTr
 
 _stance = behaviour player;
 _newstance = _stance;
-cambioMUS = true;
+exchangeMUS = true;
 _song = "LeadTrack01_F";
 
 while {musicON} do
@@ -15,7 +15,7 @@ while {musicON} do
 	sleep 3;
 	_newstance = behaviour player;
 	//hint format [localize "STR_HINTS_MUSICA", _newstance]; sleep 3;
-	if ((_newstance != _stance) or (cambioMUS)) then
+	if ((_newstance != _stance) or (exchangeMUS)) then
 		{
 		removeAllMusicEventHandlers "MusicStop";
 		_stance = _newstance;
@@ -38,14 +38,14 @@ while {musicON} do
 				_song = _normalDay call BIS_Fnc_selectRandom;
 				};
 			};
-		cambioMUS = true;
+		exchangeMUS = true;
 		5 fadeMusic 0;
 		};
 
-	if (cambioMUS) then
+	if (exchangeMUS) then
 		{
-		_EH = addMusicEventHandler ["MusicStop", {cambioMUS = true}];
-		cambioMUS = false;
+		_EH = addMusicEventHandler ["MusicStop", {exchangeMUS = true}];
+		exchangeMUS = false;
 		sleep 5;
 		1 fadeMusic 0.5;
 		playmusic _song;

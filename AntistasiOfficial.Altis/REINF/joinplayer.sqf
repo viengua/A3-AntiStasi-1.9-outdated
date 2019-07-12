@@ -8,8 +8,8 @@ if (count units group _objectiveX > 9) exitWith {hint "Target group is full"};
 if (_objectiveX == Slowhand) exitWith {hint "You cannot join Slowhand group"};
 
 removeAllActions player;
-_viejogrupo = group player;
+_oldUnitgrupo = group player;
 [player] join group _objectiveX;
-deleteGroup _viejogrupo;
+deleteGroup _oldUnitgrupo;
 player addAction ["Leave this Group", {[] execVM "REINF\leaveplayer.sqf";},nil,0,false,true];
 

@@ -1,6 +1,6 @@
 if (!isServer) exitWith {};
 
-private ["_tipo","_coste","_grupo","_unit","_tam","_roads","_road","_pos","_camion","_texto","_mrk","_hr","_unitsX","_formatX"];
+private ["_tipo","_coste","_grupo","_unit","_tam","_roads","_road","_pos","_truckX","_texto","_mrk","_hr","_unitsX","_formatX"];
 
 _tipo = _this select 0;
 _positionTel = _this select 1;
@@ -39,13 +39,13 @@ _isRoad = isOnRoad _positionTel;
 
 _texto = "FIA Observation Post";
 _typeGroup = guer_grp_sniper;
-_tipoVeh = guer_veh_quad;
+_typeVehX = guer_veh_quad;
 
 if (_isRoad) then
 	{
 	_texto = "FIA Roadblock";
 	_typeGroup = guer_grp_AT;
-	_tipoVeh = guer_veh_offroad;
+	_typeVehX = guer_veh_offroad;
 	};
 
 _mrk = createMarker [format ["FIAPost%1", random 1000], _positionTel];
@@ -68,9 +68,9 @@ while {true} do
 	};
 _road = _roads select 0;
 _pos = position _road findEmptyPosition [1,30,guer_veh_truck];
-_camion = _tipoVeh createVehicle _pos;
+_truckX = _typeVehX createVehicle _pos;
 [_grupo] spawn dismountFIA;
-_grupo addVehicle _camion;
+_grupo addVehicle _truckX;
 {[_x] call AS_fnc_initialiseFIAUnit} forEach units _grupo;
 leader _grupo setBehaviour "SAFE";
 Slowhand hcSetGroup [_grupo];
@@ -129,7 +129,7 @@ else
 
 Slowhand hcRemoveGroup _grupo;
 {deleteVehicle _x} forEach units _grupo;
-deleteVehicle _camion;
+deleteVehicle _truckX;
 deleteGroup _grupo;
 sleep 15;
 

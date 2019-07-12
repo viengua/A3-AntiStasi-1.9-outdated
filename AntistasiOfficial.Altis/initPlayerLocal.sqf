@@ -85,7 +85,7 @@ player addWeapon "ItemWatch";
 // In order: controller, TK counter, funds, spawn-trigger, rank, score, known by hostile AI
 player setVariable ["owner",player,true];
 player setVariable ["punish",0,true];
-player setVariable ["dinero",500,true];
+player setVariable ["moneyX",500,true];
 player setVariable ["BLUFORSpawn",true,true];
 player setVariable ["ASrank",rank player,true];
 player setVariable ["score", [0,25] select (player == Slowhand),true];

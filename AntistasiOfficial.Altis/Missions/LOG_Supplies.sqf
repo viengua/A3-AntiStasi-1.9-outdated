@@ -42,7 +42,7 @@ if (dateToNumber date > _dateLimitNum) then {
 	[5,-5,_positionX] remoteExec ["AS_fnc_changeCitySupport",2];
 	[-10,Slowhand] call playerScoreAdd;
 } else {
-	_cuenta = 120;
+	_countX = 120;
 	_counter = 0;
 	_active = false;
 	[_positionX] remoteExec ["patrolCA", call AS_fnc_getNextWorker]; //In future this will be small ca from outpost
@@ -56,9 +56,9 @@ if (dateToNumber date > _dateLimitNum) then {
 		} forEach allUnits;
 	} forEach ([300,0,position _sbox,"BLUFORSpawn"] call distanceUnits);
 
-	while {(_counter < _cuenta) and (dateToNumber date < _dateLimitNum)} do {
+	while {(_counter < _countX) and (dateToNumber date < _dateLimitNum)} do {
 		while {
-			(_counter < _cuenta) and
+			(_counter < _countX) and
 			(_sbox distance _positionX < 40) && (speed _sbox < 1) and
 			(alive _sbox) and
 			(isNull attachedTo _sbox) and
@@ -72,7 +72,7 @@ if (dateToNumber date > _dateLimitNum) then {
 						} forEach (crew (_sbox));
 						_sbox lock 2;
 						_sbox engineOn false;
-						{if (isPlayer _x) then {[(_cuenta - _counter),false] remoteExec ["pBarMP",_x]; [_sbox,true] remoteExec ["AS_fnc_lockVehicle",_x];}} forEach ([80,0,_sbox,"BLUFORSpawn"] call distanceUnits);
+						{if (isPlayer _x) then {[(_countX - _counter),false] remoteExec ["pBarMP",_x]; [_sbox,true] remoteExec ["AS_fnc_lockVehicle",_x];}} forEach ([80,0,_sbox,"BLUFORSpawn"] call distanceUnits);
 						_active = true;
 						[[petros,"globalChat","Guard the truck!"],"commsMP"] call BIS_fnc_MP;
 					};
@@ -81,7 +81,7 @@ if (dateToNumber date > _dateLimitNum) then {
   			sleep 1;
 		};
 
-		if (_counter < _cuenta) then {
+		if (_counter < _countX) then {
 			_counter = 0;
 			_active = false;
 
@@ -98,7 +98,7 @@ if (dateToNumber date > _dateLimitNum) then {
 				or (dateToNumber date > _dateLimitNum)};
 			};
 
-				if !(_counter < _cuenta) exitWith {};
+				if !(_counter < _countX) exitWith {};
 	};
 
 	if (dateToNumber date < _dateLimitNum) then {

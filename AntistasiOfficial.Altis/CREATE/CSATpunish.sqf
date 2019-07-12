@@ -1,12 +1,12 @@
 if (!isServer and hasInterface) exitWith {};
-private ["_posOrigin","_typeGroup","_nameOrigin","_markTsk","_wp1","_soldiers","_landpos","_pad","_vehiclesX","_wp0","_wp3","_wp4","_wp2","_grupo","_grupos","_tipoveh","_vehicle","_heli","_heliCrew","_groupHeli","_pilotos","_rnd","_resourcesAAF","_nVeh","_tam","_roads","_Vwp1","_tanques","_road","_veh","_vehCrew","_groupVeh","_Vwp0","_size","_Hwp0","_grupo1","_uav","_groupUAV","_uwp0","_tsk","_vehiculo","_soldado","_piloto","_mrkDestination","_posDestination","_prestigeCSAT","_base","_airportX","_nameDest","_tiempo","_solMax","_pos","_timeOut"];
+private ["_posOrigin","_typeGroup","_nameOrigin","_markTsk","_wp1","_soldiers","_landpos","_pad","_vehiclesX","_wp0","_wp3","_wp4","_wp2","_grupo","_groups","_typeVehX","_vehicle","_heli","_heliCrew","_groupHeli","_pilotos","_rnd","_resourcesAAF","_nVeh","_tam","_roads","_Vwp1","_tanksX","_road","_veh","_vehCrew","_groupVeh","_Vwp0","_size","_Hwp0","_grupo1","_uav","_groupUAV","_uwp0","_tsk","_vehiculo","_soldierX","_piloto","_mrkDestination","_posDestination","_prestigeCSAT","_base","_airportX","_nameDest","_tiempo","_solMax","_pos","_timeOut"];
 _mrkDestination = _this select 0;
 
 forcedSpawn = forcedSpawn + [_mrkDestination]; publicVariable "forcedSpawn";
 
 _posDestination = getMarkerPos _mrkDestination;
 
-_grupos = [];
+_groups = [];
 _soldiers = [];
 _pilotos = [];
 _vehiclesX = [];
@@ -23,28 +23,28 @@ _tiempo = time + 3600;
 _posOrigin = getMarkerPos "spawnCSAT";
 
 for "_i" from 1 to 3 do {
-	_tipoveh = opAir call BIS_fnc_selectRandom;
-	if(_i == 1) then {_tipoveh = opAir select 0};
-	if(_i == 3) then {_tipoveh = opAir select 1};
+	_typeVehX = opAir call BIS_fnc_selectRandom;
+	if(_i == 1) then {_typeVehX = opAir select 0};
+	if(_i == 3) then {_typeVehX = opAir select 1};
 	_timeOut = 0;
-	_pos = _posOrigin findEmptyPosition [0,100,_tipoveh];
+	_pos = _posOrigin findEmptyPosition [0,100,_typeVehX];
 	while {_timeOut < 60} do {
 		if (count _pos > 0) exitWith {};
 		_timeOut = _timeOut + 1;
-		_pos = _posOrigin findEmptyPosition [0,100,_tipoveh];
+		_pos = _posOrigin findEmptyPosition [0,100,_typeVehX];
 		sleep 1;
 	};
 	if (count _pos == 0) then {_pos = _posOrigin};
-	_vehicle=[_pos, 0, _tipoveh, side_red] call bis_fnc_spawnvehicle;
+	_vehicle=[_pos, 0, _typeVehX, side_red] call bis_fnc_spawnvehicle;
 	_heli = _vehicle select 0;
 	_heli setVariable ["OPFORSpawn",true];
 	_heliCrew = _vehicle select 1;
 	_groupHeli = _vehicle select 2;
 	_pilotos = _pilotos + _heliCrew;
-	_grupos = _grupos + [_groupHeli];
+	_groups = _groups + [_groupHeli];
 	_vehiclesX = _vehiclesX + [_heli];
 	//_heli lock 3;
-	if (_tipoveh != opHeliFR) then
+	if (_typeVehX != opHeliFR) then
 		{
 		{[_x] spawn CSATinit} forEach _heliCrew;
 		_wp1 = _groupHeli addWaypoint [_posDestination, 0];
@@ -60,7 +60,7 @@ for "_i" from 1 to 3 do {
 		_typeGroup = [opGroup_Squad, side_red] call AS_fnc_pickGroup;
 		_grupo = [_posOrigin, side_red, _typeGroup] call BIS_Fnc_spawnGroup;
 		{_x assignAsCargo _heli; _x moveInCargo _heli; _soldiers = _soldiers + [_x]; [_x] spawn CSATinit} forEach units _grupo;
-		_grupos = _grupos + [_grupo];
+		_groups = _groups + [_grupo];
 		[_heli,"CSAT Air Transport"] spawn inmuneConvoy;
 
 		if (random 100 < 50) then
@@ -105,7 +105,7 @@ _numCiv = 16; //making the number standard for now
 
 _size = [_mrkDestination] call sizeMarker;
 _groupCivil1 = createGroup side_blue;
-_grupos pushBack _groupCivil1;
+_groups pushBack _groupCivil1;
 
 for "_i" from 0 to _numCiv do {
 	while {true} do {
@@ -123,7 +123,7 @@ for "_i" from 0 to _numCiv do {
 };
 _groupCivil = createGroup side_blue;
 {[_x] join _groupCivil} foreach (units _groupCivil1);
-_grupos pushBack _groupCivil;
+_groups pushBack _groupCivil;
 
 [_groupCivil, _mrkDestination, "AWARE","SPAWNED","NOVEH2"] execVM "scripts\UPSMON.sqf";
 
@@ -205,7 +205,7 @@ waitUntil {sleep 5;
 	{
 	if (!([distanceSPWN,1,_x,"BLUFORSpawn"] call distanceUnits)) then {deleteVehicle _x};
 	} forEach _vehiclesX;
-	{deleteGroup _x} forEach _grupos;
+	{deleteGroup _x} forEach _groups;
 
 	waitUntil {sleep 1; not (spawner getVariable _mrkDestination)};
 

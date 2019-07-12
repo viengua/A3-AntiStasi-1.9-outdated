@@ -1,4 +1,4 @@
-private ["_tipo","_coste","_grupo","_unit","_tam","_roads","_road","_pos","_camion","_texto","_mrk","_hr","_exists","_positionTel","_typeGroup","_resourcesFIA","_hrFIA"];
+private ["_tipo","_coste","_grupo","_unit","_tam","_roads","_road","_pos","_truckX","_texto","_mrk","_hr","_exists","_positionTel","_typeGroup","_resourcesFIA","_hrFIA"];
 
 if (!([player] call hasRadio)) exitWith {hint localize "STR_HINTS_FD_YNARIYITBA"};
 if ("campsFIA" in missionsX) exitWith {hint localize "STR_TSK_TD_BEMP_RESTR"};

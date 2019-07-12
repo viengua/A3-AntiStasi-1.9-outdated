@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith {};
 
-private ["_prestigio","_markerX","_positionX","_timeLimit","_dateLimit","_dateLimitNum","_nameDest","_tsk","_soldiers","_vehiclesX","_grupo","_tipoVeh","_cuenta","_size"];
+private ["_prestigio","_markerX","_positionX","_timeLimit","_dateLimit","_dateLimitNum","_nameDest","_tsk","_soldiers","_vehiclesX","_grupo","_typeVehX","_countX","_size"];
 
 _prestigio = server getVariable "prestigeNATO";
 
@@ -22,26 +22,26 @@ _size = [_markerX] call sizeMarker;
 _soldiers = [];
 _vehiclesX = [];
 _grupo = createGroup side_blue;
-_tipoVeh = selectRandom bluStatMortar;
+_typeVehX = selectRandom bluStatMortar;
 _grupo setVariable ["esNATO",true,true];
-_cuenta = 1;
+_countX = 1;
 _spread = 0;
 if (_prestigio < 33) then
 	{
-	_cuenta = 4;
+	_countX = 4;
 	_spread = 15;
 	}
 else
 	{
-	if (_prestigio < 66) then {_tipoVeh = selectRandom bluArty} else {_cuenta = 2; _spread = 20; _tipoVeh = selectRandom bluMLRS};
+	if (_prestigio < 66) then {_typeVehX = selectRandom bluArty} else {_countX = 2; _spread = 20; _typeVehX = selectRandom bluMLRS};
 	};
-for "_i" from 1 to _cuenta do
+for "_i" from 1 to _countX do
 	{
 	_unit = ([_positionX, 0, bluGunner, _grupo] call bis_fnc_spawnvehicle) select 0;
 	[_unit] spawn NATOinitCA;
 	sleep 1;
 	_pos = [_markerX, "base_4", true] call AS_fnc_findSpawnSpots;
-	_veh = createVehicle [_tipoVeh, _pos, [], _spread, "NONE"];
+	_veh = createVehicle [_typeVehX, _pos, [], _spread, "NONE"];
 	[_veh] spawn NATOvehInit;
 	sleep 1;
 	_unit moveInGunner _veh;

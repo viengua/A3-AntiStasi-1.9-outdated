@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith {};
 
-private ["_tipo","_quantity","_typeAmmunition","_grupo","_unit","_tam","_roads","_road","_pos","_camion","_texto","_mrk","_ATminesAdd","_APminesAdd","_positionTel","_tsk","_magazines","_typeMagazines","_cantMagazines","_newCantMagazines","_mina","_tipo","_camion"];
+private ["_tipo","_quantity","_typeAmmunition","_grupo","_unit","_tam","_roads","_road","_pos","_truckX","_texto","_mrk","_ATminesAdd","_APminesAdd","_positionTel","_tsk","_magazines","_typeMagazines","_cantMagazines","_newCantMagazines","_mina","_tipo","_truckX"];
 
 _tipo = _this select 0;
 _positionTel = _this select 1;
@@ -32,7 +32,7 @@ for "_i" from 0 to (count _typeMagazines) - 1 do
 		{
 		_hasQuantity = (_cantMagazines select _i);
 		_hasQuantity = _hasQuantity - _quantity;
-		if (_hasQuantity < 0) then {_cuentasHay = 0};
+		if (_hasQuantity < 0) then {_countXsHay = 0};
 		_newCantMagazines pushBack _hasQuantity;
 		};
 	};
@@ -72,21 +72,21 @@ while {true} do
 _road = _roads select 0;
 _pos = position _road findEmptyPosition [1,30,guer_veh_truck];
 
-_camion = guer_veh_truck createVehicle _pos;
+_truckX = guer_veh_truck createVehicle _pos;
 
-_grupo addVehicle _camion;
+_grupo addVehicle _truckX;
 {[_x] spawn AS_fnc_initialiseFIAUnit; [_x] orderGetIn true} forEach units _grupo;
-[_camion] spawn VEHinit;
+[_truckX] spawn VEHinit;
 leader _grupo setBehaviour "SAFE";
 Slowhand hcSetGroup [_grupo];
 _grupo setVariable ["isHCgroup", true, true];
-_camion allowCrewInImmobile true;
+_truckX allowCrewInImmobile true;
 
-//waitUntil {sleep 1; (count crew _camion > 0) or (!alive _camion) or ({alive _x} count units _grupo == 0)};
+//waitUntil {sleep 1; (count crew _truckX > 0) or (!alive _truckX) or ({alive _x} count units _grupo == 0)};
 
-waitUntil {sleep 1; (!alive _camion) or ((_camion distance _positionTel < 50) and ({alive _x} count units _grupo > 0))};
+waitUntil {sleep 1; (!alive _truckX) or ((_truckX distance _positionTel < 50) and ({alive _x} count units _grupo > 0))};
 
-if ((_camion distance _positionTel < 50) and ({alive _x} count units _grupo > 0)) then
+if ((_truckX distance _positionTel < 50) and ({alive _x} count units _grupo > 0)) then
 	{
 	if (isPlayer leader _grupo) then
 		{
@@ -102,11 +102,11 @@ if ((_camion distance _positionTel < 50) and ({alive _x} count units _grupo > 0)
 	[[petros,"locHint","STR_TSK_MINEFIELD_HINT"],"commsMP"] call BIS_fnc_MP;
 	[_grupo, _mrk, "SAFE","SPAWNED", "SHOWMARKER"] execVM "scripts\UPSMON.sqf";
 	sleep 30*_quantity;
-	if ((alive _camion) and ({alive _x} count units _grupo > 0)) then
+	if ((alive _truckX) and ({alive _x} count units _grupo > 0)) then
 		{
 		{deleteVehicle _x} forEach units _grupo;
 		deleteGroup _grupo;
-		deleteVehicle _camion;
+		deleteVehicle _truckX;
 		for "_i" from 1 to _quantity do
 			{
 			_mina = createMine [_tipo,_positionTel,[],100];
@@ -127,7 +127,7 @@ if ((_camion distance _positionTel < 50) and ({alive _x} count units _grupo > 0)
 		[0,_tsk] spawn deleteTaskX;
 		{deleteVehicle _x} forEach units _grupo;
 		deleteGroup _grupo;
-		deleteVehicle _camion;
+		deleteVehicle _truckX;
 		deleteMarker _mrk;
 		};
 	}
@@ -140,7 +140,7 @@ else
 	[0,_tsk] spawn deleteTaskX;
 	{deleteVehicle _x} forEach units _grupo;
 	deleteGroup _grupo;
-	deleteVehicle _camion;
+	deleteVehicle _truckX;
 	deleteMarker _mrk;
 	};
 

@@ -1,4 +1,4 @@
-private ["_texto","_viejoTexto","_display","_setText"];
+private ["_texto","_oldUnitTexto","_display","_setText"];
 showStatistics = false;
 sleep 3;
 showStatistics = true;
@@ -11,7 +11,7 @@ waitUntil {!isNull (uiNameSpace getVariable "H8erHUD")};
 _display = uiNameSpace getVariable "H8erHUD";
 _setText = _display displayCtrl 1001;
 _setText ctrlSetBackgroundColor [0,0,0,0];
-_viejoTexto = "";
+_oldUnitTexto = "";
 if (isMultiplayer) then
 	{
 	private ["_nameC"];
@@ -22,26 +22,26 @@ if (isMultiplayer) then
 			{
 			if (isPlayer Slowhand) then {_nameC = name Slowhand} else {_nameC = "NONE"};
 			if (activeBE) then {
-				_texto = format ["<t size='0.55'>" + localize "STR_UI_TOP_TEXT1", server getVariable "hr", player getVariable ["Rank_PBar", "Init"], _nameC, player getVariable "dinero",server getVariable "PrestigeNATO", server getVariable "prestigeCSAT", server getVariable "BE_PBar", [localize "STR_UI_TOP_OVERT",localize "STR_UI_TOP_INCOGNITO"] select (captive player), A3_Str_BLUE, A3_Str_RED];
+				_texto = format ["<t size='0.55'>" + localize "STR_UI_TOP_TEXT1", server getVariable "hr", player getVariable ["Rank_PBar", "Init"], _nameC, player getVariable "moneyX",server getVariable "PrestigeNATO", server getVariable "prestigeCSAT", server getVariable "BE_PBar", [localize "STR_UI_TOP_OVERT",localize "STR_UI_TOP_INCOGNITO"] select (captive player), A3_Str_BLUE, A3_Str_RED];
 			} else {
-				_texto = format ["<t size='0.55'>" + localize "STR_UI_TOP_TEXT2", server getVariable "hr", player getVariable ["Rank_PBar", "Init"], _nameC, player getVariable "dinero",server getVariable "PrestigeNATO", server getVariable "prestigeCSAT", [localize "STR_UI_TOP_OVERT",localize "STR_UI_TOP_INCOGNITO"] select (captive player), A3_Str_BLUE, A3_Str_RED];
+				_texto = format ["<t size='0.55'>" + localize "STR_UI_TOP_TEXT2", server getVariable "hr", player getVariable ["Rank_PBar", "Init"], _nameC, player getVariable "moneyX",server getVariable "PrestigeNATO", server getVariable "prestigeCSAT", [localize "STR_UI_TOP_OVERT",localize "STR_UI_TOP_INCOGNITO"] select (captive player), A3_Str_BLUE, A3_Str_RED];
 			};
 		}
 		else
 			{
 				if (activeBE) then {
-					_texto = format ["<t size='0.55'>" + localize "STR_UI_TOP_TEXT3", server getVariable "hr", server getVariable "resourcesFIA", server getVariable "PrestigeNATO", server getVariable "prestigeCSAT", player getVariable ["Rank_PBar", "Init"], player getVariable "dinero", server getVariable "BE_PBar", [localize "STR_UI_TOP_OVERT",localize "STR_UI_TOP_INCOGNITO"] select (captive player), A3_Str_BLUE, A3_Str_RED];
+					_texto = format ["<t size='0.55'>" + localize "STR_UI_TOP_TEXT3", server getVariable "hr", server getVariable "resourcesFIA", server getVariable "PrestigeNATO", server getVariable "prestigeCSAT", player getVariable ["Rank_PBar", "Init"], player getVariable "moneyX", server getVariable "BE_PBar", [localize "STR_UI_TOP_OVERT",localize "STR_UI_TOP_INCOGNITO"] select (captive player), A3_Str_BLUE, A3_Str_RED];
 				} else {
-					_texto = format ["<t size='0.55'>" + localize "STR_UI_TOP_TEXT4", server getVariable "hr", server getVariable "resourcesFIA", server getVariable "PrestigeNATO", server getVariable "prestigeCSAT", player getVariable ["Rank_PBar", "Init"], player getVariable "dinero", [localize "STR_UI_TOP_OVERT",localize "STR_UI_TOP_INCOGNITO"] select (captive player), A3_Str_BLUE, A3_Str_RED];
+					_texto = format ["<t size='0.55'>" + localize "STR_UI_TOP_TEXT4", server getVariable "hr", server getVariable "resourcesFIA", server getVariable "PrestigeNATO", server getVariable "prestigeCSAT", player getVariable ["Rank_PBar", "Init"], player getVariable "moneyX", [localize "STR_UI_TOP_OVERT",localize "STR_UI_TOP_INCOGNITO"] select (captive player), A3_Str_BLUE, A3_Str_RED];
 				};
 			};
 		//if (captive player) then {_texto = format ["%1 ON",_texto]} else {_texto = format ["%1 OFF",_texto]};
-		if (_texto != _viejoTexto) then
+		if (_texto != _oldUnitTexto) then
 			{
 			//[_texto,-0.1,-0.4,601,0,0,5] spawn bis_fnc_dynamicText;
 			_setText ctrlSetStructuredText (parseText format ["%1", _texto]);
 			_setText ctrlCommit 0;
-			_viejoTexto = _texto;
+			_oldUnitTexto = _texto;
 			};
 		if (player == leader (group player)) then
 			{
@@ -61,12 +61,12 @@ else
 			_texto = format ["<t size='0.55'>" + localize "STR_UI_TOP_TEXT6", server getVariable "hr", server getVariable "resourcesFIA", server getVariable "PrestigeNATO", server getVariable "prestigeCSAT", [localize "STR_UI_TOP_OVERT",localize "STR_UI_TOP_INCOGNITO"] select (captive player), A3_Str_BLUE, A3_Str_RED];
 		};
 		//if (captive player) then {_texto = format ["%1 ON",_texto]} else {_texto = format ["%1 OFF",_texto]};
-		if (_texto != _viejoTexto) then
+		if (_texto != _oldUnitTexto) then
 			{
 			//[_texto,-0.1,-0.4,601,0,0,5] spawn bis_fnc_dynamicText;
 			_setText ctrlSetStructuredText (parseText format ["%1", _texto]);
 			_setText ctrlCommit 0;
-			_viejoTexto = _texto;
+			_oldUnitTexto = _texto;
 			};
 		sleep 1;
 		};

@@ -10,7 +10,7 @@ _multiplier = 1;
 
 if (!isMultiplayer) then {_multiplier = 2};
 
-_cuenta = count (mrkFIA - outpostsFIA - ["FIA_HQ"] - citiesX);
+_countX = count (mrkFIA - outpostsFIA - ["FIA_HQ"] - citiesX);
 
 
 if (_resourcesAAF > 5000) then{
@@ -47,9 +47,9 @@ if (_resourcesAAF > 5000) then{
 	};
 };
 
-if (_cuenta == 0) exitWith {resourcesIsChanging = false};
+if (_countX == 0) exitWith {resourcesIsChanging = false};
 
-if (((planesAAFcurrent < planesAAFmax) and (helisAAFcurrent > 3)) and (_cuenta > 6)) then {
+if (((planesAAFcurrent < planesAAFmax) and (helisAAFcurrent > 3)) and (_countX > 6)) then {
 	if (_resourcesAAF > (17500*_multiplier)) then {
 		if (count indAirForce < 2) then {
 			indAirForce = indAirForce + planes;
@@ -62,7 +62,7 @@ if (((planesAAFcurrent < planesAAFmax) and (helisAAFcurrent > 3)) and (_cuenta >
 	};
 };
 
-if (((tanksAAFcurrent < tanksAAFmax) and (APCAAFcurrent > 3)) and (_cuenta > 5) and (planesAAFcurrent != 0)) then {
+if (((tanksAAFcurrent < tanksAAFmax) and (APCAAFcurrent > 3)) and (_countX > 5) and (planesAAFcurrent != 0)) then {
 	if (_resourcesAAF > (10000*_multiplier)) then {
 		_length = count (enemyMotorpool - vehTank);
 		if (_length == count enemyMotorpool) then {
@@ -75,7 +75,7 @@ if (((tanksAAFcurrent < tanksAAFmax) and (APCAAFcurrent > 3)) and (_cuenta > 5) 
 	};
 };
 
-if (((helisAAFcurrent < helisAAFmax) and ((helisAAFcurrent < 4) or (planesAAFcurrent > 3))) and (_cuenta > 3)) then {
+if (((helisAAFcurrent < helisAAFmax) and ((helisAAFcurrent < 4) or (planesAAFcurrent > 3))) and (_countX > 3)) then {
 	if (_resourcesAAF > (10000*_multiplier)) then {
 		_length = count (indAirForce - heli_armed);
 		if (_length == count indAirForce) then {
@@ -88,7 +88,7 @@ if (((helisAAFcurrent < helisAAFmax) and ((helisAAFcurrent < 4) or (planesAAFcur
 	};
 };
 
-if ((APCAAFcurrent < APCAAFmax) and ((tanksAAFcurrent > 2) or (APCAAFcurrent < 4)) and (_cuenta > 2)) then {
+if ((APCAAFcurrent < APCAAFmax) and ((tanksAAFcurrent > 2) or (APCAAFcurrent < 4)) and (_countX > 2)) then {
 	if (_resourcesAAF > (5000*_multiplier)) then{
 		_length = count (enemyMotorpool - vehAPC);
 		if (_length == count enemyMotorpool) then {

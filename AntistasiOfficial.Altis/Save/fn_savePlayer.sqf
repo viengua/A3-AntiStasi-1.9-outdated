@@ -16,7 +16,7 @@ diag_log ["saveplayer", _uid, _player];
 if (isMultiplayer) then {
 	private _score = _player getVariable ["score",0];
 	private _rank = rank _player; //Rank is not being saved! Sparker.
-	private _funds = _player getVariable ["dinero",0];
+	private _funds = _player getVariable ["moneyX",0];
 
 	["score",_score, _uid] call fn_savePlayerData;
 	["rank",_rank, _uid] call fn_savePlayerData;

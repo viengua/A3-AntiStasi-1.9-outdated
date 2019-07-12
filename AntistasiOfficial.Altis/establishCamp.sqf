@@ -1,6 +1,6 @@
 if (!isServer) exitWith {};
 
-private ["_tipo","_coste","_grupo","_unit","_tam","_roads","_road","_pos","_camion","_texto","_mrk","_hr","_unitsX","_formatX"];
+private ["_tipo","_coste","_grupo","_unit","_tam","_roads","_road","_pos","_truckX","_texto","_mrk","_hr","_unitsX","_formatX"];
 
 _tipo = _this select 0;
 _positionTel = _this select 1;
@@ -28,7 +28,7 @@ if (_tipo == "delete") exitWith {
 
 _nameOptions = campNames - usedCN;
 _texto = selectRandom _nameOptions;
-_tipoVeh = guer_veh_truck;
+_typeVehX = guer_veh_truck;
 
 _mrk = createMarker [format ["FIACamp%1", random 1000], _positionTel];
 _mrk setMarkerShape "ICON";
@@ -49,30 +49,30 @@ _road = _roads select 0;
 _pos = position _road findEmptyPosition [1,30,guer_veh_truck];
 
 _vehicle=[_pos, 0,guer_veh_truck, side_blue] call bis_fnc_spawnvehicle;
-_camion = _vehicle select 0;
-_camion deleteVehicleCrew driver _camion;
+_truckX = _vehicle select 0;
+_truckX deleteVehicleCrew driver _truckX;
 
 _grupo = [getMarkerPos guer_respawn, side_blue, ([guer_grp_sniper, "guer"] call AS_fnc_pickGroup)] call BIS_Fnc_spawnGroup;
 _grupo setGroupId ["Camp"];
 {
 	if (_forEachIndex == 0) then {
-		_x moveInDriver _camion;
+		_x moveInDriver _truckX;
 	} else {
-		_x moveInCargo _camion;
+		_x moveInCargo _truckX;
 	};
 } forEach units _grupo;
 {[_x] call AS_fnc_initialiseFIAUnit;} forEach units _grupo;
 
-[_grupo, driver _camion] remoteExec ["selectLeader", groupOwner _grupo];
+[_grupo, driver _truckX] remoteExec ["selectLeader", groupOwner _grupo];
 leader _grupo setBehaviour "SAFE";
-driver _camion action ["engineOn", _camion];
+driver _truckX action ["engineOn", _truckX];
 [_grupo] spawn dismountFIA;
 
 Slowhand hcSetGroup [_grupo];
 _grupo setVariable ["isHCgroup", true, true];
 
 _crate = "Box_FIA_Support_F" createVehicle _pos;
-_crate attachTo [_camion,[0.0,-1.2,0.5]];
+_crate attachTo [_truckX,[0.0,-1.2,0.5]];
 
 waitUntil {sleep 1; ({alive _x} count units _grupo == 0) or ({(alive _x) and (_x distance _positionTel < 10)} count units _grupo > 0) or (dateToNumber date > _dateLimitNum)};
 
@@ -106,7 +106,7 @@ else {
 
 Slowhand hcRemoveGroup _grupo;
 {deleteVehicle _x} forEach units _grupo;
-deleteVehicle _camion;
+deleteVehicle _truckX;
 deleteGroup _grupo;
 _crate enableSimulationGlobal false;
 _crate hideObjectGlobal true;

@@ -7,7 +7,7 @@ _site = _this select 0;
 
 private ["_mrk","_posCmp","_p1","_p2","_dirveh"];
 
-_grupos = [];
+_groups = [];
 _vehiclesX = [];
 _soldiers = [];
 
@@ -115,7 +115,7 @@ if (random 8 < 1) then {
 	{[_x] spawn genInit} forEach _vehCrew;
 	_groupVeh = _vehicle select 2;
 	_soldiers = _soldiers + _vehCrew;
-	_grupos = _grupos + [_groupVeh];
+	_groups = _groups + [_groupVeh];
 	_vehiclesX = _vehiclesX + [_veh];
 
 	sleep 1;
@@ -124,7 +124,7 @@ if (random 8 < 1) then {
 	_grupo = [_posbase, side_green, _typeGroup] call BIS_Fnc_spawnGroup;
 
 	{_x assignAsCargo _veh; _x moveInCargo _veh; _soldiers = _soldiers + [_x]; [_x] spawn genInit} forEach units _grupo;
-	_grupos = _grupos + [_grupo];
+	_groups = _groups + [_grupo];
 
 	//[_veh] spawn smokeCover;
 
@@ -192,7 +192,7 @@ deleteMarker "DevPat";
 waitUntil {sleep 1; {_x distance Devin < distanceSPWN/2} count (allPlayers - (entities "HeadlessClient_F")) == 0};
 {deleteVehicle _x} forEach _vehiclesX;
 {deleteVehicle _x} forEach _soldiers;
-{deleteGroup _x} forEach _grupos;
+{deleteGroup _x} forEach _groups;
 deleteVehicle Devin;
 deleteGroup _groupDev;
 [_posCmp, "exp"] remoteExec ["despawnCamp"];

@@ -3,7 +3,7 @@ if (!isServer and hasInterface) exitWith {};
 _tskTitle = "STR_TSK_TD_DesHeli";
 _tskDesc = "STR_TSK_TD_DESC_DesHeli";
 
-private ["_poscrash","_markerX","_positionX","_mrkfin","_tipoveh","_efecto","_heli","_vehiclesX","_soldiers","_grupos","_unit","_roads","_road","_vehicle","_veh","_typeGroup","_tsk","_humo","_emitterArray"];
+private ["_poscrash","_markerX","_positionX","_mrkfin","_typeVehX","_effect","_heli","_vehiclesX","_soldiers","_groups","_unit","_roads","_road","_vehicle","_veh","_typeGroup","_tsk","_humo","_emitterArray"];
 
 _markerX = _this select 0;
 _source = _this select 1;
@@ -28,10 +28,10 @@ while {true} do
 	if ((!surfaceIsWater _poscrash) and (_poscrash distance _posHQ < 4000)) exitWith {};
 	};
 
-_tipoVeh = indAirForce call BIS_fnc_selectRandom;
+_typeVehX = indAirForce call BIS_fnc_selectRandom;
 
 _posCrashMrk = [_poscrash,random 500,random 360] call BIS_fnc_relPos;
-_posCrash = _posCrash findEmptyPosition [0,100,_tipoVeh];
+_posCrash = _posCrash findEmptyPosition [0,100,_typeVehX];
 _mrkfin = createMarker [format ["DES%1", random 100], _posCrashMrk];
 _mrkfin setMarkerShape "ICON";
 
@@ -41,18 +41,18 @@ _tsk = ["DES",[side_blue,civilian],[[_tskDesc,_nombrebase],_tskTitle,_mrkfin],_p
 missionsX pushBack _tsk; publicVariable "missionsX";
 _vehiclesX = [];
 _soldiers = [];
-_grupos = [];
+_groups = [];
 
-_efecto = createVehicle ["CraterLong", _poscrash, [], 0, "CAN_COLLIDE"];
-_heli = createVehicle [_tipoVeh, _poscrash, [], 0, "CAN_COLLIDE"];
-_heli attachTo [_efecto,[0,0,1.5]];
+_effect = createVehicle ["CraterLong", _poscrash, [], 0, "CAN_COLLIDE"];
+_heli = createVehicle [_typeVehX, _poscrash, [], 0, "CAN_COLLIDE"];
+_heli attachTo [_effect,[0,0,1.5]];
 _humo = "test_EmptyObjectForSmoke" createVehicle _poscrash; _humo attachTo[_heli,[0,1.5,-1]];
 _heli setDamage 0.9;
 _heli lock 2;
-_vehiclesX = _vehiclesX + [_heli,_efecto];
+_vehiclesX = _vehiclesX + [_heli,_effect];
 
 _grpcrash = createGroup side_green;
-_grupos = _grupos + [_grpcrash];
+_groups = _groups + [_grpcrash];
 
 _unit = ([_poscrash, 0, infPilot, _grpcrash] call bis_fnc_spawnvehicle) select 0;
 _unit setDamage 1;
@@ -78,7 +78,7 @@ _vehCrew = _vehicle select 1;
 {[_x] spawn genInit} forEach _vehCrew;
 _groupVeh = _vehicle select 2;
 _soldiers = _soldiers + _vehCrew;
-_grupos = _grupos + [_groupVeh];
+_groups = _groups + [_groupVeh];
 _vehiclesX = _vehiclesX + [_veh];
 
 sleep 1;
@@ -107,7 +107,7 @@ _vehCrewT = _vehicle select 1;
 {[_x] spawn genInit} forEach _vehCrewT;
 _groupVehT = _vehicleT select 2;
 _soldiers = _soldiers + _vehCrewT;
-_grupos = _grupos + [_groupVehT];
+_groups = _groups + [_groupVehT];
 _vehiclesX = _vehiclesX + [_vehT];
 
 _Vwp0 = _groupVehT addWaypoint [_poscrash, 0];
@@ -188,7 +188,7 @@ deleteMarker _mrkfin;
 waitUntil {sleep 1;(!([distanceSPWN,1,_x,"BLUFORSpawn"] call distanceUnits))};
 deleteVehicle _x} forEach _vehiclesX;
 {deleteVehicle _x} forEach _soldiers;
-{deleteGroup _x} forEach _grupos;
+{deleteGroup _x} forEach _groups;
 
 //sleep (600 + random 1200);
 

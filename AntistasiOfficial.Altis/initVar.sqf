@@ -196,7 +196,7 @@ flag_chopForest = false;
 missionsX = [];
 markerSupplyCrates = [];
 countSupplyCrates = 0;
-revelar = false;
+revealX = false;
 
 vehInGarage = ["C_Van_01_transport_F","C_Offroad_01_F","C_Offroad_01_F",guer_veh_quad,guer_veh_quad,guer_veh_quad]; // initial motorpool
 destroyedBuildings = []; publicVariable "destroyedBuildings";
@@ -244,7 +244,7 @@ publicVariable "activeACEhearing";
 publicVariable "activeACEMedical";
 publicVariable "skillAAF";
 publicVariable "missionsX";
-publicVariable "revelar";
+publicVariable "revealX";
 publicVariable "FIA_texturedVehicles";
 publicVariable "FIA_texturedVehicleConfigs";
 publicVariable "activeBE";

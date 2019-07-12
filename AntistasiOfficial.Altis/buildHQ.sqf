@@ -7,10 +7,10 @@ caja call jn_fnc_logistics_removeAction;
 vehicleBox call jn_fnc_logistics_removeAction;
 
 private ["_pos","_rnd"];
-_movido = false;
+_movedX = false;
 if (group petros != groupPetros) then
 	{
-	_movido = true;
+	_movedX = true;
 	[petros] join groupPetros;
 	};
 [[petros,"remove"],"AS_fnc_addActionMP"] call BIS_fnc_MP;
@@ -30,7 +30,7 @@ if (isMultiplayer) then
 	}
 else
 	{
-	if (_movido) then {hint "Please wait while moving HQ Assets to selected position"};
+	if (_movedX) then {hint "Please wait while moving HQ Assets to selected position"};
 	//sleep 5
 	caja hideObject false;
 	vehicleBox hideObject false;
@@ -62,7 +62,7 @@ if(_ignoreDistance) then
 {
 	vehicleBox setPos _pos;
 };
-if (_movido) then {[] call emptyX};
+if (_movedX) then {[] call emptyX};
 placementDone = true; publicVariable "placementDone";
 sleep 5;
 [[Petros,"mission"],"AS_fnc_addActionMP"] call BIS_fnc_MP;
