@@ -46,11 +46,11 @@ if (dateToNumber date > _dateLimitNum) then {
 	_counter = 0;
 	_active = false;
 	[_positionX] remoteExec ["patrolCA", call AS_fnc_getNextWorker]; //In future this will be small ca from outpost
-	{_amigo = _x;
-		if (captive _amigo) then {[_amigo,false] remoteExec ["setCaptive",_amigo];};
+	{_friendX = _x;
+		if (captive _friendX) then {[_friendX,false] remoteExec ["setCaptive",_friendX];};
 		{
 			if ((side _x == side_green) and (_x distance _positionX < distanceSPWN)) then {
-				if (_x distance _positionX < 300) then {_x doMove _positionX} else {_x reveal [_amigo,4]};
+				if (_x distance _positionX < 300) then {_x doMove _positionX} else {_x reveal [_friendX,4]};
 			};
 			if ((side _x == civilian) and (_x distance _positionX < 300)) then {_x doMove position _sbox};
 		} forEach allUnits;

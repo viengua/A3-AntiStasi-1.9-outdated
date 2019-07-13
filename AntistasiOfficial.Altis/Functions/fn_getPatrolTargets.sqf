@@ -1,7 +1,7 @@
 params ["_markers"];
 private ["_array","_position","_marker"];
 
-_array = _markers - colinas - controlsX - ["puesto_13"];
+_array = _markers - colinas - controlsX - ["outpost_13"];
 
 {
 	if ((getMarkerPos guer_respawn) distance (getMarkerPos _x) > 3000) then {

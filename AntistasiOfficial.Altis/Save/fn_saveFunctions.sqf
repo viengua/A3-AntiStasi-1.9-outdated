@@ -300,21 +300,21 @@ fn_setData = {
 			if(_varName == 'skillFIA') exitWith {
 				server setVariable ["skillFIA",_varValue,true];
 				{
-					_coste = server getVariable _x;
+					_costs = server getVariable _x;
 					for "_i" from 1 to _varValue do {
-						_coste = round (_coste + (_coste * (_i/280)));
+						_costs = round (_costs + (_costs * (_i/280)));
 					};
-					server setVariable [_x,_coste,true];
+					server setVariable [_x,_costs,true];
 				} forEach guer_soldierArray;
 			};
 			if(_varName == 'skillAAF') exitWith {
 				skillAAF = _varValue;
 				{
-					_coste = server getVariable _x;
+					_costs = server getVariable _x;
 					for "_i" from 1 to skillAAF do {
-						_coste = round (_coste + (_coste * (_i/280)));
+						_costs = round (_costs + (_costs * (_i/280)));
 					};
-					server setVariable [_x,_coste,true];
+					server setVariable [_x,_costs,true];
 				} forEach units_enemySoldiers;
 			};
 			if(_varName == 'mines') exitWith {
@@ -335,9 +335,9 @@ fn_setData = {
 					if !(_unknownMine) then {
 						_posMine = _varValue select _i select 1;
 						_dirMine = _varValue select _i select 2;
-						_mina = createMine [_typeMine, _posMine, [], _dirMine];
+						_mineX = createMine [_typeMine, _posMine, [], _dirMine];
 						_detected = _varValue select _i select 3;
-						if (_detected) then {side_blue revealMine _mina};
+						if (_detected) then {side_blue revealMine _mineX};
 					};
 				};*/
 			};
@@ -421,27 +421,27 @@ fn_setData = {
 			if(_varname == 'supportOPFOR') exitWith {
 				for "_i" from 0 to (count citiesX) - 1 do {
 					_cityX = citiesX select _i;
-					_datos = server getVariable _cityX;
-					_numCiv = _datos select 0;
-					_numVeh = _datos select 1;
+					_dataX = server getVariable _cityX;
+					_numCiv = _dataX select 0;
+					_numVeh = _dataX select 1;
 					_prestigeOPFOR = _varValue select _i;
-					_prestigeBLUFOR = _datos select 3;
+					_prestigeBLUFOR = _dataX select 3;
 					_supplyLevels = ["LOW", "LOW", "LOW"];
-					_datos = [_numCiv,_numVeh,_prestigeOPFOR,_prestigeBLUFOR, _supplyLevels];
-					server setVariable [_cityX,_datos,true];
+					_dataX = [_numCiv,_numVeh,_prestigeOPFOR,_prestigeBLUFOR, _supplyLevels];
+					server setVariable [_cityX,_dataX,true];
 				};
 			};
 			if(_varname == 'supportBLUFOR') exitWith {
 				for "_i" from 0 to (count citiesX) - 1 do {
 					_cityX = citiesX select _i;
-					_datos = server getVariable _cityX;
-					_numCiv = _datos select 0;
-					_numVeh = _datos select 1;
-					_prestigeOPFOR = _datos select 2;
+					_dataX = server getVariable _cityX;
+					_numCiv = _dataX select 0;
+					_numVeh = _dataX select 1;
+					_prestigeOPFOR = _dataX select 2;
 					_prestigeBLUFOR = _varValue select _i;
-					_supplyLevels = _datos select 4;
-					_datos = [_numCiv,_numVeh,_prestigeOPFOR,_prestigeBLUFOR, _supplyLevels];
-					server setVariable [_cityX,_datos,true];
+					_supplyLevels = _dataX select 4;
+					_dataX = [_numCiv,_numVeh,_prestigeOPFOR,_prestigeBLUFOR, _supplyLevels];
+					server setVariable [_cityX,_dataX,true];
 				};
 			};
 
@@ -449,14 +449,14 @@ fn_setData = {
 			{
 				for "_i" from 0 to (count citiesX) - 1 do {
 					_cityX = citiesX select _i;
-					_datos = server getVariable _cityX;
-					_numCiv = _datos select 0;
-					_numVeh = _datos select 1;
-					_prestigeOPFOR = _datos select 2;
-					_prestigeBLUFOR = _datos select 3;
+					_dataX = server getVariable _cityX;
+					_numCiv = _dataX select 0;
+					_numVeh = _dataX select 1;
+					_prestigeOPFOR = _dataX select 2;
+					_prestigeBLUFOR = _dataX select 3;
 					_supplyLevels = _varValue select _i;
-					_datos = [_numCiv,_numVeh,_prestigeOPFOR,_prestigeBLUFOR, _supplyLevels];
-					server setVariable [_cityX,_datos,true];
+					_dataX = [_numCiv,_numVeh,_prestigeOPFOR,_prestigeBLUFOR, _supplyLevels];
+					server setVariable [_cityX,_dataX,true];
 				};
 			};
 
@@ -497,10 +497,10 @@ fn_setData = {
 							vehicleBox setDir (_x select 2);
 							vehicleBox setPosATL (_x select 1);
 						};
-						case "fuego": {
-							fuego setDir (_x select 2);
-							fuego setPosATL (_x select 1);
-							fuego inflame true
+						case "fireX": {
+							fireX setDir (_x select 2);
+							fireX setPosATL (_x select 1);
+							fireX inflame true
 						};
 						case "mapa": {
 							mapa setDir (_x select 2);

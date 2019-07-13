@@ -1,5 +1,5 @@
 if (!isServer and hasInterface) exitWith {};
-private ["_posOrigin","_typeGroup","_nameOrigin","_markTsk","_wp1","_soldiers","_landpos","_pad","_vehiclesX","_wp0","_wp3","_wp4","_wp2","_grupo","_groups","_typeVehX","_vehicle","_heli","_heliCrew","_groupHeli","_pilotos","_rnd","_resourcesAAF","_nVeh","_tam","_roads","_Vwp1","_tanksX","_road","_veh","_vehCrew","_groupVeh","_Vwp0","_size","_Hwp0","_grupo1","_uav","_groupUAV","_uwp0","_tsk","_vehiculo","_soldierX","_piloto","_mrkDestination","_posDestination","_prestigeCSAT","_base","_airportX","_nameDest","_tiempo","_solMax","_pos","_timeOut"];
+private ["_posOrigin","_typeGroup","_nameOrigin","_markTsk","_wp1","_soldiers","_landpos","_pad","_vehiclesX","_wp0","_wp3","_wp4","_wp2","_grupo","_groups","_typeVehX","_vehicle","_heli","_heliCrew","_groupHeli","_pilots","_rnd","_resourcesAAF","_nVeh","_tam","_roads","_Vwp1","_tanksX","_road","_veh","_vehCrew","_groupVeh","_Vwp0","_size","_Hwp0","_grupo1","_uav","_groupUAV","_uwp0","_tsk","_vehiculo","_soldierX","_pilot","_mrkDestination","_posDestination","_prestigeCSAT","_base","_airportX","_nameDest","_timeX","_solMax","_pos","_timeOut"];
 _mrkDestination = _this select 0;
 
 forcedSpawn = forcedSpawn + [_mrkDestination]; publicVariable "forcedSpawn";
@@ -8,7 +8,7 @@ _posDestination = getMarkerPos _mrkDestination;
 
 _groups = [];
 _soldiers = [];
-_pilotos = [];
+_pilots = [];
 _vehiclesX = [];
 _civiles = [];
 
@@ -18,7 +18,7 @@ missionsX pushBack _tsk; publicVariable "missionsX";
 //Ataque de artillería
 [_mrkDestination] spawn artilleryX;
 
-_tiempo = time + 3600;
+_timeX = time + 3600;
 
 _posOrigin = getMarkerPos "spawnCSAT";
 
@@ -40,7 +40,7 @@ for "_i" from 1 to 3 do {
 	_heli setVariable ["OPFORSpawn",true];
 	_heliCrew = _vehicle select 1;
 	_groupHeli = _vehicle select 2;
-	_pilotos = _pilotos + _heliCrew;
+	_pilots = _pilots + _heliCrew;
 	_groups = _groups + [_groupHeli];
 	_vehiclesX = _vehiclesX + [_heli];
 	//_heli lock 3;
@@ -99,8 +99,8 @@ for "_i" from 1 to 3 do {
 	sleep 3;
 };
 
-_datos = server getVariable _mrkDestination;
-_numCiv = _datos select 0;
+_dataX = server getVariable _mrkDestination;
+_numCiv = _dataX select 0;
 _numCiv = 16; //making the number standard for now
 
 _size = [_mrkDestination] call sizeMarker;
@@ -163,9 +163,9 @@ waitUntil {sleep 5;
 	 	> 4*
 	 	({(alive _x) and (_x distance _posDestination < _size*2)} count _civiles)
 	) or
-	(time > _tiempo)};
+	(time > _timeX)};
 
-		if ((({!(captive _x)} count _soldiers) < ({captive _x} count _soldiers)) or ({alive _x} count _soldiers < round (_solMax / 3)) or (time > _tiempo)) then {
+		if ((({!(captive _x)} count _soldiers) < ({captive _x} count _soldiers)) or ({alive _x} count _soldiers < round (_solMax / 3)) or (time > _timeX)) then {
 			{_x doMove [0,0,0]} forEach _soldiers;
 			_tsk = ["AttackAAF",[side_blue,civilian],[["CSAT is making a punishment expedition to %1. They will kill everybody there. Defend the city at all costs",_nameDest],"CSAT Punishment",_mrkDestination],getMarkerPos _mrkDestination,"SUCCEEDED",10,true,true,"Defend"] call BIS_fnc_setTask;
 			[-5,20,_posDestination] remoteExec ["AS_fnc_changeCitySupport",2];
@@ -185,7 +185,7 @@ waitUntil {sleep 5;
 			publicVariable "destroyedCities";
 			for "_i" from 1 to 60 do
 				{
-				_mina = createMine ["APERSMine",_posDestination,[],_size];
+				_mineX = createMine ["APERSMine",_posDestination,[],_size];
 				};
 			};
 
@@ -201,7 +201,7 @@ waitUntil {sleep 5;
 	{
 	waitUntil {sleep 1; !([distanceSPWN,1,_x,"BLUFORSpawn"] call distanceUnits)};
 	deleteVehicle _x;
-	} forEach _pilotos;
+	} forEach _pilots;
 	{
 	if (!([distanceSPWN,1,_x,"BLUFORSpawn"] call distanceUnits)) then {deleteVehicle _x};
 	} forEach _vehiclesX;

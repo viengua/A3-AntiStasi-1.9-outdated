@@ -1,7 +1,7 @@
 // Shift+ctrl+Y when mortar and NATO arty are selected.
 if (count hcSelected player != 1) exitWith {hint "You must select an artillery group"};
 
-private ["_grupo","_artyArray","_artyRoundsArr","_hasBox","_areReady","_hasArty","_areAlive","_soldierX","_veh","_typeAmmunition","_typeArty","_positionTel","_artyArrayDef1","_artyRoundsArr1","_piece","_isInRange","_positionTel2","_rounds","_roundsMax","_markerX","_size","_forcedX","_texto","_mrkfin","_mrkfin2","_tiempo","_eta","_countX","_pos","_ang"];
+private ["_grupo","_artyArray","_artyRoundsArr","_hasBox","_areReady","_hasArty","_areAlive","_soldierX","_veh","_typeAmmunition","_typeArty","_positionTel","_artyArrayDef1","_artyRoundsArr1","_piece","_isInRange","_positionTel2","_rounds","_roundsMax","_markerX","_size","_forcedX","_texto","_mrkFinal","_mrkFinal2","_timeX","_eta","_countX","_pos","_ang"];
 
 _grupo = hcSelected player select 0;
 
@@ -137,14 +137,14 @@ for "_i" from 0 to (count _artyArray) - 1 do
 
 if (_artyArrayDef1 isEqualTo []) exitWith {hint "The position you marked is out of bounds for that Battery"};
 
-_mrkfin = createMarker [format ["Arty%1", random 100], _positionTel];
-_mrkfin setMarkerShape "ICON";
-_mrkfin setMarkerType "hd_destroy";
-_mrkfin setMarkerColor "ColorRed";
+_mrkFinal = createMarker [format ["Arty%1", random 100], _positionTel];
+_mrkFinal setMarkerShape "ICON";
+_mrkFinal setMarkerType "hd_destroy";
+_mrkFinal setMarkerColor "ColorRed";
 
 if (_typeArty == "BARRAGE") then
 	{
-	_mrkfin setMarkerText "Arty Barrage Begin";
+	_mrkFinal setMarkerText "Arty Barrage Begin";
 	positionTel = [];
 
 	hint "Select the position to finish the barrage";
@@ -158,7 +158,7 @@ if (_typeArty == "BARRAGE") then
 	_positionTel2 = positionTel;
 	};
 
-if ((_typeArty == "BARRAGE") and (isNil "_positionTel2")) exitWith {deleteMarker _mrkfin};
+if ((_typeArty == "BARRAGE") and (isNil "_positionTel2")) exitWith {deleteMarker _mrkFinal};
 
 if (_typeArty != "BARRAGE") then
 	{
@@ -174,11 +174,11 @@ if (_typeArty != "BARRAGE") then
 	waitUntil {!dialog or (!isNil "rondas")};
 	};
 
-if ((isNil "rondas") and (_typeArty != "BARRAGE")) exitWith {deleteMarker _mrkfin};
+if ((isNil "rondas") and (_typeArty != "BARRAGE")) exitWith {deleteMarker _mrkFinal};
 
 if (_typeArty != "BARRAGE") then
 	{
-	_mrkfin setMarkerText "Arty Strike";
+	_mrkFinal setMarkerText "Arty Strike";
 	_rounds = rondas;
 	_roundsMax = _rounds;
 	rondas = nil;
@@ -205,22 +205,22 @@ _texto = format ["Requesting fire support on Grid %1. %2 Rounds", mapGridPositio
 
 if (_typeArty == "BARRAGE") then
 	{
-	_mrkfin2 = createMarker [format ["Arty%1", random 100], _positionTel2];
-	_mrkfin2 setMarkerShape "ICON";
-	_mrkfin2 setMarkerType "hd_destroy";
-	_mrkfin2 setMarkerColor "ColorRed";
-	_mrkfin2 setMarkerText "Arty Barrage End";
+	_mrkFinal2 = createMarker [format ["Arty%1", random 100], _positionTel2];
+	_mrkFinal2 setMarkerShape "ICON";
+	_mrkFinal2 setMarkerType "hd_destroy";
+	_mrkFinal2 setMarkerColor "ColorRed";
+	_mrkFinal2 setMarkerText "Arty Barrage End";
 	_ang = [_positionTel,_positionTel2] call BIS_fnc_dirTo;
 	sleep 5;
 	_eta = (_artyArrayDef1 select 0) getArtilleryETA [_positionTel, ((getArtilleryAmmo [(_artyArrayDef1 select 0)]) select 0)];
-	_tiempo = time + _eta;
+	_timeX = time + _eta;
 	_texto = format ["Acknowledged. Fire mission is inbound. ETA %1 secs for the first impact",round _eta];
 	[[petros,"sideChat",_texto],"commsMP"] call BIS_fnc_MP;
-	[_tiempo] spawn
+	[_timeX] spawn
 		{
-		private ["_tiempo"];
-		_tiempo = _this select 0;
-		waitUntil {sleep 1; time > _tiempo};
+		private ["_timeX"];
+		_timeX = _this select 0;
+		waitUntil {sleep 1; time > _timeX};
 		[[petros,"sideChat","Splash. Out"],"commsMP"] call BIS_fnc_MP;
 		};
 	};
@@ -284,19 +284,19 @@ if (_typeArty != "BARRAGE") then
 	{
 	sleep 5;
 	_eta = (_artyArrayDef1 select 0) getArtilleryETA [_positionTel, ((getArtilleryAmmo [(_artyArrayDef1 select 0)]) select 0)];
-	_tiempo = time + _eta - 5;
+	_timeX = time + _eta - 5;
 	_texto = format ["Acknowledged. Fire mission is inbound. %2 Rounds fired. ETA %1 secs",round _eta,_roundsMax - _rounds];
 	[[petros,"sideChat",_texto],"commsMP"] call BIS_fnc_MP;
 	};
 
 if (_typeArty != "BARRAGE") then
 	{
-	waitUntil {sleep 1; time > _tiempo};
+	waitUntil {sleep 1; time > _timeX};
 	[[petros,"sideChat","Splash. Out"],"commsMP"] call BIS_fnc_MP;
 	};
 sleep 10;
-deleteMarker _mrkfin;
-if (_typeArty == "BARRAGE") then {deleteMarker _mrkfin2};
+deleteMarker _mrkFinal;
+if (_typeArty == "BARRAGE") then {deleteMarker _mrkFinal2};
 
 if (_forcedX) then
 	{

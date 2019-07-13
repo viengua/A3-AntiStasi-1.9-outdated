@@ -206,7 +206,7 @@ _vehiclesToSave = [];
 			};
 		};
 	};
-} forEach vehicles - [caja,flagX,fuego,vehicleBox,mapa];
+} forEach vehicles - [caja,flagX,fireX,vehicleBox,mapa];
 
 ["vehicles",_vehiclesToSave] call fn_saveData;
 ["weapons",_weapons] call fn_saveData;
@@ -221,7 +221,7 @@ _objectsHQ = [];
 	private _pos = call compile format ["getPosATLVisual %1", _x];
 	private _dir = call compile format ["getDir %1", _x];
 	_objectsHQ pushBackUnique [str _x,getPosATLVisual _x, getDir _x];
-} forEach [flagX,caja,vehicleBox,fuego,mapa,petros];
+} forEach [flagX,caja,vehicleBox,fireX,mapa,petros];
 */
 
 _objectsHQ = [];
@@ -229,14 +229,14 @@ _objectsHQ = [];
 	private _pos = call compile format ["getPosATLVisual %1", _x];
 	private _dir = call compile format ["getDir %1", _x];
 	_objectsHQ pushBackUnique [_x, _pos, _dir];
-} forEach ["flagX","caja","vehicleBox","fuego","mapa","petros"];
+} forEach ["flagX","caja","vehicleBox","fireX","mapa","petros"];
 
 ["objectsHQ",_objectsHQ] call fn_saveData;
 
 _addObjectsHQ = [];
 {
 	_addObjectsHQ pushBackUnique [typeOf _x,getPosATLVisual _x, getDir _x];
-} forEach (nearestObjects [getPos fuego, ["Land_Camping_Light_F","Land_BagFence_Round_F","CamoNet_BLUFOR_open_F"], 50]);
+} forEach (nearestObjects [getPos fireX, ["Land_Camping_Light_F","Land_BagFence_Round_F","CamoNet_BLUFOR_open_F"], 50]);
 
 if (count (server getVariable ["obj_vehiclePad",[]]) > 0) then {
 	_addObjectsHQ pushBackUnique [typeOf obj_vehiclePad,getPosATL obj_vehiclePad,server getVariable ["AS_vehicleOrientation",0]];

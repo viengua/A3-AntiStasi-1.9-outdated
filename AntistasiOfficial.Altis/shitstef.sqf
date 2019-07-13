@@ -37,7 +37,7 @@ if ((_marker in mrkAAF) or (
 
 
 
-//from Create(AAF).sqf (AAFcreateBase.sqf createaereopuerto.sqf)
+//from Create(AAF).sqf (AAFcreateBase.sqf createairportX.sqf)
 //### I'd make a function cause it's repeating in all the files ###
 
 

@@ -24,7 +24,7 @@ if (getMarkerPos _sitio distance _positionTel > 50) exitWith {hint localize "STR
 
 if (not(_sitio in _destroyedCities)) exitWith {hint localize "STR_HINTS_RA_YCRT"};
 
-_nombre = [_sitio] call AS_fnc_localizar;
+_nameX = [_sitio] call AS_fnc_localizar;
 
 hint format [localize "STR_HINTS_RA_1REBUILT"];
 

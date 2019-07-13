@@ -1,4 +1,4 @@
-private ["_markerX","_threat","_isMarker","_positionX","_esFIA","_analyzed","_size"];
+private ["_markerX","_threat","_isMarker","_positionX","_isFIA","_analyzed","_size"];
 
 _threat = 0;
 
@@ -10,7 +10,7 @@ _markerX = _this select 0;
 _isMarker = true;
 if (_markerX isEqualType []) then {_isMarker = false; _positionX = _markerX} else {_positionX = getMarkerPos _markerX};
 
-_esFIA = false;
+_isFIA = false;
 if (_isMarker) then {
 	if (_markerX in mrkAAF) then {
 		{
@@ -18,10 +18,10 @@ if (_isMarker) then {
 				if ((_x in bases) or (_x in airportsX)) then {_threat = _threat + 3} else {_threat = _threat + 1};
 			};
 		} forEach (controlsX + outposts + colinas + bases + airportsX - mrkFIA);
-	} else {_esFIA = true;};
-} else { _esFIA = true;};
+	} else {_isFIA = true;};
+} else { _isFIA = true;};
 
-if (_esFIA) then {
+if (_isFIA) then {
 	{
 		if (getMarkerPos _x distance _positionX < distanceSPWN) then {
 			_analyzed = _x;

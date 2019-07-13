@@ -1,4 +1,4 @@
-private ["_muerto","_killer","_coste","_enemy","_grupo"];
+private ["_muerto","_killer","_costs","_enemy","_grupo"];
 _muerto = _this select 0;
 _killer = _this select 1;
 if (_muerto getVariable ["OPFORSpawn",false]) then {_muerto setVariable ["OPFORSpawn",nil,true]};
@@ -37,9 +37,9 @@ if ((side _killer == side_blue) || (captive _killer)) then {
 		[2,0,getPos _muerto] remoteExec ["AS_fnc_changeCitySupport",2];
 		if (isPlayer _killer) then {_killer addRating -1000};
 	} else {
-		_coste = server getVariable (typeOf _muerto);
-		if (isNil "_coste") then {diag_log format ["Falta incluir a %1 en las tablas de coste",typeOf _muerto]; _coste = 0};
-		[-_coste] remoteExec ["resourcesAAF",2];
+		_costs = server getVariable (typeOf _muerto);
+		if (isNil "_costs") then {diag_log format ["Falta incluir a %1 en las tablas de costs",typeOf _muerto]; _costs = 0};
+		[-_costs] remoteExec ["resourcesAAF",2];
 		[-0.5,0,getPos _muerto] remoteExec ["AS_fnc_changeCitySupport",2];
 	};
 

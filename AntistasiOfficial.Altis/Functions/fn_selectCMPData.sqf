@@ -11,8 +11,8 @@ switch (_marker) do {
 	case "Agios Andreas": {
 		_data = AS_MTN_AgiosAndreas;
 	};
-	case "Agios Minas": {
-		_data = AS_MTN_AgiosMinas;
+	case "Agios minesX": {
+		_data = AS_MTN_AgiosminesX;
 	};
 	case "Amoni": {
 		_data = AS_MTN_Amoni;
@@ -39,19 +39,19 @@ switch (_marker) do {
 		_data = AS_MTN_Thronos;
 	};
 
-	case "puesto_2": {
+	case "outpost_2": {
 		_data = AS_OP_2;
 	};
-	case "puesto_6": {
+	case "outpost_6": {
 		_data = AS_OP_6;
 	};
-	case "puesto_11": {
+	case "outpost_11": {
 		_data = AS_OP_11;
 	};
-	case "puesto_17": {
+	case "outpost_17": {
 		_data = AS_OP_17;
 	};
-	case "puesto_23": {
+	case "outpost_23": {
 		_data = AS_OP_23;
 	};
 };

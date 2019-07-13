@@ -8,19 +8,19 @@ _NATOSupp = _this select 1;
 
 private ["_crate","_chute","_humo"];
 
-_mrkfin = createMarker ["AmmoSupp", _positionX];
-_mrkfin setMarkerShape "ICON";
+_mrkFinal = createMarker ["AmmoSupp", _positionX];
+_mrkFinal setMarkerShape "ICON";
 _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + 60];
 _dateLimitNum = dateToNumber _dateLimit;
 
-_tsk = ["NATOAmmo",[side_blue,civilian],[[_tskDesc, A3_Str_BLUE],[_tskTitle, A3_Str_BLUE],_mrkfin],_positionX,"CREATED",5,true,true,"rifle"] call BIS_fnc_setTask;
+_tsk = ["NATOAmmo",[side_blue,civilian],[[_tskDesc, A3_Str_BLUE],[_tskTitle, A3_Str_BLUE],_mrkFinal],_positionX,"CREATED",5,true,true,"rifle"] call BIS_fnc_setTask;
 missionsX pushBack _tsk; publicVariable "missionsX";
 [-5,0] remoteExec ["prestige",2];
 
 _airportsX = airportsX - mrkAAF + ["spawnNATO"];
 
-_origen = [_airportsX,_positionX] call BIS_fnc_nearestPosition;
-_orig = getMarkerPos _origen;
+_originX = [_airportsX,_positionX] call BIS_fnc_nearestPosition;
+_orig = getMarkerPos _originX;
 _vehiclesX = [];
 
 _helifn = [_orig, 0, selectRandom bluHeliDis, side_blue] call bis_fnc_spawnvehicle;
@@ -61,16 +61,16 @@ if (_heli distance _positionX < 300) then {
     private _pos = getPos _crate;
     _pos set [2, 0.5];
     _crate setPos _pos;
-    _tsk = ["NATOAmmo",[side_blue,civilian],[[_tskDesc, A3_Str_BLUE],[_tskTitle, A3_Str_BLUE],_mrkfin],_positionX,"SUCCEEDED",5,true,true,"rifle"] call BIS_fnc_setTask;
+    _tsk = ["NATOAmmo",[side_blue,civilian],[[_tskDesc, A3_Str_BLUE],[_tskTitle, A3_Str_BLUE],_mrkFinal],_positionX,"SUCCEEDED",5,true,true,"rifle"] call BIS_fnc_setTask;
 	_humo = "SmokeShellBlue" createVehicle position _crate;
 	_vehiclesX = _vehiclesX + [_humo];
 } else {
-	_tsk = ["NATOAmmo",[side_blue,civilian],[[_tskDesc, A3_Str_BLUE],[_tskTitle, A3_Str_BLUE],_mrkfin],_positionX,"FAILED",5,true,true,"rifle"] call BIS_fnc_setTask;
+	_tsk = ["NATOAmmo",[side_blue,civilian],[[_tskDesc, A3_Str_BLUE],[_tskTitle, A3_Str_BLUE],_mrkFinal],_positionX,"FAILED",5,true,true,"rifle"] call BIS_fnc_setTask;
 };
 
 sleep 15;
 
-deleteMarker _mrkFin;
+deleteMarker _mrkFinal;
 
 [300,_tsk] spawn deleteTaskX;
 {

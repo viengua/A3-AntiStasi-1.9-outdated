@@ -22,24 +22,24 @@ _nameDest = [_markerX] call AS_fnc_localizar;
 _tsk = ["AS",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_markerX],_positionX,"CREATED",5,true,true,"Kill"] call BIS_fnc_setTask;
 missionsX pushBack _tsk; publicVariable "missionsX";
 
-_mrkfin = createMarkerLocal [format ["specops%1", random 100],_positionX];
-_mrkfin setMarkerShapeLocal "RECTANGLE";
-_mrkfin setMarkerSizeLocal [500,500];
-_mrkfin setMarkerTypeLocal "hd_warning";
-_mrkfin setMarkerColorLocal "ColorRed";
-_mrkfin setMarkerBrushLocal "DiagGrid";
-if (!debug) then {_mrkfin setMarkerAlphaLocal 0};
+_mrkFinal = createMarkerLocal [format ["specops%1", random 100],_positionX];
+_mrkFinal setMarkerShapeLocal "RECTANGLE";
+_mrkFinal setMarkerSizeLocal [500,500];
+_mrkFinal setMarkerTypeLocal "hd_warning";
+_mrkFinal setMarkerColorLocal "ColorRed";
+_mrkFinal setMarkerBrushLocal "DiagGrid";
+if (!debug) then {_mrkFinal setMarkerAlphaLocal 0};
 
 _typeGroup = [opGroup_SpecOps, side_red] call AS_fnc_pickGroup;
 _grupo = [_positionX, side_red, _typeGroup] call BIS_Fnc_spawnGroup;
 sleep 1;
 _uav = createVehicle [opUAVsmall, _positionX, [], 0, "FLY"];
 createVehicleCrew _uav;
-[_grupo, _mrkfin, "RANDOM", "SPAWNED", "NOVEH2", "NOFOLLOW"] execVM "scripts\UPSMON.sqf";
+[_grupo, _mrkFinal, "RANDOM", "SPAWNED", "NOVEH2", "NOFOLLOW"] execVM "scripts\UPSMON.sqf";
 {[_x] spawn CSATinit; _x allowFleeing 0} forEach units _grupo;
 
 _groupUAV = group (crew _uav select 1);
-[_groupUAV, _mrkfin, "SAFE", "SPAWNED","NOVEH", "NOFOLLOW"] execVM "scripts\UPSMON.sqf";
+[_groupUAV, _mrkFinal, "SAFE", "SPAWNED","NOVEH", "NOFOLLOW"] execVM "scripts\UPSMON.sqf";
 
 waitUntil  {sleep 5; (dateToNumber date > _dateLimitNum) or ({alive _x} count units _grupo == 0)};
 

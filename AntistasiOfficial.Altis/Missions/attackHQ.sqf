@@ -5,7 +5,7 @@ _tskDesc = "STR_TSK_TD_DESC_HQATTACK";
 
 _positionX = getMarkerPos guer_respawn;
 
-_pilotos = [];
+_pilots = [];
 _vehiclesX = [];
 _groups = [];
 _soldiers = [];
@@ -22,7 +22,7 @@ _vehicle=[_pos, 0, opGunship, side_red] call bis_fnc_spawnvehicle;
 _heli = _vehicle select 0;
 _heliCrew = _vehicle select 1;
 _groupHeli = _vehicle select 2;
-_pilotos = _pilotos + _heliCrew;
+_pilots = _pilots + _heliCrew;
 _groups = _groups + [_groupHeli];
 _vehiclesX = _vehiclesX + [_heli];
 [_heli] spawn CSATVEHinit;
@@ -39,7 +39,7 @@ for "_i" from 0 to (round random 2) do
 	_heli = _vehicle select 0;
 	_heliCrew = _vehicle select 1;
 	_groupHeli = _vehicle select 2;
-	_pilotos = _pilotos + _heliCrew;
+	_pilots = _pilots + _heliCrew;
 	_groups = _groups + [_groupHeli];
 	_vehiclesX = _vehiclesX + [_heli];
 
@@ -79,7 +79,7 @@ deleteVehicle _x;
 {
 waitUntil {sleep 1; !([distanceSPWN,1,_x,"BLUFORSpawn"] call distanceUnits)};
 deleteVehicle _x;
-} forEach _pilotos;
+} forEach _pilots;
 {
 if (!([distanceSPWN,1,_x,"BLUFORSpawn"] call distanceUnits)) then {deleteVehicle _x};
 } forEach _vehiclesX;

@@ -3,7 +3,7 @@ waitUntil {!resourcesIsChanging};
 resourcesIsChanging = true;
 _hr = _this select 0;
 _resourcesFIA = _this select 1;
-if (isNil "_resourcesFIA") then {diag_log "Tienes algún coste sin definit en las tablas de FIA"};
+if (isNil "_resourcesFIA") then {diag_log "Tienes algún costs sin definit en las tablas de FIA"};
 if ((isNil "_hr") or (isNil "_resourcesFIA")) exitWith {};
 
 _hrT = server getVariable "hr";

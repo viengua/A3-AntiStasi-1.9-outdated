@@ -1,16 +1,16 @@
 
-private ["_texto","_datos","_numCiv","_prestigeOPFOR","_prestigeBLUFOR","_supplyLevels","_power","_busy","_sitio","_positionTel","_garrison"];
+private ["_texto","_dataX","_numCiv","_prestigeOPFOR","_prestigeBLUFOR","_supplyLevels","_power","_busy","_sitio","_positionTel","_garrison"];
 positionTel = [];
 
 _popFIA = 0;
 _popAAF = 0;
 _pop = 0;
 {
-_datos = server getVariable _x;
-_numCiv = _datos select 0;
-_prestigeOPFOR = _datos select 2;
-_prestigeBLUFOR = _datos select 3;
-_supplyLevels = _datos select 4;
+_dataX = server getVariable _x;
+_numCiv = _dataX select 0;
+_prestigeOPFOR = _dataX select 2;
+_prestigeBLUFOR = _dataX select 3;
+_supplyLevels = _dataX select 4;
 _popFIA = _popFIA + (_numCiv * (_prestigeBLUFOR / 100));
 _popAAF = _popAAF + (_numCiv * (_prestigeOPFOR / 100));
 _pop = _pop + _numCiv;
@@ -40,12 +40,12 @@ while {visibleMap} do {
 			_texto = format ["FIA HQ%1",[_sitio] call AS_fnc_getGarrisonInfo];
 		};
 		if (_sitio in citiesX) then {
-			_datos = server getVariable _sitio;
+			_dataX = server getVariable _sitio;
 
-			_numCiv = _datos select 0;
-			_prestigeOPFOR = _datos select 2;
-			_prestigeBLUFOR = _datos select 3;
-			_supplyLevels = _datos select 4;
+			_numCiv = _dataX select 0;
+			_prestigeOPFOR = _dataX select 2;
+			_prestigeBLUFOR = _dataX select 3;
+			_supplyLevels = _dataX select 4;
 			_power = [_sitio] call AS_fnc_powercheck;
 			//_texto = format ["%1\n\nPop %2\nAAF Support: %3 %5\nFIA Support: %4 %5",[_sitio,false] call fn_location,_numCiv,_prestigeOPFOR,_prestigeBLUFOR,"%"];
 			_texto = format ["%1\n\nPop %2\nAAF Support: %3 %5\nFIA Support: %4 %5\nFood Supply: %6\nWater Supply: %7\nFuel Supply: %8",[_sitio,false] call AS_fnc_location,_numCiv,_prestigeOPFOR,_prestigeBLUFOR,"%",_supplyLevels select 0, _supplyLevels select 1, _supplyLevels select 2];

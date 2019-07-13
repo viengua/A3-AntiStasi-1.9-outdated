@@ -1,4 +1,4 @@
-private ["_unit","_coste","_weaponsX","_ammunition","_caja","_items"];
+private ["_unit","_costs","_weaponsX","_ammunition","_caja","_items"];
 
 _unit = _this select 0;
 
@@ -11,8 +11,8 @@ if ((side _unit == side_green) or (side _unit == side_red)) then
 	[[_unit,"captureX"],"AS_fnc_addActionMP"] call BIS_fnc_MP;
 	[0,10] remoteExec ["resourcesFIA",2];
 	[-2,0,getPos _unit] remoteExec ["AS_fnc_changeCitySupport",2];
-	_coste = server getVariable (typeOf _unit);
-	if (isNil "_coste") then {diag_log format ["Falta incluir a %1 en las tablas de coste",typeOf _unit]} else {[-_coste] remoteExec ["resourcesAAF",2]};
+	_costs = server getVariable (typeOf _unit);
+	if (isNil "_costs") then {diag_log format ["Falta incluir a %1 en las tablas de costs",typeOf _unit]} else {[-_costs] remoteExec ["resourcesAAF",2]};
 	}
 else
 	{

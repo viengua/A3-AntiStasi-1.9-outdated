@@ -21,12 +21,12 @@ while {true} do {
 	if (_Forest distance _posHQ > 600) exitwith {};
 };
 
-_mrkfin = createMarkerLocal [format ["forestpatrol%1", random 100],_Forest];
-_mrkfin setMarkerShapeLocal "CIRCLE";
-_mrkfin setMarkerSizeLocal [150,150];
-_mrkfin setMarkerTypeLocal "hd_warning";
-_mrkfin setMarkerColorLocal "ColorRed";
-_mrkfin setMarkerBrushLocal "DiagGrid";
+_mrkFinal = createMarkerLocal [format ["forestpatrol%1", random 100],_Forest];
+_mrkFinal setMarkerShapeLocal "CIRCLE";
+_mrkFinal setMarkerSizeLocal [150,150];
+_mrkFinal setMarkerTypeLocal "hd_warning";
+_mrkFinal setMarkerColorLocal "ColorRed";
+_mrkFinal setMarkerBrushLocal "DiagGrid";
 
 _timeLimit = 120;
 _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
@@ -48,7 +48,7 @@ missionsX pushBack _tsk; publicVariable "missionsX";
 _typeGroup = [infSquad, side_green] call AS_fnc_pickGroup;
 _group1 = [_ClearPosOutpost, side_green, _typeGroup] call BIS_Fnc_spawnGroup;
 sleep 1;
-[_group1, _mrkfin, "SPAWNED", "NOVEH2", "NOFOLLOW", "AWARE"] execVM "scripts\UPSMON.sqf";
+[_group1, _mrkFinal, "SPAWNED", "NOVEH2", "NOFOLLOW", "AWARE"] execVM "scripts\UPSMON.sqf";
 {[_x] spawn genInit; _x allowFleeing 0} forEach units _group1;
 sleep 2;
 _group1 setFormation "STAG COLUMN";
@@ -99,4 +99,4 @@ waitUntil {sleep 1; !([distanceSPWN,1,_x,"BLUFORSpawn"] call distanceUnits)};
 deleteVehicle _x
 } forEach units _group1;
 deleteGroup _group1;
-deletemarker _mrkfin;
+deletemarker _mrkFinal;

@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith{};
 
-private ["_origen"];
+private ["_originX"];
 
 _markerX = _this select 0;
 
@@ -10,12 +10,12 @@ _airportsX = airportsX - mrkAAF + ["spawnNATO"];
 
 _threatEval = 7; //Stef i forced it to 7 untill i manage to check if vehDef and static guns are operative or not.
 
-_origen = [_airportsX,_positionX] call BIS_fnc_nearestPosition;
-_orig = getMarkerPos _origen;
+_originX = [_airportsX,_positionX] call BIS_fnc_nearestPosition;
+_orig = getMarkerPos _originX;
 
 _nameDest = [_markerX] call AS_fnc_localizar;
 _nameOrigin = "the NATO Carrier";
-if (_origen!= "spawnNATO") then {_nameOrigin = [_origen] call AS_fnc_localizar};
+if (_originX!= "spawnNATO") then {_nameOrigin = [_originX] call AS_fnc_localizar};
 _tsk = ["NATOCA",[side_blue,civilian],[["STR_TSK_DESC_ATTACK",_nameDest,_nameOrigin, A3_Str_BLUE],["STR_TSK_ATTACK", A3_Str_BLUE],_markerX],_positionX,"CREATED",5,true,true,"Attack"] call BIS_fnc_setTask;
 missionsX pushBackUnique _tsk; publicVariable "missionsX";
 _soldiers = [];

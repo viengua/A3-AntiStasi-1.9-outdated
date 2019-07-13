@@ -315,7 +315,7 @@ Modified:
 //    	Added
 //		Se ha a?adido ataque frontal
 //		Formaciones de combate en funci?n de la situaci?n
-//		La IA puede entrar en los edificios a tomar positionXes de defensa y en ataque puede patrullarlos en busca de enemiesX o positionXes de fuego.
+//		La IA puede entrar en los edificios a tomar positionXes de defensa y en ataque puede patrullarlos en busca de enemiesX o positionXes de fireX.
 // 	Modificaciones:
 //		Mejorado el sistema para localizar, asignar y entrar en vehiculos,.
 //		Optimizado el rendimiento. Se ha mejorado para que se pueda ejecutar cada 20s.
@@ -336,7 +336,7 @@ Modified:
 //Version: 4.1.2
 //
 // 	Modificaciones:
-//		KRON_UPS_Maxwaiting pasa a ser una variable excluvia para patrullas, indica el tiempo m?ximo a esperar
+//		KRON_UPS_Maxwaiting pasa a ser una variable excluvia para patrullas, indica el timeX m?ximo a esperar
 //		para llegar al destinationX y buscar otro
 //-------------------------------------------------------------------------------------------------------------
 //Version: 4.1.0
@@ -348,7 +348,7 @@ Modified:
 //-------------------------------------------------------------------------------------------------------------
 //Version: 4.0.0
 // 	Added
-// 		Control de movimiento de la IA, ahora gestionan mejor los tiempos, hacen coverturas de movimiento, avanzan con m?s precauci?n cuando est?n cerca del enemyX.
+// 		Control de movimiento de la IA, ahora gestionan mejor los timeXs, hacen coverturas de movimiento, avanzan con m?s precauci?n cuando est?n cerca del enemyX.
 // 		A?adidas algunas animaciones para darle pinceladas de dramatismo a los movimientos de la IA
 //
 // 	Modificaciones:

@@ -1,4 +1,4 @@
-private ["_unit","_Pweapon","_Sweapon","_countX","_magazines","_hasBox","_distancia","_objectsX","_target","_muerto","_check","_timeOut","_arma","_weaponsX","_rearming","_basePossible","_hmd","_casco"];
+private ["_unit","_Pweapon","_Sweapon","_countX","_magazines","_hasBox","_distancia","_objectsX","_target","_muerto","_check","_timeOut","_weaponX","_weaponsX","_rearming","_basePossible","_hmd","_helmet"];
 
 _unit = _this select 0;
 
@@ -16,7 +16,7 @@ _Sweapon = secondaryWeapon _unit;
 
 _objectsX = [];
 _hasBox = false;
-_arma = "";
+_weaponX = "";
 _weaponsX = [];
 _distancia = 51;
 _objectsX = nearestObjects [_unit, ["ReammoBox_F","LandVehicle","WeaponHolderSimulated", "GroundWeaponHolder", "WeaponHolder"], 50];
@@ -60,7 +60,7 @@ if (_Pweapon != "") then
 							_target = _objeto;
 							_hasBox = true;
 							_distancia = _unit distance _objeto;
-							_arma = _potential;
+							_weaponX = _potential;
 							};
 						};
 					};
@@ -78,9 +78,9 @@ if (_Pweapon != "") then
 			if ((unitReady _unit) and (alive _unit) and (_unit distance _target > 3) and (_target isKindOf "ReammoBox_F") and (!isNull _target)) then {_unit setPos position _target};
 			if (_unit distance _target < 3) then
 				{
-				_unit action ["TakeWeapon",_target,_arma];
+				_unit action ["TakeWeapon",_target,_weaponX];
 				sleep 5;
-				if (primaryWeapon _unit == _arma) then
+				if (primaryWeapon _unit == _weaponX) then
 					{
 					_unit groupChat "I have a better weapon now";
 					if (_target isKindOf "ReammoBox_F") then {_unit action ["rearm",_target]};
@@ -189,7 +189,7 @@ if ((_Sweapon == "") and (loadAbs _unit < 340)) then
 						_target = _objeto;
 						_hasBox = true;
 						_distancia = _unit distance _objeto;
-						_arma = _potential;
+						_weaponX = _potential;
 						};
 					};
 				};
@@ -207,9 +207,9 @@ if ((_Sweapon == "") and (loadAbs _unit < 340)) then
 		if ((unitReady _unit) and (alive _unit) and (_unit distance _target > 3) and (_target isKindOf "ReammoBox_F") and (!isNull _target)) then {_unit setPos position _target};
 		if (_unit distance _target < 3) then
 			{
-			_unit action ["TakeWeapon",_target,_arma];
+			_unit action ["TakeWeapon",_target,_weaponX];
 			sleep 3;
-			if (secondaryWeapon _unit == _arma) then
+			if (secondaryWeapon _unit == _weaponX) then
 				{
 				_unit groupChat "I have a secondary weapon now";
 				if (_target isKindOf "ReammoBox_F") then {sleep 3;_unit action ["rearm",_target]};
@@ -423,7 +423,7 @@ if (not(headgear _unit in genHelmets)) then
 		{
 		_unit stop false;
 		_target setVariable ["busy",true];
-		_casco = headgear _target;
+		_helmet = headgear _target;
 		_unit doMove (getPosATL _target);
 		_unit groupChat "Picking a Helmet";
 		_timeOut = time + 60;
@@ -431,7 +431,7 @@ if (not(headgear _unit in genHelmets)) then
 		if (_unit distance _target < 3) then
 			{
 			_unit action ["rearm",_target];
-			_unit addHeadgear _casco;
+			_unit addHeadgear _helmet;
 			removeHeadgear _target;
 			}
 		else

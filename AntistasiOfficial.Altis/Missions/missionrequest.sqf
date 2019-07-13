@@ -51,7 +51,7 @@ call {
 	};
 
 	if (_type == "LOG") exitWith {
-		_zones = outposts + citiesX - ["puesto_13"];
+		_zones = outposts + citiesX - ["outpost_13"];
 		if (random 100 < 20) then {_zones = _zones + banks};
 		_zones = _zones - mrkFIA;
 		if (count _zones > 0) then {

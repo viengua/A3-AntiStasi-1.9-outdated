@@ -1,4 +1,4 @@
-private ["_tipo","_coste","_grupo","_unit","_tam","_roads","_road","_pos","_truckX","_texto","_mrk","_hr","_exists","_positionTel","_typeGroup","_resourcesFIA","_hrFIA"];
+private ["_tipo","_costs","_grupo","_unit","_tam","_roads","_road","_pos","_truckX","_texto","_mrk","_hr","_exists","_positionTel","_typeGroup","_resourcesFIA","_hrFIA"];
 
 if (!([player] call hasRadio)) exitWith {hint localize "STR_HINTS_FD_YNARIYITBA"};
 if ("campsFIA" in missionsX) exitWith {hint localize "STR_TSK_TD_BEMP_RESTR"};
@@ -41,7 +41,7 @@ _pos = [];
 if ((_tipo == "delete") and (count campsFIA < 1)) exitWith {hint localize "STR_HINTS_FD_NCTA"};
 if ((_tipo == "delete") and ({(alive _x) and (!captive _x) and ((side _x == side_green) or (side _x == side_red)) and (_x distance _positionTel < 500)} count allUnits > 0)) exitWith {hint localize "STR_HINTS_FD_YCDACWEANI"};
 
-_coste = 500;
+_costs = 500;
 _hr = 0;
 
 if ((_tipo == "create") && (count campsFIA > _maxCamps)) exitWith {hint localize "STR_HINTS_FD_YCOSAMOFFC"};
@@ -52,7 +52,7 @@ if (_tipo == "create") then {
 	if !(typeName _typeGroup == "ARRAY") then {
 		_typeGroup = [_formatX] call groupComposition;
 	};
-	{_coste = _coste + (server getVariable _x); _hr = _hr +1} forEach _typeGroup;
+	{_costs = _costs + (server getVariable _x); _hr = _hr +1} forEach _typeGroup;
 };
 
 _txt = "";
@@ -95,10 +95,10 @@ if (_break) exitWith {openMap false; hint _txt;};
 _resourcesFIA = server getVariable "resourcesFIA";
 _hrFIA = server getVariable "hr";
 
-if (((_resourcesFIA < _coste) or (_hrFIA < _hr)) and (_tipo == "create")) exitWith {hint format [localize "STR_HINTS_FD_YLORTBTC",_hr,_coste]};
+if (((_resourcesFIA < _costs) or (_hrFIA < _hr)) and (_tipo == "create")) exitWith {hint format [localize "STR_HINTS_FD_YLORTBTC",_hr,_costs]};
 
 if (_tipo == "create") then {
-	[-_hr,-_coste] remoteExec ["resourcesFIA",2];
+	[-_hr,-_costs] remoteExec ["resourcesFIA",2];
 };
 
 if (_tipo != "rename") then {

@@ -1,5 +1,5 @@
 params ["_unit"];
-private ["_grupo","_groups","_isLeader","_dummyGroup","_bleedOut","_suicide","_saveVolume","_ayuda","_isHelped","_texto","_isPlayer","_camTarget","_saveVolumeVoice"];
+private ["_grupo","_groups","_isLeader","_dummyGroup","_bleedOut","_suicide","_saveVolume","_helpX","_isHelped","_texto","_isPlayer","_camTarget","_saveVolumeVoice"];
 
 if ([_unit] call AS_fnc_isUnconscious) exitWith {};
 if (damage _unit < 0.9) exitWith {};
@@ -68,17 +68,17 @@ while {(time < _bleedOut) and (damage _unit > 0.25) and (alive _unit) and ([_uni
 	if (_isPlayer) then {
 		_isHelped = _unit getVariable "ASmedHelped";
 		if (isNil "_isHelped") then {
-			_ayuda = [_unit] call askForHelp;
-			if (isNull _ayuda) then	{
+			_helpX = [_unit] call askForHelp;
+			if (isNull _helpX) then	{
 				_texto = format ["<t size='0.6'>There is no AI near to help you.<t size='0.5'><br/>Hit R to Respawn"];
 			} else {
-				_texto = format ["<t size='0.6'>%1 is on the way to help you.<t size='0.5'><br/>Hit R to Respawn",name _ayuda];
-				//_camTarget = _ayuda;
+				_texto = format ["<t size='0.6'>%1 is on the way to help you.<t size='0.5'><br/>Hit R to Respawn",name _helpX];
+				//_camTarget = _helpX;
 			};
 		}else{
-			if (!isNil "_ayuda") then{
-				_texto = format ["<t size='0.6'>%1 is on the way to help you.<t size='0.5'><br/>Hit R to Respawn",name _ayuda];
-				//_camTarget = _ayuda;
+			if (!isNil "_helpX") then{
+				_texto = format ["<t size='0.6'>%1 is on the way to help you.<t size='0.5'><br/>Hit R to Respawn",name _helpX];
+				//_camTarget = _helpX;
 			}else{
 				_texto = "<t size='0.6'>Wait until you get assistance or<t size='0.5'><br/>Hit R to Respawn";
 			};
@@ -123,8 +123,8 @@ if (time > _bleedOut) exitWith {
 	if (_isPlayer) then	{
 		_isHelped = _unit getVariable "ASmedHelped";
 		if (isNil "_isHelped") then {
-			_ayuda = [_unit] call askForHelp;
-			if (!isNull _ayuda) then{
+			_helpX = [_unit] call askForHelp;
+			if (!isNull _helpX) then{
 				_unit setdamage 0.2;
 				[_unit, false] call AS_fnc_setUnconscious;
 				_unit playMoveNow "AmovPpneMstpSnonWnonDnon_healed";

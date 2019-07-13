@@ -7,13 +7,13 @@ _checkX = false;
 
 if (_checkX) exitWith {Hint "You cannot buy vehicles with enemies nearby"};
 
-private ["_typeVehX","_coste","_resourcesFIA","_markerX","_pos","_veh"];
+private ["_typeVehX","_costs","_resourcesFIA","_markerX","_pos","_veh"];
 
 _typeVehX = _this select 0;
 _milveh = vfs select [3,10];
 _milstatics = vfs select [7,4];
 
-_coste = [_typeVehX] call vehiclePrice;
+_costs = [_typeVehX] call vehiclePrice;
 
 if (!isMultiPlayer) then {_resourcesFIA = server getVariable "resourcesFIA"} else
 	{
@@ -27,7 +27,7 @@ if (!isMultiPlayer) then {_resourcesFIA = server getVariable "resourcesFIA"} els
 		};
 	};
 
-if (_resourcesFIA < _coste) exitWith {hint format ["You do not have enough money for this vehicle: %1 € required",_coste]};
+if (_resourcesFIA < _costs) exitWith {hint format ["You do not have enough money for this vehicle: %1 € required",_costs]};
 _pos = position player findEmptyPosition [10,50,_typeVehX];
 if (count _pos == 0) exitWith {hint "Not enough space to place this type of vehicle"};
 _veh = _typeVehX createVehicle _pos;
@@ -38,24 +38,24 @@ if (_typeVehX == (vfs select 3)) then
 };
 if (!isMultiplayer) then
 	{
-	[0,(-1* _coste)] remoteExec ["resourcesFIA", 2];
+	[0,(-1* _costs)] remoteExec ["resourcesFIA", 2];
 	}
 else
 	{
 	if (player != Slowhand) then
 		{
-		[-1* _coste] call resourcesPlayer;
+		[-1* _costs] call resourcesPlayer;
 		_veh setVariable ["vehOwner",getPlayerUID player,true];
 		}
 	else
 		{
 		if ((_typeVehX in _milveh) or (_typeVehX == civHeli)) then
 			{
-			[0,(-1* _coste)] remoteExecCall ["resourcesFIA",2]
+			[0,(-1* _costs)] remoteExecCall ["resourcesFIA",2]
 			}
 		else
 			{
-			[-1* _coste] call resourcesPlayer;
+			[-1* _costs] call resourcesPlayer;
 			_veh setVariable ["vehOwner",getPlayerUID player,true];
 			};
 		};

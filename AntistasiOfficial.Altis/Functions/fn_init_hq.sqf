@@ -146,9 +146,9 @@
 	vehicleBox addAction [localize "str_act_moveAsset", "moveObject.sqf",nil,0,false,true,"","(_this == Slowhand)",5];
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //campFire
-	fuego allowDamage false;
-	fuego addAction [localize "str_act_rest", "skiptime.sqf",nil,0,false,true,"","isPlayer _this"];
-	fuego addAction [localize "str_act_moveAsset",
+	fireX allowDamage false;
+	fireX addAction [localize "str_act_rest", "skiptime.sqf",nil,0,false,true,"","isPlayer _this"];
+	fireX addAction [localize "str_act_moveAsset",
 		"moveObject.sqf",
 		nil,
 		0,

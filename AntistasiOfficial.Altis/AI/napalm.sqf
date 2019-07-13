@@ -43,10 +43,10 @@ if (!isDedicated) then
 	_ps4 setDropInterval 0.022;
 	[_ps4] spawn
 		{
-		_fuego = _this select 0;
-		while {alive _fuego} do
+		_fireX = _this select 0;
+		while {alive _fireX} do
 			{
-			_fuego say3D "fire";
+			_fireX say3D "fire";
 			sleep 13;
 			};
 		};

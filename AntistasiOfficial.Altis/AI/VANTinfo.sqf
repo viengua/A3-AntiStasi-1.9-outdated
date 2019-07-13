@@ -1,4 +1,4 @@
-private ["_veh","_markerX","_positionX","_groups","_knownX","_grupo","_lider"];
+private ["_veh","_markerX","_positionX","_groups","_knownX","_grupo","_LeaderX"];
 
 _veh = _this select 0;
 _markerX = _this select 1;
@@ -12,8 +12,8 @@ while {alive _veh} do
 	_enemiesX = [distanceSPWN,0,_positionX,"OPFORSpawn"] call distanceUnits;
 	sleep 60;
 	{
-	_lider = leader _x;
-	if ((_lider in _enemiesX) and (vehicle _lider != _lider)) then {_groups pushBack _x};
+	_LeaderX = leader _x;
+	if ((_LeaderX in _enemiesX) and (vehicle _LeaderX != _LeaderX)) then {_groups pushBack _x};
 	} forEach allGroups;
 	{
 	if ((side _x == side_blue) and (alive _x) and (_x distance _positionX < 500)) then

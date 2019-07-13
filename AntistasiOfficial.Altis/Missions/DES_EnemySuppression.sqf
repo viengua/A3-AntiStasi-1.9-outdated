@@ -3,7 +3,7 @@ if (!isServer and hasInterface) exitWith {};
 _tskTitle = "STR_TSK_TD_DESSuppression";
 _tskDesc  = "STR_TSK_TD_DESC_DESSuppression";
 
-private ["_poscrash", "_posbase", "_mrkfin", "_mrkTarget", "_typeVehX", "_churches", "_vehiclesX", "_soldiers", "_groups", "_unit", "_roads", "_road", "_vehicle", "_veh", "_typeGroup", "_tsk", "_humo", "_emitterArray", "_poschurch", "_grupo", "_missionchurch", "_posmissionchurch", "_group1", "_MRAP"];
+private ["_poscrash", "_posbase", "_mrkFinal", "_mrkTarget", "_typeVehX", "_churches", "_vehiclesX", "_soldiers", "_groups", "_unit", "_roads", "_road", "_vehicle", "_veh", "_typeGroup", "_tsk", "_humo", "_emitterArray", "_poschurch", "_grupo", "_missionchurch", "_posmissionchurch", "_group1", "_MRAP"];
 
 
 _markerX   = _this select 0;
@@ -56,12 +56,12 @@ while {true} do {
 	_mrkchurch = createMarker [format ["Church%1", random 100], _posmissionchurch];
 	_mrkchurch setMarkerSize [100, 100];
 
-	_mrkfin = createMarker [format ["DES%1", random 100], _missionchurch];
-	_mrkfin setMarkerShape "ICON";
+	_mrkFinal = createMarker [format ["DES%1", random 100], _missionchurch];
+	_mrkFinal setMarkerShape "ICON";
 
 	// setting the mission
 
-	_tsk = ["DES", [side_blue, civilian], [[_tskDesc, _nameDest, numberToDate [2035, _dateLimitNum] select 3, numberToDate [2035, _dateLimitNum] select 4, A3_Str_INDEP], _tskTitle, _mrkfin], _missionchurch, "CREATED", 5, true, true, "Destroy"] call BIS_fnc_setTask;
+	_tsk = ["DES", [side_blue, civilian], [[_tskDesc, _nameDest, numberToDate [2035, _dateLimitNum] select 3, numberToDate [2035, _dateLimitNum] select 4, A3_Str_INDEP], _tskTitle, _mrkFinal], _missionchurch, "CREATED", 5, true, true, "Destroy"] call BIS_fnc_setTask;
 	missionsX pushBack _tsk;
 	publicVariable "missionsX";
 
@@ -148,12 +148,12 @@ while {true} do {
 
 	if (dateToNumber date > _dateLimitNum) then
 		{
-			_tsk = ["DES", [side_blue, civilian], [[_tskDesc, _nameDest, numberToDate [2035, _dateLimitNum] select 3, numberToDate [2035, _dateLimitNum] select 4, A3_Str_INDEP], _tskTitle, _mrkfin], _missionchurch, "FAILED", 5, true, true, "Destroy"] call BIS_fnc_setTask;
+			_tsk = ["DES", [side_blue, civilian], [[_tskDesc, _nameDest, numberToDate [2035, _dateLimitNum] select 3, numberToDate [2035, _dateLimitNum] select 4, A3_Str_INDEP], _tskTitle, _mrkFinal], _missionchurch, "FAILED", 5, true, true, "Destroy"] call BIS_fnc_setTask;
 			[5, 0, _positionX] remoteExec ["AS_fnc_changeCitySupport", 2];
 			[-50] remoteExec ["AS_fnc_increaseAttackTimer", 2];
 			[-20, Slowhand] call playerScoreAdd;
 		} else {
-			_tsk = ["DES", [side_blue, civilian], [[_tskDesc, _nameDest, numberToDate [2035, _dateLimitNum] select 3, numberToDate [2035, _dateLimitNum] select 4, A3_Str_INDEP], _tskTitle, _mrkfin], _missionchurch, "SUCCEEDED", 5, true, true, "Destroy"] call BIS_fnc_setTask;
+			_tsk = ["DES", [side_blue, civilian], [[_tskDesc, _nameDest, numberToDate [2035, _dateLimitNum] select 3, numberToDate [2035, _dateLimitNum] select 4, A3_Str_INDEP], _tskTitle, _mrkFinal], _missionchurch, "SUCCEEDED", 5, true, true, "Destroy"] call BIS_fnc_setTask;
 			[3, 200] remoteExec ["resourcesFIA", 2];
 			[0, 5, _positionX] remoteExec ["AS_fnc_changeCitySupport", 2];
 			[_mrkchurch] remoteExec ["patrolCA",  call AS_fnc_getNextWorker];
@@ -170,5 +170,5 @@ while {true} do {
 
 
 			[1200, _tsk] spawn deleteTaskX;
-			deleteMarker _mrkfin;
+			deleteMarker _mrkFinal;
 			[_groups, _soldiers, _vehiclesX] spawn AS_fnc_despawnUnits;

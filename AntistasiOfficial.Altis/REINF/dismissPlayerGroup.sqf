@@ -31,13 +31,13 @@ if (recruitCooldown < time) then {recruitCooldown = time + 60} else {recruitCool
 
 if (_ai) then
 	{
-	_lider = leader _newGroup;
+	_LeaderX = leader _newGroup;
 
 	{_x domove getMarkerPos guer_respawn} forEach units _newGroup;
 
-	_tiempo = time + 120;
+	_timeX = time + 120;
 
-	waitUntil {sleep 1; (time > _tiempo) or ({(_x distance getMarkerPos guer_respawn < 50) and (alive _x)} count units _newGroup == {alive _x} count units _newGroup)};
+	waitUntil {sleep 1; (time > _timeX) or ({(_x distance getMarkerPos guer_respawn < 50) and (alive _x)} count units _newGroup == {alive _x} count units _newGroup)};
 
 	_hr = 0;
 	_resourcesFIA = 0;

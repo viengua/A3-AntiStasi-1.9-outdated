@@ -1,4 +1,4 @@
-private ["_tipo","_positionTel","_nearX","_garrison","_coste","_hr","_size"];
+private ["_tipo","_positionTel","_nearX","_garrison","_costs","_hr","_size"];
 _tipo = _this select 0;
 
 if (_tipo == "add") then {hint "Select a zone to add garrisoned troops"} else {hint "Select a zone to remove it's Garrison"};
@@ -30,7 +30,7 @@ _garrison = garrison getVariable [_nearX,[]];
 if (_tipo == "rem") then
 	{
 	if (count _garrison == 0) exitWith {hint "The place has no garrisoned troops to remove"; CreateDialog "garrison_menu";};
-	_coste = 0;
+	_costs = 0;
 	_hr = 0;
 	if (spawner getVariable _nearX) then
 		{
@@ -49,9 +49,9 @@ if (_tipo == "rem") then
 					{
 					if (typeOf _x in guer_soldierArray) then
 						{
-						if (typeOf _x == guer_sol_HMG) then {_coste = _coste - ([guer_stat_MGH] call vehiclePrice)};
+						if (typeOf _x == guer_sol_HMG) then {_costs = _costs - ([guer_stat_MGH] call vehiclePrice)};
 						_hr = _hr - 1;
-						_coste = _coste - (server getVariable (typeOf _x));
+						_costs = _costs - (server getVariable (typeOf _x));
 						};
 					};
 				if (typeOf (vehicle _x) == guer_stat_MGH) then {deleteVehicle vehicle _x};
@@ -61,14 +61,14 @@ if (_tipo == "rem") then
 			};
 		};
 	{
-	if (_x == guer_sol_HMG) then {_coste = _coste + ([guer_stat_MGH] call vehiclePrice)};
+	if (_x == guer_sol_HMG) then {_costs = _costs + ([guer_stat_MGH] call vehiclePrice)};
 	_hr = _hr + 1;
-	_coste = _coste + (server getVariable _x);
+	_costs = _costs + (server getVariable _x);
 	} forEach _garrison;
-	[_hr,_coste] remoteExec ["resourcesFIA",2];
+	[_hr,_costs] remoteExec ["resourcesFIA",2];
 	garrison setVariable [_nearX,[],true];
 	[_nearX] call AS_fnc_markerUpdate;
-	hint format ["Garrison removed\n\nRecovered Money: %1 €\nRecovered HR: %2",_coste,_hr];
+	hint format ["Garrison removed\n\nRecovered Money: %1 €\nRecovered HR: %2",_costs,_hr];
 	CreateDialog "garrison_menu";
 	}
 else

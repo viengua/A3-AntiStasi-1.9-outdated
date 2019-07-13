@@ -12,7 +12,7 @@ if (_type == "pad") exitWith {
 		   	};
 		} forEach nearestObjects [petros, [], 80];
 		_padBag = "Land_Bucket_painted_F" createVehicle [0,0,0];
-		_padBag setPos ([getPos fuego, 2, floor(random 361)] call BIS_Fnc_relPos);
+		_padBag setPos ([getPos fireX, 2, floor(random 361)] call BIS_Fnc_relPos);
 		[_padBag,"moveObject"] remoteExec ["AS_fnc_addActionMP"];
 		[_padBag,"deploy"] remoteExec ["AS_fnc_addActionMP"];
 		[_padBag,"removeObj"] remoteExec ["AS_fnc_addActionMP"];
@@ -34,7 +34,7 @@ if (_type == "delete") exitWith {
 		then {
 	       	_objs pushBack _x;
 	   	};
-	} forEach nearestObjects [getPos fuego, [], 50];
+	} forEach nearestObjects [getPos fireX, [], 50];
 
 	{
 		deleteVehicle _x;
@@ -50,7 +50,7 @@ if (_type == "delete") exitWith {
 };
 
 call {
-	_spawnPos = [getPos fuego, 10, floor(random 361)] call BIS_Fnc_relPos;
+	_spawnPos = [getPos fireX, 10, floor(random 361)] call BIS_Fnc_relPos;
 
 	if (_type == "lantern") exitWith {
 		_itemType = "Land_Camping_Light_F";

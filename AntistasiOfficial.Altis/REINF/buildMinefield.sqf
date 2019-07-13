@@ -1,12 +1,12 @@
 if (!isServer and hasInterface) exitWith {};
 
-private ["_tipo","_quantity","_typeAmmunition","_grupo","_unit","_tam","_roads","_road","_pos","_truckX","_texto","_mrk","_ATminesAdd","_APminesAdd","_positionTel","_tsk","_magazines","_typeMagazines","_cantMagazines","_newCantMagazines","_mina","_tipo","_truckX"];
+private ["_tipo","_quantity","_typeAmmunition","_grupo","_unit","_tam","_roads","_road","_pos","_truckX","_texto","_mrk","_ATminesAdd","_APminesAdd","_positionTel","_tsk","_magazines","_typeMagazines","_cantMagazines","_newCantMagazines","_mineX","_tipo","_truckX"];
 
 _tipo = _this select 0;
 _positionTel = _this select 1;
 _quantity = _this select 2;
-_coste = (2*(server getVariable guer_sol_EXP)) + ([guer_veh_truck] call vehiclePrice);
-[-2,-1*_coste] remoteExec [resourcesFIA,2];
+_costs = (2*(server getVariable guer_sol_EXP)) + ([guer_veh_truck] call vehiclePrice);
+[-2,-1*_costs] remoteExec [resourcesFIA,2];
 
 if (_tipo == "ATMine") then
 	{
@@ -109,14 +109,14 @@ if ((_truckX distance _positionTel < 50) and ({alive _x} count units _grupo > 0)
 		deleteVehicle _truckX;
 		for "_i" from 1 to _quantity do
 			{
-			_mina = createMine [_tipo,_positionTel,[],100];
-			side_blue revealMine _mina;
+			_mineX = createMine [_tipo,_positionTel,[],100];
+			side_blue revealMine _mineX;
 			};
 		_tsk = ["Mines",[side_blue,civilian],[["STR_TSK_MINEFIELD_DESC",_quantity],"STR_MINEFIELD_TITLE",_mrk],_positionTel,"SUCCEEDED",5,true,true,"Map"] call BIS_fnc_setTask;
 		sleep 15;
 		//[_tsk,true] call BIS_fnc_deleteTask;
 		[0,_tsk] spawn deleteTaskX;
-		[2,_coste] remoteExec ["resourcesFIA",2];
+		[2,_costs] remoteExec ["resourcesFIA",2];
 		}
 	else
 		{

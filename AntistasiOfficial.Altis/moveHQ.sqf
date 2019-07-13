@@ -18,7 +18,7 @@ if (isMultiplayer) then
 	//caja hideObjectGlobal true; //Redo it with Jeroen's crate loading script. Sparker
 	//vehicleBox hideObjectGlobal true;
 	mapa hideObjectGlobal true;
-	fuego hideObjectGlobal true;
+	fireX hideObjectGlobal true;
 	flagX hideObjectGlobal true;
 	}
 else
@@ -26,11 +26,11 @@ else
 	//caja hideObject true;
 	//vehicleBox hideObject true;
 	mapa hideObject true;
-	fuego hideObject true;
+	fireX hideObject true;
 	flagX hideObject true;
 	};
 
-fuego inflame false;
+fireX inflame false;
 
 if (count (server getVariable ["obj_vehiclePad",[]]) > 0) then {
 	[obj_vehiclePad, {deleteVehicle _this}] remoteExec ["call", 0];
@@ -45,7 +45,7 @@ _garrison = garrison getVariable ["FIA_HQ", []];
 _positionX = getMarkerPos "FIA_HQ";
 if (count _garrison > 0) then
 	{
-	_coste = 0;
+	_costs = 0;
 	_hr = 0;
 	if ({(alive _x) and (!captive _x) and ((side _x == side_green) or (side _x == side_red)) and (_x distance _positionX < 500)} count allUnits > 0) then
 		{
@@ -61,9 +61,9 @@ if (count _garrison > 0) then
 				{
 				if (typeOf _x in guer_soldierArray) then
 					{
-					if (typeOf _x == guer_sol_HMG) then {_coste = _coste - ([guer_stat_MGH] call vehiclePrice)};
+					if (typeOf _x == guer_sol_HMG) then {_costs = _costs - ([guer_stat_MGH] call vehiclePrice)};
 					_hr = _hr - 1;
-					_coste = _coste - (server getVariable (typeOf _x));
+					_costs = _costs - (server getVariable (typeOf _x));
 					};
 				};
 			if (typeOf (vehicle _x) == guer_stat_MGH) then {deleteVehicle vehicle _x};
@@ -72,13 +72,13 @@ if (count _garrison > 0) then
 		} forEach allUnits;
 		};
 	{
-	if (_x == guer_sol_HMG) then {_coste = _coste + ([guer_stat_MGH] call vehiclePrice)};
+	if (_x == guer_sol_HMG) then {_costs = _costs + ([guer_stat_MGH] call vehiclePrice)};
 	_hr = _hr + 1;
-	_coste = _coste + (server getVariable _x);
+	_costs = _costs + (server getVariable _x);
 	} forEach _garrison;
-	[_hr,_coste] remoteExec ["resourcesFIA",2];
+	[_hr,_costs] remoteExec ["resourcesFIA",2];
 	garrison setVariable ["FIA_HQ",[],true];
-	hint format ["Garrison removed\n\nRecovered Money: %1 €\nRecovered HR: %2",_coste,_hr];
+	hint format ["Garrison removed\n\nRecovered Money: %1 €\nRecovered HR: %2",_costs,_hr];
 	};
 
 sleep 5;

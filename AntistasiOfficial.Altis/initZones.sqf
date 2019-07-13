@@ -60,8 +60,8 @@ if !(count controlsX > 0) then {
     {
         call {
             if (toLower _x find "control" >= 0) exitWith {controlsX pushBackUnique _x};
-            if (toLower _x find "puestoAA" >= 0) exitWith {outpostsAA pushBackUnique _x};
-            if (toLower _x find "puesto" >= 0) exitWith {outposts pushBackUnique _x};
+            if (toLower _x find "outpostAA" >= 0) exitWith {outpostsAA pushBackUnique _x};
+            if (toLower _x find "outpost" >= 0) exitWith {outposts pushBackUnique _x};
             if (toLower _x find "seaPatrol" >= 0) exitWith {seaMarkers pushBackUnique _x};
             if (toLower _x find "base" >= 0) exitWith {bases pushBackUnique _x};
             if (toLower _x find "power" >= 0) exitWith {power pushBackUnique _x};
@@ -71,7 +71,7 @@ if !(count controlsX > 0) then {
             if (toLower _x find "artillery" >= 0) exitWith {artyEmplacements pushBackUnique _x};
             if (toLower _x find "mtn_comp" >= 0) exitWith {colinasAA pushBackUnique _x};
             if (toLower _x find "mtn" >= 0) exitWith {colinas pushBackUnique _x};
-            if (toLower _x find "puerto" >= 0) exitWith {seaports pushBackUnique _x};
+            if (toLower _x find "seaport" >= 0) exitWith {seaports pushBackUnique _x};
         };
     } forEach _allMarkers;
 
@@ -279,12 +279,12 @@ if (count posAntennas > 0) then {
         if (count _antennaArray > 0) then {
             _antenna = _antennaArray select 0;
             antennas = antennas + [_antenna];
-            _mrkfin = createMarker [format ["Ant%1", _i], posAntennas select _i];
-            _mrkfin setMarkerShape "ICON";
-            _mrkfin setMarkerType "loc_Transmitter";
-            _mrkfin setMarkerColor "ColorBlack";
-            _mrkfin setMarkerText localize "STR_GL_MAP_RT";
-            mrkAntennas = mrkAntennas + [_mrkfin];
+            _mrkFinal = createMarker [format ["Ant%1", _i], posAntennas select _i];
+            _mrkFinal setMarkerShape "ICON";
+            _mrkFinal setMarkerType "loc_Transmitter";
+            _mrkFinal setMarkerColor "ColorBlack";
+            _mrkFinal setMarkerText localize "STR_GL_MAP_RT";
+            mrkAntennas = mrkAntennas + [_mrkFinal];
             _antenna addEventHandler ["Killed", {
                 _antenna = _this select 0;
                 _mrk = [mrkAntennas, _antenna] call BIS_fnc_nearestPosition;

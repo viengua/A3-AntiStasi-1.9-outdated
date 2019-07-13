@@ -197,13 +197,13 @@ propTruck engineOn false;
 
 // reveal the truck's location to all nearby enemies, blow the cover of all nearby friendlies
 {
-	_amigo = _x;
-	if (captive _amigo) then {
-		[_amigo,false] remoteExec ["setCaptive",_amigo];
+	_friendX = _x;
+	if (captive _friendX) then {
+		[_friendX,false] remoteExec ["setCaptive",_friendX];
 	};
 	{
 		if ((side _x == side_green) and (_x distance propTruck < distanceSPWN)) then {
-			if (_x distance propTruck < 300) then {_x doMove position propTruck} else {_x reveal [_amigo,4]};
+			if (_x distance propTruck < 300) then {_x doMove position propTruck} else {_x reveal [_friendX,4]};
 		};
 	} forEach allUnits;
 } forEach ([300,0,propTruck,"BLUFORSpawn"] call distanceUnits);

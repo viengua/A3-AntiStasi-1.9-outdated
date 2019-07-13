@@ -32,47 +32,47 @@ _airportsX = airportsX - mrkAAF;
 
 if (((_tipo == "NATOArty") or (_tipo == "NATOArmor") or (_tipo == "NATORoadblock")) and (count _bases == 0)) exitWith {hint localize "STR_HINTS_NATOD_YNYCALOBTPTA"};
 
-_costeNATO = 5;
+_costsNATO = 5;
 _textoHint = "";
 
 switch (_tipo) do {
 	case "NATOCA": {
-		_costeNATO = 20;
+		_costsNATO = 20;
 		_textohint = localize "STR_HINTS_NATOD_COTBOAYWNATOTA";
 	};
 	case "NATOArmor": {
-		_costeNATO = 20;
+		_costsNATO = 20;
 		_textohint = localize "STR_HINTS_NATOD_COTBFWYWNATOTOTA";
 	};
 	case "NATOAmmo": {
-		_costeNATO = 5;
+		_costsNATO = 5;
 		_textohint = localize "STR_HINTS_NATOD_COTSWYWTA";
 	};
 	case "NATOArty": {
-		_costeNATO = 10;
+		_costsNATO = 10;
 		_textohint = localize "STR_HINTS_NATOD_COTBFWYWAS";
 	};
 	case "NATOCAS": {
-		_costeNATO = 10;
+		_costsNATO = 10;
 		_textohint = localize "STR_HINTS_NATOD_COTAFWYWNATOTA";
 	};
 	case "NATORoadblock": {
-		_costeNATO = 10;
+		_costsNATO = 10;
 		_textohint = localize "STR_HINTS_NATOD_COTSWYWNATOTSAR";
 	};
 	case "NATOQRF": {
-		_costeNATO = 10;
+		_costsNATO = 10;
 		_textohint = localize "STR_HINTS_NATOD_COTBOACFWYWNATOTDAQRF";
 	};
 	case "NATORED": {           //Stef 30-08 adding a way to reduce CSATprestige by spending NATO
-		_costeNATO = 100;
+		_costsNATO = 100;
 		_textohint = localize "STR_HINTS_NATOD_YIASEFEIDWRTCATI";
 	};
 };
 
 _NATOSupp = server getVariable "prestigeNATO";
 
-if (_NATOSupp < _costeNATO) exitWith {hint format [localize "STR_HINTS_NATOD_WLOENATOSIOTPWTR",_costeNATO]};
+if (_NATOSupp < _costsNATO) exitWith {hint format [localize "STR_HINTS_NATOD_WLOENATOSIOTPWTR",_costsNATO]};
 
 if (_tipo == "NATOCAS") exitWith {[] remoteExec [_tipo, call AS_fnc_getNextWorker]};
 if (_tipo == "NATOUAV") exitWith {[] remoteExec [_tipo, call AS_fnc_getNextWorker]};
@@ -186,4 +186,3 @@ if (_salir) exitWith {};
 if (_tipo == "NATOCA") then {
 	[_sitio] remoteExec [_tipo, call AS_fnc_getNextWorker];
 };
-

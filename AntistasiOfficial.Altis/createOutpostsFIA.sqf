@@ -1,6 +1,6 @@
 if (!isServer) exitWith {};
 
-private ["_tipo","_coste","_grupo","_unit","_tam","_roads","_road","_pos","_truckX","_texto","_mrk","_hr","_unitsX","_formatX"];
+private ["_tipo","_costs","_grupo","_unit","_tam","_roads","_road","_pos","_truckX","_texto","_mrk","_hr","_unitsX","_formatX"];
 
 _tipo = _this select 0;
 _positionTel = _this select 1;
@@ -9,21 +9,21 @@ if (_tipo == "delete") exitWith {
 	_mrk = [outpostsFIA,_positionTel] call BIS_fnc_nearestPosition;
 	_pos = getMarkerPos _mrk;
 	hint format ["Deleting %1",markerText _mrk];
-	_coste = 0;
+	_costs = 0;
 	_hr = 0;
 	_typeGroup = guer_grp_sniper;
 	if (markerText _mrk != "FIA Observation Post") then
 		{
 		_typeGroup = guer_grp_AT;
-		_coste = _coste + ([guer_veh_technical] call vehiclePrice) + (server getVariable guer_sol_RFL);
+		_costs = _costs + ([guer_veh_technical] call vehiclePrice) + (server getVariable guer_sol_RFL);
 		_hr = _hr + 1;
 		};
 	_formatX = ([_typeGroup, "guer"] call AS_fnc_pickGroup);
 	if !(typeName _typeGroup == "ARRAY") then {
 		_typeGroup = [_formatX] call groupComposition;
 	};
-	{_coste = _coste + (server getVariable _x); _hr = _hr +1} forEach _typeGroup;
-	[_hr,_coste] remoteExec ["resourcesFIA",2];
+	{_costs = _costs + (server getVariable _x); _hr = _hr +1} forEach _typeGroup;
+	[_hr,_costs] remoteExec ["resourcesFIA",2];
 	deleteMarker _mrk;
 	outpostsFIA = outpostsFIA - [_mrk]; publicVariable "outpostsFIA";
 	mrkFIA = mrkFIA - [_mrk]; publicVariable "mrkFIA";

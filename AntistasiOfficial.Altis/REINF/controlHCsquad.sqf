@@ -32,7 +32,7 @@ _unit setVariable ["owner",player,true];
 selectPlayer _unit;
 (_unit getVariable ["owner",_unit]) allowDamage false;
 
-_tiempo = 60;
+_timeX = 60;
 
 _unit addAction [localize "Str_act_returnControl",{selectPlayer (player getVariable ["owner",player])}];
 _break = false;
@@ -46,7 +46,7 @@ _testEH = _unit addEventHandler ["HandleDamage", {
 	_damage
 }];
 
-waitUntil {sleep 1; hint format ["Time to return control to AI: %1", _tiempo]; _tiempo = _tiempo - 1; (_tiempo < 0) or (isPlayer Slowhand) || (_break)};
+waitUntil {sleep 1; hint format ["Time to return control to AI: %1", _timeX]; _timeX = _timeX - 1; (_timeX < 0) or (isPlayer Slowhand) || (_break)};
 
 removeAllActions _unit;
 _unit removeEventHandler ["HandleDamage", _testEH];

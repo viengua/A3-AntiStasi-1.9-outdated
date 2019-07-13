@@ -25,7 +25,7 @@ if (isMultiplayer) then
 	caja hideObjectGlobal false;
 	vehicleBox hideObjectGlobal false;
 	mapa hideObjectGlobal false;
-	fuego hideObjectGlobal false;
+	fireX hideObjectGlobal false;
 	flagX hideObjectGlobal false;
 	}
 else
@@ -35,29 +35,29 @@ else
 	caja hideObject false;
 	vehicleBox hideObject false;
 	mapa hideObject false;
-	fuego hideObject false;
+	fireX hideObject false;
 	flagX hideObject false;
 	};
-fuego inflame true;
+fireX inflame true;
 guer_respawn setMarkerAlpha 1;
 _pos = [getPos petros, 3, getDir petros] call BIS_Fnc_relPos;
-fuego setPos _pos;
+fireX setPos _pos;
 _rnd = getdir Petros;
 if (isMultiplayer) then {sleep 5};
-_pos = [getPos fuego, 3, _rnd] call BIS_Fnc_relPos;
+_pos = [getPos fireX, 3, _rnd] call BIS_Fnc_relPos;
 if(_ignoreDistance) then
 {
 	caja setPos _pos; //Set it up for Jeroen's cargo loading script. Sparker.
 };
 _rnd = _rnd + 45;
-_pos = [getPos fuego, 3, _rnd] call BIS_Fnc_relPos;
+_pos = [getPos fireX, 3, _rnd] call BIS_Fnc_relPos;
 mapa setPos _pos;
-mapa setDir ([fuego, mapa] call BIS_fnc_dirTo);
+mapa setDir ([fireX, mapa] call BIS_fnc_dirTo);
 _rnd = _rnd + 45;
-_pos = [getPos fuego, 3, _rnd] call BIS_Fnc_relPos;
+_pos = [getPos fireX, 3, _rnd] call BIS_Fnc_relPos;
 flagX setPos _pos;
 _rnd = _rnd + 45;
-_pos = [getPos fuego, 3, _rnd] call BIS_Fnc_relPos;
+_pos = [getPos fireX, 3, _rnd] call BIS_Fnc_relPos;
 if(_ignoreDistance) then
 {
 	vehicleBox setPos _pos;

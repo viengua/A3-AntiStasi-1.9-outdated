@@ -4,7 +4,7 @@
 if (!isServer and hasInterface) exitWith{};
 params ["_veh", "_text"];
 TRACE_2("START inmuneConvoy", _veh, _text);
-private ["_veh","_text","_mrkfin","_pos","_side","_tipo","_newPos","_road","_friendlies"];
+private ["_veh","_text","_mrkFinal","_pos","_side","_tipo","_newPos","_road","_friendlies"];
 
 _enemyX = true;
 _convoy = false;
@@ -72,18 +72,18 @@ waitUntil {sleep 1;(not alive _veh) or ({(_x knowsAbout _veh > 1.4) and (side _x
 if (!alive _veh) exitWith {};
 
 if (_enemyX) then {[_text,{["TaskSucceeded", ["", format ["%1 Spotted",_this]]] call BIS_fnc_showNotification}] remoteExec ["call", 0];};
-_mrkfin = createMarker [format ["%2%1", random 100,_text], position _veh];
-_mrkfin setMarkerShape "ICON";
-_mrkfin setMarkerType _tipo;
+_mrkFinal = createMarker [format ["%2%1", random 100,_text], position _veh];
+_mrkFinal setMarkerShape "ICON";
+_mrkFinal setMarkerType _tipo;
 if (_tipo == "hd_destroy") then
 	{
-	if (_enemyX) then {_mrkfin setMarkerColor OPFOR_marker_colour} else {_mrkfin setMarkerColor BLUFOR_marker_colour};
+	if (_enemyX) then {_mrkFinal setMarkerColor OPFOR_marker_colour} else {_mrkFinal setMarkerColor BLUFOR_marker_colour};
 	};
-_mrkfin setMarkerText _text;
+_mrkFinal setMarkerText _text;
 while {(alive _veh) and ((side (driver _veh) == _side) or _convoy)} do
 	{
 	_pos = getPos _veh;
-	_mrkfin setMarkerPos _pos;
+	_mrkFinal setMarkerPos _pos;
 	sleep 60;
 	_newPos = getPos _veh;
 	if (_newPos distance _pos < 5) then
@@ -112,4 +112,4 @@ while {(alive _veh) and ((side (driver _veh) == _side) or _convoy)} do
 			};
 		};
 	};
-deleteMarker _mrkfin;
+deleteMarker _mrkFinal;

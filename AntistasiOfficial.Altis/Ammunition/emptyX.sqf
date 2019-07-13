@@ -44,8 +44,8 @@ if (count _todo < 1) exitWith
 	{
 	if (count _this == 0) then {hint "Closest vehicle cargo is empty"};
 	if (count _this == 2) then {
-		if (count (nearestObjects [getPos fuego, ["AllVehicles"], 50]) > 0) then {
-			{[[_x,player], SA_Put_Away_Tow_Ropes] remoteExec ["call", 0];} forEach nearestObjects [getPos fuego, ["AllVehicles"], 50];
+		if (count (nearestObjects [getPos fireX, ["AllVehicles"], 50]) > 0) then {
+			{[[_x,player], SA_Put_Away_Tow_Ropes] remoteExec ["call", 0];} forEach nearestObjects [getPos fireX, ["AllVehicles"], 50];
 		};
 		deleteVehicle _truckX};
 	};

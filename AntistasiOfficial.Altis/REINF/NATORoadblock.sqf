@@ -7,8 +7,8 @@ _positionTel = _this select 0;
 _prestigio = server getVariable "prestigeNATO";
 _base = bases - mrkAAF + ["spawnNATO"];
 
-_origen = [_base,Slowhand] call BIS_fnc_nearestPosition;
-_orig = getMarkerPos _origen;
+_originX = [_base,Slowhand] call BIS_fnc_nearestPosition;
+_orig = getMarkerPos _originX;
 
 [-10,0] remoteExec ["prestige",2];
 
@@ -17,7 +17,7 @@ _timeLimit = 30 max _prestigio;
 _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
 _dateLimitNum = dateToNumber _dateLimit;
 
-_nameOrigin = [_origen] call AS_fnc_localizar;
+_nameOrigin = [_originX] call AS_fnc_localizar;
 
 
 _texto = "STR_GL_NATORB";

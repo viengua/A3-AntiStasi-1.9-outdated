@@ -14,9 +14,9 @@ _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date 
 _dateLimitNum = dateToNumber _dateLimit;
 
 _cityX = [citiesX, _positionX] call BIS_fnc_nearestPosition;
-_mrkfin = createMarker [format ["LOG%1", random 100], _positionX];
+_mrkFinal = createMarker [format ["LOG%1", random 100], _positionX];
 _nameDest = [_cityX] call AS_fnc_localizar;
-_mrkfin setMarkerShape "ICON";
+_mrkFinal setMarkerShape "ICON";
 
 _pos = (getMarkerPos guer_respawn) findEmptyPosition [1,50,AS_misVehicleBox];
 
@@ -39,7 +39,7 @@ _truckX addEventHandler ["GetIn",
 
 [_truckX,"Mission Vehicle"] spawn inmuneConvoy;
 
-_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_INDEP],_tskTitle,_mrkfin],_positionX,"CREATED",5,true,true,"Interact"] call BIS_fnc_setTask;
+_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_INDEP],_tskTitle,_mrkFinal],_positionX,"CREATED",5,true,true,"Interact"] call BIS_fnc_setTask;
 missionsX pushBack _tsk; publicVariable "missionsX";
 _mrk = createMarkerLocal [format ["%1patrolarea", floor random 100], _positionX];
 _mrk setMarkerShapeLocal "RECTANGLE";
@@ -61,7 +61,7 @@ waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) or (!alive _truckX) or (
 
 if ((dateToNumber date > _dateLimitNum) or (!alive _truckX)) then
 	{
-	_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_INDEP],_tskTitle,_mrkfin],_positionX,"FAILED",5,true,true,"Interact"] call BIS_fnc_setTask;
+	_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_INDEP],_tskTitle,_mrkFinal],_positionX,"FAILED",5,true,true,"Interact"] call BIS_fnc_setTask;
 	_resourcesAAF = server getVariable "resourcesAAF";
 	_resourcesAAF = _resourcesAAF + 5000;
 	server setVariable ["resourcesAAF",_resourcesAAF,true];
@@ -73,11 +73,11 @@ else
 	_countX = 120;//120
 	[_positionX] remoteExec ["patrolCA", call AS_fnc_getNextWorker];
 	[10,-20,_markerX] remoteExec ["AS_fnc_changeCitySupport",2];
-	{_amigo = _x;
-	if (_amigo distance _truckX < 300) then
+	{_friendX = _x;
+	if (_friendX distance _truckX < 300) then
 		{
-		if ((captive _amigo) and (isPlayer _amigo)) then {[player,false] remoteExec ["setCaptive",_amigo]};
-		{if (side _x == side_green) then {_x reveal [_amigo,4]};
+		if ((captive _friendX) and (isPlayer _friendX)) then {[player,false] remoteExec ["setCaptive",_friendX]};
+		{if (side _x == side_green) then {_x reveal [_friendX,4]};
 		} forEach allUnits;
 		};
 	} forEach ([distanceSPWN,0,_positionX,"BLUFORSpawn"] call distanceUnits);
@@ -110,7 +110,7 @@ else
 waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) or (!alive _truckX) or (_truckX distance _posbase < 50)};
 if ((_truckX distance _posbase < 50) and (dateToNumber date < _dateLimitNum)) then
 	{
-	_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_INDEP],_tskTitle,_mrkfin],_positionX,"SUCCEEDED",5,true,true,"Interact"] call BIS_fnc_setTask;
+	_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_INDEP],_tskTitle,_mrkFinal],_positionX,"SUCCEEDED",5,true,true,"Interact"] call BIS_fnc_setTask;
 	[0,5000] remoteExec ["resourcesFIA",2];
 	[-20,0] remoteExec ["prestige",2];
 	[1800] remoteExec ["AS_fnc_increaseAttackTimer",2];
@@ -124,7 +124,7 @@ if ((_truckX distance _posbase < 50) and (dateToNumber date < _dateLimitNum)) th
 	};
 if (!alive _truckX) then
 	{
-	_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_INDEP],_tskTitle,_mrkfin],_positionX,"FAILED",5,true,true,"Interact"] call BIS_fnc_setTask;
+	_tsk = ["LOG",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_INDEP],_tskTitle,_mrkFinal],_positionX,"FAILED",5,true,true,"Interact"] call BIS_fnc_setTask;
 	[1800] remoteExec ["AS_fnc_increaseAttackTimer",2];
 	[-10,Slowhand] call playerScoreAdd;
 	};
@@ -142,4 +142,4 @@ waitUntil {sleep 1; !([distanceSPWN,1,_positionX,"BLUFORSpawn"] call distanceUni
 deleteGroup _grupo;
 
 deleteMarker _mrk;
-deleteMarker _mrkfin;
+deleteMarker _mrkFinal;

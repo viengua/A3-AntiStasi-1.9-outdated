@@ -111,8 +111,8 @@ AS_MTN_AgiosAndreas pushBack [
 	["Land_BagFence_Round_F",[-30.959,-16.8828,0.0165024],96.316,1,0,[],"","",true,false]
 ];
 
-AS_MTN_AgiosMinas = [[7832.41, 17992.4]];
-AS_MTN_AgiosMinas pushBack [
+AS_MTN_AgiosminesX = [[7832.41, 17992.4]];
+AS_MTN_AgiosminesX pushBack [
 	["Land_HBarrier_5_F",[1.35938,-8.60742,0.0195923],220.769,1,0,[],"","",true,false],
 	["Land_BagFence_Short_F",[-7.41943,5.94531,-0.117035],28.1752,1,0,[],"","",true,false],
 	["Land_BagFence_Round_F",[7.80322,6.37109,-0.0213165],64.8249,1,0,[],"","",true,false],

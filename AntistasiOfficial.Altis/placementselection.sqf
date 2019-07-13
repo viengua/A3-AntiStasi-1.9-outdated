@@ -88,20 +88,20 @@ if (visiblemap) then {
 
 	if (isMultiplayer) then {hint localize "STR_HINTS_HQPLACE_MOVING"; sleep 5};
 	_spawnPos = [_position, 3, getDir petros] call BIS_Fnc_relPos;
-	fuego setPos _spawnPos;
+	fireX setPos _spawnPos;
 	_direction = getdir Petros;
 	if (isMultiplayer) then {sleep 5};
-	_spawnPos = [getPos fuego, 3, _direction] call BIS_Fnc_relPos;
+	_spawnPos = [getPos fireX, 3, _direction] call BIS_Fnc_relPos;
 	caja setPos _spawnPos;
 	_direction = _direction + 45;
-	_spawnPos = [getPos fuego, 3, _direction] call BIS_Fnc_relPos;
+	_spawnPos = [getPos fireX, 3, _direction] call BIS_Fnc_relPos;
 	mapa setPos _spawnPos;
-	mapa setDir ([fuego, mapa] call BIS_fnc_dirTo);
+	mapa setDir ([fireX, mapa] call BIS_fnc_dirTo);
 	_direction = _direction + 45;
-	_spawnPos = [getPos fuego, 3, _direction] call BIS_Fnc_relPos;
+	_spawnPos = [getPos fireX, 3, _direction] call BIS_Fnc_relPos;
 	flagX setPos _spawnPos;
 	_direction = _direction + 45;
-	_spawnPos = [getPos fuego, 3, _direction] call BIS_Fnc_relPos;
+	_spawnPos = [getPos fireX, 3, _direction] call BIS_Fnc_relPos;
 	vehicleBox setPos _spawnPos;
 
 	if (isNil "placementDone") then {
@@ -120,13 +120,13 @@ if (visiblemap) then {
 		caja hideObjectGlobal false;
 		vehicleBox hideObjectGlobal false;
 		mapa hideObjectGlobal false;
-		fuego hideObjectGlobal false;
+		fireX hideObjectGlobal false;
 		flagX hideObjectGlobal false;
 	} else {
 		caja hideObject false;
 		vehicleBox hideObject false;
 		mapa hideObject false;
-		fuego hideObject false;
+		fireX hideObject false;
 		flagX hideObject false;
 	};
     LOG("Unlock map");

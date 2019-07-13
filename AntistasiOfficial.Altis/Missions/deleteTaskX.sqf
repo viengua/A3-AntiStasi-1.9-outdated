@@ -1,9 +1,9 @@
-private ["_tiempo","_tsk"];
+private ["_timeX","_tsk"];
 
-_tiempo = _this select 0;
+_timeX = _this select 0;
 _tsk = _this select 1;
 
-if (_tiempo > 0) then {sleep ((_tiempo/2) + random _tiempo)};
+if (_timeX > 0) then {sleep ((_timeX/2) + random _timeX)};
 
 [_tsk] call BIS_fnc_deleteTask;
 missionsX = missionsX - [_tsk];

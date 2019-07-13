@@ -1,4 +1,4 @@
-private ["_tipo","_coste","_positionTel","_quantity","_quantityMax"];
+private ["_tipo","_costs","_positionTel","_quantity","_quantityMax"];
 
 if ("Mines" in missionsX) exitWith {hint "We can only deploy one minefield at a time."};
 
@@ -6,14 +6,14 @@ if (!([player] call hasRadio)) exitWith {hint "You need a radio in your inventor
 
 _tipo = _this select 0;
 
-_coste = (2*(server getVariable guer_sol_EXP)) + ([guer_veh_truck] call vehiclePrice);
+_costs = (2*(server getVariable guer_sol_EXP)) + ([guer_veh_truck] call vehiclePrice);
 _hr = 2;
 if (_tipo == "delete") then
 	{
-	_coste = _coste - (server getVariable guer_sol_EXP);
+	_costs = _costs - (server getVariable guer_sol_EXP);
 	_hr = 1;
 	};
-if ((server getVariable "resourcesFIA" < _coste) or (server getVariable "hr" < _hr)) exitWith {hint format ["Not enought resources to recruit a mine deploying team (%1 € and %2 HR needed)",_coste,_hr]};
+if ((server getVariable "resourcesFIA" < _costs) or (server getVariable "hr" < _hr)) exitWith {hint format ["Not enought resources to recruit a mine deploying team (%1 € and %2 HR needed)",_costs,_hr]};
 
 if (_tipo == "delete") exitWith
 	{

@@ -1,6 +1,6 @@
 if (!isServer) exitWith {};
 
-private ["_tipo","_coste","_grupo","_unit","_tam","_roads","_road","_pos","_truckX","_texto","_mrk","_hr","_unitsX","_formatX"];
+private ["_tipo","_costs","_grupo","_unit","_tam","_roads","_road","_pos","_truckX","_texto","_mrk","_hr","_unitsX","_formatX"];
 
 _tipo = _this select 0;
 _positionTel = _this select 1;
@@ -10,14 +10,14 @@ if (_tipo == "delete") exitWith {
 	_pos = getMarkerPos _mrk;
 	_txt = markerText _mrk;
 	hint format ["Deleting %1", _txt];
-	_coste = 0;
+	_costs = 0;
 	_hr = 0;
 	_formatX = ([guer_grp_sniper, "guer"] call AS_fnc_pickGroup);
 	if !(typeName _typeGroup == "ARRAY") then {
 		_typeGroup = [_formatX] call groupComposition;
 	};
-	{_coste = _coste + (server getVariable _x); _hr = _hr +1} forEach _typeGroup;
-	[_hr,_coste] remoteExec ["resourcesFIA",2];
+	{_costs = _costs + (server getVariable _x); _hr = _hr +1} forEach _typeGroup;
+	[_hr,_costs] remoteExec ["resourcesFIA",2];
 	deleteMarker _mrk;
 	campsFIA = campsFIA - [_mrk]; publicVariable "campsFIA";
 	campList = campList - [[_mrk, _txt]]; publicVariable "campList";

@@ -3,8 +3,8 @@ if (!isServer and hasInterface) exitWith {};
 _prestigio = server getVariable "prestigeNATO";
 _airportsX = airportsX - mrkAAF + ["spawnNATO"];
 
-_origen = [_airportsX,Slowhand] call BIS_fnc_nearestPosition;
-_orig = getMarkerPos _origen;
+_originX = [_airportsX,Slowhand] call BIS_fnc_nearestPosition;
+_orig = getMarkerPos _originX;
 
 [-10,0] remoteExec ["prestige",2];
 
@@ -13,9 +13,9 @@ _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date 
 _dateLimitNum = dateToNumber _dateLimit;
 
 _nameOrigin = format ["the %1 Carrier", A3_Str_BLUE];
-if (_origen!= "spawnNATO") then {_nameOrigin = [_origen] call AS_fnc_localizar};
+if (_originX!= "spawnNATO") then {_nameOrigin = [_originX] call AS_fnc_localizar};
 
-_tsk = ["NATOCAS",[side_blue,civilian],[["%4 is providing Air support from %1. They will be under our command until %2:%3.",_nameOrigin,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_BLUE],["%1 CAS", A3_Str_BLUE],_origen],_orig,"CREATED",5,true,true,"Attack"] call BIS_fnc_setTask;
+_tsk = ["NATOCAS",[side_blue,civilian],[["%4 is providing Air support from %1. They will be under our command until %2:%3.",_nameOrigin,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_BLUE],["%1 CAS", A3_Str_BLUE],_originX],_orig,"CREATED",5,true,true,"Attack"] call BIS_fnc_setTask;
 missionsX pushBack _tsk; publicVariable "missionsX";
 
 _typeVehX = bluHeliArmed;
@@ -64,7 +64,7 @@ if (dateToNumber date > _dateLimitNum) then
 	}
 else
 	{
-	_tsk = ["NATOCAS",[side_blue,civilian],[["%4 is providing Air support from %1. They will be under our command until %2:%3.",_nameOrigin,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_BLUE],["%1 CAS", A3_Str_BLUE],_origen],_orig,"FAILED",5,true,true,"Attack"] call BIS_fnc_setTask;
+	_tsk = ["NATOCAS",[side_blue,civilian],[["%4 is providing Air support from %1. They will be under our command until %2:%3.",_nameOrigin,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_BLUE],["%1 CAS", A3_Str_BLUE],_originX],_orig,"FAILED",5,true,true,"Attack"] call BIS_fnc_setTask;
 	[-5,0] remoteExec ["prestige",2];
 	};
 

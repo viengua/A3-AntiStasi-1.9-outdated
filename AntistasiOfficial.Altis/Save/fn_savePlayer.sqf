@@ -24,7 +24,7 @@ if (isMultiplayer) then {
 };
 
 //if player is to far from hq dont save his/her gear.
-private _loadout = if([_player] call AS_fnc_isUnconscious OR (_checkDistance AND {(getPos _player) distance (getPos fuego) > 10000}))then{
+private _loadout = if([_player] call AS_fnc_isUnconscious OR (_checkDistance AND {(getPos _player) distance (getPos fireX) > 10000}))then{
 	[[],[],[],[],[],[],"","",[],["","","","","",""]];
 }else{
 	getUnitLoadout _player;

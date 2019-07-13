@@ -31,9 +31,9 @@ _destinationX = vehicleBox;
 
 if ([_unit] call isMember) then {_destinationX = caja} else {"Your locked items will be placed in the vehicle ammo box." remoteExec ["hint", player];};
 
-_casco = headgear _unit;
+_helmet = headgear _unit;
 
-if ((!(_casco in unlockedItems)) and (_casco in genHelmets)) then {_items pushBack _casco; removeHeadgear _unit};
+if ((!(_helmet in unlockedItems)) and (_helmet in genHelmets)) then {_items pushBack _helmet; removeHeadgear _unit};
 
 if (activeTFAR) then {
 	{
@@ -54,11 +54,11 @@ else {
 
 {
 _ameter = false;
-_arma = _x select 0;
-_armaTrad = [_arma] call BIS_fnc_baseWeapon;
-if (!(_armaTrad in unlockedWeapons)) then
+_weaponX = _x select 0;
+_weaponXTrad = [_weaponX] call BIS_fnc_baseWeapon;
+if (!(_weaponXTrad in unlockedWeapons)) then
 	{
-	_weaponsX pushBack _armaTrad;
+	_weaponsX pushBack _weaponXTrad;
 	_ameter = true;
 	};
 for "_i" from 1 to (count _x) - 1 do
@@ -91,13 +91,13 @@ for "_i" from 1 to (count _x) - 1 do
 
 if (_ameter) then
 	{
-	if ((_arma == primaryWeapon _unit) or (_arma == secondaryWeapon _unit) or (_arma == handgunWeapon _unit)) then
+	if ((_weaponX == primaryWeapon _unit) or (_weaponX == secondaryWeapon _unit) or (_weaponX == handgunWeapon _unit)) then
 		{
-		_unit removeWeapon _arma;
+		_unit removeWeapon _weaponX;
 		}
 	else
 		{
-		_unit removeItem _arma;
+		_unit removeItem _weaponX;
 		};
 	};
 } forEach weaponsItems _unit;
@@ -108,11 +108,11 @@ if (count _weaponsX > 0) then
 	_weaponsXDef = [];
 	_weaponsXDefCount = [];
 	{
-	_arma = _x;
-	if (!(_arma in _weaponsXDef)) then
+	_weaponX = _x;
+	if (!(_weaponX in _weaponsXDef)) then
 		{
-		_weaponsXDef pushBack _arma;
-		_weaponsXDefCount pushBack ({_x == _arma} count _weaponsX);
+		_weaponsXDef pushBack _weaponX;
+		_weaponsXDefCount pushBack ({_x == _weaponX} count _weaponsX);
 		};
 	} forEach _weaponsX;
 	_texto = "";

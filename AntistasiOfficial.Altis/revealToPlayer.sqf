@@ -1,5 +1,5 @@
 if (isDedicated) exitWith {};
-private ["_lider"];
+private ["_LeaderX"];
 if (count _this == 0) then
 	{
 	while {revealX} do
@@ -9,10 +9,10 @@ if (count _this == 0) then
 			if ([player] call hasRadio) then
 				{
 				{
-				_lider = leader _x;
-				if (((side _lider == side_red) or (side _lider == side_green)) and (vehicle _lider != _lider) and (player knowsAbout _lider < 1.5)) then
+				_LeaderX = leader _x;
+				if (((side _LeaderX == side_red) or (side _LeaderX == side_green)) and (vehicle _LeaderX != _LeaderX) and (player knowsAbout _LeaderX < 1.5)) then
 					{
-					player reveal [_lider,4];
+					player reveal [_LeaderX,4];
 					sleep 1;
 					};
 				} forEach allGroups;
@@ -27,7 +27,7 @@ else
 	if (player == leader group player) then
 		{
 		_grupo = _this select 0;
-		_lider = leader _grupo;
-		player reveal [_lider,4];
+		_LeaderX = leader _grupo;
+		player reveal [_LeaderX,4];
 		};
 	};

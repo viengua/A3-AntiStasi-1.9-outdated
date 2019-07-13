@@ -23,7 +23,7 @@ missionsX pushBack _tsk; publicVariable "missionsX";
 _grp = createGroup side_red;
 
 _official = ([_positionX, 0, opI_OFF, _grp] call bis_fnc_spawnvehicle) select 0;
-_piloto = ([_positionX, 0, opI_PIL, _grp] call bis_fnc_spawnvehicle) select 0;
+_pilot = ([_positionX, 0, opI_PIL, _grp] call bis_fnc_spawnvehicle) select 0;
 
 _grp selectLeader _official;
 sleep 1;

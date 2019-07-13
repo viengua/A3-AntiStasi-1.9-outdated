@@ -1,12 +1,12 @@
 if (!isServer and hasInterface) exitWith {};
 
-private ["_tipo","_posbase","_potentials","_sitios","_exists","_sitio","_pos","_cityX"];
+private ["_tipo","_posbase","_potentials","_sites","_exists","_sitio","_pos","_cityX"];
 
 _tipo = _this select 0;
 
 _posbase = getMarkerPos guer_respawn;
 _potentials = [];
-_sitios = [];
+_sites = [];
 _exists = false;
 
 _excl = [posNomad];
@@ -35,10 +35,10 @@ if ((server getVariable "milActive") > 1) exitWith {
 };
 
 if (_tipo == "AS") then {
-	_sitios = bases + citiesX - mrkFIA;
-	if (count _sitios > 0) then {
-		for "_i" from 0 to ((count _sitios) - 1) do {
-			_sitio = _sitios select _i;
+	_sites = bases + citiesX - mrkFIA;
+	if (count _sites > 0) then {
+		for "_i" from 0 to ((count _sites) - 1) do {
+			_sitio = _sites select _i;
 			_pos = getMarkerPos _sitio;
 			if ((_pos distance _posbase < 4500) and (not(spawner getVariable _sitio))) then {_potentials = _potentials + [_sitio]};
 		};
@@ -57,10 +57,10 @@ if (_tipo == "AS") then {
 	};
 };
 /*if (_tipo == "CON") then {
-	_sitios = colinasAA - mrkFIA - _excl;
-	if (count _sitios > 0) then {
-		for "_i" from 0 to ((count _sitios) - 1) do {
-			_sitio = _sitios select _i;
+	_sites = colinasAA - mrkFIA - _excl;
+	if (count _sites > 0) then {
+		for "_i" from 0 to ((count _sites) - 1) do {
+			_sitio = _sites select _i;
 			_pos = getMarkerPos _sitio;
 			if ((_pos distance _posbase < 4000) and (_sitio in mrkAAF)) then {_potentials = _potentials + [_sitio]};
 		};
@@ -76,10 +76,10 @@ if (_tipo == "AS") then {
 	};
 }; */  // Stef 14/09 removed conquer AA hilltop because it has no more sense.
 if (_tipo == "DES") then {
-	_sitios = airportsX + bases - mrkFIA;
-	if (count _sitios > 0) then {
-		for "_i" from 0 to ((count _sitios) - 1) do {
-			_sitio = _sitios select _i;
+	_sites = airportsX + bases - mrkFIA;
+	if (count _sites > 0) then {
+		for "_i" from 0 to ((count _sites) - 1) do {
+			_sitio = _sites select _i;
 			if (_sitio in markers) then {_pos = getMarkerPos _sitio} else {_pos = getPos _sitio};
 			if (_pos distance _posbase < 4000) then {
 				if (_sitio in markers) then {
@@ -105,10 +105,10 @@ if (_tipo == "DES") then {
 };
 
 if (_tipo == "CONVOY") then {
-	_sitios = bases + airportsX - mrkFIA;
-	if (count _sitios > 0) then {
-		for "_i" from 0 to ((count _sitios) - 1) do {
-			_sitio = _sitios select _i;
+	_sites = bases + airportsX - mrkFIA;
+	if (count _sites > 0) then {
+		for "_i" from 0 to ((count _sites) - 1) do {
+			_sitio = _sites select _i;
 			_pos = getMarkerPos _sitio;
 			_base = [_sitio] call AS_fnc_findBaseForConvoy;
 			if ((_pos distance _posbase < 4000) and (_base !="")) then {

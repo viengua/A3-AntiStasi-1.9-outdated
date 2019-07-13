@@ -1,4 +1,4 @@
-private ["_resourcesAAF","_prestigeCSAT","_coste","_destroyedCities","_destroyed","_nombre"];
+private ["_resourcesAAF","_prestigeCSAT","_costs","_destroyedCities","_destroyed","_nameX"];
 
 _resourcesAAF = server getVariable "resourcesAAF";
 _prestigeCSAT = server getVariable "prestigeCSAT";
@@ -26,8 +26,8 @@ if (_resourcesAAF > 5000) then{
 			[10,0,getMarkerPos _destroyed] remoteExec ["AS_fnc_changeCitySupport",2];
 			[-5,0] remoteExec ["prestige",2];
 			if (_destroyed in power) then {[_destroyed] call AS_fnc_powerReorg};
-			_nombre = [_destroyed] call AS_fnc_localizar;
-			[_nombre,{["TaskFailed", ["", format [localize "STR_NTS_REB_AAF", _this]]] call BIS_fnc_showNotification}] remoteExec ["call", 0];
+			_nameX = [_destroyed] call AS_fnc_localizar;
+			[_nameX,{["TaskFailed", ["", format [localize "STR_NTS_REB_AAF", _this]]] call BIS_fnc_showNotification}] remoteExec ["call", 0];
 
 			};
 		} forEach _destroyedCities;
@@ -108,16 +108,16 @@ if ((APCAAFcurrent < APCAAFmax) and ((tanksAAFcurrent > 2) or (APCAAFcurrent < 4
 
 _skillFIA = server getVariable "skillFIA";
 if ((skillAAF < (_skillFIA + 2)) && (skillAAF < 17)) then {
-	_coste = 1000 + (1.5*(skillAAF *750));
-	diag_log format ["Econ: AAF skill. Current level: %1; current cost: %2; current resources: %3", skillAAF, _coste, _resourcesAAF];
-	if (_coste < _resourcesAAF) then {
+	_costs = 1000 + (1.5*(skillAAF *750));
+	diag_log format ["Econ: AAF skill. Current level: %1; current cost: %2; current resources: %3", skillAAF, _costs, _resourcesAAF];
+	if (_costs < _resourcesAAF) then {
 		skillAAF = skillAAF + 1;
 		publicVariable "skillAAF";
-		_resourcesAAF = _resourcesAAF - _coste;
+		_resourcesAAF = _resourcesAAF - _costs;
 		{
-			_coste = server getVariable _x;
-			_coste = round (_coste + (_coste * (skillAAF/280)));
-			server setVariable [_x,_coste,true];
+			_costs = server getVariable _x;
+			_costs = round (_costs + (_costs * (skillAAF/280)));
+			server setVariable [_x,_costs,true];
 		} forEach units_enemySoldiers;
 	};
 };

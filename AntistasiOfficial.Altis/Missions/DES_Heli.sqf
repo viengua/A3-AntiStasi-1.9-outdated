@@ -3,7 +3,7 @@ if (!isServer and hasInterface) exitWith {};
 _tskTitle = "STR_TSK_TD_DesHeli";
 _tskDesc = "STR_TSK_TD_DESC_DesHeli";
 
-private ["_poscrash","_markerX","_positionX","_mrkfin","_typeVehX","_effect","_heli","_vehiclesX","_soldiers","_groups","_unit","_roads","_road","_vehicle","_veh","_typeGroup","_tsk","_humo","_emitterArray"];
+private ["_poscrash","_markerX","_positionX","_mrkFinal","_typeVehX","_effect","_heli","_vehiclesX","_soldiers","_groups","_unit","_roads","_road","_vehicle","_veh","_typeGroup","_tsk","_humo","_emitterArray"];
 
 _markerX = _this select 0;
 _source = _this select 1;
@@ -32,12 +32,12 @@ _typeVehX = indAirForce call BIS_fnc_selectRandom;
 
 _posCrashMrk = [_poscrash,random 500,random 360] call BIS_fnc_relPos;
 _posCrash = _posCrash findEmptyPosition [0,100,_typeVehX];
-_mrkfin = createMarker [format ["DES%1", random 100], _posCrashMrk];
-_mrkfin setMarkerShape "ICON";
+_mrkFinal = createMarker [format ["DES%1", random 100], _posCrashMrk];
+_mrkFinal setMarkerShape "ICON";
 
-_nombrebase = [_markerX] call AS_fnc_localizar;
+_nameXbase = [_markerX] call AS_fnc_localizar;
 
-_tsk = ["DES",[side_blue,civilian],[[_tskDesc,_nombrebase],_tskTitle,_mrkfin],_posCrashMrk,"CREATED",5,true,true,"Destroy"] call BIS_fnc_setTask;
+_tsk = ["DES",[side_blue,civilian],[[_tskDesc,_nameXbase],_tskTitle,_mrkFinal],_posCrashMrk,"CREATED",5,true,true,"Destroy"] call BIS_fnc_setTask;
 missionsX pushBack _tsk; publicVariable "missionsX";
 _vehiclesX = [];
 _soldiers = [];
@@ -148,7 +148,7 @@ waitUntil {sleep 1; (not alive _heli) or (_vehT distance _positionX < 100) or (d
 
 if (not alive _heli) then
 	{
-	_tsk = ["DES",[side_blue,civilian],[[_tskDesc,_nombrebase],_tskTitle,_mrkfin],_posCrashMrk,"SUCCEEDED",5,true,true,"Destroy"] call BIS_fnc_setTask;
+	_tsk = ["DES",[side_blue,civilian],[[_tskDesc,_nameXbase],_tskTitle,_mrkFinal],_posCrashMrk,"SUCCEEDED",5,true,true,"Destroy"] call BIS_fnc_setTask;
 	[0,300] remoteExec ["resourcesFIA",2];
 	[0,0] remoteExec ["prestige",2];
 	//[-3,3,_positionX] remoteExec ["AS_fnc_changeCitySupport",2];
@@ -164,7 +164,7 @@ if (not alive _heli) then
 
 if ((dateToNumber date > _dateLimitNum) or (_vehT distance _positionX < 100)) then
 	{
-	_tsk = ["DES",[side_blue,civilian],[[_tskDesc,_nombrebase],_tskTitle,_mrkfin],_posCrashMrk,"FAILED",5,true,true,"Destroy"] call BIS_fnc_setTask;
+	_tsk = ["DES",[side_blue,civilian],[[_tskDesc,_nameXbase],_tskTitle,_mrkFinal],_posCrashMrk,"FAILED",5,true,true,"Destroy"] call BIS_fnc_setTask;
 	//[3,0,_positionX] remoteExec ["AS_fnc_changeCitySupport",2];
 	[-600] remoteExec ["AS_fnc_increaseAttackTimer",2];
 	[-10,Slowhand] call playerScoreAdd;
@@ -183,7 +183,7 @@ if (_source == "mil") then {
 };
 
 [1200,_tsk] spawn deleteTaskX;
-deleteMarker _mrkfin;
+deleteMarker _mrkFinal;
 {
 waitUntil {sleep 1;(!([distanceSPWN,1,_x,"BLUFORSpawn"] call distanceUnits))};
 deleteVehicle _x} forEach _vehiclesX;

@@ -71,12 +71,12 @@ if (dateToNumber date > _endTime) then {
 	antennas pushBack _antenna;
 	publicVariable "antennas";
 
-	_mrkfin = createMarker [format ["Ant%1", count antennas], _posAntenna];
-	_mrkfin setMarkerShape "ICON";
-	_mrkfin setMarkerType "loc_Transmitter";
-	_mrkfin setMarkerColor "ColorBlack";
-	_mrkfin setMarkerText "Radio Tower";
-	mrkAntennas pushBack _mrkfin;
+	_mrkFinal = createMarker [format ["Ant%1", count antennas], _posAntenna];
+	_mrkFinal setMarkerShape "ICON";
+	_mrkFinal setMarkerType "loc_Transmitter";
+	_mrkFinal setMarkerColor "ColorBlack";
+	_mrkFinal setMarkerText "Radio Tower";
+	mrkAntennas pushBack _mrkFinal;
 	_antenna addEventHandler ["Killed", {
 		params ["_object"];
 		_object = _this select 0;

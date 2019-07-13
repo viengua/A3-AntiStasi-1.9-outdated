@@ -1,5 +1,5 @@
 if (not([player] call isMember)) exitWith {hint "Only Server Members can recruit AI units"};
-private ["_checkX","_hr","_typeUnit","_coste","_resourcesFIA","_unit"];
+private ["_checkX","_hr","_typeUnit","_costs","_resourcesFIA","_unit"];
 
 if (!allowPlayerRecruit) exitWith {hint "Server is very loaded. \nWait one minute or change FPS settings in order to fulfill this request"};
 
@@ -33,11 +33,11 @@ _hr = server getVariable "hr";
 
 if (_hr < 1) exitWith {hint "You do not have enough HR for this request"};
 
-_coste = server getVariable [_typeUnit,150];
-if (_typeUnit == "Soldier_AA") then {_coste = server getVariable [guer_sol_AA,150]};
+_costs = server getVariable [_typeUnit,150];
+if (_typeUnit == "Soldier_AA") then {_costs = server getVariable [guer_sol_AA,150]};
 if (!isMultiPlayer) then {_resourcesFIA = server getVariable "resourcesFIA"} else {_resourcesFIA = player getVariable "moneyX";};
 
-if (_coste > _resourcesFIA) exitWith {hint format ["You do not have enough money for this kind of unit (%1 € needed)",_coste]};
+if (_costs > _resourcesFIA) exitWith {hint format ["You do not have enough money for this kind of unit (%1 € needed)",_costs]};
 
 
 if ((count units group player) + (count units stragglers) > 9) exitWith {hint "Your squad is full or you have too many scattered units with no radio contact"};
@@ -51,12 +51,12 @@ else {
 
 if (!isMultiPlayer) then
 	{
-	[-1, - _coste] remoteExec ["resourcesFIA",2];
+	[-1, - _costs] remoteExec ["resourcesFIA",2];
 	}
 else
 	{
 	[-1, 0] remoteExec ["resourcesFIA",2];
-	[- _coste] call resourcesPlayer;
+	[- _costs] call resourcesPlayer;
 	hint "Soldier Recruited.\n\nRemember: if you use the group menu to switch groups you will lose control of your recruited AI";
 	};
 
