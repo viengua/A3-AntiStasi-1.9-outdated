@@ -3,7 +3,9 @@
 The AntiStasi Community has decided to continue this version next to the the further development of version 1.4.0.2 at https://github.com/Bob-Murphy/A3-Antistasi.
 
 If you would like to play AntiStasi 1.9, following we have posted a plug & play pbo as well as a tested modset:
+
 Mission: https://drive.google.com/open?id=1qDrvmvfS0B1BS86S6mcDCdQ6-gukBz3J
+
 Modset: https://drive.google.com/open?id=1VVt3XFMtIz9sgLD2jVWQHOfVShPrM0kz
 
 # Discontinued project
