@@ -4,9 +4,9 @@ The AntiStasi Community has decided to continue this version next to the the fur
 
 If you would like to play AntiStasi 1.9, following we have posted a plug & play pbo as well as a tested modset:
 
-Mission: https://drive.google.com/open?id=1qDrvmvfS0B1BS86S6mcDCdQ6-gukBz3J
+Mission: https://drive.google.com/file/d/15eWVvTaYm2jbsB8T4LrTjYtdOHM7617Q/view?usp=sharing
 
-Modset: https://drive.google.com/open?id=1VVt3XFMtIz9sgLD2jVWQHOfVShPrM0kz
+Modset: https://drive.google.com/file/d/1VVt3XFMtIz9sgLD2jVWQHOfVShPrM0kz/view?usp=sharing
 
 # Discontinued project
 
