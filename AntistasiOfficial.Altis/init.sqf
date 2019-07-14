@@ -35,7 +35,7 @@ waitUntil {(!isNil "saveFuncsLoaded") and (!isNil "serverInitDone")};
 
 call jn_fnc_logistics_init;
 vehicleBox call jn_fnc_garage_init;
-caja call jn_fnc_arsenal_init;
+boxX call jn_fnc_arsenal_init;
 
 [] execVM "Scripts\fn_advancedTowingInit.sqf";
 [] execVM "Dialogs\welcome.sqf";
@@ -77,7 +77,7 @@ if(isServer) then {
         };
 
     fpsCheck = [] execVM "fpsCheck.sqf";
-    [caja] call boxAAF; //Give few starting items
+    [boxX] call boxAAF; //Give few starting items
     if (activeJNA) then {
         ["complete"] call AS_fnc_JNA_pushLists;
     };

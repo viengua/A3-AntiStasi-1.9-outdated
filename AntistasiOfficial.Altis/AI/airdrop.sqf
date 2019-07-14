@@ -1,7 +1,7 @@
-private ["_veh","_grupo","_markerX","_positionX","_heli","_engagepos","_orig","_landpos","_exitpos","_wp","_wp1","_wp2","_wp3","_wp4"];
+private ["_veh","_groupX","_markerX","_positionX","_heli","_engagepos","_orig","_landpos","_exitpos","_wp","_wp1","_wp2","_wp3","_wp4"];
 diag_log format ["NATOCA airdrop spawned"];
 _veh = _this select 0;
-_grupo = _this select 1;
+_groupX = _this select 1;
 _markerX = _this select 2;
 _threat = _this select 3;
 
@@ -83,10 +83,10 @@ if (alive _veh) then
 	   //_x moveinDriver _chute;
 	   _x allowDamage true;
 	   sleep 0.5;
-	  } forEach units _grupo;
+	  } forEach units _groupX;
 	};
 
-_wp4 = _grupo addWaypoint [_positionX, 0];
+_wp4 = _groupX addWaypoint [_positionX, 0];
 _wp4 setWaypointType "SAD";
 
 //[_veh] call entriesLand;

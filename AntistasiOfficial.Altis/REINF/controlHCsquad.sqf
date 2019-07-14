@@ -4,19 +4,19 @@ if ({((side _x == side_green) or (side _x == side_red)) and (not (captive _x)) a
 
 _groups = _this select 0;
 
-_grupo = _groups select 0;
-_unit = leader _grupo;
+_groupX = _groups select 0;
+_unit = leader _groupX;
 
 if ([_unit] call AS_fnc_isUnconscious) exitWith {hint "You cannot control an unconscious unit"};
 if (!alive _unit) exitWith {hint "You cannot control a dead unit"};
 if ((not(typeOf _unit in guer_soldierArray)) and (typeOf _unit != guer_POW)) exitWith {hint "You cannot control a unit which does not belong to FIA"};
 
-while {(count (waypoints _grupo)) > 0} do
+while {(count (waypoints _groupX)) > 0} do
  {
-  deleteWaypoint ((waypoints _grupo) select 0);
+  deleteWaypoint ((waypoints _groupX) select 0);
  };
 
-_wp = _grupo addwaypoint [getpos _unit,0];
+_wp = _groupX addwaypoint [getpos _unit,0];
 
 {
 if (_x != vehicle _x) then

@@ -1,7 +1,7 @@
-private ["_veh","_grupo","_positionX","_posOrigin","_heli","_landpos","_wp","_d","_wp2","_wp3"];
+private ["_veh","_groupX","_positionX","_posOrigin","_heli","_landpos","_wp","_d","_wp2","_wp3"];
 
 _veh = _this select 0;
-_grupo = _this select 1;
+_groupX = _this select 1;
 _positionX = _this select 2;
 _posOrigin = _this select 3;
 _heli = _this select 4;
@@ -55,7 +55,7 @@ waitUntil {sleep 1; (not alive _veh) or ((speed _veh < 1) and (speed _veh > -1))
 	sleep 0.5;
 	};
 sleep 5 + random 2;
-} forEach units _grupo;
+} forEach units _groupX;
 
 waitUntil {sleep 1; (not alive _veh) or ((count assignedCargo _veh == 0) and (count attachedObjects _veh == 0))};
 
@@ -63,7 +63,7 @@ waitUntil {sleep 1; (not alive _veh) or ((count assignedCargo _veh == 0) and (co
 sleep 5;
 _veh flyInHeight 150;
 //_veh animateDoor ['door_R', 0];
-_wp2 = _grupo addWaypoint [_positionX, 0];
+_wp2 = _groupX addWaypoint [_positionX, 0];
 _wp2 setWaypointType "SAD";
 _wp3 = _heli addWaypoint [getMarkerPos "spawnCSAT", 1];
 _wp3 setWaypointType "MOVE";

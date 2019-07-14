@@ -6,7 +6,7 @@ _tskDesc = "STR_TSK_TD_DESC_NATOSupply";
 _positionX = _this select 0;
 _NATOSupp = _this select 1;
 
-private ["_crate","_chute","_humo"];
+private ["_crate","_chute","_smokeX"];
 
 _mrkFinal = createMarker ["AmmoSupp", _positionX];
 _mrkFinal setMarkerShape "ICON";
@@ -62,8 +62,8 @@ if (_heli distance _positionX < 300) then {
     _pos set [2, 0.5];
     _crate setPos _pos;
     _tsk = ["NATOAmmo",[side_blue,civilian],[[_tskDesc, A3_Str_BLUE],[_tskTitle, A3_Str_BLUE],_mrkFinal],_positionX,"SUCCEEDED",5,true,true,"rifle"] call BIS_fnc_setTask;
-	_humo = "SmokeShellBlue" createVehicle position _crate;
-	_vehiclesX = _vehiclesX + [_humo];
+	_smokeX = "SmokeShellBlue" createVehicle position _crate;
+	_vehiclesX = _vehiclesX + [_smokeX];
 } else {
 	_tsk = ["NATOAmmo",[side_blue,civilian],[[_tskDesc, A3_Str_BLUE],[_tskTitle, A3_Str_BLUE],_mrkFinal],_positionX,"FAILED",5,true,true,"rifle"] call BIS_fnc_setTask;
 };

@@ -10,11 +10,11 @@ if ({"SmokeLauncher" in (_veh weaponsTurret _x)} count (allTurrets _veh) > 0) th
 }
 else
 {
-	private ["_pos","_humo"];
+	private ["_pos","_smokeX"];
 	_typeSmoke = "SmokeShellRed";
 	for "_i" from 0 to 8 do
 	{
 		_pos = position _veh getPos [30,_i*40];
-		_humo = _typeSmoke createVehicle [_pos select 0, _pos select 1,getPos _veh select 2];
+		_smokeX = _typeSmoke createVehicle [_pos select 0, _pos select 1,getPos _veh select 2];
 	};
 };

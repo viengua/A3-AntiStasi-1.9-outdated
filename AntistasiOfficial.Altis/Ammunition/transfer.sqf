@@ -1,8 +1,8 @@
-private ["_truckX","_objectsX","_todo","_proceed","_caja","_weaponsX","_ammunition","_items","_backpcks","_containers","_countX","_exists"];
+private ["_truckX","_objectsX","_todo","_proceed","_boxX","_weaponsX","_ammunition","_items","_backpcks","_containers","_countX","_exists"];
 /*
 spanish to english dictionary:
 truckX = truck
-caja = box
+boxX = box
 countX = count
 playerX = player
 */
@@ -21,14 +21,14 @@ _counter = 0;
 _objectsX = nearestObjects [_truckX, ["ReammoBox_F","Land_PlasticCase_01_medium_F"], 20];
 
 if (count _objectsX == 0) exitWith {[petros,"hint", "No crates nearby."] remoteExec ["commsMP",_playerX]};
-_caja = _objectsX select 0;
+_boxX = _objectsX select 0;
 
-if ((_caja == caja) and (player!=Slowhand)) exitWith {[petros,"hint", "Only the Commander can transfer this ammobox content to any truck"] remoteExec ["commsMP",_playerX]};
+if ((_boxX == boxX) and (player!=Slowhand)) exitWith {[petros,"hint", "Only the Commander can transfer this ammobox content to any truck"] remoteExec ["commsMP",_playerX]};
 
 
-_weaponsX = weaponCargo _caja;
-_ammunition = magazineCargo _caja;
-_items = itemCargo _caja;
+_weaponsX = weaponCargo _boxX;
+_ammunition = magazineCargo _boxX;
+_items = itemCargo _boxX;
 _backpcks = [];
 
 _todo = _weaponsX + _ammunition + _items + _backpcks;
@@ -43,7 +43,7 @@ if (_countX < 1) then
 
 if (_countX > 0) then
 	{
-	if (_caja == caja) then
+	if (_boxX == boxX) then
 		{
 		if ("DEF_HQ" in missionsX) then {_countX = round (_countX / 10)} else {_countX = round (_countX / 100)};
 		}
@@ -65,7 +65,7 @@ if (_countX > 0) then
   			sleep 0.1;
 		if !(_countX > _counter) then
 			{
-			[_caja,_truckX] remoteExec ["AS_fnc_transferGear",2];
+			[_boxX,_truckX] remoteExec ["AS_fnc_transferGear",2];
 			_proceed = true;
 			};
 		if ((_truckX != vehicle player) or (speed _truckX != 0)) then

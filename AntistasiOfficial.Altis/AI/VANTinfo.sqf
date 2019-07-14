@@ -1,4 +1,4 @@
-private ["_veh","_markerX","_positionX","_groups","_knownX","_grupo","_LeaderX"];
+private ["_veh","_markerX","_positionX","_groups","_knownX","_groupX","_LeaderX"];
 
 _veh = _this select 0;
 _markerX = _this select 1;
@@ -22,9 +22,9 @@ while {alive _veh} do
 		};
 	} forEach allUnits;
 	{
-	_grupo = _x;
+	_groupX = _x;
 		{
-		_grupo reveal [_x,4];
+		_groupX reveal [_x,4];
 		} forEach _knownX;
 	} forEach _groups;
 

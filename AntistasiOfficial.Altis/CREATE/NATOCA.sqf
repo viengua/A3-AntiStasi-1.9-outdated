@@ -61,17 +61,17 @@ for "_i" from 1 to _countX do {
 		if (_typeVehX in bluHeliDis) then {		//Apache transport, can land, fastrope or paradrop
 			//Add troops and init them
 			_typeGroup = [bluSquadWeapons, side_blue] call AS_fnc_pickGroup;
-			_grupo = [_orig, side_blue, _typeGroup] call BIS_Fnc_spawnGroup;
-			{_x assignAsCargo _heli; _x moveInCargo _heli; _soldiers = _soldiers + [_x]; [_x] spawn NATOinitCA} forEach units _grupo;
-			_groups = _groups + [_grupo];
+			_groupX = [_orig, side_blue, _typeGroup] call BIS_Fnc_spawnGroup;
+			{_x assignAsCargo _heli; _x moveInCargo _heli; _soldiers = _soldiers + [_x]; [_x] spawn NATOinitCA} forEach units _groupX;
+			_groups = _groups + [_groupX];
 			//Decide for aidrop or fastrope/land
 			if ((_markerX in outposts) or (random 10 < _threatEval)) then {
-				{removebackpack _x; _x addBackpack "B_Parachute"} forEach units _grupo;
-				[_heli,_grupo,_markerX,_threatEval] spawn airdrop;
-				diag_log format ["NATOCA HeliDIS airdropping: %1, %2, %3 ",_heli,_grupo,_markerX];
+				{removebackpack _x; _x addBackpack "B_Parachute"} forEach units _groupX;
+				[_heli,_groupX,_markerX,_threatEval] spawn airdrop;
+				diag_log format ["NATOCA HeliDIS airdropping: %1, %2, %3 ",_heli,_groupX,_markerX];
 			} else {
 				if ((_markerX in bases) or (_markerX in outposts)) then {
-					[_heli,_grupo,_positionX,_orig,_groupHeli] spawn fastropeNATO;
+					[_heli,_groupX,_positionX,_orig,_groupHeli] spawn fastropeNATO;
 				};
 				if ((_markerX in resourcesX) or (_markerX in power) or (_markerX in factories)) then {
 					{_x disableAI "TARGET"; _x disableAI "AUTOTARGET"} foreach units _groupHeli;
@@ -85,10 +85,10 @@ for "_i" from 1 to _countX do {
 					_wp0 setWaypointSpeed "FULL";
 					_wp0 setWaypointStatements ["true", "(vehicle this) land 'GET OUT';"];
 					[_groupHeli,0] setWaypointBehaviour "CARELESS";
-					_wp3 = _grupo addWaypoint [_landpos, 0];
+					_wp3 = _groupX addWaypoint [_landpos, 0];
 					_wp3 setWaypointType "GETOUT";
 					_wp0 synchronizeWaypoint [_wp3];
-					_wp4 = _grupo addWaypoint [_positionX, 1];
+					_wp4 = _groupX addWaypoint [_positionX, 1];
 					_wp4 setWaypointType "SAD";
 					_wp2 = _groupHeli addWaypoint [_orig, 1];
 					_wp2 setWaypointType "MOVE";
@@ -103,9 +103,9 @@ for "_i" from 1 to _countX do {
 			{_x disableAI "TARGET"; _x disableAI "AUTOTARGET"} foreach units _groupHeli;
 			//Add troops and init them
 			_typeGroup = [bluTeam, side_blue] call AS_fnc_pickGroup;
-			_grupo = [_orig, side_blue, _typeGroup] call BIS_Fnc_spawnGroup;
-			{_x assignAsCargo _heli; _x moveInCargo _heli; _soldiers = _soldiers + [_x]; [_x] call NATOinitCA} forEach units _grupo;
-			_groups = _groups + [_grupo];
+			_groupX = [_orig, side_blue, _typeGroup] call BIS_Fnc_spawnGroup;
+			{_x assignAsCargo _heli; _x moveInCargo _heli; _soldiers = _soldiers + [_x]; [_x] call NATOinitCA} forEach units _groupX;
+			_groups = _groups + [_groupX];
 			_landpos = [];
 			_landpos = [_positionX, 0, 500, 10, 0, 0.3, 0] call BIS_Fnc_findSafePos;
 			_landPos set [2, 0];
@@ -117,10 +117,10 @@ for "_i" from 1 to _countX do {
 			_wp0 setWaypointSpeed "FULL";
 			_wp0 setWaypointStatements ["true", "(vehicle this) land 'GET OUT';"];
 			[_groupHeli,0] setWaypointBehaviour "CARELESS";
-			_wp3 = _grupo addWaypoint [_landpos, 0];
+			_wp3 = _groupX addWaypoint [_landpos, 0];
 			_wp3 setWaypointType "GETOUT";
 			_wp0 synchronizeWaypoint [_wp3];
-			_wp4 = _grupo addWaypoint [_positionX, 1];
+			_wp4 = _groupX addWaypoint [_positionX, 1];
 			_wp4 setWaypointType "SAD";
 			_wp2 = _groupHeli addWaypoint [_orig, 1];
 			_wp2 setWaypointSpeed "FULL";
@@ -128,21 +128,21 @@ for "_i" from 1 to _countX do {
 			_wp2 setWaypointStatements ["true", "{deleteVehicle _x} forEach crew this; deleteVehicle this"];
 			[_groupHeli,1] setWaypointBehaviour "AWARE";
 			[_heli,true] spawn entriesLand;
-			diag_log format ["NATOCA HeliTS airdropping: %1, %2, %3 ",_heli,_grupo,_markerX];
+			diag_log format ["NATOCA HeliTS airdropping: %1, %2, %3 ",_heli,_groupX,_markerX];
 		};
 		if (_typeVehX in bluHeliRope) then {			//Chinhook	can aidrop or land
 			{_x disableAI "TARGET"; _x disableAI "AUTOTARGET"} foreach units _groupHeli;
 			//Add troops and init them
 			_typeGroup = [bluSquad, side_blue] call AS_fnc_pickGroup;
-			_grupo = [_orig, side_blue, _typeGroup] call BIS_Fnc_spawnGroup;
-			{_x assignAsCargo _heli; _x moveInCargo _heli; _soldiers = _soldiers + [_x]; [_x] call NATOinitCA} forEach units _grupo;
-			_groups = _groups + [_grupo];
+			_groupX = [_orig, side_blue, _typeGroup] call BIS_Fnc_spawnGroup;
+			{_x assignAsCargo _heli; _x moveInCargo _heli; _soldiers = _soldiers + [_x]; [_x] call NATOinitCA} forEach units _groupX;
+			_groups = _groups + [_groupX];
 
 			//Decide airdrop or land
 			if (!(_markerX in outposts) or (_markerX in bases) or (random 10 < _threatEval)) then {
-				{removebackpack _x; _x addBackpack "B_Parachute"} forEach units _grupo;
-				[_heli,_grupo,_markerX,_threatEval] spawn airdrop;
-				diag_log format ["NATOCA HeliRope: %1, %2, %3,",_heli,_grupo,_markerX];
+				{removebackpack _x; _x addBackpack "B_Parachute"} forEach units _groupX;
+				[_heli,_groupX,_markerX,_threatEval] spawn airdrop;
+				diag_log format ["NATOCA HeliRope: %1, %2, %3,",_heli,_groupX,_markerX];
 			} else {
 				_landpos = [];
 				_landpos = [_positionX, 0, 300, 10, 0, 0.3, 0] call BIS_Fnc_findSafePos;
@@ -154,10 +154,10 @@ for "_i" from 1 to _countX do {
 				_wp0 setWaypointSpeed "FULL";
 				_wp0 setWaypointStatements ["true", "(vehicle this) land 'GET OUT';"];
 				[_groupHeli,0] setWaypointBehaviour "CARELESS";
-				_wp3 = _grupo addWaypoint [_landpos, 0];
+				_wp3 = _groupX addWaypoint [_landpos, 0];
 				_wp3 setWaypointType "GETOUT";
 				_wp0 synchronizeWaypoint [_wp3];
-				_wp4 = _grupo addWaypoint [_positionX, 1];
+				_wp4 = _groupX addWaypoint [_positionX, 1];
 				_wp4 setWaypointType "SAD";
 				_wp2 = _groupHeli addWaypoint [_orig, 1];
 				_wp2 setWaypointType "MOVE";

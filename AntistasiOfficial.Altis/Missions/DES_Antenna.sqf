@@ -3,10 +3,10 @@ if (!isServer and hasInterface) exitWith{};
 _tskTitle = "STR_TSK_TD_DesAntenna";
 _tskDesc = "STR_TSK_TD_DESC_DesAntenna";
 
-private ["_antena","_positionX","_timeLimit","_markerX","_nameDest","_mrkFinal","_tsk"];
+private ["_antenna","_positionX","_timeLimit","_markerX","_nameDest","_mrkFinal","_tsk"];
 
-_antena = _this select 0;
-_positionX = getPos _antena;
+_antenna = _this select 0;
+_positionX = getPos _antenna;
 
 _timeLimit = 120;
 _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
@@ -20,14 +20,14 @@ _mrkFinal setMarkerShape "ICON";
 _tsk = ["DES",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_INDEP],_tskTitle,_mrkFinal],_positionX,"CREATED",5,true,true,"Destroy"] call BIS_fnc_setTask;
 missionsX pushBack _tsk; publicVariable "missionsX";
 
-waitUntil {sleep 1;(dateToNumber date > _dateLimitNum) or (not alive _antena) or (not(_markerX in mrkAAF))};
+waitUntil {sleep 1;(dateToNumber date > _dateLimitNum) or (not alive _antenna) or (not(_markerX in mrkAAF))};
 
 if (dateToNumber date > _dateLimitNum) then
 	{
 	_tsk = ["DES",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_INDEP],_tskTitle,_mrkFinal],_positionX,"FAILED",5,true,true,"Destroy"] call BIS_fnc_setTask;
 	[-10,Slowhand] call playerScoreAdd;
 	};
-if ((not alive _antena) or (not(_markerX in mrkAAF))) then
+if ((not alive _antenna) or (not(_markerX in mrkAAF))) then
 	{
 	sleep 15;
 	_tsk = ["DES",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_INDEP],_tskTitle,_mrkFinal],_positionX,"SUCCEEDED",5,true,true,"Destroy"] call BIS_fnc_setTask;

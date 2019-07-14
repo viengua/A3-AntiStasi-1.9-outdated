@@ -18,19 +18,19 @@ if (!visibleMap) exitWith {};
 
 _positionTel = positionTel;
 
-_sitio = [markers,_positionTel] call BIS_fnc_nearestPosition;
+_siteX = [markers,_positionTel] call BIS_fnc_nearestPosition;
 
-if (getMarkerPos _sitio distance _positionTel > 50) exitWith {hint localize "STR_HINTS_RA_YMCNAMM"};
+if (getMarkerPos _siteX distance _positionTel > 50) exitWith {hint localize "STR_HINTS_RA_YMCNAMM"};
 
-if (not(_sitio in _destroyedCities)) exitWith {hint localize "STR_HINTS_RA_YCRT"};
+if (not(_siteX in _destroyedCities)) exitWith {hint localize "STR_HINTS_RA_YCRT"};
 
-_nameX = [_sitio] call AS_fnc_localizar;
+_nameX = [_siteX] call AS_fnc_localizar;
 
 hint format [localize "STR_HINTS_RA_1REBUILT"];
 
 [0,10,_positionTel] remoteExec ["AS_fnc_changeCitySupport",2];
 [5,0] remoteExec ["prestige",2];
-destroyedCities = destroyedCities - [_sitio];
+destroyedCities = destroyedCities - [_siteX];
 publicVariable "destroyedCities";
-if (_sitio in power) then {[_sitio] call AS_fnc_powerReorg};
+if (_siteX in power) then {[_siteX] call AS_fnc_powerReorg};
 [0,-5000] remoteExec ["resourcesFIA",2];

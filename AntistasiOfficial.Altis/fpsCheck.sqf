@@ -1,6 +1,6 @@
 if (!isServer) exitWith {};
 
-private ["_countXFail","_texto"];
+private ["_countXFail","_textX"];
 
 fpsTotal = 0;
 fpscountX = 0;
@@ -47,8 +47,8 @@ while {true} do
 			_countXFail = 0;
 			{if (!alive _x) then {deleteVehicle _x}} forEach vehicles;
 			{deleteVehicle _x} forEach allDead;
-			_texto = format ["Server has a low FPS average:\n%1\n\nGame settings changed to:\nSpawn Distance: %2 mts\nCiv. Percentage: %3 percent\nFPS Limit established at %4\n\nAll wrecked vehicles and corpses have been deleted",round (fpsTotal/fpscountX), distanceSPWN,civPerc * 100, minimoFPS];
-			[[petros,"hint",_texto],"commsMP"] call BIS_fnc_MP;
+			_textX = format ["Server has a low FPS average:\n%1\n\nGame settings changed to:\nSpawn Distance: %2 mts\nCiv. Percentage: %3 percent\nFPS Limit established at %4\n\nAll wrecked vehicles and corpses have been deleted",round (fpsTotal/fpscountX), distanceSPWN,civPerc * 100, minimoFPS];
+			[[petros,"hint",_textX],"commsMP"] call BIS_fnc_MP;
 			allowPlayerRecruit = false; publicVariable "allowPlayerRecruit";
 			};
 		}

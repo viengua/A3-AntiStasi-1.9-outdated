@@ -1,4 +1,4 @@
-private ["_unit","_costs","_weaponsX","_ammunition","_caja","_items"];
+private ["_unit","_costs","_weaponsX","_ammunition","_boxX","_items"];
 
 _unit = _this select 0;
 
@@ -32,17 +32,17 @@ _unit disableAI "ANIM";
 //_unit disableAI "FSM";
 _unit setSkill 0;
 _unit setUnitPos "UP";
-_caja = "Box_IND_Wps_F" createVehicle position _unit;
-clearMagazineCargoGlobal _caja;
-clearWeaponCargoGlobal _caja;
-clearItemCargoGlobal _caja;
-clearBackpackCargoGlobal _caja;
+_boxX = "Box_IND_Wps_F" createVehicle position _unit;
+clearMagazineCargoGlobal _boxX;
+clearWeaponCargoGlobal _boxX;
+clearItemCargoGlobal _boxX;
+clearBackpackCargoGlobal _boxX;
 _weaponsX = weapons _unit;
-{_caja addWeaponCargoGlobal [[_x] call BIS_fnc_baseWeapon,1]} forEach _weaponsX;
+{_boxX addWeaponCargoGlobal [[_x] call BIS_fnc_baseWeapon,1]} forEach _weaponsX;
 _ammunition = magazines _unit;
-{_caja addMagazineCargoGlobal [_x,1]} forEach _ammunition;
+{_boxX addMagazineCargoGlobal [_x,1]} forEach _ammunition;
 _items = assignedItems _unit + items _unit + primaryWeaponItems _unit;
-{_caja addItemCargoGlobal [_x,1]} forEach _items;
+{_boxX addItemCargoGlobal [_x,1]} forEach _items;
 removeAllWeapons _unit;
 removeAllAssignedItems _unit;
 _unit setCaptive true;
@@ -61,7 +61,7 @@ _unit addEventHandler ["HandleDamage",
 	];
 if (_unit getVariable ["OPFORSpawn",false]) then {_unit setVariable ["OPFORSpawn",nil,true]};
 [_unit] spawn postmortem;
-[_caja] spawn postmortem;
+[_boxX] spawn postmortem;
 sleep 10;
 _unit allowDamage true;
 _unit enableSimulationGlobal false;

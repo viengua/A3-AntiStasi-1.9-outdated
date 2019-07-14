@@ -1,21 +1,21 @@
 //if (!isServer) exitWith{};
-private ["_groups","_hr","_resourcesFIA","_wp","_grupo","_veh","_salir"];
+private ["_groups","_hr","_resourcesFIA","_wp","_groupX","_veh","_leave"];
 
 _groups = _this select 0;
 _hr = 0;
 _resourcesFIA = 0;
-_salir = false;
+_leave = false;
 {
-if ((groupID _x == "MineF") or (groupID _x == "Watch") or (isPlayer(leader _x))) then {_salir = true};
+if ((groupID _x == "MineF") or (groupID _x == "Watch") or (isPlayer(leader _x))) then {_leave = true};
 } forEach _groups;
 
-if (_salir) exitWith {hint "You cannot dismiss player led, Watchpost, Roadblocks or Minefield building squads"};
+if (_leave) exitWith {hint "You cannot dismiss player led, Watchpost, Roadblocks or Minefield building squads"};
 
 {
-if (_x getVariable ["esNATO",false]) then {_salir = true};
+if (_x getVariable ["esNATO",false]) then {_leave = true};
 } forEach _groups;
 
-if (_salir) exitWith {hint "You cannot dismiss NATO groups"};
+if (_leave) exitWith {hint "You cannot dismiss NATO groups"};
 
 _pos = getMarkerPos guer_respawn;
 
@@ -29,7 +29,7 @@ sleep 3} forEach _groups;
 sleep 100;
 
 {
-	_grupo = _x;
+	_groupX = _x;
 	_vs = [];
 	{
 		if (alive _x) then {
@@ -52,7 +52,7 @@ sleep 100;
 			};
 		};
 		deleteVehicle _x;
-	} forEach units _grupo;
-	deleteGroup _grupo;
+	} forEach units _groupX;
+	deleteGroup _groupX;
 	} forEach _groups;
 [_hr,_resourcesFIA] remoteExec ["resourcesFIA",2];

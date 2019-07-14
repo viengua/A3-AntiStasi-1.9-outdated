@@ -5,7 +5,7 @@ _truckX = _this select 1;
 _mortarX = _this select 2;
 
 _truckXero = driver _truckX;
-_grupo = group _morty;
+_groupX = group _morty;
 
 while {(alive _morty) and (alive _mortarX) and (canMove _truckX)} do
 	{

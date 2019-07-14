@@ -1,5 +1,5 @@
 params ["_unit"];
-private ["_grupo","_groups","_isLeader","_dummyGroup","_bleedOut","_suicide","_saveVolume","_helpX","_isHelped","_texto","_isPlayer","_camTarget","_saveVolumeVoice"];
+private ["_groupX","_groups","_isLeader","_dummyGroup","_bleedOut","_suicide","_saveVolume","_helpX","_isHelped","_textX","_isPlayer","_camTarget","_saveVolumeVoice"];
 
 if ([_unit] call AS_fnc_isUnconscious) exitWith {};
 if (damage _unit < 0.9) exitWith {};
@@ -70,20 +70,20 @@ while {(time < _bleedOut) and (damage _unit > 0.25) and (alive _unit) and ([_uni
 		if (isNil "_isHelped") then {
 			_helpX = [_unit] call askForHelp;
 			if (isNull _helpX) then	{
-				_texto = format ["<t size='0.6'>There is no AI near to help you.<t size='0.5'><br/>Hit R to Respawn"];
+				_textX = format ["<t size='0.6'>There is no AI near to help you.<t size='0.5'><br/>Hit R to Respawn"];
 			} else {
-				_texto = format ["<t size='0.6'>%1 is on the way to help you.<t size='0.5'><br/>Hit R to Respawn",name _helpX];
+				_textX = format ["<t size='0.6'>%1 is on the way to help you.<t size='0.5'><br/>Hit R to Respawn",name _helpX];
 				//_camTarget = _helpX;
 			};
 		}else{
 			if (!isNil "_helpX") then{
-				_texto = format ["<t size='0.6'>%1 is on the way to help you.<t size='0.5'><br/>Hit R to Respawn",name _helpX];
+				_textX = format ["<t size='0.6'>%1 is on the way to help you.<t size='0.5'><br/>Hit R to Respawn",name _helpX];
 				//_camTarget = _helpX;
 			}else{
-				_texto = "<t size='0.6'>Wait until you get assistance or<t size='0.5'><br/>Hit R to Respawn";
+				_textX = "<t size='0.6'>Wait until you get assistance or<t size='0.5'><br/>Hit R to Respawn";
 			};
 		};
-		[_texto,0,0,3,0,0,4] spawn bis_fnc_dynamicText;
+		[_textX,0,0,3,0,0,4] spawn bis_fnc_dynamicText;
 		if (_unit getVariable "ASrespawning") exitWith {};
 	} else {
 		if (isPlayer (leader group _unit)) then {

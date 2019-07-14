@@ -31,17 +31,17 @@ _mrkFinal setMarkerBrushLocal "DiagGrid";
 if (!debug) then {_mrkFinal setMarkerAlphaLocal 0};
 
 _typeGroup = [opGroup_SpecOps, side_red] call AS_fnc_pickGroup;
-_grupo = [_positionX, side_red, _typeGroup] call BIS_Fnc_spawnGroup;
+_groupX = [_positionX, side_red, _typeGroup] call BIS_Fnc_spawnGroup;
 sleep 1;
 _uav = createVehicle [opUAVsmall, _positionX, [], 0, "FLY"];
 createVehicleCrew _uav;
-[_grupo, _mrkFinal, "RANDOM", "SPAWNED", "NOVEH2", "NOFOLLOW"] execVM "scripts\UPSMON.sqf";
-{[_x] spawn CSATinit; _x allowFleeing 0} forEach units _grupo;
+[_groupX, _mrkFinal, "RANDOM", "SPAWNED", "NOVEH2", "NOFOLLOW"] execVM "scripts\UPSMON.sqf";
+{[_x] spawn CSATinit; _x allowFleeing 0} forEach units _groupX;
 
 _groupUAV = group (crew _uav select 1);
 [_groupUAV, _mrkFinal, "SAFE", "SPAWNED","NOVEH", "NOFOLLOW"] execVM "scripts\UPSMON.sqf";
 
-waitUntil  {sleep 5; (dateToNumber date > _dateLimitNum) or ({alive _x} count units _grupo == 0)};
+waitUntil  {sleep 5; (dateToNumber date > _dateLimitNum) or ({alive _x} count units _groupX == 0)};
 
 if (dateToNumber date > _dateLimitNum) then
 	{
@@ -76,8 +76,8 @@ if (_source == "mil") then {
 {
 waitUntil {sleep 1; !([distanceSPWN,1,_x,"BLUFORSpawn"] call distanceUnits)};
 deleteVehicle _x
-} forEach units _grupo;
-deleteGroup _grupo;
+} forEach units _groupX;
+deleteGroup _groupX;
 waitUntil {sleep 1; !([distanceSPWN,1,_uav,"BLUFORSpawn"] call distanceUnits)};
 {deleteVehicle _x} forEach units _groupUAV;
 deleteVehicle _uav;

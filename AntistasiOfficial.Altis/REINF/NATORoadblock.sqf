@@ -20,7 +20,7 @@ _dateLimitNum = dateToNumber _dateLimit;
 _nameOrigin = [_originX] call AS_fnc_localizar;
 
 
-_texto = "STR_GL_NATORB";
+_textX = "STR_GL_NATORB";
 _typeGroup = [bluATTeam, side_blue] call AS_fnc_pickGroup;
 _typeVehX = bluAPC select 0;
 
@@ -31,50 +31,50 @@ _mrk setMarkerShape "ICON";
 
 _tsk = ["NATORoadblock",[side_blue,civilian],[["%1 is dispatching a team to establish a Roadblock. Send and cover the team until reaches its destination.", A3_Str_BLUE],["%1 Roadblock Deployment", A3_Str_BLUE],_mrk],_positionTel,"CREATED",5,true,true,"Move"] call BIS_fnc_setTask;
 missionsX pushBackUnique _tsk; publicVariable "missionsX";
-_grupo = [_orig, side_blue, _typeGroup] call BIS_Fnc_spawnGroup;
-_grupo setGroupId ["Watch"];
+_groupX = [_orig, side_blue, _typeGroup] call BIS_Fnc_spawnGroup;
+_groupX setGroupId ["Watch"];
 
-_tam = 10;
+_radiusX = 10;
 while {true} do
 	{
-	_roads = _orig nearRoads _tam;
-	if (count _roads < 1) then {_tam = _tam + 10};
+	_roads = _orig nearRoads _radiusX;
+	if (count _roads < 1) then {_radiusX = _radiusX + 10};
 	if (count _roads > 0) exitWith {};
 	};
 _road = _roads select 0;
 _pos = position _road findEmptyPosition [1,30,"B_APC_Wheeled_01_cannon_F"];
 _truckX = _typeVehX createVehicle _pos;
-_grupo addVehicle _truckX;
+_groupX addVehicle _truckX;
 
 {
 	_x assignAsCargo _truckX;
 	_x moveInCargo _truckX;
-} forEach units _grupo;
+} forEach units _groupX;
 
-{[_x] call NATOinitCA} forEach units _grupo;
-leader _grupo setBehaviour "SAFE";
+{[_x] call NATOinitCA} forEach units _groupX;
+leader _groupX setBehaviour "SAFE";
 
-Slowhand hcSetGroup [_grupo];
-_grupo setVariable ["isHCgroup", true, true];
+Slowhand hcSetGroup [_groupX];
+_groupX setVariable ["isHCgroup", true, true];
 
-waitUntil {sleep 1; ({alive _x} count units _grupo == 0) or ({(alive _x) and (_x distance _positionTel < 10)} count units _grupo > 0) or (dateToNumber date > _dateLimitNum)};
+waitUntil {sleep 1; ({alive _x} count units _groupX == 0) or ({(alive _x) and (_x distance _positionTel < 10)} count units _groupX > 0) or (dateToNumber date > _dateLimitNum)};
 
-if ({(alive _x) and (_x distance _positionTel < 10)} count units _grupo > 0) then {
-	if (isPlayer leader _grupo) then {
-		_owner = (leader _grupo) getVariable ["owner",leader _grupo];
-		(leader _grupo) remoteExec ["removeAllActions",leader _grupo];
-		_owner remoteExec ["selectPlayer",leader _grupo];
-		(leader _grupo) setVariable ["owner",_owner,true];
+if ({(alive _x) and (_x distance _positionTel < 10)} count units _groupX > 0) then {
+	if (isPlayer leader _groupX) then {
+		_owner = (leader _groupX) getVariable ["owner",leader _groupX];
+		(leader _groupX) remoteExec ["removeAllActions",leader _groupX];
+		_owner remoteExec ["selectPlayer",leader _groupX];
+		(leader _groupX) setVariable ["owner",_owner,true];
 		{[_x] joinsilent group _owner} forEach units group _owner;
 		[group _owner, _owner] remoteExec ["selectLeader", _owner];
 		"" remoteExec ["hint",_owner];
-		waitUntil {!(isPlayer leader _grupo)};
+		waitUntil {!(isPlayer leader _groupX)};
 	};
 
-	Slowhand hcRemoveGroup _grupo;
-	{deleteVehicle _x} forEach units _grupo;
+	Slowhand hcRemoveGroup _groupX;
+	{deleteVehicle _x} forEach units _groupX;
 	deleteVehicle _truckX;
-	deleteGroup _grupo;
+	deleteGroup _groupX;
 	sleep 1;
 
 	outpostsNATO = outpostsNATO + [_mrk]; publicVariable "outpostsNATO";
@@ -84,7 +84,7 @@ if ({(alive _x) and (_x distance _positionTel < 10)} count units _grupo > 0) the
 
 	_mrk setMarkerType "flag_Spain";
 	//_mrk setMarkerColor "ColorBlue";
-	_mrk setMarkerText localize _texto;
+	_mrk setMarkerText localize _textX;
 
 
 	waitUntil {sleep 60; (dateToNumber date > _dateLimitNum)};
@@ -100,10 +100,10 @@ else {
 	sleep 3;
 	deleteMarker _mrk;
 
-	Slowhand hcRemoveGroup _grupo;
-	{deleteVehicle _x} forEach units _grupo;
+	Slowhand hcRemoveGroup _groupX;
+	{deleteVehicle _x} forEach units _groupX;
 	deleteVehicle _truckX;
-	deleteGroup _grupo;
+	deleteGroup _groupX;
 
 	sleep 15;
 

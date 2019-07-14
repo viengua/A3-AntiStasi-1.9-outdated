@@ -1,6 +1,6 @@
 if (player != Slowhand) exitWith {hint localize "STR_HINTS_MHQ_OCSHATTF"};
 
-//if ((count weaponCargo caja >0) or (count magazineCargo caja >0) or (count itemCargo caja >0) or (count backpackCargo caja >0)) exitWith {hint localize "STR_HINTS_MHQ_YMFEYAIOTMTHQ"};
+//if ((count weaponCargo boxX >0) or (count magazineCargo boxX >0) or (count itemCargo boxX >0) or (count backpackCargo boxX >0)) exitWith {hint localize "STR_HINTS_MHQ_YMFEYAIOTMTHQ"};
 
 hint localize "STR_HINTS_MHQ_MTAACNTVACNPTTNL";
 
@@ -15,17 +15,17 @@ petros forceSpeed -1;
 petros setBehaviour "AWARE";
 if (isMultiplayer) then
 	{
-	//caja hideObjectGlobal true; //Redo it with Jeroen's crate loading script. Sparker
+	//boxX hideObjectGlobal true; //Redo it with Jeroen's crate loading script. Sparker
 	//vehicleBox hideObjectGlobal true;
-	mapa hideObjectGlobal true;
+	mapX hideObjectGlobal true;
 	fireX hideObjectGlobal true;
 	flagX hideObjectGlobal true;
 	}
 else
 	{
-	//caja hideObject true;
+	//boxX hideObject true;
 	//vehicleBox hideObject true;
-	mapa hideObject true;
+	mapX hideObject true;
 	fireX hideObject true;
 	flagX hideObject true;
 	};
@@ -86,5 +86,5 @@ sleep 5;
 petros addAction [localize "STR_act_buildHQ", {[] spawn buildHQ},nil,0,false,true];
 
 //Add actions to load the cargo boxes
-caja call jn_fnc_logistics_addAction;
+boxX call jn_fnc_logistics_addAction;
 vehicleBox call jn_fnc_logistics_addAction;

@@ -12,8 +12,8 @@ _timeLimit = 60;
 _dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
 _dateLimitNum = dateToNumber _dateLimit;
 
-_tam = [_initialMarker] call sizeMarker;
-_houses = nearestObjects [_initialPosition, ["house"], _tam];
+_radiusX = [_initialMarker] call sizeMarker;
+_houses = nearestObjects [_initialPosition, ["house"], _radiusX];
 _housePosition = [];
 _house = _houses select 0;
 while {count _housePosition < 3} do
@@ -86,15 +86,15 @@ _mrk setMarkerBrushLocal "DiagGrid";
 _mrk setMarkerAlphaLocal 0;
 
 _typeGroup = [infSquad, side_green] call AS_fnc_pickGroup;
-_grupo = [_initialPosition, side_green, _typeGroup] call BIS_Fnc_spawnGroup;
+_groupX = [_initialPosition, side_green, _typeGroup] call BIS_Fnc_spawnGroup;
 sleep 1;
 if (random 10 < 2.5) then
 	{
-	_doggo = _grupo createUnit ["Fin_random_F",_initialPosition,[],0,"FORM"];
+	_doggo = _groupX createUnit ["Fin_random_F",_initialPosition,[],0,"FORM"];
 	[_doggo] spawn guardDog;
 	};
-[_grupo, _mrk, "SAFE","SPAWNED", "NOVEH2", "NOFOLLOW"] execVM "scripts\UPSMON.sqf";
-{[_x] spawn genInitBASES} forEach units _grupo;
+[_groupX, _mrk, "SAFE","SPAWNED", "NOVEH2", "NOFOLLOW"] execVM "scripts\UPSMON.sqf";
+{[_x] spawn genInitBASES} forEach units _groupX;
 
 waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) or (not alive _traitor) or ({_traitor knowsAbout _x > 1.4} count ([500,0,_traitor,"BLUFORSpawn"] call distanceUnits) > 0)};
 
@@ -131,7 +131,7 @@ if (not alive _traitor) then
 		{
 		[10,_x] call playerScoreAdd;
 		};
-	} forEach ([_tam,0,_initialPosition,"BLUFORSpawn"] call distanceUnits);
+	} forEach ([_radiusX,0,_initialPosition,"BLUFORSpawn"] call distanceUnits);
 	[5,Slowhand] call playerScoreAdd;
 	// BE module
 	if (activeBE) then {
@@ -187,8 +187,8 @@ deleteGroup _traitorGroup;
 {
 waitUntil {sleep 1; !([distanceSPWN,1,_x,"BLUFORSpawn"] call distanceUnits)};
 deleteVehicle _x
-} forEach units _grupo;
-deleteGroup _grupo;
+} forEach units _groupX;
+deleteGroup _groupX;
 
 waitUntil {sleep 1; !([distanceSPWN,1,_veh,"BLUFORSpawn"] call distanceUnits)};
 deleteVehicle _veh;

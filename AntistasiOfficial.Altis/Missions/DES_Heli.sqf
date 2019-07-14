@@ -3,7 +3,7 @@ if (!isServer and hasInterface) exitWith {};
 _tskTitle = "STR_TSK_TD_DesHeli";
 _tskDesc = "STR_TSK_TD_DESC_DesHeli";
 
-private ["_poscrash","_markerX","_positionX","_mrkFinal","_typeVehX","_effect","_heli","_vehiclesX","_soldiers","_groups","_unit","_roads","_road","_vehicle","_veh","_typeGroup","_tsk","_humo","_emitterArray"];
+private ["_poscrash","_markerX","_positionX","_mrkFinal","_typeVehX","_effect","_heli","_vehiclesX","_soldiers","_groups","_unit","_roads","_road","_vehicle","_veh","_typeGroup","_tsk","_smokeX","_emitterArray"];
 
 _markerX = _this select 0;
 _source = _this select 1;
@@ -46,7 +46,7 @@ _groups = [];
 _effect = createVehicle ["CraterLong", _poscrash, [], 0, "CAN_COLLIDE"];
 _heli = createVehicle [_typeVehX, _poscrash, [], 0, "CAN_COLLIDE"];
 _heli attachTo [_effect,[0,0,1.5]];
-_humo = "test_EmptyObjectForSmoke" createVehicle _poscrash; _humo attachTo[_heli,[0,1.5,-1]];
+_smokeX = "test_EmptyObjectForSmoke" createVehicle _poscrash; _smokeX attachTo[_heli,[0,1.5,-1]];
 _heli setDamage 0.9;
 _heli lock 2;
 _vehiclesX = _vehiclesX + [_heli,_effect];
@@ -59,13 +59,13 @@ _unit setDamage 1;
 _unit moveInDriver _heli;
 _soldiers = _soldiers + [_unit];
 
-_tam = 100;
+_radiusX = 100;
 
 while {true} do
 	{
-	_roads = _positionX nearRoads _tam;
+	_roads = _positionX nearRoads _radiusX;
 	if (count _roads > 0) exitWith {};
-	_tam = _tam + 50;
+	_radiusX = _radiusX + 50;
 	};
 
 _road = _roads select 0;
@@ -84,16 +84,16 @@ _vehiclesX = _vehiclesX + [_veh];
 sleep 1;
 
 _typeGroup = [infPatrol, side_green] call AS_fnc_pickGroup;
-_grupo = [_positionX, side_green, _typeGroup] call BIS_Fnc_spawnGroup;
+_groupX = [_positionX, side_green, _typeGroup] call BIS_Fnc_spawnGroup;
 
-{_x assignAsCargo _veh; _x moveInCargo _veh; _soldiers = _soldiers + [_x]; [_x] join _groupVeh; [_x] spawn genInit} forEach units _grupo;
-deleteGroup _grupo;
+{_x assignAsCargo _veh; _x moveInCargo _veh; _soldiers = _soldiers + [_x]; [_x] join _groupVeh; [_x] spawn genInit} forEach units _groupX;
+deleteGroup _groupX;
 //[_veh] spawn smokeCover;
 
 _Vwp0 = _groupVeh addWaypoint [_poscrash, 0];
 _Vwp0 setWaypointType "TR UNLOAD";
 _Vwp0 setWaypointBehaviour "SAFE";
-_Gwp0 = _grupo addWaypoint [_poscrash, 0];
+_Gwp0 = _groupX addWaypoint [_poscrash, 0];
 _Gwp0 setWaypointType "GETOUT";
 _Vwp0 synchronizeWaypoint [_Gwp0];
 
@@ -122,9 +122,9 @@ if (_vehT distance _heli < 50) then
 	if (alive _heli) then
 		{
 		_heli attachTo [_vehT,[0,-3,2]];
-		_emitterArray = _humo getVariable "effects";
+		_emitterArray = _smokeX getVariable "effects";
 		{deleteVehicle _x} forEach _emitterArray;
-		deleteVehicle _humo;
+		deleteVehicle _smokeX;
 		};
 
 	_Vwp0 = _groupVehT addWaypoint [_positionX, 1];
@@ -134,7 +134,7 @@ if (_vehT distance _heli < 50) then
 	_Vwp0 = _groupVeh addWaypoint [_poscrash, 0];
 	_Vwp0 setWaypointType "LOAD";
 	_Vwp0 setWaypointBehaviour "SAFE";
-	_Gwp0 = _grupo addWaypoint [_poscrash, 0];
+	_Gwp0 = _groupX addWaypoint [_poscrash, 0];
 	_Gwp0 setWaypointType "GETIN";
 	_Vwp0 synchronizeWaypoint [_Gwp0];
 
@@ -170,11 +170,11 @@ if ((dateToNumber date > _dateLimitNum) or (_vehT distance _positionX < 100)) th
 	[-10,Slowhand] call playerScoreAdd;
 	};
 
-if (!isNull _humo) then
+if (!isNull _smokeX) then
 	{
-	_emitterArray = _humo getVariable "effects";
+	_emitterArray = _smokeX getVariable "effects";
 	{deleteVehicle _x} forEach _emitterArray;
-	deleteVehicle _humo;
+	deleteVehicle _smokeX;
 	};
 
 if (_source == "mil") then {

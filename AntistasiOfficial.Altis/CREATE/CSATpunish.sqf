@@ -1,5 +1,5 @@
 if (!isServer and hasInterface) exitWith {};
-private ["_posOrigin","_typeGroup","_nameOrigin","_markTsk","_wp1","_soldiers","_landpos","_pad","_vehiclesX","_wp0","_wp3","_wp4","_wp2","_grupo","_groups","_typeVehX","_vehicle","_heli","_heliCrew","_groupHeli","_pilots","_rnd","_resourcesAAF","_nVeh","_tam","_roads","_Vwp1","_tanksX","_road","_veh","_vehCrew","_groupVeh","_Vwp0","_size","_Hwp0","_grupo1","_uav","_groupUAV","_uwp0","_tsk","_vehiculo","_soldierX","_pilot","_mrkDestination","_posDestination","_prestigeCSAT","_base","_airportX","_nameDest","_timeX","_solMax","_pos","_timeOut"];
+private ["_posOrigin","_typeGroup","_nameOrigin","_markTsk","_wp1","_soldiers","_landpos","_pad","_vehiclesX","_wp0","_wp3","_wp4","_wp2","_groupX","_groups","_typeVehX","_vehicle","_heli","_heliCrew","_groupHeli","_pilots","_rnd","_resourcesAAF","_nVeh","_radiusX","_roads","_Vwp1","_tanksX","_road","_veh","_vehCrew","_groupVeh","_Vwp0","_size","_Hwp0","_groupX1","_uav","_groupUAV","_uwp0","_tsk","_vehiculo","_soldierX","_pilot","_mrkDestination","_posDestination","_prestigeCSAT","_base","_airportX","_nameDest","_timeX","_solMax","_pos","_timeOut"];
 _mrkDestination = _this select 0;
 
 forcedSpawn = forcedSpawn + [_mrkDestination]; publicVariable "forcedSpawn";
@@ -58,9 +58,9 @@ for "_i" from 1 to 3 do {
 	} else {
 		{_x setBehaviour "CARELESS";} forEach units _groupHeli;
 		_typeGroup = [opGroup_Squad, side_red] call AS_fnc_pickGroup;
-		_grupo = [_posOrigin, side_red, _typeGroup] call BIS_Fnc_spawnGroup;
-		{_x assignAsCargo _heli; _x moveInCargo _heli; _soldiers = _soldiers + [_x]; [_x] spawn CSATinit} forEach units _grupo;
-		_groups = _groups + [_grupo];
+		_groupX = [_posOrigin, side_red, _typeGroup] call BIS_Fnc_spawnGroup;
+		{_x assignAsCargo _heli; _x moveInCargo _heli; _soldiers = _soldiers + [_x]; [_x] spawn CSATinit} forEach units _groupX;
+		_groups = _groups + [_groupX];
 		[_heli,"CSAT Air Transport"] spawn inmuneConvoy;
 
 		if (random 100 < 50) then
@@ -75,10 +75,10 @@ for "_i" from 1 to 3 do {
 			_wp0 setWaypointType "TR UNLOAD";
 			_wp0 setWaypointStatements ["true", "(vehicle this) land 'GET OUT'"];
 			[_groupHeli,0] setWaypointBehaviour "CARELESS";
-			_wp3 = _grupo addWaypoint [_landpos, 0];
+			_wp3 = _groupX addWaypoint [_landpos, 0];
 			_wp3 setWaypointType "GETOUT";
 			_wp0 synchronizeWaypoint [_wp3];
-			_wp4 = _grupo addWaypoint [_posDestination, 1];
+			_wp4 = _groupX addWaypoint [_posDestination, 1];
 			_wp4 setwaypointtype "SAD";
 			private _i = 1;
    			 while {_i < 10} do
@@ -88,13 +88,13 @@ for "_i" from 1 to 3 do {
 		        _wp setWaypointType "SAD";
 		        _i = _i + 1;
 		    };
-			[_grupo,0] setWaypointBehaviour "COMBAT";
+			[_groupX,0] setWaypointBehaviour "COMBAT";
 			_wp2 = _groupHeli addWaypoint [_posOrigin, 1];
 			_wp2 setWaypointType "MOVE";
 			_wp2 setWaypointStatements ["true", "{deleteVehicle _x} forEach crew this; deleteVehicle this"];
 			[_groupHeli,1] setWaypointBehaviour "AWARE";
 		} else {
-		[_heli,_grupo,_posDestination,_posOrigin,_groupHeli] spawn fastropeCSAT;};
+		[_heli,_groupX,_posDestination,_posOrigin,_groupHeli] spawn fastropeCSAT;};
 	};
 	sleep 3;
 };
@@ -139,13 +139,13 @@ _solMax = count _soldiers;
 		[(_this select 0),1] setWaypointBehaviour "CARELESS";
 		_pos = position (leader (_this select 0));
 		diag_log format ["CSAT: pos: %1",_pos];
-		_humo = "SmokeShellYellow" createVehicle _pos;
+		_smokeX = "SmokeShellYellow" createVehicle _pos;
 		sleep 30;
 		_pos = position (leader (_this select 0));
-		_humo = "SmokeShellYellow" createVehicle _pos;
+		_smokeX = "SmokeShellYellow" createVehicle _pos;
 		sleep 60;
 		_pos = position (leader (_this select 0));
-		_humo = "SmokeShellYellow" createVehicle _pos;
+		_smokeX = "SmokeShellYellow" createVehicle _pos;
 	};
 
 for "_i" from 0 to round random 2 do {

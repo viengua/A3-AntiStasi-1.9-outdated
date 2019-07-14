@@ -1,16 +1,16 @@
-private ["_tipo","_costs","_grupo","_unit","_tam","_roads","_road","_pos","_truckX","_texto","_mrk","_hr","_exists","_positionTel","_typeGroup","_resourcesFIA","_hrFIA"];
+private ["_typeX","_costs","_groupX","_unit","_radiusX","_roads","_road","_pos","_truckX","_textX","_mrk","_hr","_exists","_positionTel","_typeGroup","_resourcesFIA","_hrFIA"];
 
 if (!([player] call hasRadio)) exitWith {hint localize "STR_HINTS_FD_YNARIYITBA"};
 if ("campsFIA" in missionsX) exitWith {hint localize "STR_TSK_TD_BEMP_RESTR"};
 
-_tipo = _this select 0;
+_typeX = _this select 0;
 _markers = mrkAAF;
 _maxCamps = 3;
 
 // BE module
 _permission = true;
 _text = "Error in permission system, module ft.";
-if ((activeBE) && (_tipo == "create")) then {
+if ((activeBE) && (_typeX == "create")) then {
 	_permission = ["camp"] call fnc_BE_permission;
 	_text = "We cannot maintain any additional camps.";
 	_maxCamps = 100;
@@ -21,9 +21,9 @@ if !(_permission) exitWith {hint _text};
 
 openMap true;
 positionTel = [];
-if (_tipo == "create") then {hint localize "STR_HINTS_FD_COTPYWTETC"};
-if (_tipo == "delete") then {hint localize "STR_HINTS_FD_COTCTAAC"};
-if (_tipo == "rename") then {hint localize "STR_HINTS_FD_COTCTRAC"};
+if (_typeX == "create") then {hint localize "STR_HINTS_FD_COTPYWTETC"};
+if (_typeX == "delete") then {hint localize "STR_HINTS_FD_COTCTAAC"};
+if (_typeX == "rename") then {hint localize "STR_HINTS_FD_COTCTRAC"};
 
 onMapSingleClick "positionTel = _pos;";
 
@@ -38,15 +38,15 @@ openMap false;
 _positionTel = positionTel;
 _pos = [];
 
-if ((_tipo == "delete") and (count campsFIA < 1)) exitWith {hint localize "STR_HINTS_FD_NCTA"};
-if ((_tipo == "delete") and ({(alive _x) and (!captive _x) and ((side _x == side_green) or (side _x == side_red)) and (_x distance _positionTel < 500)} count allUnits > 0)) exitWith {hint localize "STR_HINTS_FD_YCDACWEANI"};
+if ((_typeX == "delete") and (count campsFIA < 1)) exitWith {hint localize "STR_HINTS_FD_NCTA"};
+if ((_typeX == "delete") and ({(alive _x) and (!captive _x) and ((side _x == side_green) or (side _x == side_red)) and (_x distance _positionTel < 500)} count allUnits > 0)) exitWith {hint localize "STR_HINTS_FD_YCDACWEANI"};
 
 _costs = 500;
 _hr = 0;
 
-if ((_tipo == "create") && (count campsFIA > _maxCamps)) exitWith {hint localize "STR_HINTS_FD_YCOSAMOFFC"};
+if ((_typeX == "create") && (count campsFIA > _maxCamps)) exitWith {hint localize "STR_HINTS_FD_YCOSAMOFFC"};
 
-if (_tipo == "create") then {
+if (_typeX == "create") then {
 	_typeGroup = guer_grp_sniper;
 	_formatX = ([guer_grp_sniper, "guer"] call AS_fnc_pickGroup);
 	if !(typeName _typeGroup == "ARRAY") then {
@@ -57,7 +57,7 @@ if (_tipo == "create") then {
 
 _txt = "";
 _break = false;
-while {(_tipo == "delete") && !(_break)} do {
+while {(_typeX == "delete") && !(_break)} do {
 	scopeName "loop1";
 	_mrk = [campsFIA,_positionTel] call BIS_fnc_nearestPosition;
 	_pos = getMarkerPos _mrk;
@@ -65,7 +65,7 @@ while {(_tipo == "delete") && !(_break)} do {
 	breakOut "loop1";
 };
 
-while {(_tipo == "rename")} do {
+while {(_typeX == "rename")} do {
 	scopeName "loop2";
 	_mrk = [campsFIA,_positionTel] call BIS_fnc_nearestPosition;
 	_pos = getMarkerPos _mrk;
@@ -95,12 +95,12 @@ if (_break) exitWith {openMap false; hint _txt;};
 _resourcesFIA = server getVariable "resourcesFIA";
 _hrFIA = server getVariable "hr";
 
-if (((_resourcesFIA < _costs) or (_hrFIA < _hr)) and (_tipo == "create")) exitWith {hint format [localize "STR_HINTS_FD_YLORTBTC",_hr,_costs]};
+if (((_resourcesFIA < _costs) or (_hrFIA < _hr)) and (_typeX == "create")) exitWith {hint format [localize "STR_HINTS_FD_YLORTBTC",_hr,_costs]};
 
-if (_tipo == "create") then {
+if (_typeX == "create") then {
 	[-_hr,-_costs] remoteExec ["resourcesFIA",2];
 };
 
-if (_tipo != "rename") then {
-	[[_tipo,_positionTel],"establishCamp"] call BIS_fnc_MP;
+if (_typeX != "rename") then {
+	[[_typeX,_positionTel],"establishCamp"] call BIS_fnc_MP;
 };

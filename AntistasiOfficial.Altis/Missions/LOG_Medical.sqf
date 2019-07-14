@@ -3,7 +3,7 @@ if (!isServer and hasInterface) exitWith {};
 _tskTitle = "STR_TSK_TD_logMedical";
 _tskDesc = "STR_TSK_TD_DESC_logMedical";
 
-private ["_poscrash","_posbase","_mrkFinal","_mrkTarget","_typeVehX","_heli","_vehiclesX","_soldiers","_groups","_unit","_roads","_road","_vehicle","_veh","_typeGroup","_tsk","_humo","_emitterArray"];
+private ["_poscrash","_posbase","_mrkFinal","_mrkTarget","_typeVehX","_heli","_vehiclesX","_soldiers","_groups","_unit","_roads","_road","_vehicle","_veh","_typeGroup","_tsk","_smokeX","_emitterArray"];
 
 /*
 _positionX -> location of the destination, town
@@ -96,21 +96,21 @@ _crates = [];
 } forEach _crateOffsets;
 
 _typeGroup = [infGarrisonSmall, side_green] call AS_fnc_pickGroup;
-_grupo = [_poscrash, side_green, _typeGroup] call BIS_Fnc_spawnGroup;
-_groups = _groups + [_grupo];
+_groupX = [_poscrash, side_green, _typeGroup] call BIS_Fnc_spawnGroup;
+_groups = _groups + [_groupX];
 
-{[_x] spawn genInit; _soldiers = _soldiers + [_x]} forEach units _grupo;
+{[_x] spawn genInit; _soldiers = _soldiers + [_x]} forEach units _groupX;
 
 
 sleep 30;
 
-_tam = 100;
+_radiusX = 100;
 
 while {true} do
 	{
-	_roads = _posbase nearRoads _tam;
+	_roads = _posbase nearRoads _radiusX;
 	if (count _roads > 0) exitWith {};
-	_tam = _tam + 50;
+	_radiusX = _radiusX + 50;
 	};
 
 _road = _roads select 0;
@@ -129,17 +129,17 @@ _vehiclesX = _vehiclesX + [_veh];
 sleep 1;
 
 _typeGroup = [infSquad, side_green] call AS_fnc_pickGroup;
-_grupo = [_posbase, side_green, _typeGroup] call BIS_Fnc_spawnGroup;
+_groupX = [_posbase, side_green, _typeGroup] call BIS_Fnc_spawnGroup;
 
-{_x assignAsCargo _veh; _x moveInCargo _veh; _soldiers = _soldiers + [_x]; [_x] spawn genInit} forEach units _grupo;
-_groups = _groups + [_grupo];
+{_x assignAsCargo _veh; _x moveInCargo _veh; _soldiers = _soldiers + [_x]; [_x] spawn genInit} forEach units _groupX;
+_groups = _groups + [_groupX];
 
 //[_veh] spawn smokeCover;
 
 _Vwp0 = _groupVeh addWaypoint [_poscrash, 0];
 _Vwp0 setWaypointType "TR UNLOAD";
 _Vwp0 setWaypointBehaviour "SAFE";
-_Gwp0 = _grupo addWaypoint [_poscrash, 0];
+_Gwp0 = _groupX addWaypoint [_poscrash, 0];
 _Gwp0 setWaypointType "GETOUT";
 _Vwp0 synchronizeWaypoint [_Gwp0];
 
@@ -278,16 +278,16 @@ deleteVehicle _sboxempty;
 				if (random 10 < 5) then {
 					if (random 10 < 5) then {
 						for [{_i=1},{_i<=(1 + round random 2)},{_i=_i+1}] do {
-							_cosa = genMines call BIS_Fnc_selectRandom;
+							_thingX = genMines call BIS_Fnc_selectRandom;
 							_num = 1 + (floor random 5);
-							if (not(_cosa in unlockedMagazines)) then {vehicleBox addMagazineCargoGlobal [_cosa, _num]};
+							if (not(_thingX in unlockedMagazines)) then {vehicleBox addMagazineCargoGlobal [_thingX, _num]};
 						};
 					}
 					else {
 						for [{_i=1},{_i<=(1 + round random 2)},{_i=_i+1}] do {
-							_cosa = genOptics call BIS_Fnc_selectRandom;
+							_thingX = genOptics call BIS_Fnc_selectRandom;
 							_num = 1 + (floor random 5);
-							if (not(_cosa in unlockedOptics)) then {vehicleBox addItemCargoGlobal [_cosa, _num]};
+							if (not(_thingX in unlockedOptics)) then {vehicleBox addItemCargoGlobal [_thingX, _num]};
 						};
 					};
 					[[petros,"globalChat","Someone dropped off a crate near HQ while you were gone. Check the vehicle ammo box."],"commsMP"] call BIS_fnc_MP;

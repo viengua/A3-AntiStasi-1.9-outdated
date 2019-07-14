@@ -1,8 +1,8 @@
-private ["_veh","_grupo1","_grupo2","_positionX","_posOrigin","_heli","_landpos","_wp","_d","_wp1","_wp2","_wp3"];
+private ["_veh","_groupX1","_groupX2","_positionX","_posOrigin","_heli","_landpos","_wp","_d","_wp1","_wp2","_wp3"];
 
 _veh = _this select 0;
-_grupo1 = _this select 1;
-_grupo2 = _this select 2;
+_groupX1 = _this select 1;
+_groupX2 = _this select 2;
 _positionX = _this select 3;
 _posOrigin = _this select 4;
 _heli = _this select 5;
@@ -39,7 +39,7 @@ if (alive _veh) then
 	for "_i" from 0 to 8 do
 		{
 		_pos = position _veh getPos [10,_i*40];
-		_humo = "SmokeShellPurple" createVehicle [_pos select 0, _pos select 1,getPos _veh select 2];
+		_smokeX = "SmokeShellPurple" createVehicle [_pos select 0, _pos select 1,getPos _veh select 2];
 		};
 	};
 */
@@ -68,7 +68,7 @@ if (alive _veh) then
 	sleep 0.5;
 	};
 sleep 5 + random 2;
-} forEach units _grupo1;
+} forEach units _groupX1;
 
 {
 [_veh,_x] spawn
@@ -98,7 +98,7 @@ sleep 5 + random 2;
 	sleep 0.5;
 	};
 sleep 5 + random 2;
-} forEach units _grupo2;
+} forEach units _groupX2;
 
 waitUntil {sleep 1; (not alive _veh) or ((count assignedCargo _veh == 0) and (count attachedObjects _veh == 0))};
 
@@ -107,9 +107,9 @@ waitUntil {sleep 1; (not alive _veh) or ((count assignedCargo _veh == 0) and (co
 sleep 5;
 _veh flyInHeight 150;
 //_veh animateDoor ['door_R', 0];
-_wp1 = _grupo1 addWaypoint [_positionX, 0];
+_wp1 = _groupX1 addWaypoint [_positionX, 0];
 _wp1 setWaypointType "SAD";
-_wp2 = _grupo2 addWaypoint [_positionX, 0];
+_wp2 = _groupX2 addWaypoint [_positionX, 0];
 _wp2 setWaypointType "SAD";
 _wp3 = _heli addWaypoint [_posOrigin, 1];
 _wp3 setWaypointType "MOVE";

@@ -46,20 +46,20 @@ if (!isNil "_weaponsItemsCargo") then
 		};
 		for "_i" from 1 to (count _x) - 1 do
 			{
-			_cosa = _x select _i;
-			if (typeName _cosa == typeName "") then
+			_thingX = _x select _i;
+			if (typeName _thingX == typeName "") then
 				{
-				if (_cosa != "") then {_items pushBack _cosa};
+				if (_thingX != "") then {_items pushBack _thingX};
 				};
 			/*
 			else
 				{
-				if (typeName _cosa == typeName []) then
+				if (typeName _thingX == typeName []) then
 					{
-					if (count _cosa > 0) then
+					if (count _thingX > 0) then
 						{
-						_subObject = _cosa select 0;
-						if (!isNil "_subObject") then {_ammunition pushBack _subObject; Slowhand sidechat format ["%1,%2",_ammunition,_subObject];} else {diag_log format ["Error transfering ammo on %1",_cosa]};
+						_subObject = _thingX select 0;
+						if (!isNil "_subObject") then {_ammunition pushBack _subObject; Slowhand sidechat format ["%1,%2",_ammunition,_subObject];} else {diag_log format ["Error transfering ammo on %1",_thingX]};
 						};
 					};
 				}
@@ -170,8 +170,8 @@ else
 	clearBackpackCargoGlobal _originX;
 	};
 
-if (_destinationX == caja) then {
-	if (isMultiplayer) then {{if (_x distance caja < 10) then {[petros,"hint","Ammobox Loaded"] remoteExec ["commsMP",_x]}} forEach playableUnits} else {hint "Ammobox Loaded"};
+if (_destinationX == boxX) then {
+	if (isMultiplayer) then {{if (_x distance boxX < 10) then {[petros,"hint","Ammobox Loaded"] remoteExec ["commsMP",_x]}} forEach playableUnits} else {hint "Ammobox Loaded"};
 	if !(activeJNA) then {_updated = [] call AS_fnc_updateArsenal};
 	if (count _updated > 0) then
 		{

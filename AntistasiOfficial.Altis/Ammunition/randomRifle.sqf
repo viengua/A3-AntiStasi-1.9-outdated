@@ -13,7 +13,7 @@ if (_changeVest) then {
 
 if (_changeHelmet) then {
 	if (random 20 < _skillFIA) then {
-		_items = [itemcargo caja arrayIntersect genHelmets,["helmet"] call AS_fnc_JNA_getLists] select activeJNA;
+		_items = [itemcargo boxX arrayIntersect genHelmets,["helmet"] call AS_fnc_JNA_getLists] select activeJNA;
 		if (count _items > 0) then {_unit addHeadgear (selectRandom _items)}
 	} else {
 		if (_changeUniform) then {

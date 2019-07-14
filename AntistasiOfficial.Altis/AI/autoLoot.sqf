@@ -22,20 +22,20 @@ if (count _objectsX == 0) exitWith {_unit groupChat "I see no corpses here to lo
 _target = objNull;
 _distancia = 51;
 {
-_objeto = _x;
-if (_unit distance _objeto < _distancia) then
+_objectX = _x;
+if (_unit distance _objectX < _distancia) then
 	{
-	if ((count weaponCargo _objeto > 0) and !(_objeto getVariable ["busy",false])) then
+	if ((count weaponCargo _objectX > 0) and !(_objectX getVariable ["busy",false])) then
 		{
-		_weaponsX = weaponCargo _objeto;
+		_weaponsX = weaponCargo _objectX;
 		for "_i" from 0 to (count _weaponsX - 1) do
 			{
 			_potential = _weaponsX select _i;
 			_basePossible = [_potential] call BIS_fnc_baseWeapon;
 			if ((not(_basePossible in unlockedWeapons)) and ((_basePossible in arifles) or (_basePossible in srifles) or (_basePossible in mguns) or (_potential in mlaunchers) or (_potential in rlaunchers))) then
 				{
-				_target = _objeto;
-				_distancia = _unit distance _objeto;
+				_target = _objectX;
+				_distancia = _unit distance _objectX;
 				_weaponX = _potential;
 				};
 			};
@@ -76,18 +76,18 @@ while {_continuar and (alive _unit) and (!(lifestate _unit == "INCAPACITATED")) 
 	if (_tempPrimary != "") then
 		{
 		_magazines = getArray (configFile / "CfgWeapons" / _tempPrimary / "magazines");
-		_muertos = allDead select {(_x distance _unit < 51) and (!(_x getVariable ["busy",false]))};
+		_victims = allDead select {(_x distance _unit < 51) and (!(_x getVariable ["busy",false]))};
 		_hasBox = false;
 		_distancia = 51;
 		{
-		_muerto = _x;
-		if (({_x in _magazines} count (magazines _muerto) > 0) and (_unit distance _muerto < _distancia)) then
+		_victim = _x;
+		if (({_x in _magazines} count (magazines _victim) > 0) and (_unit distance _victim < _distancia)) then
 			{
-			_target = _muerto;
+			_target = _victim;
 			_hasBox = true;
-			_distancia = _muerto distance _unit;
+			_distancia = _victim distance _unit;
 			};
-		} forEach _muertos;
+		} forEach _victims;
 		if ((_hasBox) and (_unit getVariable "ASrearming")) then
 			{
 			_unit stop false;
@@ -122,20 +122,20 @@ while {_continuar and (alive _unit) and (!(lifestate _unit == "INCAPACITATED")) 
 	_target = objNull;
 	_distancia = 51;
 	{
-	_objeto = _x;
-	if (_unit distance _objeto < _distancia) then
+	_objectX = _x;
+	if (_unit distance _objectX < _distancia) then
 		{
-		if ((count weaponCargo _objeto > 0) and !(_objeto getVariable ["busy",false])) then
+		if ((count weaponCargo _objectX > 0) and !(_objectX getVariable ["busy",false])) then
 			{
-			_weaponsX = weaponCargo _objeto;
+			_weaponsX = weaponCargo _objectX;
 			for "_i" from 0 to (count _weaponsX - 1) do
 				{
 				_potential = _weaponsX select _i;
 				_basePossible = [_potential] call BIS_fnc_baseWeapon;
 				if ((not(_basePossible in unlockedWeapons)) and ((_basePossible in arifles) or (_basePossible in srifles) or (_basePossible in mguns) or (_potential in mlaunchers) or (_potential in rlaunchers))) then
 					{
-					_target = _objeto;
-					_distancia = _unit distance _objeto;
+					_target = _objectX;
+					_distancia = _unit distance _objectX;
 					_weaponX = _potential;
 					};
 				};

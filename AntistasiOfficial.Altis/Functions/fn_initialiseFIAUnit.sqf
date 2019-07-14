@@ -293,11 +293,11 @@ _unit setskill ["reloadSpeed",_reload];
 
 if (player == leader _unit) then {
 	_EHkilledIdx = _unit addEventHandler ["killed", {
-		_muerto = _this select 0;
-		[_muerto] spawn postmortem;
-		if (typeOf _muerto != guer_POW) then {arrayids = arrayids + [name _muerto]};
-		[0.25,0,getPos _muerto] remoteExec ["AS_fnc_changeCitySupport",2];
-		_muerto setVariable ["BLUFORSpawn",nil,true];
+		_victim = _this select 0;
+		[_victim] spawn postmortem;
+		if (typeOf _victim != guer_POW) then {arrayids = arrayids + [name _victim]};
+		[0.25,0,getPos _victim] remoteExec ["AS_fnc_changeCitySupport",2];
+		_victim setVariable ["BLUFORSpawn",nil,true];
 	}];
 	if (_unitType != guer_POW) then {
 		_idUnit = arrayids call BIS_Fnc_selectRandom;
@@ -340,17 +340,17 @@ if (player == leader _unit) then {
 }
 else {
 	_EHkilledIdx = _unit addEventHandler ["killed", {
-		_muerto = _this select 0;
+		_victim = _this select 0;
 		_killer = _this select 1;
-		[_muerto] remoteExec ["postmortem",2];
+		[_victim] remoteExec ["postmortem",2];
 		if (isPlayer _killer) then {
 			if (!isMultiPlayer) then {
 				[0,-20] remoteExec ["resourcesFIA",2];
 				_killer addRating -1000;
 			};
 		};
-		[_muerto] spawn postmortem;
-		_muerto setVariable ["BLUFORSpawn",nil,true];
-		[0,-0.25,getPos _muerto] remoteExec ["AS_fnc_changeCitySupport",2];
+		[_victim] spawn postmortem;
+		_victim setVariable ["BLUFORSpawn",nil,true];
+		[0,-0.25,getPos _victim] remoteExec ["AS_fnc_changeCitySupport",2];
 	}];
 };

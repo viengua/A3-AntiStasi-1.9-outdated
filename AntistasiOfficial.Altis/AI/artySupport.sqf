@@ -1,9 +1,9 @@
 // Shift+ctrl+Y when mortar and NATO arty are selected.
 if (count hcSelected player != 1) exitWith {hint "You must select an artillery group"};
 
-private ["_grupo","_artyArray","_artyRoundsArr","_hasBox","_areReady","_hasArty","_areAlive","_soldierX","_veh","_typeAmmunition","_typeArty","_positionTel","_artyArrayDef1","_artyRoundsArr1","_piece","_isInRange","_positionTel2","_rounds","_roundsMax","_markerX","_size","_forcedX","_texto","_mrkFinal","_mrkFinal2","_timeX","_eta","_countX","_pos","_ang"];
+private ["_groupX","_artyArray","_artyRoundsArr","_hasBox","_areReady","_hasArty","_areAlive","_soldierX","_veh","_typeAmmunition","_typeArty","_positionTel","_artyArrayDef1","_artyRoundsArr1","_piece","_isInRange","_positionTel2","_rounds","_roundsMax","_markerX","_size","_forcedX","_textX","_mrkFinal","_mrkFinal2","_timeX","_eta","_countX","_pos","_ang"];
 
-_grupo = hcSelected player select 0;
+_groupX = hcSelected player select 0;
 
 _artyArray = [];
 _artyRoundsArr = [];
@@ -78,7 +78,7 @@ if ((_veh != _soldierX) and (not(_veh in _artyArray))) then
 			};
 		};
 	};
-} forEach units _grupo;
+} forEach units _groupX;
 
 if (isNil "_typeAmmunition") exitWith {};
 if (!_hasArty) exitWith {hint "You must select an artillery group or it is a Mobile Mortar and it's moving"};
@@ -200,8 +200,8 @@ if ((not(_markerX in forcedSpawn)) and (_positionTel distance (getMarkerPos _mar
 	publicVariable "forcedSpawn";
 	};
 
-_texto = format ["Requesting fire support on Grid %1. %2 Rounds", mapGridPosition _positionTel, round _rounds];
-[[Slowhand,"sideChat",_texto],"commsMP"] call BIS_fnc_MP;
+_textX = format ["Requesting fire support on Grid %1. %2 Rounds", mapGridPosition _positionTel, round _rounds];
+[[Slowhand,"sideChat",_textX],"commsMP"] call BIS_fnc_MP;
 
 if (_typeArty == "BARRAGE") then
 	{
@@ -214,8 +214,8 @@ if (_typeArty == "BARRAGE") then
 	sleep 5;
 	_eta = (_artyArrayDef1 select 0) getArtilleryETA [_positionTel, ((getArtilleryAmmo [(_artyArrayDef1 select 0)]) select 0)];
 	_timeX = time + _eta;
-	_texto = format ["Acknowledged. Fire mission is inbound. ETA %1 secs for the first impact",round _eta];
-	[[petros,"sideChat",_texto],"commsMP"] call BIS_fnc_MP;
+	_textX = format ["Acknowledged. Fire mission is inbound. ETA %1 secs for the first impact",round _eta];
+	[[petros,"sideChat",_textX],"commsMP"] call BIS_fnc_MP;
 	[_timeX] spawn
 		{
 		private ["_timeX"];
@@ -285,8 +285,8 @@ if (_typeArty != "BARRAGE") then
 	sleep 5;
 	_eta = (_artyArrayDef1 select 0) getArtilleryETA [_positionTel, ((getArtilleryAmmo [(_artyArrayDef1 select 0)]) select 0)];
 	_timeX = time + _eta - 5;
-	_texto = format ["Acknowledged. Fire mission is inbound. %2 Rounds fired. ETA %1 secs",round _eta,_roundsMax - _rounds];
-	[[petros,"sideChat",_texto],"commsMP"] call BIS_fnc_MP;
+	_textX = format ["Acknowledged. Fire mission is inbound. %2 Rounds fired. ETA %1 secs",round _eta,_roundsMax - _rounds];
+	[[petros,"sideChat",_textX],"commsMP"] call BIS_fnc_MP;
 	};
 
 if (_typeArty != "BARRAGE") then

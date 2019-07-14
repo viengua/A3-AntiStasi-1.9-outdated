@@ -32,9 +32,9 @@ while {time < _timeOut} do
 						{
 						[_x] spawn
 							{
-							_tipo = _this select 0;
+							_typeX = _this select 0;
 							sleep random 3;
-							playSound3D [(injuredSounds call BIS_fnc_selectRandom),_tipo];
+							playSound3D [(injuredSounds call BIS_fnc_selectRandom),_typeX];
 							};
 						};
 					}

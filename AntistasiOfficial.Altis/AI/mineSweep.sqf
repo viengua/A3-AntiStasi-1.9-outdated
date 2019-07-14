@@ -1,22 +1,22 @@
 if (!isServer and hasInterface) exitWith {};
 
-private ["_costs","_grupo","_unit","_minesX","_tam","_roads","_truckX","_mineX"];
+private ["_costs","_groupX","_unit","_minesX","_radiusX","_roads","_truckX","_mineX"];
 
 _costs = (server getVariable guer_sol_EXP) + ([guer_veh_engineer] call vehiclePrice);
 
 [-1,-1*_costs] remoteExec ["resourcesFIA",2];
 
-_grupo = createGroup side_blue;
+_groupX = createGroup side_blue;
 
-_unit = _grupo createUnit [guer_sol_EXP, getMarkerPos guer_respawn, [], 0, "NONE"];
-_grupo setGroupId ["MineSw"];
+_unit = _groupX createUnit [guer_sol_EXP, getMarkerPos guer_respawn, [], 0, "NONE"];
+_groupX setGroupId ["MineSw"];
 _minesX = [];
 sleep 1;
-_tam = 10;
+_radiusX = 10;
 while {true} do
 	{
-	_roads = getMarkerPos guer_respawn nearRoads _tam;
-	if (count _roads < 1) then {_tam = _tam + 10};
+	_roads = getMarkerPos guer_respawn nearRoads _radiusX;
+	if (count _roads < 1) then {_radiusX = _radiusX + 10};
 	if (count _roads > 0) exitWith {};
 	};
 _road = _roads select 0;
@@ -26,13 +26,13 @@ _truckX = guer_veh_engineer createVehicle _pos;
 
 [_truckX] spawn VEHinit;
 [_unit] spawn AS_fnc_initialiseFIAUnit;
-_grupo addVehicle _truckX;
-_truckX setVariable ["owner",_grupo,true];
+_groupX addVehicle _truckX;
+_truckX setVariable ["owner",_groupX,true];
 _unit assignAsDriver _truckX;
 [_unit] orderGetIn true;
 //_unit setBehaviour "SAFE";
-Slowhand hcSetGroup [_grupo];
-_grupo setVariable ["isHCgroup", true, true];
+Slowhand hcSetGroup [_groupX];
+_groupX setVariable ["isHCgroup", true, true];
 
 while {alive _unit} do
 	{
@@ -43,7 +43,7 @@ while {alive _unit} do
 			{
 			if ((count magazineCargo _truckX > 0) and (_unit distance (getMarkerPos guer_respawn) < 50)) then
 				{
-				[_truckX,caja] remoteExec ["AS_fnc_transferGear",2];
+				[_truckX,boxX] remoteExec ["AS_fnc_transferGear",2];
 				sleep 30;
 				};
 			};

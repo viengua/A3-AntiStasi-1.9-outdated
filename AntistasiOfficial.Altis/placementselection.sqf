@@ -92,11 +92,11 @@ if (visiblemap) then {
 	_direction = getdir Petros;
 	if (isMultiplayer) then {sleep 5};
 	_spawnPos = [getPos fireX, 3, _direction] call BIS_Fnc_relPos;
-	caja setPos _spawnPos;
+	boxX setPos _spawnPos;
 	_direction = _direction + 45;
 	_spawnPos = [getPos fireX, 3, _direction] call BIS_Fnc_relPos;
-	mapa setPos _spawnPos;
-	mapa setDir ([fireX, mapa] call BIS_fnc_dirTo);
+	mapX setPos _spawnPos;
+	mapX setDir ([fireX, mapX] call BIS_fnc_dirTo);
 	_direction = _direction + 45;
 	_spawnPos = [getPos fireX, 3, _direction] call BIS_Fnc_relPos;
 	flagX setPos _spawnPos;
@@ -117,15 +117,15 @@ if (visiblemap) then {
 	};
 
 	if (isMultiplayer) then {
-		caja hideObjectGlobal false;
+		boxX hideObjectGlobal false;
 		vehicleBox hideObjectGlobal false;
-		mapa hideObjectGlobal false;
+		mapX hideObjectGlobal false;
 		fireX hideObjectGlobal false;
 		flagX hideObjectGlobal false;
 	} else {
-		caja hideObject false;
+		boxX hideObject false;
 		vehicleBox hideObject false;
-		mapa hideObject false;
+		mapX hideObject false;
 		fireX hideObject false;
 		flagX hideObject false;
 	};

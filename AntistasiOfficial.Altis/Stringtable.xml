@@ -3,7 +3,7 @@
 	<Package name="MissionNames">
 		<Container name="MissionNames_0">
 			<Key ID="STR_MISSION_NAME_SQM">
-				<Original>[SP/CO]- Antistasi 1.9.1.3d Altis Blufor - 1-0009</Original>
+				<Original>[SP/CO]- Antistasi 1.9.1.3d Altis Blufor - 1-0010</Original>
 			</Key>
 			<Key ID="STR_MISSION_NAME_INITVAR_SQF">
 				<Original>v 1.9.1.3d</Original>

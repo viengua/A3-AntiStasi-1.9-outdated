@@ -129,13 +129,13 @@ if (_type == "air") then {
 
 // ground convoy
 else {
-	_tam = 10;
+	_radiusX = 10;
 	_roads = [];
 
 	while {true} do {
-	_roads = _posOrig nearRoads _tam;
+	_roads = _posOrig nearRoads _radiusX;
 	if (count _roads > 2) exitWith {};
-	_tam = _tam + 10;
+	_radiusX = _radiusX + 10;
 	};
 
 	// first MRAP, escort

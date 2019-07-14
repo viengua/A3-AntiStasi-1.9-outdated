@@ -35386,7 +35386,7 @@ class Mission
 			class Attributes
 			{
 				skill=0.2;
-				name="caja";
+				name="boxX";
 			};
 			id=6082;
 			type="IG_supplyCrate_F";
@@ -35446,7 +35446,7 @@ class Mission
 			class Attributes
 			{
 				skill=0.2;
-				name="mapa";
+				name="mapX";
 			};
 			id=6084;
 			type="MapBoard_altis_F";

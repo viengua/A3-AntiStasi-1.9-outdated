@@ -1111,7 +1111,7 @@ class Mission
 			class Attributes
 			{
 				skill=0.2;
-				name="caja";
+				name="boxX";
 			};
 			id=95;
 			type="B_supplyCrate_F";
@@ -1149,7 +1149,7 @@ class Mission
 			class Attributes
 			{
 				skill=0.2;
-				name="mapa";
+				name="mapX";
 			};
 			id=97;
 			type="MapBoard_altis_F";

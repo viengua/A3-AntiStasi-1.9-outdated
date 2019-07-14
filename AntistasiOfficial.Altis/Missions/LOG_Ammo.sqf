@@ -3,7 +3,7 @@ if (!isServer and hasInterface) exitWith {};
 _tskTitle = "STR_TSK_TD_logAmmo";
 _tskDesc = "STR_TSK_TD_DESC_logAmmo";
 
-private ["_pos","_truckX","_truckCreated","_grupo","_grupo1","_mrk"];
+private ["_pos","_truckX","_truckCreated","_groupX","_groupX1","_mrk"];
 
 _markerX = _this select 0;
 _positionX = getMarkerPos _markerX;
@@ -43,22 +43,22 @@ if (spawner getVariable _markerX) then
 	if (!debug) then {_mrk setMarkerAlphaLocal 0};
 
 	_typeGroup = [infGarrisonSmall, side_green] call AS_fnc_pickGroup;
-	_grupo = [_pos, side_green, _typeGroup] call BIS_Fnc_spawnGroup;
+	_groupX = [_pos, side_green, _typeGroup] call BIS_Fnc_spawnGroup;
 	sleep 1;
 	if (random 10 < 33) then
 		{
-		_perro = _grupo createUnit ["Fin_random_F",_positionX,[],0,"FORM"];
-		[_perro] spawn guardDog;
+		_dog = _groupX createUnit ["Fin_random_F",_positionX,[],0,"FORM"];
+		[_dog] spawn guardDog;
 		};
 
-	[_grupo, _mrk, "SAFE","SPAWNED", "NOVEH2"] execVM "scripts\UPSMON.sqf";
+	[_groupX, _mrk, "SAFE","SPAWNED", "NOVEH2"] execVM "scripts\UPSMON.sqf";
 
-	_grupo1 = [_pos, side_green, _typeGroup] call BIS_Fnc_spawnGroup;
+	_groupX1 = [_pos, side_green, _typeGroup] call BIS_Fnc_spawnGroup;
 	sleep 1;
-	[_grupo1, _mrk, "SAFE","SPAWNED", "NOVEH2"] execVM "scripts\UPSMON.sqf";
+	[_groupX1, _mrk, "SAFE","SPAWNED", "NOVEH2"] execVM "scripts\UPSMON.sqf";
 
-	{[_x] spawn genInitBASES} forEach units _grupo;
-	{[_x] spawn genInitBASES} forEach units _grupo1;
+	{[_x] spawn genInitBASES} forEach units _groupX;
+	{[_x] spawn genInitBASES} forEach units _groupX1;
 
 	waitUntil {sleep 1; (not alive _truckX) or (dateToNumber date > _dateLimitNum) or ({_x getVariable ["BLUFORSpawn",false]} count crew _truckX > 0)};
 
@@ -93,10 +93,10 @@ else
 [1200,_tsk] spawn deleteTaskX;
 if (_truckCreated) then
 	{
-	{deleteVehicle _x} forEach units _grupo;
-	deleteGroup _grupo;
-	{deleteVehicle _x} forEach units _grupo1;
-	deleteGroup _grupo1;
+	{deleteVehicle _x} forEach units _groupX;
+	deleteGroup _groupX;
+	{deleteVehicle _x} forEach units _groupX1;
+	deleteGroup _groupX1;
 	deleteMarker _mrk;
 	waitUntil {sleep 1; not ([300,1,_truckX,"BLUFORSpawn"] call distanceUnits)};
 	deleteVehicle _truckX;

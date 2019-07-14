@@ -1,5 +1,5 @@
 
-private ["_texto","_dataX","_numCiv","_prestigeOPFOR","_prestigeBLUFOR","_supplyLevels","_power","_busy","_sitio","_positionTel","_garrison"];
+private ["_textX","_dataX","_numCiv","_prestigeOPFOR","_prestigeBLUFOR","_supplyLevels","_power","_busy","_siteX","_positionTel","_garrison"];
 positionTel = [];
 
 _popFIA = 0;
@@ -33,110 +33,110 @@ while {visibleMap} do {
 	sleep 1;
 	if (count positionTel > 0) then {
 		_positionTel = positionTel;
-		//_sitio = [markersX, _positionTel] call BIS_Fnc_nearestPosition;
-		_sitio = [markers, _positionTel] call BIS_Fnc_nearestPosition; //Sparker
-		_texto = "Click on a zone";
-		if (_sitio == "FIA_HQ") then {
-			_texto = format ["FIA HQ%1",[_sitio] call AS_fnc_getGarrisonInfo];
+		//_siteX = [markersX, _positionTel] call BIS_Fnc_nearestPosition;
+		_siteX = [markers, _positionTel] call BIS_Fnc_nearestPosition; //Sparker
+		_textX = "Click on a zone";
+		if (_siteX == "FIA_HQ") then {
+			_textX = format ["FIA HQ%1",[_siteX] call AS_fnc_getGarrisonInfo];
 		};
-		if (_sitio in citiesX) then {
-			_dataX = server getVariable _sitio;
+		if (_siteX in citiesX) then {
+			_dataX = server getVariable _siteX;
 
 			_numCiv = _dataX select 0;
 			_prestigeOPFOR = _dataX select 2;
 			_prestigeBLUFOR = _dataX select 3;
 			_supplyLevels = _dataX select 4;
-			_power = [_sitio] call AS_fnc_powercheck;
-			//_texto = format ["%1\n\nPop %2\nAAF Support: %3 %5\nFIA Support: %4 %5",[_sitio,false] call fn_location,_numCiv,_prestigeOPFOR,_prestigeBLUFOR,"%"];
-			_texto = format ["%1\n\nPop %2\nAAF Support: %3 %5\nFIA Support: %4 %5\nFood Supply: %6\nWater Supply: %7\nFuel Supply: %8",[_sitio,false] call AS_fnc_location,_numCiv,_prestigeOPFOR,_prestigeBLUFOR,"%",_supplyLevels select 0, _supplyLevels select 1, _supplyLevels select 2];
-			if (_power) then {_texto = format ["%1\nPowered",_texto]} else {_texto = format ["%1\nNot Powered",_texto]};
-			//if (_sitio in mrkAAF) then {if ([_sitio] call AS_fnc_radiocheck) then {_texto = format ["%1\nRadio Comms ON",_texto]} else {_texto = format ["%1\nRadio Comms OFF",_texto]}};
-		if (_sitio in destroyedCities) then {_texto = format ["%1\nDESTROYED",_texto]};
+			_power = [_siteX] call AS_fnc_powercheck;
+			//_textX = format ["%1\n\nPop %2\nAAF Support: %3 %5\nFIA Support: %4 %5",[_siteX,false] call fn_location,_numCiv,_prestigeOPFOR,_prestigeBLUFOR,"%"];
+			_textX = format ["%1\n\nPop %2\nAAF Support: %3 %5\nFIA Support: %4 %5\nFood Supply: %6\nWater Supply: %7\nFuel Supply: %8",[_siteX,false] call AS_fnc_location,_numCiv,_prestigeOPFOR,_prestigeBLUFOR,"%",_supplyLevels select 0, _supplyLevels select 1, _supplyLevels select 2];
+			if (_power) then {_textX = format ["%1\nPowered",_textX]} else {_textX = format ["%1\nNot Powered",_textX]};
+			//if (_siteX in mrkAAF) then {if ([_siteX] call AS_fnc_radiocheck) then {_textX = format ["%1\nRadio Comms ON",_textX]} else {_textX = format ["%1\nRadio Comms OFF",_textX]}};
+		if (_siteX in destroyedCities) then {_textX = format ["%1\nDESTROYED",_textX]};
 		};
 		/*
-		if ((_sitio in colinas) and (_sitio in mrkAAF)) then
+		if ((_siteX in colinas) and (_siteX in mrkAAF)) then
 			{
-			_texto = "AAF Small Outpost";
+			_textX = "AAF Small Outpost";
 			};
 		*/
-		if (_sitio in airportsX) then	{
-			if (_sitio in mrkAAF) then {
-				_texto = "AAF Airport";
-				_busy = if (dateToNumber date > server getVariable _sitio) then {false} else {true};
-				//if ([_sitio] call AS_fnc_radiocheck) then {_texto = format ["%1\n\nRadio Comms ON",_texto]} else {_texto = format ["%1\n\nRadio Comms OFF",_texto]};
-				if (!_busy) then {_texto = format ["%1\nStatus: Idle",_texto]} else {_texto = format ["%1\nStatus: Busy",_texto]};
+		if (_siteX in airportsX) then	{
+			if (_siteX in mrkAAF) then {
+				_textX = "AAF Airport";
+				_busy = if (dateToNumber date > server getVariable _siteX) then {false} else {true};
+				//if ([_siteX] call AS_fnc_radiocheck) then {_textX = format ["%1\n\nRadio Comms ON",_textX]} else {_textX = format ["%1\n\nRadio Comms OFF",_textX]};
+				if (!_busy) then {_textX = format ["%1\nStatus: Idle",_textX]} else {_textX = format ["%1\nStatus: Busy",_textX]};
 			} else {
-				_texto = format ["FIA Airport%1",[_sitio] call AS_fnc_getGarrisonInfo];
+				_textX = format ["FIA Airport%1",[_siteX] call AS_fnc_getGarrisonInfo];
 			};
 		};
 
-		if (_sitio in power) then {
-			if (_sitio in mrkAAF) then {
-				_texto = "AAF Powerplant";
-				//if ([_sitio] call AS_fnc_radiocheck) then {_texto = format ["%1\n\nRadio Comms ON",_texto]} else {_texto = format ["%1\n\nRadio Comms OFF",_texto]};
+		if (_siteX in power) then {
+			if (_siteX in mrkAAF) then {
+				_textX = "AAF Powerplant";
+				//if ([_siteX] call AS_fnc_radiocheck) then {_textX = format ["%1\n\nRadio Comms ON",_textX]} else {_textX = format ["%1\n\nRadio Comms OFF",_textX]};
 			} else {
-				_texto = format ["FIA Powerplant%1",[_sitio] call AS_fnc_getGarrisonInfo];
+				_textX = format ["FIA Powerplant%1",[_siteX] call AS_fnc_getGarrisonInfo];
 			};
-			if (_sitio in destroyedCities) then {_texto = format ["%1\nDESTROYED",_texto]};
+			if (_siteX in destroyedCities) then {_textX = format ["%1\nDESTROYED",_textX]};
 		};
 
-		if (_sitio in resourcesX) then {
-			if (_sitio in mrkAAF) then {
-				_texto = "AAF Resources";
+		if (_siteX in resourcesX) then {
+			if (_siteX in mrkAAF) then {
+				_textX = "AAF Resources";
 			} else {
-				_texto = format ["FIA Resources%1",[_sitio] call AS_fnc_getGarrisonInfo];
+				_textX = format ["FIA Resources%1",[_siteX] call AS_fnc_getGarrisonInfo];
 			};
-			_power = [_sitio] call AS_fnc_powercheck;
-			if (!_power) then {_texto = format ["%1\n\nNo Powered",_texto]} else {_texto = format ["%1\n\nPowered",_texto]};
-			//if (_sitio in mrkAAF) then {if ([_sitio] call AS_fnc_radiocheck) then {_texto = format ["%1\nRadio Comms ON",_texto]} else {_texto = format ["%1\nRadio Comms OFF",_texto]}};
-			if (_sitio in destroyedCities) then {_texto = format ["%1\nDESTROYED",_texto]};
+			_power = [_siteX] call AS_fnc_powercheck;
+			if (!_power) then {_textX = format ["%1\n\nNo Powered",_textX]} else {_textX = format ["%1\n\nPowered",_textX]};
+			//if (_siteX in mrkAAF) then {if ([_siteX] call AS_fnc_radiocheck) then {_textX = format ["%1\nRadio Comms ON",_textX]} else {_textX = format ["%1\nRadio Comms OFF",_textX]}};
+			if (_siteX in destroyedCities) then {_textX = format ["%1\nDESTROYED",_textX]};
 			};
-		if (_sitio in factories) then {
-			if (_sitio in mrkAAF) then {
-				_texto = "AAF Factory";
+		if (_siteX in factories) then {
+			if (_siteX in mrkAAF) then {
+				_textX = "AAF Factory";
 			} else {
-				_texto = format ["FIA Factory%1",[_sitio] call AS_fnc_getGarrisonInfo];
+				_textX = format ["FIA Factory%1",[_siteX] call AS_fnc_getGarrisonInfo];
 			};
 
-			_power = [_sitio] call AS_fnc_powercheck;
-			if (!_power) then {_texto = format ["%1\n\nNo Powered",_texto]} else {_texto = format ["%1\n\nPowered",_texto]};
-			//if (_sitio in mrkAAF) then {if ([_sitio] call AS_fnc_radiocheck) then {_texto = format ["%1\nRadio Comms ON",_texto]} else {_texto = format ["%1\nRadio Comms OFF",_texto]}};
-			if (_sitio in destroyedCities) then {_texto = format ["%1\nDESTROYED",_texto]};
+			_power = [_siteX] call AS_fnc_powercheck;
+			if (!_power) then {_textX = format ["%1\n\nNo Powered",_textX]} else {_textX = format ["%1\n\nPowered",_textX]};
+			//if (_siteX in mrkAAF) then {if ([_siteX] call AS_fnc_radiocheck) then {_textX = format ["%1\nRadio Comms ON",_textX]} else {_textX = format ["%1\nRadio Comms OFF",_textX]}};
+			if (_siteX in destroyedCities) then {_textX = format ["%1\nDESTROYED",_textX]};
 		};
-		if (_sitio in outposts) then {
-			if (_sitio in mrkAAF) then {
-				_texto = "AAF Grand Outpost";
-				//if ([_sitio] call AS_fnc_radiocheck) then {_texto = format ["%1\n\nRadio Comms ON",_texto]} else {_texto = format ["%1\n\nRadio Comms OFF",_texto]};
+		if (_siteX in outposts) then {
+			if (_siteX in mrkAAF) then {
+				_textX = "AAF Grand Outpost";
+				//if ([_siteX] call AS_fnc_radiocheck) then {_textX = format ["%1\n\nRadio Comms ON",_textX]} else {_textX = format ["%1\n\nRadio Comms OFF",_textX]};
 			}
 			else {
-				_texto = format ["FIA Grand Outpost%1",[_sitio] call AS_fnc_getGarrisonInfo];
+				_textX = format ["FIA Grand Outpost%1",[_siteX] call AS_fnc_getGarrisonInfo];
 			};
 		};
 		/*
-		if ((_sitio in controlsX) and (_sitio in mrkAAF)) then
+		if ((_siteX in controlsX) and (_siteX in mrkAAF)) then
 			{
-			_texto = "AAF Roadblock";
+			_textX = "AAF Roadblock";
 			};
 		*/
-		if (_sitio in seaports) then {
-			if (_sitio in mrkAAF) then {
-				_texto = "AAF Seaport";
-				//if ([_sitio] call AS_fnc_radiocheck) then {_texto = format ["%1\n\nRadio Comms ON",_texto]} else {_texto = format ["%1\n\nRadio Comms OFF",_texto]};
+		if (_siteX in seaports) then {
+			if (_siteX in mrkAAF) then {
+				_textX = "AAF Seaport";
+				//if ([_siteX] call AS_fnc_radiocheck) then {_textX = format ["%1\n\nRadio Comms ON",_textX]} else {_textX = format ["%1\n\nRadio Comms OFF",_textX]};
 			} else {
-				_texto = format ["FIA Seaport%1",[_sitio] call AS_fnc_getGarrisonInfo];
+				_textX = format ["FIA Seaport%1",[_siteX] call AS_fnc_getGarrisonInfo];
 			};
 		};
-		if (_sitio in bases) then {
-			if (_sitio in mrkAAF) then {
-				_texto = "AAF Base";
-				_busy = if (dateToNumber date > server getVariable _sitio) then {false} else {true};
-				if ([_sitio] call AS_fnc_radiocheck) then {_texto = format ["%1\n\nRadio Comms ON",_texto]} else {_texto = format ["%1\n\nRadio Comms OFF",_texto]};
-				if (!_busy) then {_texto = format ["%1\nStatus: Idle",_texto]} else {_texto = format ["%1\nStatus: Busy",_texto]};
+		if (_siteX in bases) then {
+			if (_siteX in mrkAAF) then {
+				_textX = "AAF Base";
+				_busy = if (dateToNumber date > server getVariable _siteX) then {false} else {true};
+				if ([_siteX] call AS_fnc_radiocheck) then {_textX = format ["%1\n\nRadio Comms ON",_textX]} else {_textX = format ["%1\n\nRadio Comms OFF",_textX]};
+				if (!_busy) then {_textX = format ["%1\nStatus: Idle",_textX]} else {_textX = format ["%1\nStatus: Busy",_textX]};
 			} else {
-				_texto = format ["FIA Base%1",[_sitio] call AS_fnc_getGarrisonInfo];
+				_textX = format ["FIA Base%1",[_siteX] call AS_fnc_getGarrisonInfo];
 			};
 		};
-		hint format ["%1",_texto];
+		hint format ["%1",_textX];
 	};
 	positionTel = [];
 };

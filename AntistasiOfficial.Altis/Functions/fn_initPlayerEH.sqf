@@ -130,7 +130,7 @@ player addEventHandler ["GetOutMan",{
 
 // If Jeroen's arsenal isn't active, display unlock requirements
 if !(activeJNA) then {
-	caja addEventHandler ["ContainerOpened", {
+	boxX addEventHandler ["ContainerOpened", {
 		hint format [localize "STR_HINTS_GEN_INIT_MEMBER_GEAR",
 			["weapons"] call AS_fnc_getUnlockRequirement,
 			["magazines"] call AS_fnc_getUnlockRequirement,
@@ -206,7 +206,7 @@ if (isMultiplayer) then {
 
 	// Access restrictions if Jeroen's Arsenal is not active
 	if !(activeJNA) then {
-		caja addEventHandler ["ContainerOpened", {
+		boxX addEventHandler ["ContainerOpened", {
 			params ["_container","_player"];
 		    if !([_player] call isMember) then {
 		    	_player setPos position petros;
@@ -222,7 +222,7 @@ if (isMultiplayer) then {
 	    player addEventHandler ["InventoryOpened", {
 			_control = false;
 			if !([_this select 0] call isMember) then {
-				if ((_this select 1 == caja) OR ((_this select 0) distance caja < 3)) then {
+				if ((_this select 1 == boxX) OR ((_this select 0) distance boxX < 3)) then {
 					_control = true;
 					hint format [localize "STR_HINTS_GEN_INIT_NOTMEMBER_GEAR",
 						["weapons"] call AS_fnc_getUnlockRequirement,

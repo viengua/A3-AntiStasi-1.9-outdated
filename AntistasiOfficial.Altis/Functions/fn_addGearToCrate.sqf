@@ -1,4 +1,4 @@
-params [["_crate",caja],["_weaponArray",[]],["_magazineArray",[]],["_itemArray",[]],["_backpackArray",[]]];
+params [["_crate",boxX],["_weaponArray",[]],["_magazineArray",[]],["_itemArray",[]],["_backpackArray",[]]];
 
 if (count _weaponArray > 0) then {
 	{

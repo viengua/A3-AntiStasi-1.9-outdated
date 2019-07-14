@@ -9,10 +9,10 @@ if (count _this > 0) then
 	}
 else
 	{
-	//_trucksX = nearestObjects [caja, ["LandVehicle"], 20];
-	_trucksX = nearestObjects [caja, ["LandVehicle", "ReammoBox_F", "Box_IED_Exp_F", "Land_PlasticCase_01_medium_F", "Box_Syndicate_Wps_F"], 20]; //To enable jeroen's loading script. Sparker.
+	//_trucksX = nearestObjects [boxX, ["LandVehicle"], 20];
+	_trucksX = nearestObjects [boxX, ["LandVehicle", "ReammoBox_F", "Box_IED_Exp_F", "Land_PlasticCase_01_medium_F", "Box_Syndicate_Wps_F"], 20]; //To enable jeroen's loading script. Sparker.
 	_trucksX = _trucksX select {not (_x isKindOf "StaticWeapon")};
-	_trucksX = _trucksX - [caja];
+	_trucksX = _trucksX - [boxX];
 	_trucksX = _trucksX - [vehicleBox]; //To enable jeroen's unloading script. Sparker.
 	if (count _trucksX < 1) then {_truckX = vehicleBox} else {_truckX = _trucksX select 0};
 	};
@@ -22,7 +22,7 @@ if (isNull _truckX) exitWith {};
 
 if (server getVariable ["lockTransfer",false]) exitWith {
 	if (isMultiplayer) then {
-		{if (_x distance caja < 20) then {
+		{if (_x distance boxX < 20) then {
 			[petros,"hint","Currently unloading another ammobox. Please wait a few seconds."] remoteExec ["commsMP",_x];
 		};
 		} forEach playableUnits;
@@ -51,8 +51,8 @@ if (count _todo < 1) exitWith
 	};
 
 server setVariable ["lockTransfer", true, true];
-if (isMultiplayer) then {{if (_x distance caja < 20) then {[petros,"hint","Unloading ammobox..."] remoteExec ["commsMP",_x]}} forEach playableUnits} else {hint "Unloading ammobox..."};
-if (count _this == 2) then {[_truckX,caja,true] remoteExec ["AS_fnc_transferGear",2]} else {[_truckX,caja] remoteExec ["AS_fnc_transferGear",2]};
+if (isMultiplayer) then {{if (_x distance boxX < 20) then {[petros,"hint","Unloading ammobox..."] remoteExec ["commsMP",_x]}} forEach playableUnits} else {hint "Unloading ammobox..."};
+if (count _this == 2) then {[_truckX,boxX,true] remoteExec ["AS_fnc_transferGear",2]} else {[_truckX,boxX] remoteExec ["AS_fnc_transferGear",2]};
 [] spawn {
 	sleep 5;
 	server setVariable ["lockTransfer", false, true];

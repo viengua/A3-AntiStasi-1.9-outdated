@@ -4,15 +4,15 @@ _veh = _this select 0;
 if (!alive _veh) exitWith {};
 _puertas = [];
 
-_tipo = typeOf _veh;
+_typeX = typeOf _veh;
 _helis = heli_unarmed;
 _helis set [(count heli_unarmed - 1), nil];
 call {
-	if (_tipo in standardMRAP) exitWith {_puertas = ["Door_LF","Door_RF"]};
-	if (_tipo in _helis) exitWith {_puertas = ["CargoRamp_Open","Door_Back_L","Door_Back_R"]};
-	if (_tipo in bluHeliTS) exitWith {_puertas = ["DoorL_Front_Open","DoorR_Front_Open","DoorL_Back_Open","DoorR_Back_Open"]};
-	if (_tipo in bluHeliDis) exitWith {_puertas = ["Door_L","Door_R"]};
-	if (_tipo in bluHeliRope) exitWith {_puertas = ["Door_rear_source"]};
+	if (_typeX in standardMRAP) exitWith {_puertas = ["Door_LF","Door_RF"]};
+	if (_typeX in _helis) exitWith {_puertas = ["CargoRamp_Open","Door_Back_L","Door_Back_R"]};
+	if (_typeX in bluHeliTS) exitWith {_puertas = ["DoorL_Front_Open","DoorR_Front_Open","DoorL_Back_Open","DoorR_Back_Open"]};
+	if (_typeX in bluHeliDis) exitWith {_puertas = ["Door_L","Door_R"]};
+	if (_typeX in bluHeliRope) exitWith {_puertas = ["Door_rear_source"]};
 };
 
 if (count _puertas == 0) exitWith {};

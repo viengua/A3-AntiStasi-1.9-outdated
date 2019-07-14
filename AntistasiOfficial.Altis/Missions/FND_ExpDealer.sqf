@@ -96,13 +96,13 @@ if (random 8 < 1) then {
 
 	_posbase = getMarkerPos _base;
 
-	_tam = 100;
+	_radiusX = 100;
 
 	while {true} do
 		{
-		_roads = _posbase nearRoads _tam;
+		_roads = _posbase nearRoads _radiusX;
 		if (count _roads > 0) exitWith {};
-		_tam = _tam + 50;
+		_radiusX = _radiusX + 50;
 		};
 
 	_road = _roads select 0;
@@ -121,17 +121,17 @@ if (random 8 < 1) then {
 	sleep 1;
 
 	_typeGroup = [infSquad, side_green] call AS_fnc_pickGroup;
-	_grupo = [_posbase, side_green, _typeGroup] call BIS_Fnc_spawnGroup;
+	_groupX = [_posbase, side_green, _typeGroup] call BIS_Fnc_spawnGroup;
 
-	{_x assignAsCargo _veh; _x moveInCargo _veh; _soldiers = _soldiers + [_x]; [_x] spawn genInit} forEach units _grupo;
-	_groups = _groups + [_grupo];
+	{_x assignAsCargo _veh; _x moveInCargo _veh; _soldiers = _soldiers + [_x]; [_x] spawn genInit} forEach units _groupX;
+	_groups = _groups + [_groupX];
 
 	//[_veh] spawn smokeCover;
 
 	_Vwp0 = _groupVeh addWaypoint [_posCmp, 0];
 	_Vwp0 setWaypointType "TR UNLOAD";
 	_Vwp0 setWaypointBehaviour "SAFE";
-	_Gwp0 = _grupo addWaypoint [_posCmp, 0];
+	_Gwp0 = _groupX addWaypoint [_posCmp, 0];
 	_Gwp0 setWaypointType "GETOUT";
 	_Vwp0 synchronizeWaypoint [_Gwp0];
 };

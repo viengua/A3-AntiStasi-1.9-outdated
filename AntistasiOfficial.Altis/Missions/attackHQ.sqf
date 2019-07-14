@@ -45,11 +45,11 @@ for "_i" from 0 to (round random 2) do
 
 	{_x setBehaviour "CARELESS";} forEach units _groupHeli;
 	_typeGroup = [opGroup_SpecOps, side_red] call AS_fnc_pickGroup;
-	_grupo = [_pos, side_red, _typeGroup] call BIS_Fnc_spawnGroup;
-	{_x assignAsCargo _heli; _x moveInCargo _heli; _soldiers = _soldiers + [_x]; [_x] spawn CSATinit} forEach units _grupo;
-	_groups = _groups + [_grupo];
+	_groupX = [_pos, side_red, _typeGroup] call BIS_Fnc_spawnGroup;
+	{_x assignAsCargo _heli; _x moveInCargo _heli; _soldiers = _soldiers + [_x]; [_x] spawn CSATinit} forEach units _groupX;
+	_groups = _groups + [_groupX];
 	[_heli,"CSAT Air Transport"] spawn inmuneConvoy;
-	[_heli,_grupo,_positionX,_pos,_groupHeli] spawn fastropeCSAT;
+	[_heli,_groupX,_positionX,_pos,_groupHeli] spawn fastropeCSAT;
 	sleep 10;
 	};
 

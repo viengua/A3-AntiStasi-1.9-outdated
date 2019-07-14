@@ -2,7 +2,7 @@ if (!isServer and hasInterface) exitWith {};
 
 if(true)exitWith{};//disabled because its to slow
 
-private ["_markerX","_destinationX","_originX","_groups","_soldiers","_vehiclesX","_size","_grupo","_truckX","_tam","_roads","_road","_pos"];
+private ["_markerX","_destinationX","_originX","_groups","_soldiers","_vehiclesX","_size","_groupX","_truckX","_radiusX","_roads","_road","_pos"];
 
 _markerX = _this select 0;
 if (not(_markerX in smallCAmrk)) exitWith {};
@@ -31,11 +31,11 @@ while {(_size > 0)} do
 	{
 	if (diag_fps > minimoFPS) then
 		{
-		_tam = 10;
+		_radiusX = 10;
 		while {true} do
 			{
-			_roads = _originX nearRoads _tam;
-			if (count _roads < 1) then {_tam = _tam + 10};
+			_roads = _originX nearRoads _radiusX;
+			if (count _roads < 1) then {_radiusX = _radiusX + 10};
 			if (count _roads > 0) exitWith {};
 			};
 		_road = _roads select 0;
@@ -65,9 +65,9 @@ while {(_size > 0)} do
 				{
 				_typeGroup = guer_grp_squad;
 				if (_typeVehX == guer_veh_offroad) then {_typeGroup = [guer_grp_team,guer_grp_AT] call BIS_fnc_selectRandom};
-				_grupo = [_originX, side_blue, ([_typeGroup, "guer"] call AS_fnc_pickGroup)] call BIS_Fnc_spawnGroup;
-				{[_x] call AS_fnc_initialiseFIAUnit; [_x] join _groupVeh; _x moveInCargo _veh; _soldiers pushBack _x} forEach units _grupo;
-				deleteGroup _grupo;
+				_groupX = [_originX, side_blue, ([_typeGroup, "guer"] call AS_fnc_pickGroup)] call BIS_Fnc_spawnGroup;
+				{[_x] call AS_fnc_initialiseFIAUnit; [_x] join _groupVeh; _x moveInCargo _veh; _soldiers pushBack _x} forEach units _groupX;
+				deleteGroup _groupX;
 				};
 			//[_markerX,_groupVeh] spawn attackDrill;
 			_Vwp0 = _groupVeh addWaypoint [_destinationX, 0];

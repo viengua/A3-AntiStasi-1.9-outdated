@@ -24,16 +24,16 @@ _itemCounts = _itemArray select 1;
 _tempArray = [];
 switch (_type) do {
 	case "weapons": {
-		_tempArray = weaponCargo caja;
+		_tempArray = weaponCargo boxX;
 	};
 	case "magazines": {
-		_tempArray = magazineCargo caja;
+		_tempArray = magazineCargo boxX;
 	};
 	case "items": {
-		_tempArray = itemCargo caja;
+		_tempArray = itemCargo boxX;
 	};
 	case "backpacks": {
-		_tempArray = backpackCargo caja;
+		_tempArray = backpackCargo boxX;
 	};
 	default {
 		_tempArray = [];
@@ -52,20 +52,20 @@ for "_i" from 0 to (count _items - 1) do {
 
 switch (_type) do {
 	case "weapons": {
-		clearWeaponCargoGlobal caja;
-		{caja addWeaponCargoGlobal[_x,1]} forEach _tempArray;
+		clearWeaponCargoGlobal boxX;
+		{boxX addWeaponCargoGlobal[_x,1]} forEach _tempArray;
 	};
 	case "magazines": {
-		clearMagazineCargoGlobal caja;
-		{caja addMagazineCargoGlobal[_x,1]} forEach _tempArray;
+		clearMagazineCargoGlobal boxX;
+		{boxX addMagazineCargoGlobal[_x,1]} forEach _tempArray;
 	};
 	case "items": {
-		clearItemCargoGlobal caja;
-		{caja addItemCargoGlobal[_x,1]} forEach _tempArray;
+		clearItemCargoGlobal boxX;
+		{boxX addItemCargoGlobal[_x,1]} forEach _tempArray;
 	};
 	case "backpacks": {
-		clearBackpackCargoGlobal caja;
-		{caja addBackpackCargoGlobal[_x,1]} forEach _tempArray;
+		clearBackpackCargoGlobal boxX;
+		{boxX addBackpackCargoGlobal[_x,1]} forEach _tempArray;
 	};
 	default {
 		diag_log "Maintenance -- failure in AS_fnc_removeGear";

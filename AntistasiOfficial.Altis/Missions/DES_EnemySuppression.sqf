@@ -3,7 +3,7 @@ if (!isServer and hasInterface) exitWith {};
 _tskTitle = "STR_TSK_TD_DESSuppression";
 _tskDesc  = "STR_TSK_TD_DESC_DESSuppression";
 
-private ["_poscrash", "_posbase", "_mrkFinal", "_mrkTarget", "_typeVehX", "_churches", "_vehiclesX", "_soldiers", "_groups", "_unit", "_roads", "_road", "_vehicle", "_veh", "_typeGroup", "_tsk", "_humo", "_emitterArray", "_poschurch", "_grupo", "_missionchurch", "_posmissionchurch", "_group1", "_MRAP"];
+private ["_poscrash", "_posbase", "_mrkFinal", "_mrkTarget", "_typeVehX", "_churches", "_vehiclesX", "_soldiers", "_groups", "_unit", "_roads", "_road", "_vehicle", "_veh", "_typeGroup", "_tsk", "_smokeX", "_emitterArray", "_poschurch", "_groupX", "_missionchurch", "_posmissionchurch", "_group1", "_MRAP"];
 
 
 _markerX   = _this select 0;
@@ -83,7 +83,7 @@ while {true} do {
 			_groups = _groups + [_group1];
 
 
-			private _grupo = createGroup side_green;
+			private _groupX = createGroup side_green;
 
 			_MRAP = "";
 			{if (_x in standardMRAP) exitWith {_MRAP = _x};
@@ -96,16 +96,16 @@ while {true} do {
 			_veh setDir random 360;
 			[_veh] spawn genVEHinit;
 
-			_unit = ( [_posmissionchurch, 0, sol_RFL, _grupo] call bis_fnc_spawnvehicle)select 0;
+			_unit = ( [_posmissionchurch, 0, sol_RFL, _groupX] call bis_fnc_spawnvehicle)select 0;
 			_unit moveInGunner _veh;
-			_unit = ( [_posmissionchurch, 0, sol_RFL, _grupo] call bis_fnc_spawnvehicle)select 0;
+			_unit = ( [_posmissionchurch, 0, sol_RFL, _groupX] call bis_fnc_spawnvehicle)select 0;
 			_unit moveInCommander _veh;
-			_unit = ( [_posmissionchurch, 0, sol_RFL, _grupo] call bis_fnc_spawnvehicle)select 0;
+			_unit = ( [_posmissionchurch, 0, sol_RFL, _groupX] call bis_fnc_spawnvehicle)select 0;
 			_unit moveInDriver _veh;
-			_groups = _groups + [_grupo];
+			_groups = _groups + [_groupX];
 
 			{ [_x] spawn genInit;
-			  _soldiers = _soldiers + [_x]} forEach units _grupo;
+			  _soldiers = _soldiers + [_x]} forEach units _groupX;
 		} else {
 			_typeGroup = [opGroup_Squad, side_red] call AS_fnc_pickGroup;
 			_group1	   = [_posmissionchurch, side_red, _typeGroup] call BIS_Fnc_spawnGroup;
@@ -118,7 +118,7 @@ while {true} do {
 			_groups = _groups + [_group1];
 
 
-			private _grupo = createGroup side_red;
+			private _groupX = createGroup side_red;
 
 
 			_veh = createVehicle [selectRandom opIFV, _clearspot, [], 0, "NONE"];
@@ -126,18 +126,18 @@ while {true} do {
 			_veh setDir random 360;
 
 
-			_unit = ( [_posmissionchurch, 0, opI_CREW, _grupo] call bis_fnc_spawnvehicle)select 0;
+			_unit = ( [_posmissionchurch, 0, opI_CREW, _groupX] call bis_fnc_spawnvehicle)select 0;
 			_unit moveInGunner _veh;
-			_unit = ( [_posmissionchurch, 0, opI_CREW, _grupo] call bis_fnc_spawnvehicle)select 0;
+			_unit = ( [_posmissionchurch, 0, opI_CREW, _groupX] call bis_fnc_spawnvehicle)select 0;
 			_unit moveInCommander _veh;
-			_unit = ( [_posmissionchurch, 0, opI_CREW, _grupo] call bis_fnc_spawnvehicle)select 0;
+			_unit = ( [_posmissionchurch, 0, opI_CREW, _groupX] call bis_fnc_spawnvehicle)select 0;
 			_unit moveInDriver _veh;
-				_wp0 = _grupo addWaypoint [_clearspot, 50];
+				_wp0 = _groupX addWaypoint [_clearspot, 50];
 				_wp0 setWaypointType "HOLD";
-			_groups = _groups + [_grupo];
+			_groups = _groups + [_groupX];
 
 			{ [_x] spawn CSATinit;
-			  _soldiers = _soldiers + [_x]} forEach units _grupo;
+			  _soldiers = _soldiers + [_x]} forEach units _groupX;
 		};
 
 

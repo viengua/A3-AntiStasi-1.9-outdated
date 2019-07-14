@@ -48,12 +48,12 @@ petros addMPEventHandler ["mpkilled", {
                 } else {
                     for "_i" from 0 to round random 3 do {
                         if (count unlockedWeapons > 4) then {
-                            _cosa = selectRandom unlockedWeapons;
-                            diag_log format ["weapon: %1", _cosa];
-                            unlockedWeapons = unlockedWeapons - [_cosa];
-                            lockedWeapons = lockedWeapons + [_cosa];
-                            if (_cosa in unlockedRifles) then {unlockedRifles = unlockedRifles - [_cosa]};
-                            _mag = (getArray (configFile / "CfgWeapons" / _cosa / "magazines") select 0);
+                            _thingX = selectRandom unlockedWeapons;
+                            diag_log format ["weapon: %1", _thingX];
+                            unlockedWeapons = unlockedWeapons - [_thingX];
+                            lockedWeapons = lockedWeapons + [_thingX];
+                            if (_thingX in unlockedRifles) then {unlockedRifles = unlockedRifles - [_thingX]};
+                            _mag = (getArray (configFile / "CfgWeapons" / _thingX / "magazines") select 0);
                             if !(isNil "_mag") then {unlockedMagazines = unlockedMagazines - [_mag]; diag_log format ["weapon/mag: %1", _mag];};
                         };
                      };
@@ -61,27 +61,27 @@ petros addMPEventHandler ["mpkilled", {
 
                     if (count unlockedMagazines > 6) then {
                         for "_i" from 0 to round random 2 do {
-                            _cosa = selectRandom unlockedMagazines;
-                            if !(isNil "_cosa") then {
-                                diag_log format ["mag: %1", _cosa];
-                                unlockedMagazines = unlockedMagazines - [_cosa];
+                            _thingX = selectRandom unlockedMagazines;
+                            if !(isNil "_thingX") then {
+                                diag_log format ["mag: %1", _thingX];
+                                unlockedMagazines = unlockedMagazines - [_thingX];
                             };
                         };
                     };
                     publicVariable "unlockedMagazines";
 
                     for "_i" from 0 to round random 5 do {
-                        _cosa = selectRandom (unlockedItems - ["ItemMap","ItemWatch","ItemCompass","FirstAidKit","Medikit","ToolKit","ItemRadio"] - aceItems - aceAdvMedItems);
-                        diag_log format ["item: %1", _cosa];
-                        unlockedItems = unlockedItems - [_cosa];
-                        if (_cosa in unlockedOptics) then {unlockedOptics = unlockedOptics - [_cosa]; publicVariable "unlockedOptics"};
+                        _thingX = selectRandom (unlockedItems - ["ItemMap","ItemWatch","ItemCompass","FirstAidKit","Medikit","ToolKit","ItemRadio"] - aceItems - aceAdvMedItems);
+                        diag_log format ["item: %1", _thingX];
+                        unlockedItems = unlockedItems - [_thingX];
+                        if (_thingX in unlockedOptics) then {unlockedOptics = unlockedOptics - [_thingX]; publicVariable "unlockedOptics"};
                     };
                     publicVariable "unlockedItems";
 
-                    clearMagazineCargoGlobal caja;
-                    clearWeaponCargoGlobal caja;
-                    clearItemCargoGlobal caja;
-                    clearBackpackCargoGlobal caja;
+                    clearMagazineCargoGlobal boxX;
+                    clearWeaponCargoGlobal boxX;
+                    clearItemCargoGlobal boxX;
+                    clearBackpackCargoGlobal boxX;
 
                     [] remoteExec ["AS_fnc_MAINT_arsenal", 2];
                 };

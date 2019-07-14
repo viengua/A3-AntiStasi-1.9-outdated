@@ -47,19 +47,19 @@ switch (_t) do {
 		if (count _aRifles == 0) exitWith {_noGear = true};
 		if (_m == 1000) exitWith {
 			for "_i" from 1 to 3 do {
-				_cosa = _aRifles call BIS_Fnc_selectRandom;
+				_thingX = _aRifles call BIS_Fnc_selectRandom;
 				_num = 1 + (floor random 2);
-				expCrate addItemCargoGlobal [_cosa, _num];
-				_magazines = getArray (configFile / "CfgWeapons" / _cosa / "magazines");
+				expCrate addItemCargoGlobal [_thingX, _num];
+				_magazines = getArray (configFile / "CfgWeapons" / _thingX / "magazines");
 				expCrate addMagazineCargoGlobal [_magazines select 0, _num * 4];
 			};
 		};
 		if (_m == 2500) exitWith {
 			for "_i" from 1 to 8 do {
-				_cosa = _aRifles call BIS_Fnc_selectRandom;
+				_thingX = _aRifles call BIS_Fnc_selectRandom;
 				_num = 2 + (floor random 4);
-				expCrate addItemCargoGlobal [_cosa, _num];
-				_magazines = getArray (configFile / "CfgWeapons" / _cosa / "magazines");
+				expCrate addItemCargoGlobal [_thingX, _num];
+				_magazines = getArray (configFile / "CfgWeapons" / _thingX / "magazines");
 				expCrate addMagazineCargoGlobal [_magazines select 0, _num * 6];
 			};
 		};
@@ -70,22 +70,22 @@ switch (_t) do {
 		if (count _mGuns == 0) exitWith {_noGear = true};
 		if (_m == 1000) exitWith {
 			for "_i" from 1 to 3 do {
-				_cosa = _mGuns call BIS_Fnc_selectRandom;
-				_magazines = getArray (configFile / "CfgWeapons" / _cosa / "magazines");
+				_thingX = _mGuns call BIS_Fnc_selectRandom;
+				_magazines = getArray (configFile / "CfgWeapons" / _thingX / "magazines");
 				expCrate addMagazineCargoGlobal [_magazines select 0, 3];
 				expCrate addMagazineCargoGlobal [selectRandom _magazines, 2];
 				_num = 1 + (floor random 2);
-				expCrate addItemCargoGlobal [_cosa, _num];
+				expCrate addItemCargoGlobal [_thingX, _num];
 			};
 		};
 		if (_m == 2500) exitWith {
 			for "_i" from 1 to 8 do {
-				_cosa = _mGuns call BIS_Fnc_selectRandom;
-				_magazines = getArray (configFile / "CfgWeapons" / _cosa / "magazines");
+				_thingX = _mGuns call BIS_Fnc_selectRandom;
+				_magazines = getArray (configFile / "CfgWeapons" / _thingX / "magazines");
 				expCrate addMagazineCargoGlobal [_magazines select 0, 4];
 				expCrate addMagazineCargoGlobal [selectRandom _magazines, 3];
 				_num = 2 + (floor random 4);
-				expCrate addItemCargoGlobal [_cosa, _num];
+				expCrate addItemCargoGlobal [_thingX, _num];
 			};
 		};
 	};
@@ -95,19 +95,19 @@ switch (_t) do {
 		if (count _sRifles == 0) exitWith {_noGear = true};
 		if (_m == 1000) exitWith {
 			for "_i" from 1 to 3 do {
-				_cosa = _sRifles call BIS_Fnc_selectRandom;
+				_thingX = _sRifles call BIS_Fnc_selectRandom;
 				_num = 1 + (floor random 2);
-				expCrate addItemCargoGlobal [_cosa, _num];
-				_magazines = getArray (configFile / "CfgWeapons" / _cosa / "magazines");
+				expCrate addItemCargoGlobal [_thingX, _num];
+				_magazines = getArray (configFile / "CfgWeapons" / _thingX / "magazines");
 				expCrate addMagazineCargoGlobal [_magazines select 0, _num * 4];
 			};
 		};
 		if (_m == 2500) exitWith {
 			for "_i" from 1 to 8 do {
-				_cosa = _sRifles call BIS_Fnc_selectRandom;
+				_thingX = _sRifles call BIS_Fnc_selectRandom;
 				_num = 2 + (floor random 4);
-				expCrate addItemCargoGlobal [_cosa, _num];
-				_magazines = getArray (configFile / "CfgWeapons" / _cosa / "magazines");
+				expCrate addItemCargoGlobal [_thingX, _num];
+				_magazines = getArray (configFile / "CfgWeapons" / _thingX / "magazines");
 				expCrate addMagazineCargoGlobal [_magazines select 0, _num * 6];
 			};
 		};
@@ -119,19 +119,19 @@ switch (_t) do {
 		if (count _launchers == 0) exitWith {_noGear = true};
 		if (_m == 1000) exitWith {
 			for "_i" from 1 to 3 do {
-				_cosa = _launchers call BIS_Fnc_selectRandom;
+				_thingX = _launchers call BIS_Fnc_selectRandom;
 				_num = 1 + (floor random 2);
-				expCrate addItemCargoGlobal [_cosa, _num];
-				_magazines = getArray (configFile / "CfgWeapons" / _cosa / "magazines");
+				expCrate addItemCargoGlobal [_thingX, _num];
+				_magazines = getArray (configFile / "CfgWeapons" / _thingX / "magazines");
 				expCrate addMagazineCargoGlobal [_magazines select 0, _num * 4];
 			};
 		};
 		if (_m == 2500) exitWith {
 			for "_i" from 1 to 8 do {
-				_cosa = _launchers call BIS_Fnc_selectRandom;
+				_thingX = _launchers call BIS_Fnc_selectRandom;
 				_num = 2 + (floor random 4);
-				expCrate addItemCargoGlobal [_cosa, _num];
-				_magazines = getArray (configFile / "CfgWeapons" / _cosa / "magazines");
+				expCrate addItemCargoGlobal [_thingX, _num];
+				_magazines = getArray (configFile / "CfgWeapons" / _thingX / "magazines");
 				expCrate addMagazineCargoGlobal [_magazines select 0, _num * 6];
 			};
 		};
@@ -142,19 +142,19 @@ switch (_t) do {
 		if (count _pistols == 0) exitWith {_noGear = true};
 		if (_m == 1000) exitWith {
 			for "_i" from 1 to 3 do {
-				_cosa = _pistols call BIS_Fnc_selectRandom;
+				_thingX = _pistols call BIS_Fnc_selectRandom;
 				_num = 1 + (floor random 2);
-				expCrate addItemCargoGlobal [_cosa, _num];
-				_magazines = getArray (configFile / "CfgWeapons" / _cosa / "magazines");
+				expCrate addItemCargoGlobal [_thingX, _num];
+				_magazines = getArray (configFile / "CfgWeapons" / _thingX / "magazines");
 				expCrate addMagazineCargoGlobal [_magazines select 0, _num * 4];
 			};
 		};
 		if (_m == 2500) exitWith {
 			for "_i" from 1 to 8 do {
-				_cosa = _pistols call BIS_Fnc_selectRandom;
+				_thingX = _pistols call BIS_Fnc_selectRandom;
 				_num = 2 + (floor random 4);
-				expCrate addItemCargoGlobal [_cosa, _num];
-				_magazines = getArray (configFile / "CfgWeapons" / _cosa / "magazines");
+				expCrate addItemCargoGlobal [_thingX, _num];
+				_magazines = getArray (configFile / "CfgWeapons" / _thingX / "magazines");
 				expCrate addMagazineCargoGlobal [_magazines select 0, _num * 6];
 			};
 		};
@@ -164,19 +164,19 @@ switch (_t) do {
 		if (count _weapons == 0) exitWith {_noGear = true};
 		if (_m == 1000) exitWith {
 			for "_i" from 1 to 3 do {
-				_cosa = _weapons call BIS_Fnc_selectRandom;
+				_thingX = _weapons call BIS_Fnc_selectRandom;
 				_num = 1 + (floor random 2);
-				expCrate addItemCargoGlobal [_cosa, _num];
-				_magazines = getArray (configFile / "CfgWeapons" / _cosa / "magazines");
+				expCrate addItemCargoGlobal [_thingX, _num];
+				_magazines = getArray (configFile / "CfgWeapons" / _thingX / "magazines");
 				expCrate addMagazineCargoGlobal [_magazines select 0, _num * 4];
 			};
 		};
 		if (_m == 2500) exitWith {
 			for "_i" from 1 to 8 do {
-				_cosa = _weapons call BIS_Fnc_selectRandom;
+				_thingX = _weapons call BIS_Fnc_selectRandom;
 				_num = 2 + (floor random 4);
-				expCrate addItemCargoGlobal [_cosa, _num];
-				_magazines = getArray (configFile / "CfgWeapons" / _cosa / "magazines");
+				expCrate addItemCargoGlobal [_thingX, _num];
+				_magazines = getArray (configFile / "CfgWeapons" / _thingX / "magazines");
 				expCrate addMagazineCargoGlobal [_magazines select 0, _num * 6];
 			};
 		};
@@ -185,16 +185,16 @@ switch (_t) do {
 		if (count _accessories == 0) exitWith {_noGear = true};
 		if (_m == 500) exitWith {
 			for "_i" from 1 to 2 do {
-				_cosa = _accessories call BIS_Fnc_selectRandom;
+				_thingX = _accessories call BIS_Fnc_selectRandom;
 				_num = 1;
-				expCrate addItemCargoGlobal [_cosa, _num];
+				expCrate addItemCargoGlobal [_thingX, _num];
 			};
 		};
 		if (_m == 5000) exitWith {
 			for "_i" from 1 to 10 do {
-				_cosa = _accessories call BIS_Fnc_selectRandom;
+				_thingX = _accessories call BIS_Fnc_selectRandom;
 				_num = 1 + (floor random 2);
-				expCrate addItemCargoGlobal [_cosa, _num];
+				expCrate addItemCargoGlobal [_thingX, _num];
 			};
 		};
 	};

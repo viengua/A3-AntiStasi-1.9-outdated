@@ -90,8 +90,8 @@ propTruck setVariable ["destinationX",_targetName,true];
 propTruck addEventHandler ["GetIn",
 	{
 	if (_this select 1 == "driver") then {
-		_texto = format ["Bring this gear to %1",(_this select 0) getVariable "destinationX"];
-		_texto remoteExecCall ["hint",_this select 2];
+		_textX = format ["Bring this gear to %1",(_this select 0) getVariable "destinationX"];
+		_textX remoteExecCall ["hint",_this select 2];
 	};
 	}
 ];

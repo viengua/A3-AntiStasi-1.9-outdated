@@ -1,7 +1,7 @@
-private ["_tipo","_positionTel","_nearX","_garrison","_costs","_hr","_size"];
-_tipo = _this select 0;
+private ["_typeX","_positionTel","_nearX","_garrison","_costs","_hr","_size"];
+_typeX = _this select 0;
 
-if (_tipo == "add") then {hint "Select a zone to add garrisoned troops"} else {hint "Select a zone to remove it's Garrison"};
+if (_typeX == "add") then {hint "Select a zone to add garrisoned troops"} else {hint "Select a zone to remove it's Garrison"};
 
 openMap true;
 positionTel = [];
@@ -27,7 +27,7 @@ if ((_nearX in outpostsFIA) or (_nearX in citiesX)) exitWith {hint "You cannot m
 
 _garrison = garrison getVariable [_nearX,[]];
 
-if (_tipo == "rem") then
+if (_typeX == "rem") then
 	{
 	if (count _garrison == 0) exitWith {hint "The place has no garrisoned troops to remove"; CreateDialog "garrison_menu";};
 	_costs = 0;

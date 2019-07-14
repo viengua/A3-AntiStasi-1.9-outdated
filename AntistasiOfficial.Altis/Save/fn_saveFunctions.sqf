@@ -206,9 +206,9 @@ fn_setData = {
 				if (activeJNA) exitWith {};
 				// XLA fixed arsenal
 				if (activeXLA) then {
-					[caja,unlockedWeapons,true] call XLA_fnc_addVirtualWeaponCargo;
+					[boxX,unlockedWeapons,true] call XLA_fnc_addVirtualWeaponCargo;
 				} else {
-					[caja,unlockedWeapons,true] call BIS_fnc_addVirtualWeaponCargo;
+					[boxX,unlockedWeapons,true] call BIS_fnc_addVirtualWeaponCargo;
 				};
 			};
 			if(_varName == 'unlockedBackpacks') exitWith {
@@ -217,9 +217,9 @@ fn_setData = {
 				if (activeJNA) exitWith {};
 				// XLA fixed arsenal
 				if (activeXLA) then {
-					[caja,unlockedBackpacks,true] call XLA_fnc_addVirtualBackpackCargo;
+					[boxX,unlockedBackpacks,true] call XLA_fnc_addVirtualBackpackCargo;
 				} else {
-					[caja,unlockedBackpacks,true] call BIS_fnc_addVirtualBackpackCargo;
+					[boxX,unlockedBackpacks,true] call BIS_fnc_addVirtualBackpackCargo;
 				};
 			};
 			if(_varName == 'unlockedItems') exitWith {
@@ -227,9 +227,9 @@ fn_setData = {
 				if (activeJNA) exitWith {};
 				// XLA fixed arsenal
 				if (activeXLA) then {
-					[caja,unlockedItems,true] call XLA_fnc_addVirtualItemCargo;
+					[boxX,unlockedItems,true] call XLA_fnc_addVirtualItemCargo;
 				} else {
-					[caja,unlockedItems,true] call BIS_fnc_addVirtualItemCargo;
+					[boxX,unlockedItems,true] call BIS_fnc_addVirtualItemCargo;
 				};
 				{
 				if (_x in unlockedItems) then {unlockedOptics pushBack _x};
@@ -240,9 +240,9 @@ fn_setData = {
 				if (activeJNA) exitWith {};
 				// XLA fixed arsenal
 				if (activeXLA) then {
-					[caja,unlockedMagazines,true] call XLA_fnc_addVirtualMagazineCargo;
+					[boxX,unlockedMagazines,true] call XLA_fnc_addVirtualMagazineCargo;
 				} else {
-					[caja,unlockedMagazines,true] call BIS_fnc_addVirtualMagazineCargo;
+					[boxX,unlockedMagazines,true] call BIS_fnc_addVirtualMagazineCargo;
 				};
 			};
 			if(_varName == 'prestigeNATO') exitWith {server setVariable ["prestigeNATO",_varValue,true]};
@@ -389,30 +389,30 @@ fn_setData = {
 				for "_i" from 0 to (count _varValue - 1) do {
 				    _posAnt = _varValue select _i;
 				    _mrk = [mrkAntennas, _posAnt] call BIS_fnc_nearestPosition;
-				    _antena = [antennas,_mrk] call BIS_fnc_nearestPosition;
-				    antennas = antennas - [_antena];
-				    _antena removeAllEventHandlers "Killed";
+				    _antenna = [antennas,_mrk] call BIS_fnc_nearestPosition;
+				    antennas = antennas - [_antenna];
+				    _antenna removeAllEventHandlers "Killed";
 				    sleep 1;
-				    _antena setDamage 1;
+				    _antenna setDamage 1;
 				    deleteMarker _mrk;
 				};
 				antennasDead = _varValue;
 			};
 			if(_varName == 'weapons') exitWith {
-				clearWeaponCargoGlobal caja;
-				{caja addWeaponCargoGlobal [_x,1]} forEach _varValue;
+				clearWeaponCargoGlobal boxX;
+				{boxX addWeaponCargoGlobal [_x,1]} forEach _varValue;
 			};
 			if(_varName == 'magazines') exitWith {
-				clearMagazineCargoGlobal caja;
-				{caja addMagazineCargoGlobal [_x,1]} forEach _varValue;
+				clearMagazineCargoGlobal boxX;
+				{boxX addMagazineCargoGlobal [_x,1]} forEach _varValue;
 			};
 			if(_varName == 'items') exitWith {
-				clearItemCargoGlobal caja;
-				{caja addItemCargoGlobal [_x,1]} forEach _varValue;
+				clearItemCargoGlobal boxX;
+				{boxX addItemCargoGlobal [_x,1]} forEach _varValue;
 			};
 			if(_varName == 'backpacks') exitWith {
-				clearBackpackCargoGlobal caja;
-				{caja addBackpackCargoGlobal [_x,1]} forEach _varValue;
+				clearBackpackCargoGlobal boxX;
+				{boxX addBackpackCargoGlobal [_x,1]} forEach _varValue;
 			};
 			//Redundant, same code done for all options, propably add some bool to avoid double execution??
 			//Most likely getting even worse with supply levels ...
@@ -489,9 +489,9 @@ fn_setData = {
 							flagX setDir (_x select 2);
 							flagX setPosATL (_x select 1);
 						};
-						case "caja": {
-							caja setDir (_x select 2);
-							caja setPosATL (_x select 1);
+						case "boxX": {
+							boxX setDir (_x select 2);
+							boxX setPosATL (_x select 1);
 						};
 						case "vehicleBox": {
 							vehicleBox setDir (_x select 2);
@@ -502,9 +502,9 @@ fn_setData = {
 							fireX setPosATL (_x select 1);
 							fireX inflame true
 						};
-						case "mapa": {
-							mapa setDir (_x select 2);
-							mapa setPosATL (_x select 1);
+						case "mapX": {
+							mapX setDir (_x select 2);
+							mapX setPosATL (_x select 1);
 						};
 						case "petros": {
 							petros setDir (_x select 2);

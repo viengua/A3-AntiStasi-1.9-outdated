@@ -81,7 +81,7 @@ class CfgIdentities
 	speaker="Male01GRE";
 	pitch=1.1;
     };
-     class tonto
+     class foolish
     {
         name = "Zorba";
         nameSound = "";

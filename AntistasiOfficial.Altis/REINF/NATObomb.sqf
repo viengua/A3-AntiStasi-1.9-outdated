@@ -1,7 +1,7 @@
 if (server getVariable "prestigeNATO" < 10) exitWith {hint format ["You lack of enough %1 Support to make this request", A3_Str_BLUE]};
 if (!allowPlayerRecruit) exitWith {hint "Server is very loaded. \nWait one minute or change FPS settings in order to fulfill this request"};
 	if (!([player] call hasRadio)) exitWith {hint "You need a radio in your inventory to be able to give orders to other squads"};
-_tipo = _this select 0;
+_typeX = _this select 0;
 
 positionTel = [];
 
@@ -70,9 +70,9 @@ _wp1 = group _plane addWaypoint [_pos1, 0];
 _wp1 setWaypointType "MOVE";
 _wp1 setWaypointSpeed "LIMITED";
 _wp1 setWaypointBehaviour "CARELESS";
-if (_tipo == "CARPET") then {_wp1 setWaypointStatements ["true", "[this,""CARPET""] execVM 'AI\airbomb.sqf'"]};
-if (_tipo == "NAPALM") then {_wp1 setWaypointStatements ["true", "[this,""NAPALM""] execVM 'AI\airbomb.sqf'"]};
-if (_tipo == "HE") then {_wp1 setWaypointStatements ["true", "[this] execVM 'AI\airbomb.sqf'"]};
+if (_typeX == "CARPET") then {_wp1 setWaypointStatements ["true", "[this,""CARPET""] execVM 'AI\airbomb.sqf'"]};
+if (_typeX == "NAPALM") then {_wp1 setWaypointStatements ["true", "[this,""NAPALM""] execVM 'AI\airbomb.sqf'"]};
+if (_typeX == "HE") then {_wp1 setWaypointStatements ["true", "[this] execVM 'AI\airbomb.sqf'"]};
 
 
 _wp2 = group _plane addWaypoint [_pos2, 1];

@@ -57,9 +57,9 @@ _funds = server getVariable ["resourcesFIA",0];
 ["hr",_hr] call fn_saveData;
 ["vehInGarage",vehInGarage] call fn_saveData;
 
-_weapons = weaponCargo caja;
-_magazines = magazineCargo caja;
-_items = itemCargo caja;
+_weapons = weaponCargo boxX;
+_magazines = magazineCargo boxX;
+_items = itemCargo boxX;
 _backpacks = [];
 
 {
@@ -109,13 +109,13 @@ _backpacks = [];
 
 ["resourcesFIA",_funds] call fn_saveData;
 
-if (count backpackCargo caja > 0) then {
+if (count backpackCargo boxX > 0) then {
 	{
 		_backpacks pushBack (_x call BIS_fnc_basicBackpack);
-	} forEach backPackCargo caja;
+	} forEach backPackCargo boxX;
 };
 
-_containers = everyBackpack caja;
+_containers = everyBackpack boxX;
 if (count _containers > 0) then {
 	for "_i" from 0 to (count _containers - 1) do {
 		_weapons = _weapons + weaponCargo (_containers select _i);
@@ -206,7 +206,7 @@ _vehiclesToSave = [];
 			};
 		};
 	};
-} forEach vehicles - [caja,flagX,fireX,vehicleBox,mapa];
+} forEach vehicles - [boxX,flagX,fireX,vehicleBox,mapX];
 
 ["vehicles",_vehiclesToSave] call fn_saveData;
 ["weapons",_weapons] call fn_saveData;
@@ -221,7 +221,7 @@ _objectsHQ = [];
 	private _pos = call compile format ["getPosATLVisual %1", _x];
 	private _dir = call compile format ["getDir %1", _x];
 	_objectsHQ pushBackUnique [str _x,getPosATLVisual _x, getDir _x];
-} forEach [flagX,caja,vehicleBox,fireX,mapa,petros];
+} forEach [flagX,boxX,vehicleBox,fireX,mapX,petros];
 */
 
 _objectsHQ = [];
@@ -229,7 +229,7 @@ _objectsHQ = [];
 	private _pos = call compile format ["getPosATLVisual %1", _x];
 	private _dir = call compile format ["getDir %1", _x];
 	_objectsHQ pushBackUnique [_x, _pos, _dir];
-} forEach ["flagX","caja","vehicleBox","fireX","mapa","petros"];
+} forEach ["flagX","boxX","vehicleBox","fireX","mapX","petros"];
 
 ["objectsHQ",_objectsHQ] call fn_saveData;
 

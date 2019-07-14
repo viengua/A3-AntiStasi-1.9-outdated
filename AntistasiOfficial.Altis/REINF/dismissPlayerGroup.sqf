@@ -22,8 +22,8 @@ if ({isPlayer _x} count units group player == 1) then {_ai = true; _newGroup = c
 	}
 else
 	{
-	_otroGrupo = createGroup side_blue;
-	[_x] join _otroGrupo;
+	_otherGroup = createGroup side_blue;
+	[_x] join _otherGroup;
 	};
 } forEach _units;
 
@@ -57,9 +57,8 @@ if (_ai) then
 	deleteVehicle _x;
 	} forEach units _newGroup;
 	if (!isMultiplayer) then {[_hr,_resourcesFIA/2] remoteExec ["resourcesFIA",2];} else {[_hr,0] remoteExec ["resourcesFIA",2]; [_resourcesFIA/2] call resourcesPlayer};
-	{caja addWeaponCargoGlobal [_x,1]} forEach _weaponsX;
-	{caja addMagazineCargoGlobal [_x,1]} forEach _ammunition;
-	{caja addItemCargoGlobal [_x,1]} forEach _items;
+	{boxX addWeaponCargoGlobal [_x,1]} forEach _weaponsX;
+	{boxX addMagazineCargoGlobal [_x,1]} forEach _ammunition;
+	{boxX addItemCargoGlobal [_x,1]} forEach _items;
 	deleteGroup _newGroup;
 	};
-

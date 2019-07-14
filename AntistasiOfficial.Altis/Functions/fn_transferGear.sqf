@@ -130,10 +130,10 @@ clearItemCargoGlobal _originContainer;
 clearBackpackCargoGlobal _originContainer;
 
 
-if (_targetContainer == caja) then {
+if (_targetContainer == boxX) then {
 	if (isMultiplayer) then {
 		{
-			if (_x distance caja < 10) then {
+			if (_x distance boxX < 10) then {
 				[petros,"hint","Ammobox Loaded"] remoteExec ["commsMP",_x];
 			};
 		} forEach playableUnits;

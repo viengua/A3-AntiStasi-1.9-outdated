@@ -1,9 +1,9 @@
 params [["_ignoreDistance", false]]; //Use true to ignore the distance checks. Sparker.
 
-if(((petros distance caja) > 30 || (petros distance vehicleBox) > 30) && !_ignoreDistance) exitWith {hint "Move the ammoboxes closer to Petros.";};
-if(((!isNull (attachedTo caja)) || !(isNull (attachedTo vehicleBox))) && !_ignoreDistance) exitWith {hint "You need to unload both ammoboxes first.";};
+if(((petros distance boxX) > 30 || (petros distance vehicleBox) > 30) && !_ignoreDistance) exitWith {hint "Move the ammoboxes closer to Petros.";};
+if(((!isNull (attachedTo boxX)) || !(isNull (attachedTo vehicleBox))) && !_ignoreDistance) exitWith {hint "You need to unload both ammoboxes first.";};
 //Remove actions to load the boxes with Jeroen's script
-caja call jn_fnc_logistics_removeAction;
+boxX call jn_fnc_logistics_removeAction;
 vehicleBox call jn_fnc_logistics_removeAction;
 
 private ["_pos","_rnd"];
@@ -22,9 +22,9 @@ server setVariable ["posHQ", getMarkerPos guer_respawn, true];
 
 if (isMultiplayer) then
 	{
-	caja hideObjectGlobal false;
+	boxX hideObjectGlobal false;
 	vehicleBox hideObjectGlobal false;
-	mapa hideObjectGlobal false;
+	mapX hideObjectGlobal false;
 	fireX hideObjectGlobal false;
 	flagX hideObjectGlobal false;
 	}
@@ -32,9 +32,9 @@ else
 	{
 	if (_movedX) then {hint "Please wait while moving HQ Assets to selected position"};
 	//sleep 5
-	caja hideObject false;
+	boxX hideObject false;
 	vehicleBox hideObject false;
-	mapa hideObject false;
+	mapX hideObject false;
 	fireX hideObject false;
 	flagX hideObject false;
 	};
@@ -47,12 +47,12 @@ if (isMultiplayer) then {sleep 5};
 _pos = [getPos fireX, 3, _rnd] call BIS_Fnc_relPos;
 if(_ignoreDistance) then
 {
-	caja setPos _pos; //Set it up for Jeroen's cargo loading script. Sparker.
+	boxX setPos _pos; //Set it up for Jeroen's cargo loading script. Sparker.
 };
 _rnd = _rnd + 45;
 _pos = [getPos fireX, 3, _rnd] call BIS_Fnc_relPos;
-mapa setPos _pos;
-mapa setDir ([fireX, mapa] call BIS_fnc_dirTo);
+mapX setPos _pos;
+mapX setDir ([fireX, mapX] call BIS_fnc_dirTo);
 _rnd = _rnd + 45;
 _pos = [getPos fireX, 3, _rnd] call BIS_Fnc_relPos;
 flagX setPos _pos;

@@ -1,6 +1,6 @@
 if (!isServer and hasInterface) exitWith {};
 
-private ["_prestigio","_markerX","_positionX","_timeLimit","_dateLimit","_dateLimitNum","_nameDest","_tsk","_soldiers","_vehiclesX","_grupo","_typeVehX","_countX","_size"];
+private ["_prestigio","_markerX","_positionX","_timeLimit","_dateLimit","_dateLimitNum","_nameDest","_tsk","_soldiers","_vehiclesX","_groupX","_typeVehX","_countX","_size"];
 
 _prestigio = server getVariable "prestigeNATO";
 
@@ -21,9 +21,9 @@ missionsX pushBack _tsk; publicVariable "missionsX";
 _size = [_markerX] call sizeMarker;
 _soldiers = [];
 _vehiclesX = [];
-_grupo = createGroup side_blue;
+_groupX = createGroup side_blue;
 _typeVehX = selectRandom bluStatMortar;
-_grupo setVariable ["esNATO",true,true];
+_groupX setVariable ["esNATO",true,true];
 _countX = 1;
 _spread = 0;
 if (_prestigio < 33) then
@@ -37,7 +37,7 @@ else
 	};
 for "_i" from 1 to _countX do
 	{
-	_unit = ([_positionX, 0, bluGunner, _grupo] call bis_fnc_spawnvehicle) select 0;
+	_unit = ([_positionX, 0, bluGunner, _groupX] call bis_fnc_spawnvehicle) select 0;
 	[_unit] spawn NATOinitCA;
 	sleep 1;
 	_pos = [_markerX, "base_4", true] call AS_fnc_findSpawnSpots;
@@ -49,10 +49,10 @@ for "_i" from 1 to _countX do
 	_vehiclesX pushBack _veh;
 	sleep 2;
 	};
-_grupo setGroupOwner (owner Slowhand);
-_grupo setGroupId ["N.Arty"];
-Slowhand hcSetGroup [_grupo];
-_grupo setVariable ["isHCgroup", true, true];
+_groupX setGroupOwner (owner Slowhand);
+_groupX setGroupId ["N.Arty"];
+Slowhand hcSetGroup [_groupX];
+_groupX setVariable ["isHCgroup", true, true];
 //{[_x] spawn unlimitedAmmo} forEach _vehiclesX;
 
 waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) or ({alive _x} count _vehiclesX == 0)};
@@ -69,4 +69,4 @@ if ({alive _x} count _vehiclesX == 0) then
 
 {deleteVehicle _x} forEach _soldiers;
 {deleteVehicle _x} forEach _vehiclesX;
-deleteGroup _grupo;
+deleteGroup _groupX;

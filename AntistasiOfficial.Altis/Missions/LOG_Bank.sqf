@@ -32,8 +32,8 @@ _truckX addEventHandler ["GetIn",
 	{
 	if (_this select 1 == "driver") then
 		{
-		_texto = format ["Bring this truck to %1 Bank and park it in the main entrance",(_this select 0) getVariable "destinationX"];
-		_texto remoteExecCall ["hint",_this select 2];
+		_textX = format ["Bring this truck to %1 Bank and park it in the main entrance",(_this select 0) getVariable "destinationX"];
+		_textX remoteExecCall ["hint",_this select 2];
 		};
 	}];
 
@@ -50,10 +50,10 @@ _mrk setMarkerBrushLocal "DiagGrid";
 _mrk setMarkerAlphaLocal 0;
 
 _typeGroup = [infSquad, side_green] call AS_fnc_pickGroup;
-_grupo = [_positionX, side_green, _typeGroup] call BIS_Fnc_spawnGroup;
+_groupX = [_positionX, side_green, _typeGroup] call BIS_Fnc_spawnGroup;
 sleep 1;
-[_grupo, _mrk, "SAFE","SPAWNED", "NOVEH2", "FORTIFY"] execVM "scripts\UPSMON.sqf";
-{[_x] spawn genInitBASES} forEach units _grupo;
+[_groupX, _mrk, "SAFE","SPAWNED", "NOVEH2", "FORTIFY"] execVM "scripts\UPSMON.sqf";
+{[_x] spawn genInitBASES} forEach units _groupX;
 
 _positionX = _banco buildingPos 1;
 
@@ -138,8 +138,8 @@ deleteVehicle _truckX;
 
 waitUntil {sleep 1; !([distanceSPWN,1,_positionX,"BLUFORSpawn"] call distanceUnits)};
 
-{deleteVehicle _x} forEach units _grupo;
-deleteGroup _grupo;
+{deleteVehicle _x} forEach units _groupX;
+deleteGroup _groupX;
 
 deleteMarker _mrk;
 deleteMarker _mrkFinal;

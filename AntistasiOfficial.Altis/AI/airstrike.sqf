@@ -1,14 +1,14 @@
 // usage: Activate via radio trigger, on act: [] execVM "airstrike.sqf";
 if (!isServer) exitWith{};
 
-private ["_markerX","_positionX","_ang","_angorig","_pos1","_origpos","_pos2","_finpos","_plane","_wp1","_wp2","_wp3","_typePlane","_lado"];
+private ["_markerX","_positionX","_ang","_angorig","_pos1","_origpos","_pos2","_finpos","_plane","_wp1","_wp2","_wp3","_typePlane","_sideX"];
 
 _markerX = _this select 0;
 _typePlane = _this select 1;
 _positionX = getMarkerPos _markerX;
 
-if (_typePlane in opCASFW) then {_lado = side_red};
-if (_typePlane in bluCASFW) then {_lado = side_blue};
+if (_typePlane in opCASFW) then {_sideX = side_red};
+if (_typePlane in bluCASFW) then {_sideX = side_blue};
 
 _ang = random 360;
 _angorig = _ang + 180;
@@ -18,7 +18,7 @@ _origpos = [_positionX, 4500, _angorig] call BIS_fnc_relPos;
 _pos2 = [_positionX, 200, _ang] call BIS_Fnc_relPos;
 _finpos = [_positionX, 4500, _ang] call BIS_fnc_relPos;
 
-_planefn = [_origpos, _ang, _typePlane, _lado] call bis_fnc_spawnvehicle;
+_planefn = [_origpos, _ang, _typePlane, _sideX] call bis_fnc_spawnvehicle;
 _plane = _planefn select 0;
 _plane setVariable ["OPFORSpawn",false]; //Vehicle not defined? Sparker.
 _planeCrew = _planefn select 1;

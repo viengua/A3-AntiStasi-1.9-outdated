@@ -21,7 +21,7 @@ if (_nato != 0) then {server setVariable ["prestigeNATO",_natoT,true]};
 if (_csat != 0) then {server setVariable ["prestigeCSAT",_csatT,true]};
 prestigeIsChanging = false;
 
-_texto = "";
+_textX = "";
 _natoSim = "";
 if (_nato > 0) then {_natoSim = "+"};
 
@@ -29,11 +29,11 @@ _csatSim = "";
 if (_csat > 0) then {_castSim = "+"};
 if ((_nato != 0) and (_csat != 0)) then
 	{
-	_texto = format ["<t size='0.6' color='#C1C0BB'>Prestige Change.<br/> <t size='0.5' color='#C1C0BB'><br/>%5: %3%1<br/>%6: %4%2",_nato,_csat,_natoSim,_csatSim, A3_Str_BLUE, A3_Str_RED]
+	_textX = format ["<t size='0.6' color='#C1C0BB'>Prestige Change.<br/> <t size='0.5' color='#C1C0BB'><br/>%5: %3%1<br/>%6: %4%2",_nato,_csat,_natoSim,_csatSim, A3_Str_BLUE, A3_Str_RED]
 	}
 else
 	{
-	if (_nato != 0) then {_texto = format ["<t size='0.6' color='#C1C0BB'>Prestige Change.<br/> <t size='0.5' color='#C1C0BB'><br/>%3: %2%1",_nato,_natoSim, A3_Str_BLUE]} else {_texto = format ["<t size='0.6' color='#C1C0BB'>Prestige Change.<br/> <t size='0.5' color='#C1C0BB'><br/>%3: %2%1",_csat,_csatSim,A3_Str_RED]};
+	if (_nato != 0) then {_textX = format ["<t size='0.6' color='#C1C0BB'>Prestige Change.<br/> <t size='0.5' color='#C1C0BB'><br/>%3: %2%1",_nato,_natoSim, A3_Str_BLUE]} else {_textX = format ["<t size='0.6' color='#C1C0BB'>Prestige Change.<br/> <t size='0.5' color='#C1C0BB'><br/>%3: %2%1",_csat,_csatSim,A3_Str_RED]};
 	};
 
-if (_texto != "") then {[petros,"income",_texto] remoteExec ["commsMP",Slowhand]};
+if (_textX != "") then {[petros,"income",_textX] remoteExec ["commsMP",Slowhand]};

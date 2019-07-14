@@ -3,7 +3,7 @@ if (!isServer and hasInterface) exitWith {};
 _tskTitle = "STR_TSK_TD_DESfuel";
 _tskDesc  = "STR_TSK_TD_DESC_DESfuel";
 
-private ["_posbase", "_mrkFinal", "_mrkTarget", "_typeVehX", "_range", "_vehiclesX", "_soldiers", "_groups", "_returntime", "_roads", "_road", "_vehicle", "_veh", "_TypeOfGroup", "_tsk", "_humo", "_emitterArray", "_poschurch", "_grupo", "_fuelstop", "_posfuelstop", "_fuelstops"];
+private ["_posbase", "_mrkFinal", "_mrkTarget", "_typeVehX", "_range", "_vehiclesX", "_soldiers", "_groups", "_returntime", "_roads", "_road", "_vehicle", "_veh", "_TypeOfGroup", "_tsk", "_smokeX", "_emitterArray", "_poschurch", "_groupX", "_fuelstop", "_posfuelstop", "_fuelstops"];
 
 
 _InitialMarker = _this select 0;
@@ -80,7 +80,7 @@ _base	  = "";
 	sleep 10;
 
 
-	private _grupo = createGroup side_green;
+	private _groupX = createGroup side_green;
 
 	_fueltruck = selectRandom vehFuel;
 	_veh	   = _fueltruck createVehicle _spawnPosition;
@@ -90,20 +90,20 @@ _base	  = "";
 	// _vehiclesX = _vehiclesX + [_veh];
 	[_veh] spawn genVEHinit;
 
-	_unit = ( [_posbase, 0, sol_RFL, _grupo] call bis_fnc_spawnvehicle)select 0;
+	_unit = ( [_posbase, 0, sol_RFL, _groupX] call bis_fnc_spawnvehicle)select 0;
 	_unit moveInDriver _veh;
 	_unit disableAI "AUTOTARGET";
 	_unit disableAI "TARGET";
 	_unit disableAI "AUTOCOMBAT";
 	_unit setBehaviour "CARELESS";
 	_unit allowFleeing 0;
-	_groups = _groups + [_grupo];
+	_groups = _groups + [_groupX];
 
 	{ [_x] spawn genInit;
-	  _soldiers = _soldiers + [_x]} forEach units _grupo;
+	  _soldiers = _soldiers + [_x]} forEach units _groupX;
 
 
-	_wp0 = _grupo addWaypoint [_posfuelstop, 0];
+	_wp0 = _groupX addWaypoint [_posfuelstop, 0];
 	_wp0 setWaypointType "MOVE";
 	_wp0 setWaypointBehaviour "SAFE";
 	_wp0 setWaypointSpeed "NORMAL";
@@ -153,7 +153,7 @@ _base	  = "";
 				};
 
 				if (time >= _returntime) then {
-					_wp1 = _grupo addWaypoint [_posbase, 0];
+					_wp1 = _groupX addWaypoint [_posbase, 0];
 					_wp1 setWaypointType "MOVE";
 					_wp1 setWaypointBehaviour "SAFE";
 					_wp1 setWaypointSpeed "NORMAL";
@@ -184,7 +184,7 @@ _base	  = "";
 					if (_veh distance _posbase < 75) then{
 						_tsk = ["DES", [side_blue, civilian], [[_tskDesc, _nearestbase, numberToDate [2035, _TimeLeft] select 3, numberToDate [2035, _TimeLeft] select 4, A3_Str_INDEP], _tskTitle, _mrkFinal], _fuelstop, "FAILED", 5, true, true, "Destroy"] call BIS_fnc_setTask;
 						deleteVehicle _veh;
-						deleteGroup _grupo;
+						deleteGroup _groupX;
 					};
 		};
 

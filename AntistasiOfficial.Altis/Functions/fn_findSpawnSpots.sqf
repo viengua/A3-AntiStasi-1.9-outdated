@@ -6,7 +6,7 @@ if ((_spot) && (worldName == "Altis")) exitWith {
 	[_origin, "none"] call fnc_getpresetSpawnPos;
 };
 
-private _tam = 10;
+private _radiusX = 10;
 
 if !(typeName _origin == "ARRAY") then {
 	_startRoad = getMarkerPos _origin;
