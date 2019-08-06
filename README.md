@@ -1,6 +1,6 @@
 # The project is continued again
 
-The AntiStasi Community has decided to continue this version next to the the further development of version 1.4.0.2 at https://github.com/Bob-Murphy/A3-Antistasi.
+The AntiStasi Community has decided to continue this version next to the the further development of version 1.4.0.2 at https://github.com/official-antistasi-community/A3-AntiStasi-1.9.
 
 If you would like to play AntiStasi 1.9, following we have posted a plug & play pbo as well as a tested modset:
 
