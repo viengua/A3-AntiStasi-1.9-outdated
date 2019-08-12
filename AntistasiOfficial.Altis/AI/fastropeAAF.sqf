@@ -1,10 +1,10 @@
-private ["_veh","_grupo1","_grupo2","_posicion","_posorigen","_heli","_landpos","_wp","_d","_wp1","_wp2","_wp3"];
+private ["_veh","_groupX1","_groupX2","_positionX","_posOrigin","_heli","_landpos","_wp","_d","_wp1","_wp2","_wp3"];
 
 _veh = _this select 0;
-_grupo1 = _this select 1;
-_grupo2 = _this select 2;
-_posicion = _this select 3;
-_posorigen = _this select 4;
+_groupX1 = _this select 1;
+_groupX2 = _this select 2;
+_positionX = _this select 3;
+_posOrigin = _this select 4;
 _heli = _this select 5;
 
 _landpos = [];
@@ -12,7 +12,7 @@ _landpos = [];
 
 while {true} do
 	{
- 	_landpos = [_posicion, 30, random 360] call BIS_Fnc_relPos;
+ 	_landpos = [_positionX, 30, random 360] call BIS_Fnc_relPos;
  	if (!surfaceIsWater _landpos) exitWith {};
 	};
 _landpos set [2,0];
@@ -28,7 +28,7 @@ waitUntil {sleep 1; (not alive _veh) or (_veh distance _landpos < 550)};
 
 _veh flyInHeight 15;
 
-[_veh] call puertasLand;
+[_veh] call entriesLand;
 
 //_veh animateDoor ['door_R', 1];
 
@@ -39,7 +39,7 @@ if (alive _veh) then
 	for "_i" from 0 to 8 do
 		{
 		_pos = position _veh getPos [10,_i*40];
-		_humo = "SmokeShellPurple" createVehicle [_pos select 0, _pos select 1,getPos _veh select 2];
+		_smokeX = "SmokeShellPurple" createVehicle [_pos select 0, _pos select 1,getPos _veh select 2];
 		};
 	};
 */
@@ -68,7 +68,7 @@ if (alive _veh) then
 	sleep 0.5;
 	};
 sleep 5 + random 2;
-} forEach units _grupo1;
+} forEach units _groupX1;
 
 {
 [_veh,_x] spawn
@@ -98,20 +98,20 @@ sleep 5 + random 2;
 	sleep 0.5;
 	};
 sleep 5 + random 2;
-} forEach units _grupo2;
+} forEach units _groupX2;
 
 waitUntil {sleep 1; (not alive _veh) or ((count assignedCargo _veh == 0) and (count attachedObjects _veh == 0))};
 
-[_veh] call puertasLand;
+[_veh] call entriesLand;
 
 sleep 5;
 _veh flyInHeight 150;
 //_veh animateDoor ['door_R', 0];
-_wp1 = _grupo1 addWaypoint [_posicion, 0];
+_wp1 = _groupX1 addWaypoint [_positionX, 0];
 _wp1 setWaypointType "SAD";
-_wp2 = _grupo2 addWaypoint [_posicion, 0];
+_wp2 = _groupX2 addWaypoint [_positionX, 0];
 _wp2 setWaypointType "SAD";
-_wp3 = _heli addWaypoint [_posorigen, 1];
+_wp3 = _heli addWaypoint [_posOrigin, 1];
 _wp3 setWaypointType "MOVE";
 _wp3 setWaypointSpeed "NORMAL";
 _wp3 setWaypointBehaviour "AWARE";

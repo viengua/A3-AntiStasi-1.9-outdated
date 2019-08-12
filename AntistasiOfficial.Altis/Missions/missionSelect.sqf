@@ -33,7 +33,7 @@ onMapSingleClick "";
 
 if (!visibleMap) exitWith {openMap false; hint "No mission for you, mate!";};
 
-_city = [ciudades, temp_position] call BIS_Fnc_nearestPosition;
+_city = [citiesX, temp_position] call BIS_Fnc_nearestPosition;
 
 if !((_city in _optionsPamphlet) OR (_city in _optionsBrainwash)) exitWith {openMap false; hint "No mission for you, mate!";};
 

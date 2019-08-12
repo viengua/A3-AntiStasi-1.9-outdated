@@ -4,7 +4,7 @@ private ["_vehicleType"];
 
 
 if ((_vehicle isKindOf "FlagCarrier") OR (_vehicle isKindOf "Building")) exitWith {};
-if (_vehicle isKindOf "ReammoBox_F") exitWith {[_vehicle] call cajaAAF};
+if (_vehicle isKindOf "ReammoBox_F") exitWith {[_vehicle] call boxAAF};
 _vehicle setfuel 0.15;
 if(activeACE) then {[_vehicle, 4000] call ace_refuel_fnc_setFuel;} else {_vehicle setfuelcargo 0.6;};
 
@@ -80,7 +80,7 @@ call {
 	if !(_vehicleType in enemyMotorpool) exitWith {
 		// ammo truck
 		if (_vehicleType == vehAmmo) then {
-			if (_vehicle distance getMarkerPos guer_respawn > 50) then {[_vehicle] call cajaAAF};
+			if (_vehicle distance getMarkerPos guer_respawn > 50) then {[_vehicle] call boxAAF};
 		};
 
 		// MRAP

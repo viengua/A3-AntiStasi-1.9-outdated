@@ -1,22 +1,22 @@
-private ["_muerto","_killer","_coste","_enemy","_grupo"];
-_muerto = _this select 0;
+private ["_victim","_killer","_costs","_enemy","_groupX"];
+_victim = _this select 0;
 _killer = _this select 1;
-if (_muerto getVariable ["OPFORSpawn",false]) then {_muerto setVariable ["OPFORSpawn",nil,true]};
-[_muerto] spawn postmortem;
+if (_victim getVariable ["OPFORSpawn",false]) then {_victim setVariable ["OPFORSpawn",nil,true]};
+[_victim] spawn postmortem;
 
 if (activeACEMedical) then {
-	if ((isNull _killer) || (_killer == _muerto)) then {
-		_killer = _muerto getVariable ["ace_medical_lastDamageSource", _killer];
+	if ((isNull _killer) || (_killer == _victim)) then {
+		_killer = _victim getVariable ["ace_medical_lastDamageSource", _killer];
 	};
 };
 
 if ((side _killer == side_blue) || (captive _killer)) then {
 	if (activeBE) then {["kill"] remoteExec ["fnc_BE_XP", 2]};
-	_grupo = group _muerto;
+	_groupX = group _victim;
 	if (isPlayer _killer) then {
 		[2,_killer,true] call playerScoreAdd;
 
-		if ((captive _killer) && (_killer distance _muerto < 300)) then {
+		if ((captive _killer) && (_killer distance _victim < 300)) then {
 			[_killer,false] remoteExec ["setCaptive",_killer];
 		};
 	} else {
@@ -26,21 +26,21 @@ if ((side _killer == side_blue) || (captive _killer)) then {
 	if (vehicle _killer isKindOf "StaticMortar") then {
 		if (isMultiplayer) then {
 			{
-				if ((_x distance _muerto < 300) and (captive _x)) then {[_x,false] remoteExec ["setCaptive",_x]};
+				if ((_x distance _victim < 300) and (captive _x)) then {[_x,false] remoteExec ["setCaptive",_x]};
 			} forEach playableUnits;
 		} else {
-			if ((player distance _muerto < 300) and (captive player)) then {player setCaptive false};
+			if ((player distance _victim < 300) and (captive player)) then {player setCaptive false};
 		};
 	};
-	if (count weapons _muerto < 1) then {
+	if (count weapons _victim < 1) then {
 		[-1,0] remoteExec ["prestige",2];
-		[2,0,getPos _muerto] remoteExec ["AS_fnc_changeCitySupport",2];
+		[2,0,getPos _victim] remoteExec ["AS_fnc_changeCitySupport",2];
 		if (isPlayer _killer) then {_killer addRating -1000};
 	} else {
-		_coste = server getVariable (typeOf _muerto);
-		if (isNil "_coste") then {diag_log format ["Falta incluir a %1 en las tablas de coste",typeOf _muerto]; _coste = 0};
-		[-_coste] remoteExec ["resourcesAAF",2];
-		[-0.5,0,getPos _muerto] remoteExec ["AS_fnc_changeCitySupport",2];
+		_costs = server getVariable (typeOf _victim);
+		if (isNil "_costs") then {diag_log format ["Falta incluir a %1 en las tablas de costs",typeOf _victim]; _costs = 0};
+		[-_costs] remoteExec ["resourcesAAF",2];
+		[-0.5,0,getPos _victim] remoteExec ["AS_fnc_changeCitySupport",2];
 	};
 
 	{
@@ -62,12 +62,12 @@ if ((side _killer == side_blue) || (captive _killer)) then {
 					};
 				};
 			} else {
-				if (random 1 < 0.5) then {_x allowFleeing (0.5 -(_x skill "courage") + (({(!alive _x) or (_x getVariable ["surrendered",false])} count units _grupo)/(count units _grupo)))};
+				if (random 1 < 0.5) then {_x allowFleeing (0.5 -(_x skill "courage") + (({(!alive _x) or (_x getVariable ["surrendered",false])} count units _groupX)/(count units _groupX)))};
 			};
 		};
-	} forEach units _grupo;
+	} forEach units _groupX;
 
 	//Test the WarStatistics script. Sparker.
-	//_posMuerto = getPos _muerto;
-	//[ws_grid, _posMuerto select 0, _posMuerto select 1, 1] call ws_fnc_addValue;
+	//_posvictim = getPos _victim;
+	//[ws_grid, _posvictim select 0, _posvictim select 1, 1] call ws_fnc_addValue;
 };

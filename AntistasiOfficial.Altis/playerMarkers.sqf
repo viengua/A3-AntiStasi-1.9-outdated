@@ -50,13 +50,13 @@ while {true} do
 					//_mrk setMarkerAlphaLocal 1; // <<-- normal mode
 					_mrk setMarkerPosLocal position _veh;
 					_mrk setMarkerDirLocal getDir _veh;
-					_texto = format ["%1 (%2)/",name _player,getText(configFile>>"CfgVehicles">>typeOf _veh>>"DisplayName")];
+					_textX = format ["%1 (%2)/",name _player,getText(configFile>>"CfgVehicles">>typeOf _veh>>"DisplayName")];
 					{
 						if ((_x!=_player) and (vehicle _x == _veh)) then{
-							_texto = format ["%1%2/",_texto,name _x];
+							_textX = format ["%1%2/",_textX,name _x];
 						};
 					} forEach playableUnits;
-						_mrk setMarkerTextLocal _texto;
+						_mrk setMarkerTextLocal _textX;
 					}else{
 						_mrk setMarkerAlphaLocal 0;
 					};

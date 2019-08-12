@@ -24,7 +24,7 @@ _unitType = typeOf _unit;
 _skillSet = 0;
 
 if !("ItemRadio" in unlockedItems) then {
-	if ((_unit != leader _unit) AND (_unitType != guer_sol_UN)) then {_unit unlinkItem "ItemRadio"};
+	if ((_unit != leader _unit) AND (_unitType != guer_sol_HMG)) then {_unit unlinkItem "ItemRadio"};
 };
 
 call {
@@ -84,7 +84,7 @@ call {
 		_skillSet = 1;
 	};
 
-	if (_unitType == guer_sol_UN) exitWith {
+	if (_unitType == guer_sol_HMG) exitWith {
 		{
 			_unit removeWeaponGlobal _x;
 		} forEach (weapons _unit);
@@ -293,11 +293,11 @@ _unit setskill ["reloadSpeed",_reload];
 
 if (player == leader _unit) then {
 	_EHkilledIdx = _unit addEventHandler ["killed", {
-		_muerto = _this select 0;
-		[_muerto] spawn postmortem;
-		if (typeOf _muerto != guer_POW) then {arrayids = arrayids + [name _muerto]};
-		[0.25,0,getPos _muerto] remoteExec ["AS_fnc_changeCitySupport",2];
-		_muerto setVariable ["BLUFORSpawn",nil,true];
+		_victim = _this select 0;
+		[_victim] spawn postmortem;
+		if (typeOf _victim != guer_POW) then {arrayids = arrayids + [name _victim]};
+		[0.25,0,getPos _victim] remoteExec ["AS_fnc_changeCitySupport",2];
+		_victim setVariable ["BLUFORSpawn",nil,true];
 	}];
 	if (_unitType != guer_POW) then {
 		_idUnit = arrayids call BIS_Fnc_selectRandom;
@@ -313,11 +313,11 @@ if (player == leader _unit) then {
 			if (unitReady _unit) then {
 				if ((alive _unit) and (_unit distance (getMarkerPos guer_respawn) > 50) and (_unit distance leader group _unit > 500) and ((vehicle _unit == _unit) or ((typeOf (vehicle _unit)) in CIV_vehicles))) then {
 					hint format ["%1 lost communication, he will come back with you if possible", name _unit];
-					[_unit] join rezagados;
+					[_unit] join stragglers;
 					if ((vehicle _unit isKindOf "StaticWeapon") or (isNull (driver (vehicle _unit)))) then {unassignVehicle _unit; [_unit] orderGetIn false};
 					_unit doMove position player;
-					_tiempo = time + 900;
-					waitUntil {sleep 1;(!alive _unit) or (_unit distance player < 500) or (time > _tiempo)};
+					_timeX = time + 900;
+					waitUntil {sleep 1;(!alive _unit) or (_unit distance player < 500) or (time > _timeX)};
 					if ((_unit distance player >= 500) and (alive _unit)) then {_unit setPos (getMarkerPos guer_respawn)};
 					[_unit] join group player;
 				};
@@ -340,17 +340,17 @@ if (player == leader _unit) then {
 }
 else {
 	_EHkilledIdx = _unit addEventHandler ["killed", {
-		_muerto = _this select 0;
+		_victim = _this select 0;
 		_killer = _this select 1;
-		[_muerto] remoteExec ["postmortem",2];
+		[_victim] remoteExec ["postmortem",2];
 		if (isPlayer _killer) then {
 			if (!isMultiPlayer) then {
 				[0,-20] remoteExec ["resourcesFIA",2];
 				_killer addRating -1000;
 			};
 		};
-		[_muerto] spawn postmortem;
-		_muerto setVariable ["BLUFORSpawn",nil,true];
-		[0,-0.25,getPos _muerto] remoteExec ["AS_fnc_changeCitySupport",2];
+		[_victim] spawn postmortem;
+		_victim setVariable ["BLUFORSpawn",nil,true];
+		[0,-0.25,getPos _victim] remoteExec ["AS_fnc_changeCitySupport",2];
 	}];
 };

@@ -21,16 +21,16 @@ while {true} do {
 	if (_Forest distance _posHQ > 600) exitwith {};
 };
 
-_mrkfin = createMarkerLocal [format ["forestpatrol%1", random 100],_Forest];
-_mrkfin setMarkerShapeLocal "CIRCLE";
-_mrkfin setMarkerSizeLocal [150,150];
-_mrkfin setMarkerTypeLocal "hd_warning";
-_mrkfin setMarkerColorLocal "ColorRed";
-_mrkfin setMarkerBrushLocal "DiagGrid";
+_mrkFinal = createMarkerLocal [format ["forestpatrol%1", random 100],_Forest];
+_mrkFinal setMarkerShapeLocal "CIRCLE";
+_mrkFinal setMarkerSizeLocal [150,150];
+_mrkFinal setMarkerTypeLocal "hd_warning";
+_mrkFinal setMarkerColorLocal "ColorRed";
+_mrkFinal setMarkerBrushLocal "DiagGrid";
 
-_tiempolim = 120;
-_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-_fechalimnum = dateToNumber _fechalim;
+_timeLimit = 120;
+_dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
+_dateLimitNum = dateToNumber _dateLimit;
 
 
 /*
@@ -40,15 +40,15 @@ if (_source == "mil") then {
 };
 */
 
-_nombredest = [_mrkOutpost] call AS_fnc_localizar;
+_nameDest = [_mrkOutpost] call AS_fnc_localizar;
 
-_tsk = ["AS",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],_tskTitle,_mrkOutpost],_Forest,"CREATED",5,true,true,"Kill"] call BIS_fnc_setTask;
-misiones pushBack _tsk; publicVariable "misiones";
+_tsk = ["AS",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_mrkOutpost],_Forest,"CREATED",5,true,true,"Kill"] call BIS_fnc_setTask;
+missionsX pushBack _tsk; publicVariable "missionsX";
 
-_tipoGrupo = [infSquad, side_green] call AS_fnc_pickGroup;
-_group1 = [_ClearPosOutpost, side_green, _tipoGrupo] call BIS_Fnc_spawnGroup;
+_typeGroup = [infSquad, side_green] call AS_fnc_pickGroup;
+_group1 = [_ClearPosOutpost, side_green, _typeGroup] call BIS_Fnc_spawnGroup;
 sleep 1;
-[_group1, _mrkfin, "SPAWNED", "NOVEH2", "NOFOLLOW", "AWARE"] execVM "scripts\UPSMON.sqf";
+[_group1, _mrkFinal, "SPAWNED", "NOVEH2", "NOFOLLOW", "AWARE"] execVM "scripts\UPSMON.sqf";
 {[_x] spawn genInit; _x allowFleeing 0} forEach units _group1;
 sleep 2;
 _group1 setFormation "STAG COLUMN";
@@ -64,17 +64,17 @@ _target4 = _group2 createUnit [opI_LAT, _ClearPosOutpost, [], 0, "NONE"];
 
 
 
-waitUntil  {sleep 5; ((!alive _target1) && (!alive _target2) && (!alive _target3) && (!alive _target4)) or (dateToNumber date > _fechalimnum)};
+waitUntil  {sleep 5; ((!alive _target1) && (!alive _target2) && (!alive _target3) && (!alive _target4)) or (dateToNumber date > _dateLimitNum)};
 
-if (dateToNumber date > _fechalimnum) then
+if (dateToNumber date > _dateLimitNum) then
 	{
-	_tsk = ["AS",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],_tskTitle,_mrkOutpost],_Forest,"FAILED",5,true,true,"Kill"] call BIS_fnc_setTask;
+	_tsk = ["AS",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_mrkOutpost],_Forest,"FAILED",5,true,true,"Kill"] call BIS_fnc_setTask;
 	[-600] remoteExec ["AS_fnc_increaseAttackTimer",2];
 	[-10,Slowhand] call playerScoreAdd;
 	}
 else
 	{
-	_tsk = ["AS",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],_tskTitle,_mrkOutpost],_Forest,"SUCCEEDED",5,true,true,"Kill"] call BIS_fnc_setTask;
+	_tsk = ["AS",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_mrkOutpost],_Forest,"SUCCEEDED",5,true,true,"Kill"] call BIS_fnc_setTask;
 	[0,500] remoteExec ["resourcesFIA",2];
 	[600] remoteExec ["AS_fnc_increaseAttackTimer",2];
 	{if (isPlayer _x) then {[10,_x] call playerScoreAdd}} forEach ([500,0,_Forest,"BLUFORSpawn"] call distanceUnits);
@@ -87,7 +87,7 @@ else
 	// BE module
 	};
 
-[1200,_tsk] spawn borrarTask;
+[1200,_tsk] spawn deleteTaskX;
 /*
 if (_source == "mil") then {
 	_val = server getVariable "milActive";
@@ -95,8 +95,8 @@ if (_source == "mil") then {
 };
 */
 {
-waitUntil {sleep 1; !([distanciaSPWN,1,_x,"BLUFORSpawn"] call distanceUnits)};
+waitUntil {sleep 1; !([distanceSPWN,1,_x,"BLUFORSpawn"] call distanceUnits)};
 deleteVehicle _x
 } forEach units _group1;
 deleteGroup _group1;
-deletemarker _mrkfin;
+deletemarker _mrkFinal;

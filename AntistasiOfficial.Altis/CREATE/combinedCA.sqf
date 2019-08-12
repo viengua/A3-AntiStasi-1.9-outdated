@@ -15,7 +15,7 @@ _markerPos = getMarkerPos (_marker);
 
 _prestigeCSAT = server getVariable ["prestigeCSAT",0];
 
-diag_log format ["Info: Attack triggered. Timer prior to attack: %1.", cuentaCA];
+diag_log format ["Info: Attack triggered. Timer prior to attack: %1.", countCA];
 
 //Where attack start from
 	_base = [_marker] call AS_fnc_findBaseForCA;
@@ -33,9 +33,9 @@ _targetName = [_marker] call AS_fnc_localizar;
 _originMarker = [_base, _airport] select (_base == "");
 _originName = ([_base, _airport] select (_base == "")) call AS_fnc_localizar;
 
-_task = ["AtaqueAAF",[side_blue,civilian],[["STR_TSK_TD_CA_CREATE",A3_Str_INDEP,_originName],["%1 Attack",A3_Str_INDEP],_originMarker],getMarkerPos _originMarker,"CREATED",10,true,true,"Defend"] call BIS_fnc_setTask;
+_task = ["AttackAAF",[side_blue,civilian],[["STR_TSK_TD_CA_CREATE",A3_Str_INDEP,_originName],["%1 Attack",A3_Str_INDEP],_originMarker],getMarkerPos _originMarker,"CREATED",10,true,true,"Defend"] call BIS_fnc_setTask;
 
-misiones pushbackUnique "AtaqueAAF"; publicVariable "misiones";
+missionsX pushbackUnique "AttackAAF"; publicVariable "missionsX";
 _attackDuration = time + 2400;
 
 //Adding caching area
@@ -100,7 +100,7 @@ if (_involveCSAT) then {
 				{_x assignAsCargo _vehicle; _x moveInCargo _vehicle} forEach units _group;
 				_redGroups pushBack _group;
 				[_vehicle,"CSAT Air Transport"] spawn inmuneConvoy;
-				if ((_marker in bases) OR (_marker in aeropuertos) OR (random 10 < _threatEvaluationAir)) then {
+				if ((_marker in bases) OR (_marker in airportsX) OR (random 10 < _threatEvaluationAir)) then {
 					{removebackpack _x; _x addBackpack "B_Parachute"} forEach units _group;
 					[_vehicle,_group,_marker,_threatEvaluationAir] spawn airdrop;
 				} else {
@@ -118,7 +118,7 @@ if (_involveCSAT) then {
 	sleep 15;
 	};
 
-	_task = ["AtaqueAAF",[side_blue,civilian],[["STR_TSK_TD_CA_CREATE_RED",A3_Str_INDEP,A3_Str_RED,_targetName,_originName],["%1/%2 Attack",A3_Str_INDEP,A3_Str_RED],_marker],getMarkerPos _marker,"CREATED",10,true,true,"Defend"] call BIS_fnc_setTask;
+	_task = ["AttackAAF",[side_blue,civilian],[["STR_TSK_TD_CA_CREATE_RED",A3_Str_INDEP,A3_Str_RED,_targetName,_originName],["%1/%2 Attack",A3_Str_INDEP,A3_Str_RED],_marker],getMarkerPos _marker,"CREATED",10,true,true,"Defend"] call BIS_fnc_setTask;
 	[_targetNam,{["TaskSucceeded", ["", format [localize "STR_TSK_TD_CA_TARGET",_this]]] call BIS_fnc_showNotification}] remoteExec ["call", 0];
 
 	[_marker] spawn {
@@ -127,8 +127,8 @@ if (_involveCSAT) then {
 			[_targetMarker, selectRandom opCASFW] spawn airstrike;
 			sleep 30;
 		};
-		if ((_targetMarker in bases) OR (_targetMarker in aeropuertos)) then {
-			[_targetMarker] spawn artilleria;
+		if ((_targetMarker in bases) OR (_targetMarker in airportsX)) then {
+			[_targetMarker] spawn artilleryX;
 		};
 	};
 	sleep 2;
@@ -157,7 +157,7 @@ if !(_base == "") then {
 			_vehicleType = enemyMotorpoolDef;
 			_vehicleArray =+ (enemyMotorpool - vehPatrol);
 			if (_i == _maxCounter) then {
-				_basesFIA = count (mrkFIA arrayIntersect (bases + aeropuertos));
+				_basesFIA = count (mrkFIA arrayIntersect (bases + airportsX));
 				call {
 					if (_basesFIA < 1) exitWith {
 						_vehicleArray = _vehicleArray - vehTank - vehIFV;
@@ -354,28 +354,28 @@ if !(_marker in mrkAAF) then {
 	{if (isPlayer _x) then {[10,_x] call playerScoreAdd}} forEach ([500,0,_markerPos,"BLUFORSpawn"] call distanceUnits);
 	[5,Slowhand] call playerScoreAdd;
 	if !(_involveCSAT) then {
-		_task = ["AtaqueAAF",[side_blue,civilian],[["STR_TSK_TD_CA_CREATE",A3_Str_INDEP,_originName],["%1 Attack",A3_Str_INDEP],_originMarker],getMarkerPos _originMarker,"SUCCEEDED",10,true,true,"Defend"] call BIS_fnc_setTask;
+		_task = ["AttackAAF",[side_blue,civilian],[["STR_TSK_TD_CA_CREATE",A3_Str_INDEP,_originName],["%1 Attack",A3_Str_INDEP],_originMarker],getMarkerPos _originMarker,"SUCCEEDED",10,true,true,"Defend"] call BIS_fnc_setTask;
 	} else {
-		_task = ["AtaqueAAF",[side_blue,civilian],[["STR_TSK_TD_CA_CREATE_RED",A3_Str_INDEP,A3_Str_RED,_targetName,_originName],["%1/%2 Attack",A3_Str_INDEP,A3_Str_RED],_marker],getMarkerPos _marker,"SUCCEEDED",10,true,true,"Defend"] call BIS_fnc_setTask;
+		_task = ["AttackAAF",[side_blue,civilian],[["STR_TSK_TD_CA_CREATE_RED",A3_Str_INDEP,A3_Str_RED,_targetName,_originName],["%1/%2 Attack",A3_Str_INDEP,A3_Str_RED],_marker],getMarkerPos _marker,"SUCCEEDED",10,true,true,"Defend"] call BIS_fnc_setTask;
 	};
 	{_x doMove _originPosition} forEach _allSoldiers;
 	{_wpRTB = _x addWaypoint [_originPosition, 0]; _x setCurrentWaypoint _wpRTB} forEach _allGroups;
 } else {
 	[-10,Slowhand] call playerScoreAdd;
 	if (!_involveCSAT) then {
-		_task = ["AtaqueAAF",[side_blue,civilian],[["STR_TSK_TD_CA_CREATE",A3_Str_INDEP,_originName],["%1 Attack",A3_Str_INDEP],_originMarker],getMarkerPos _originMarker,"FAILED",10,true,true,"Defend"] call BIS_fnc_setTask;
+		_task = ["AttackAAF",[side_blue,civilian],[["STR_TSK_TD_CA_CREATE",A3_Str_INDEP,_originName],["%1 Attack",A3_Str_INDEP],_originMarker],getMarkerPos _originMarker,"FAILED",10,true,true,"Defend"] call BIS_fnc_setTask;
 	} else {
-		_task = ["AtaqueAAF",[side_blue,civilian],[["STR_TSK_TD_CA_CREATE_RED",A3_Str_INDEP,A3_Str_RED,_targetName,_originName],["%1/%2 Attack",A3_Str_INDEP,A3_Str_RED],_marker],getMarkerPos _marker,"FAILED",10,true,true,"Defend"] call BIS_fnc_setTask;
+		_task = ["AttackAAF",[side_blue,civilian],[["STR_TSK_TD_CA_CREATE_RED",A3_Str_INDEP,A3_Str_RED,_targetName,_originName],["%1/%2 Attack",A3_Str_INDEP,A3_Str_RED],_marker],getMarkerPos _marker,"FAILED",10,true,true,"Defend"] call BIS_fnc_setTask;
 	};
 };
 
 [2700] remoteExec ["AS_fnc_increaseAttackTimer",2];
-if (cuentaCA < 0) then {
-	cuentaCA = 600;
+if (countCA < 0) then {
+	countCA = 600;
 };
 
 sleep 30;
-[0,_task] spawn borrarTask;
+[0,_task] spawn deleteTaskX;
 waitUntil {sleep 1; !(spawner getVariable _marker)};
 
 [_allGroups + _redGroups, _allSoldiers + _redSoldiers, _allVehicles + _redVehicles] spawn AS_fnc_despawnUnits;

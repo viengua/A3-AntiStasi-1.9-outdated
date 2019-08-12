@@ -15,7 +15,7 @@ _commander = objNull;
 	if (_x != _x getVariable ["owner",_x]) then {waitUntil {_x == _x getVariable ["owner",_x]}};
 	if ([_x] call isMember) then {
 		_members pushBack _x;
-		if (_x getVariable ["elegible",true]) then {
+		if (_x getVariable ["eligible",true]) then {
 			_potentials pushBack _x;
 			if (_x == Slowhand) then {
 				_commander = _x;

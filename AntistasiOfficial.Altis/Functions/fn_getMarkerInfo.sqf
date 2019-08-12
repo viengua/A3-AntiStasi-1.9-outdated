@@ -1,5 +1,5 @@
-private ["_popFIA","_popAAF","_pop","_data","_numCiv","_prestigeOPFOR","_prestigeBLUFOR","_text","_posicionTel"];
-posicionTel = [];
+private ["_popFIA","_popAAF","_pop","_data","_numCiv","_prestigeOPFOR","_prestigeBLUFOR","_text","_positionTel"];
+positionTel = [];
 
 _popFIA = 0;
 _popAAF = 0;
@@ -12,11 +12,11 @@ _pop = 0;
 	_popFIA = _popFIA + (_numCiv * (_prestigeBLUFOR / 100));
 	_popAAF = _popAAF + (_numCiv * (_prestigeOPFOR / 100));
 	_pop = _pop + _numCiv;
-} forEach ciudades;
+} forEach citiesX;
 _popFIA = round _popFIA;
 _popAAF = round _popAAF;
 
-_text = format ["%1\n\nTotal population: %2\n%3 Support: %4\n%5 Support: %6 \n\nDestroyed Cities: %7\n\nClick on a zone for detailed info.", worldName, _pop, A3_Str_PLAYER, _popFIA, A3_Str_INDEP, _popAAF, {_x in destroyedCities} count ciudades];
+_text = format ["%1\n\nTotal population: %2\n%3 Support: %4\n%5 Support: %6 \n\nDestroyed Cities: %7\n\nClick on a zone for detailed info.", worldName, _pop, A3_Str_PLAYER, _popFIA, A3_Str_INDEP, _popAAF, {_x in destroyedCities} count citiesX];
 hint _text;
 
 _fn_text = {
@@ -46,19 +46,19 @@ _fn_text = {
 };
 
 openMap true;
-onMapSingleClick "posicionTel = _pos;";
+onMapSingleClick "positionTel = _pos;";
 
 while {visibleMap} do {
 	sleep 1;
-	if (count posicionTel > 0) then {
-		_posicionTel = posicionTel;
-		_location = [markers, _posicionTel] call BIS_Fnc_nearestPosition;
+	if (count positionTel > 0) then {
+		_positionTel = positionTel;
+		_location = [markers, _positionTel] call BIS_Fnc_nearestPosition;
 		_text = "Click on a zone";
 		call {
 			if (_location == "FIA_HQ") exitWith {
 				_text = format ["%1 HQ%2", A3_Str_PLAYER, [_location] call AS_fnc_getGarrisonInfo];
 			};
-			if (_location in ciudades) exitWith {
+			if (_location in citiesX) exitWith {
 				_data = server getVariable _location;
 				_numCiv = _data select 0;
 				_prestigeOPFOR = _data select 2;
@@ -68,7 +68,7 @@ while {visibleMap} do {
 				if (_location in destroyedCities) then {_text = format ["%1\nDESTROYED",_text]};
 			};
 
-			if (_location in aeropuertos) exitWith {
+			if (_location in airportsX) exitWith {
 				if (_location in mrkAAF) then {
 					_text = format ["%1 Airport", A3_Str_INDEP];
 					_text = [_text, "radio"] call _fn_text;
@@ -90,7 +90,7 @@ while {visibleMap} do {
 				if (_location in destroyedCities) then {_text = format ["%1\nDESTROYED",_text]};
 			};
 
-			if (_location in recursos) exitWith {
+			if (_location in resourcesX) exitWith {
 				if (_location in mrkAAF) then {
 					_text = format ["%1 Resources", A3_Str_INDEP];
 					_text = [_text, "all"] call _fn_text;
@@ -101,7 +101,7 @@ while {visibleMap} do {
 				if (_location in destroyedCities) then {_text = format ["%1\nDESTROYED",_text]};
 			};
 
-			if (_location in fabricas) exitWith {
+			if (_location in factories) exitWith {
 				if (_location in mrkAAF) then {
 					_text = format ["%1 Factory", A3_Str_INDEP];
 					_text = [_text, "all"] call _fn_text;
@@ -112,7 +112,7 @@ while {visibleMap} do {
 				if (_location in destroyedCities) then {_text = format ["%1\nDESTROYED",_text]};
 				};
 
-			if (_location in puestos) exitWith {
+			if (_location in outposts) exitWith {
 				if (_location in mrkAAF) then {
 					_text = format ["%1 Grand Outpost", A3_Str_INDEP];
 					_text = [_text, "radio"] call _fn_text;
@@ -122,7 +122,7 @@ while {visibleMap} do {
 				};
 			};
 
-			if (_location in puertos) exitWith {
+			if (_location in seaports) exitWith {
 				if (_location in mrkAAF) then {
 					_text = format ["%1 Seaport", A3_Str_INDEP];
 					_text = [_text, "radio"] call _fn_text;
@@ -147,7 +147,7 @@ while {visibleMap} do {
 		hint format ["%1",_text];
 	};
 
-	posicionTel = [];
+	positionTel = [];
 };
 
 onMapSingleClick "";

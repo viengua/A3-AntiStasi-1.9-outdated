@@ -51,7 +51,7 @@ if (count _bases > 0) then {_base = [_bases, _targetLocation] call BIS_fnc_neare
 
 
 // find closest airport
-_airportsAAF = aeropuertos - mrkFIA;
+_airportsAAF = airportsX - mrkFIA;
 _airports = [];
 _airport = "";
 _posAirport = [];

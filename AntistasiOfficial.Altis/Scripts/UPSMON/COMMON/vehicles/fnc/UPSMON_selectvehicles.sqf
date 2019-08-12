@@ -3,7 +3,7 @@ File: UPSMON_selectvehicles.sqf
 Author: Azroul13
 
 Description:
-	Función que busca vehiculos cercanos y hace entrar a las unidades del lider
+	Funciï¿½n que busca vehiclesX nearXs y hace entrar a las unitsX del lider
 Parameter(s):
 	<--- Units
 	<--- Array of vehicles

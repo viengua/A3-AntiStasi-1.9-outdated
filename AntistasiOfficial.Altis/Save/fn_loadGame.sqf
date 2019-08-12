@@ -15,13 +15,15 @@ publicVariable "flag_playerList";
 ["enableMemAcc"] call fn_loadData;
 ["enableOldFT"] call fn_loadData;
 ["campList"] call fn_loadData; publicVariable "campList"; publicVariable "campsFIA";
-["emplacements"] call fn_loadData; publicVariable "puestosFIA"; publicVariable "FIA_RB_list"; publicVariable "FIA_WP_list";
-["mrkFIA"] call fn_loadData; mrkFIA = mrkFIA + puestosFIA; publicVariable "mrkFIA"; if (isMultiplayer) then {sleep 5};
+["emplacements"] call fn_loadData; publicVariable "outpostsFIA"; publicVariable "FIA_RB_list"; publicVariable "FIA_WP_list";
+["mrkFIA"] call fn_loadData; mrkFIA = mrkFIA + outpostsFIA; publicVariable "mrkFIA"; if (isMultiplayer) then {sleep 5};
 ["mrkAAF"] call fn_loadData;
+["supplySaveArray"] call fn_loadData;
+if(isnil "supplySaveArray") then {supplySaveArray = [];}; publicVariable "supplySaveArray";
 ["destroyedCities"] call fn_loadData; publicVariable "destroyedCities";
 ["mines"] call fn_loadData;
-["cuentaCA"] call fn_loadData; publicVariable "cuentaCA";
-["antenas"] call fn_loadData; publicVariable "antenas";
+["countCA"] call fn_loadData; publicVariable "countCA";
+["antennas"] call fn_loadData; publicVariable "antennas";
 ["prestigeNATO"] call fn_loadData;
 ["prestigeCSAT"] call fn_loadData;
 ["hr"] call fn_loadData;
@@ -36,12 +38,13 @@ publicVariable "flag_playerList";
 ["time"] call fn_loadData;
 ["supportOPFOR"] call fn_loadData;
 ["supportBLUFOR"] call fn_loadData;
+["supplyLevels"] call fn_loadData;
 ["resourcesAAF"] call fn_loadData;
 ["resourcesFIA"] call fn_loadData;
 ["garrison"] call fn_loadData;
 ["skillFIA"] call fn_loadData;
 ["skillAAF"] call fn_loadData; publicVariable "skillAAF";
-["distanciaSPWN"] call fn_loadData; publicVariable "distanciaSPWN";
+["distanceSPWN"] call fn_loadData; publicVariable "distanceSPWN";
 ["civPerc"] call fn_loadData; publicVariable "civPerc";
 ["minimoFPS"] call fn_loadData; publicVariable "minimoFPS";
 ["smallCAmrk"] call fn_loadData;
@@ -63,7 +66,9 @@ unlockedRifles = unlockedweapons - gear_sidearms - gear_missileLaunchers - gear_
 //["ws_grid"] call fn_loadData;
 //===========================================================================
 
-
+{
+	[(_x select 0), (_x select 1)] remoteExec ["createSupplyBox", call AS_fnc_getNextWorker];
+} forEach supplySaveArray;
 
 _markers = mrkFIA + mrkAAF + campsFIA;
 
@@ -76,13 +81,13 @@ _markers = mrkFIA + mrkAAF + campsFIA;
 	} else {
 		mrkAAF = mrkAAF + [_x];
 	};
-} forEach controles;
+} forEach controlsX;
 
 {
 	if (!(_x in mrkAAF) AND !(_x in mrkFIA) AND (_x != "FIA_HQ")) then {mrkAAF pushBackUnique _x};
 } forEach markers;
 
-_markers = _markers + controles;
+_markers = _markers + controlsX;
 {
 
 	if (_x in mrkFIA) then {
@@ -93,7 +98,7 @@ _markers = _markers + controles;
 				_mrkD setMarkerColor guer_marker_colour;
 			};
 
-			if (_x in aeropuertos) exitWith {
+			if (_x in airportsX) exitWith {
 				_mrkD setMarkerText format [localize "STR_GL_MAP_AP1",count (garrison getVariable _x), A3_Str_BLUE];
 				_mrkD setMarkerType guer_marker_type;
 				planesAAFmax = planesAAFmax - 1;
@@ -107,11 +112,11 @@ _markers = _markers + controles;
 		    	tanksAAFmax = tanksAAFmax - 1;
 			};
 
-			if (_x in puestos) exitWith {
+			if (_x in outposts) exitWith {
 				_mrkD setMarkerText format [localize "STR_GL_MAP_OP1",count (garrison getVariable _x), A3_Str_PLAYER];
 			};
 
-			if (_x in ciudades) exitWith {
+			if (_x in citiesX) exitWith {
 				_power = [power, getMarkerPos _x] call BIS_fnc_nearestPosition;
 				if (!(_power in mrkFIA) OR (_power in destroyedCities)) then {
 					[_x,false] spawn AS_fnc_adjustLamps;
@@ -119,8 +124,8 @@ _markers = _markers + controles;
 				if (_x in destroyedCities) then {[_x] call AS_fnc_destroyCity};
 			};
 
-			if ((_x in recursos) OR (_x in fabricas)) exitWith {
-				if (_x in recursos) then {_mrkD setMarkerText format [localize "STR_GL_MAP_RS"+": %1",count (garrison getVariable _x)]} else {_mrkD setMarkerText format [localize "STR_GL_MAP_FAC"+": %1",count (garrison getVariable _x)]};
+			if ((_x in resourcesX) OR (_x in factories)) exitWith {
+				if (_x in resourcesX) then {_mrkD setMarkerText format [localize "STR_GL_MAP_RS"+": %1",count (garrison getVariable _x)]} else {_mrkD setMarkerText format [localize "STR_GL_MAP_FAC"+": %1",count (garrison getVariable _x)]};
 				_power = [power, getMarkerPos _x] call BIS_fnc_nearestPosition;
 				if (!(_power in mrkFIA) OR (_power in destroyedCities)) then {
 					[_x,false] spawn AS_fnc_adjustLamps;
@@ -128,7 +133,7 @@ _markers = _markers + controles;
 				if (_x in destroyedCities) then {[_x] call AS_fnc_destroyCity};
 			};
 
-			if (_x in puertos) exitWith {
+			if (_x in seaports) exitWith {
 				_mrkD setMarkerText format [localize "STR_GL_MAP_SP"+": %1",count (garrison getVariable _x)];
 			};
 
@@ -141,7 +146,7 @@ _markers = _markers + controles;
 
 	if (_x in mrkAAF) then {
 		call {
-			if (_x in ciudades) exitWith {
+			if (_x in citiesX) exitWith {
 				_power = [power, getMarkerPos _x] call BIS_fnc_nearestPosition;
 				if (!(_power in mrkAAF) OR (_power in destroyedCities)) then {
 					[_x,false] spawn AS_fnc_adjustLamps;
@@ -149,7 +154,7 @@ _markers = _markers + controles;
 				if (_x in destroyedCities) then {[_x] call AS_fnc_destroyCity};
 			};
 
-			if ((_x in recursos) OR (_x in fabricas)) exitWith {
+			if ((_x in resourcesX) OR (_x in factories)) exitWith {
 				_power = [power, getMarkerPos _x] call BIS_fnc_nearestPosition;
 				if (!(_power in mrkAAF) OR (_power in destroyedCities)) then {
 					[_x,false] spawn AS_fnc_adjustLamps;

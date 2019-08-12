@@ -2,110 +2,110 @@ if (!isServer and hasInterface) exitWith {};
 
 private ["_roads"];
 
-_posicionTel = _this select 0;
+_positionTel = _this select 0;
 
 _prestigio = server getVariable "prestigeNATO";
 _base = bases - mrkAAF + ["spawnNATO"];
 
-_origen = [_base,Slowhand] call BIS_fnc_nearestPosition;
-_orig = getMarkerPos _origen;
+_originX = [_base,Slowhand] call BIS_fnc_nearestPosition;
+_orig = getMarkerPos _originX;
 
 [-10,0] remoteExec ["prestige",2];
 
 
-_tiempolim = 30 max _prestigio;
-_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-_fechalimnum = dateToNumber _fechalim;
+_timeLimit = 30 max _prestigio;
+_dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
+_dateLimitNum = dateToNumber _dateLimit;
 
-_nombreorig = [_origen] call AS_fnc_localizar;
-
-
-_texto = "STR_GL_NATORB";
-_tipoGrupo = [bluATTeam, side_blue] call AS_fnc_pickGroup;
-_tipoVeh = bluAPC select 0;
+_nameOrigin = [_originX] call AS_fnc_localizar;
 
 
-_mrk = createMarker [format ["NATOPost%1", random 1000], _posicionTel];
+_textX = "STR_GL_NATORB";
+_typeGroup = [bluATTeam, side_blue] call AS_fnc_pickGroup;
+_typeVehX = bluAPC select 0;
+
+
+_mrk = createMarker [format ["NATOPost%1", random 1000], _positionTel];
 _mrk setMarkerShape "ICON";
 
 
-_tsk = ["NATORoadblock",[side_blue,civilian],[["%1 is dispatching a team to establish a Roadblock. Send and cover the team until reaches its destination.", A3_Str_BLUE],["%1 Roadblock Deployment", A3_Str_BLUE],_mrk],_posicionTel,"CREATED",5,true,true,"Move"] call BIS_fnc_setTask;
-misiones pushBackUnique _tsk; publicVariable "misiones";
-_grupo = [_orig, side_blue, _tipoGrupo] call BIS_Fnc_spawnGroup;
-_grupo setGroupId ["Watch"];
+_tsk = ["NATORoadblock",[side_blue,civilian],[["%1 is dispatching a team to establish a Roadblock. Send and cover the team until reaches its destination.", A3_Str_BLUE],["%1 Roadblock Deployment", A3_Str_BLUE],_mrk],_positionTel,"CREATED",5,true,true,"Move"] call BIS_fnc_setTask;
+missionsX pushBackUnique _tsk; publicVariable "missionsX";
+_groupX = [_orig, side_blue, _typeGroup] call BIS_Fnc_spawnGroup;
+_groupX setGroupId ["Watch"];
 
-_tam = 10;
+_radiusX = 10;
 while {true} do
 	{
-	_roads = _orig nearRoads _tam;
-	if (count _roads < 1) then {_tam = _tam + 10};
+	_roads = _orig nearRoads _radiusX;
+	if (count _roads < 1) then {_radiusX = _radiusX + 10};
 	if (count _roads > 0) exitWith {};
 	};
 _road = _roads select 0;
 _pos = position _road findEmptyPosition [1,30,"B_APC_Wheeled_01_cannon_F"];
-_camion = _tipoVeh createVehicle _pos;
-_grupo addVehicle _camion;
+_truckX = _typeVehX createVehicle _pos;
+_groupX addVehicle _truckX;
 
 {
-	_x assignAsCargo _camion;
-	_x moveInCargo _camion;
-} forEach units _grupo;
+	_x assignAsCargo _truckX;
+	_x moveInCargo _truckX;
+} forEach units _groupX;
 
-{[_x] call NATOinitCA} forEach units _grupo;
-leader _grupo setBehaviour "SAFE";
+{[_x] call NATOinitCA} forEach units _groupX;
+leader _groupX setBehaviour "SAFE";
 
-Slowhand hcSetGroup [_grupo];
-_grupo setVariable ["isHCgroup", true, true];
+Slowhand hcSetGroup [_groupX];
+_groupX setVariable ["isHCgroup", true, true];
 
-waitUntil {sleep 1; ({alive _x} count units _grupo == 0) or ({(alive _x) and (_x distance _posicionTel < 10)} count units _grupo > 0) or (dateToNumber date > _fechalimnum)};
+waitUntil {sleep 1; ({alive _x} count units _groupX == 0) or ({(alive _x) and (_x distance _positionTel < 10)} count units _groupX > 0) or (dateToNumber date > _dateLimitNum)};
 
-if ({(alive _x) and (_x distance _posicionTel < 10)} count units _grupo > 0) then {
-	if (isPlayer leader _grupo) then {
-		_owner = (leader _grupo) getVariable ["owner",leader _grupo];
-		(leader _grupo) remoteExec ["removeAllActions",leader _grupo];
-		_owner remoteExec ["selectPlayer",leader _grupo];
-		(leader _grupo) setVariable ["owner",_owner,true];
+if ({(alive _x) and (_x distance _positionTel < 10)} count units _groupX > 0) then {
+	if (isPlayer leader _groupX) then {
+		_owner = (leader _groupX) getVariable ["owner",leader _groupX];
+		(leader _groupX) remoteExec ["removeAllActions",leader _groupX];
+		_owner remoteExec ["selectPlayer",leader _groupX];
+		(leader _groupX) setVariable ["owner",_owner,true];
 		{[_x] joinsilent group _owner} forEach units group _owner;
 		[group _owner, _owner] remoteExec ["selectLeader", _owner];
 		"" remoteExec ["hint",_owner];
-		waitUntil {!(isPlayer leader _grupo)};
+		waitUntil {!(isPlayer leader _groupX)};
 	};
 
-	Slowhand hcRemoveGroup _grupo;
-	{deleteVehicle _x} forEach units _grupo;
-	deleteVehicle _camion;
-	deleteGroup _grupo;
+	Slowhand hcRemoveGroup _groupX;
+	{deleteVehicle _x} forEach units _groupX;
+	deleteVehicle _truckX;
+	deleteGroup _groupX;
 	sleep 1;
 
-	puestosNATO = puestosNATO + [_mrk]; publicVariable "puestosNATO";
+	outpostsNATO = outpostsNATO + [_mrk]; publicVariable "outpostsNATO";
 	markers = markers + [_mrk]; publicVariable "markers";
 	spawner setVariable [_mrk,false,true];
-	_tsk = ["NATORoadblock",[side_blue,civilian],[["%3 successfully deployed a roadblock, They will hold their position until %1:%2.",numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4, A3_Str_BLUE],["%1 Roadblock Deployment", A3_Str_BLUE],_mrk],_posicionTel,"SUCCEEDED",5,true,true,"Move"] call BIS_fnc_setTask;
+	_tsk = ["NATORoadblock",[side_blue,civilian],[["%3 successfully deployed a roadblock, They will hold their position until %1:%2.",numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4, A3_Str_BLUE],["%1 Roadblock Deployment", A3_Str_BLUE],_mrk],_positionTel,"SUCCEEDED",5,true,true,"Move"] call BIS_fnc_setTask;
 
 	_mrk setMarkerType "flag_Spain";
 	//_mrk setMarkerColor "ColorBlue";
-	_mrk setMarkerText localize _texto;
+	_mrk setMarkerText localize _textX;
 
 
-	waitUntil {sleep 60; (dateToNumber date > _fechalimnum)};
+	waitUntil {sleep 60; (dateToNumber date > _dateLimitNum)};
 
-	puestosNATO = puestosNATO - [_mrk]; publicVariable "puestosNATO";
+	outpostsNATO = outpostsNATO - [_mrk]; publicVariable "outpostsNATO";
 	markers = markers - [_mrk]; publicVariable "markers";
 	deleteMarker _mrk;
 	sleep 15;
-	[0,_tsk] spawn borrarTask;
+	[0,_tsk] spawn deleteTaskX;
 }
 else {
-	_tsk = ["NATORoadblock",[side_blue,civilian],[["%1 is dispatching a team to establish an Observation Post or Roadblock. Send and cover the team until reaches it's destination.", A3_Str_BLUE],["%1 Roadblock Deployment", A3_Str_BLUE],_mrk],_posicionTel,"FAILED",5,true,true,"Move"] call BIS_fnc_setTask;
+	_tsk = ["NATORoadblock",[side_blue,civilian],[["%1 is dispatching a team to establish an Observation Post or Roadblock. Send and cover the team until reaches it's destination.", A3_Str_BLUE],["%1 Roadblock Deployment", A3_Str_BLUE],_mrk],_positionTel,"FAILED",5,true,true,"Move"] call BIS_fnc_setTask;
 	sleep 3;
 	deleteMarker _mrk;
 
-	Slowhand hcRemoveGroup _grupo;
-	{deleteVehicle _x} forEach units _grupo;
-	deleteVehicle _camion;
-	deleteGroup _grupo;
+	Slowhand hcRemoveGroup _groupX;
+	{deleteVehicle _x} forEach units _groupX;
+	deleteVehicle _truckX;
+	deleteGroup _groupX;
 
 	sleep 15;
 
-	[0,_tsk] spawn borrarTask;
+	[0,_tsk] spawn deleteTaskX;
 };

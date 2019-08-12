@@ -1,7 +1,7 @@
 #include "defines.hpp"
 #include "dialogs.hpp"
 
-author="Barbolani";
+author="A3 Antistasi Community";
 OnLoadName = $STR_MISSION_NAME_EXT;
 OnLoadMission = "Be a Resistance Leader - Be a Hero";
 loadScreen = "pic.paa";
@@ -72,7 +72,7 @@ class CfgIdentities
 	speaker="Male01GRE";
 	pitch=1.1;
     };
-     class amiguete
+     class friendlyX
     {
         name = "Petros";
         nameSound = "Petros";
@@ -81,7 +81,7 @@ class CfgIdentities
 	speaker="Male01GRE";
 	pitch=1.1;
     };
-     class tonto
+     class foolish
     {
         name = "Zorba";
         nameSound = "";
@@ -271,7 +271,7 @@ class CfgDebriefing
 	{
 		title = "V I C T O R Y";
 		subtitle = "Altis is Ours!";
-		description = "The population of Altis loves you!<br/>The FIA brave soldiers prooved their valour, and Barbolani, Altis new Prime Minister, could at last to have a nice holliday. A deserved rest in a Greek island, drinking with Petros.";
+		description = "The population of Altis loves you!<br/>The FIA brave soldiers prooved their valour, and Petros, Altis new Prime Minister, could at last to have a nice holliday. A deserved rest in a Greek island, drinking with Petros.";
 		picture = "n_inf";
 		pictureColor[] = {0.0,0.5,0.0,1};
 	};
@@ -381,7 +381,6 @@ class Params {
         typeName = "BOOL";
         force = 1;
     };
-    //#include "aceSettings.hpp" //TODO to be decommissioned
 };
 
 class CfgFunctions {

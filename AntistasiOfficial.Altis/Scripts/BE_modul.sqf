@@ -490,7 +490,7 @@ fnc_BE_broadcast = {
 #define BE_STR_CTER2 "At least 1 base/airport under your control"
 #define BE_STR_CTER3 "At least 1 airport under your control"
 fnc_BE_C_TER = {
-	private _base = aeropuertos;
+	private _base = airportsX;
 	BE_STR_CTER = BE_STR_CTER3;
 	call {
 		if (BE_currentStage == 1) exitWith {
@@ -498,7 +498,7 @@ fnc_BE_C_TER = {
 			BE_STR_CTER = BE_STR_CTER2;
 		};
 		if (BE_currentStage == 0) exitWith {
-			_base = _base + puestos + puestosAA;
+			_base = _base + outposts + outpostsAA;
 			BE_STR_CTER = BE_STR_CTER1;
 		};
 	};

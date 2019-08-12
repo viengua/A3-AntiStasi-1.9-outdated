@@ -1,4 +1,4 @@
-// This is a copy of ASS_traidor.sqf repurposed for capturing a HVT.
+// This is a copy of ASS_Traitor.sqf repurposed for capturing a HVT.
 
 if (!isServer and hasInterface) exitWith {};
 
@@ -12,14 +12,14 @@ _source = _this select 1;
 
 _initialPosition = getMarkerPos _initialMarker;
 
-_tiempolim = 60;
-_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-_fechalimnum = dateToNumber _fechalim;
+_timeLimit = 60;
+_dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
+_dateLimitNum = dateToNumber _dateLimit;
 
-_tam = [_initialMarker] call sizeMarker;
+_radiusX = [_initialMarker] call sizeMarker;
 
-_houses = nearestObjects [_initialPosition, ["Land_i_House_Big_02_V3_F","Land_i_House_Big_02_V2_F","Land_i_House_Big_01_V3_F","Land_i_House_Big_01_V1_F","Land_i_House_Big_01_V2_F","Land_Shop_Town_03_F","Land_House_Big_04_F","Land_House_Small_04_F","Land_House_Big_03_F","Land_Hotel_02_F","Land_Hotel_01_F"], _tam];
-if (_houses isEqualTo []) then {_houses = nearestObjects [_initialPosition, ["house"], _tam];};
+_houses = nearestObjects [_initialPosition, ["Land_i_House_Big_02_V3_F","Land_i_House_Big_02_V2_F","Land_i_House_Big_01_V3_F","Land_i_House_Big_01_V1_F","Land_i_House_Big_01_V2_F","Land_Shop_Town_03_F","Land_House_Big_04_F","Land_House_Small_04_F","Land_House_Big_03_F","Land_Hotel_02_F","Land_Hotel_01_F"], _radiusX];
+if (_houses isEqualTo []) then {_houses = nearestObjects [_initialPosition, ["house"], _radiusX];};
 _housePositions = [];
 _house = _houses select 0;
 while {count _housePositions < 3} do
@@ -35,7 +35,7 @@ _traitorPosition = _housePositions select _rnd;
 _posSol1 = _housePositions select (_rnd + 1);
 _posSol2 = (_house buildingExit 0);
 
-_nombredest = [_initialMarker] call AS_fnc_localizar;
+_nameDest = [_initialMarker] call AS_fnc_localizar;
 
 _mayorGuards = createGroup side_red;
 _mayorGroup = createGroup civilian;
@@ -75,7 +75,7 @@ _mayorGroup selectLeader _mayor;
 
 _posTsk = (position _house) getPos [random 100, random 360];
 
-_spawnData = [_initialPosition, [ciudades, _initialPosition] call BIS_fnc_nearestPosition] call AS_fnc_findRoadspot;
+_spawnData = [_initialPosition, [citiesX, _initialPosition] call BIS_fnc_nearestPosition] call AS_fnc_findRoadspot;
 if (_spawnData isEqualTo []) exitWith {diag_log format ["Error in traitor: no suitable roads found near %1",_initialMarker]};
 _roadPos = _spawnData select 0;
 _roadDir = _spawnData select 1;
@@ -85,8 +85,8 @@ if (_source == "civ") then {
 	server setVariable ["civActive", _val + 1, true];
 };
 
-_tsk = ["ASS",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],_tskTitle,_initialMarker],_posTsk,"CREATED",5,true,true,"Kill"] call BIS_fnc_setTask;
-misiones pushBack _tsk; publicVariable "misiones";
+_tsk = ["ASS",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_initialMarker],_posTsk,"CREATED",5,true,true,"Kill"] call BIS_fnc_setTask;
+missionsX pushBack _tsk; publicVariable "missionsX";
 
 {[_x] spawn CSATinit; _x allowFleeing 0} forEach units _mayorGroup;
 
@@ -109,23 +109,23 @@ _mrk setMarkerColorLocal "ColorRed";
 _mrk setMarkerBrushLocal "DiagGrid";
 _mrk setMarkerAlphaLocal 0;
 
-_tipoGrupo = [infSquad, side_green] call AS_fnc_pickGroup;
-_grupo = [_initialPosition, side_green, _tipogrupo] call BIS_Fnc_spawnGroup;
+_typeGroup = [infSquad, side_green] call AS_fnc_pickGroup;
+_groupX = [_initialPosition, side_green, _typeGroup] call BIS_Fnc_spawnGroup;
 sleep 1;
 if (random 10 < 2.5) then
 	{
-	_doggo = _grupo createUnit ["Fin_random_F",_initialPosition,[],0,"FORM"];
+	_doggo = _groupX createUnit ["Fin_random_F",_initialPosition,[],0,"FORM"];
 	[_doggo] spawn guardDog;
 	};
-[_grupo, _mrk, "SAFE","SPAWNED", "NOVEH2", "NOFOLLOW"] execVM "scripts\UPSMON.sqf";
-{[_x] spawn genInitBASES} forEach units _grupo;
+[_groupX, _mrk, "SAFE","SPAWNED", "NOVEH2", "NOFOLLOW"] execVM "scripts\UPSMON.sqf";
+{[_x] spawn genInitBASES} forEach units _groupX;
 
-waitUntil {sleep 1; (dateToNumber date > _fechalimnum) or (not alive _mayor) or ({_mayor knowsAbout _x > 1.4} count ([500,0,_mayor,"BLUFORSpawn"] call distanceUnits) > 0)};
+waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) or (not alive _mayor) or ({_mayor knowsAbout _x > 1.4} count ([500,0,_mayor,"BLUFORSpawn"] call distanceUnits) > 0)};
 
 if ({_mayor knowsAbout _x > 1.4} count ([500,0,_mayor,"BLUFORSpawn"] call distanceUnits) > 0) then
 	{
 	//hint "You have been discovered. The traitor is fleeing to the nearest base. Go and kill him!";
-	_tsk = ["ASS",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],_tskTitle,_initialMarker],_mayor,"CREATED",5,true,true,"Kill"] call BIS_fnc_setTask;
+	_tsk = ["ASS",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_initialMarker],_mayor,"CREATED",5,true,true,"Kill"] call BIS_fnc_setTask;
 	{_x enableAI "MOVE"} forEach units _mayorGroup;
 	_mayor assignAsDriver _veh;
 	[_mayor] orderGetin true;
@@ -137,11 +137,11 @@ if ({_mayor knowsAbout _x > 1.4} count ([500,0,_mayor,"BLUFORSpawn"] call distan
 	_wp1 setWaypointSpeed "FULL";
 	};
 
-waitUntil  {sleep 1; (dateToNumber date > _fechalimnum) or (not alive _mayor) or (_mayor distance _posBase < 50) or (_mayor distance getMarkerPos guer_respawn < 50)};
+waitUntil  {sleep 1; (dateToNumber date > _dateLimitNum) or (not alive _mayor) or (_mayor distance _posBase < 50) or (_mayor distance getMarkerPos guer_respawn < 50)};
 
 if (not alive _mayor) then
 	{
-	_tsk = ["ASS",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],_tskTitle,_initialMarker],_mayor,"FAILED",5,true,true,"Kill"] call BIS_fnc_setTask;
+	_tsk = ["ASS",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_initialMarker],_mayor,"FAILED",5,true,true,"Kill"] call BIS_fnc_setTask;
 	[0,0] remoteExec ["prestige",2];
 	[10,-20,_initialPosition] remoteExec ["AS_fnc_changeCitySupport",2];
 	{
@@ -155,7 +155,7 @@ if (not alive _mayor) then
 		{
 		[-10,_x] call playerScoreAdd;
 		};
-	} forEach ([_tam,0,_initialPosition,"BLUFORSpawn"] call distanceUnits);
+	} forEach ([_radiusX,0,_initialPosition,"BLUFORSpawn"] call distanceUnits);
 	[-5,Slowhand] call playerScoreAdd;
 	// BE module
 	if (activeBE) then {
@@ -166,7 +166,7 @@ if (not alive _mayor) then
 
 if (_mayor distance getMarkerPos guer_respawn < 50) then
 	{
-	_tsk = ["ASS",[side_blue,civilian],[format [_tskDesc,_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],_tskTitle,_initialMarker],_mayor,"SUCCEEDED",5,true,true,"Kill"] call BIS_fnc_setTask;
+	_tsk = ["ASS",[side_blue,civilian],[format [_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_initialMarker],_mayor,"SUCCEEDED",5,true,true,"Kill"] call BIS_fnc_setTask;
 	[0,0] remoteExec ["prestige",2];
 	[0,300] remoteExec ["resourcesFIA",2];
 	[-10,20,_initialPosition] remoteExec ["AS_fnc_changeCitySupport",2];
@@ -181,7 +181,7 @@ if (_mayor distance getMarkerPos guer_respawn < 50) then
 		{
 		[10,_x] call playerScoreAdd;
 		};
-	} forEach ([_tam,0,_initialPosition,"BLUFORSpawn"] call distanceUnits);
+	} forEach ([_radiusX,0,_initialPosition,"BLUFORSpawn"] call distanceUnits);
 	[5,Slowhand] call playerScoreAdd;
 	// BE module
 	if (activeBE) then {
@@ -192,31 +192,31 @@ if (_mayor distance getMarkerPos guer_respawn < 50) then
 
 else
 	{
-	_tsk = ["ASS",[side_blue,civilian],[format [_tskDesc,_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],_tskTitle,_initialMarker],_mayor,"FAILED",5,true,true,"Kill"] call BIS_fnc_setTask;
+	_tsk = ["ASS",[side_blue,civilian],[format [_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_initialMarker],_mayor,"FAILED",5,true,true,"Kill"] call BIS_fnc_setTask;
 	[-2,Slowhand] call playerScoreAdd;
 	[10,0,_initialPosition] remoteExec ["AS_fnc_changeCitySupport",2];
 	};
 
-[5400,_tsk] spawn borrarTask;
+[5400,_tsk] spawn deleteTaskX;
 
 if (_source == "civ") then {
 	_val = server getVariable "civActive";
 	server setVariable ["civActive", _val - 1, true];
 };
 
-waitUntil {sleep 1; !([distanciaSPWN,1,_veh,"BLUFORSpawn"] call distanceUnits)};
+waitUntil {sleep 1; !([distanceSPWN,1,_veh,"BLUFORSpawn"] call distanceUnits)};
 
 {
-waitUntil {sleep 1; !([distanciaSPWN,1,_x,"BLUFORSpawn"] call distanceUnits)};
+waitUntil {sleep 1; !([distanceSPWN,1,_x,"BLUFORSpawn"] call distanceUnits)};
 deleteVehicle _x
 } forEach units _mayorGroup;
 deleteGroup _mayorGroup;
 
 {
-waitUntil {sleep 1; !([distanciaSPWN,1,_x,"BLUFORSpawn"] call distanceUnits)};
+waitUntil {sleep 1; !([distanceSPWN,1,_x,"BLUFORSpawn"] call distanceUnits)};
 deleteVehicle _x
-} forEach units _grupo;
-deleteGroup _grupo;
+} forEach units _groupX;
+deleteGroup _groupX;
 
-waitUntil {sleep 1; !([distanciaSPWN,1,_veh,"BLUFORSpawn"] call distanceUnits)};
+waitUntil {sleep 1; !([distanceSPWN,1,_veh,"BLUFORSpawn"] call distanceUnits)};
 deleteVehicle _veh;

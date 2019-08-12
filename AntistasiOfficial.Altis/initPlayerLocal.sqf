@@ -43,11 +43,11 @@ if (isMultiplayer) then {
 	diag_log format ["Antistasi MP Client. initVar is public. Version %1",antistasiVersion];
 };
 
-_title = ["A3 - Antistasi","by Barbolani",antistasiVersion] spawn BIS_fnc_infoText;
+_title = ["A3 - Antistasi","A3 Antistasi Community",antistasiVersion] spawn BIS_fnc_infoText;
 
 //Multiplayer start
 if (isMultiplayer) then {
-	player setVariable ["elegible",true,true]; //Why? so whoever start will be eligible to be commander?
+	player setVariable ["eligible",true,true]; //Why? so whoever start will be eligible to be commander?
 	musicON = false;
 	waitUntil {scriptdone _introshot};
 	disableUserInput true;
@@ -85,13 +85,13 @@ player addWeapon "ItemWatch";
 // In order: controller, TK counter, funds, spawn-trigger, rank, score, known by hostile AI
 player setVariable ["owner",player,true];
 player setVariable ["punish",0,true];
-player setVariable ["dinero",100,true];
+player setVariable ["moneyX",500,true];
 player setVariable ["BLUFORSpawn",true,true];
 player setVariable ["ASrank",rank player,true];
 player setVariable ["score", [0,25] select (player == Slowhand),true];
 player setvariable ["compromised",0];
 
-rezagados = creategroup side_blue;
+stragglers = creategroup side_blue;
 (group player) enableAttack false;
 
 if (!activeACE) then {
@@ -152,7 +152,7 @@ if (_isJip) then { waitUntil {scriptdone _introshot};
 			if (_x isKindOf "FlagCarrier") then {
 				_nearestMarker = [markers,getPos _x] call BIS_fnc_nearestPosition;
 
-				if (!(_nearestMarker in colinas) AND !(_nearestMarker in controles)) then {
+				if (!(_nearestMarker in colinas) AND !(_nearestMarker in controlsX)) then {
 					if (_nearestMarker in mrkAAF) then {
 						_x addAction [localize "STR_ACT_TAKEFLAG", {[[_this select 0, _this select 1],"mrkWIN"] call BIS_fnc_MP;},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"];
 					} else {
@@ -161,7 +161,7 @@ if (_isJip) then { waitUntil {scriptdone _introshot};
 					};
 				};
 			};
-		} forEach vehicles - [bandera,fuego,caja,cajaVeh];
+		} forEach vehicles - [flagX,fireX,boxX,vehicleBox];
 
 		// Add actions to POWs
 		{
@@ -186,8 +186,8 @@ if (_isJip) then { waitUntil {scriptdone _introshot};
 		waitUntil {!isNil "Slowhand"};
 			if (player == Slowhand) then {
 			   	 if (isMultiplayer) then {
-			    	HC_comandante synchronizeObjectsAdd [player];
-					player synchronizeObjectsAdd [HC_comandante];
+			    	HC_commanderX synchronizeObjectsAdd [player];
+					player synchronizeObjectsAdd [HC_commanderX];
 					diag_log "Antistasi MP Client. Client finished";
 				} else {
 			    	membersPool = [];

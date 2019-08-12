@@ -10,12 +10,13 @@ flag_savingServer = true;
 } forEach (allPlayers - entities "HeadlessClient_F");
 
 //game
-["cuentaCA", cuentaCA] call fn_saveData;
+["countCA", countCA] call fn_saveData;
 ["smallCAmrk", smallCAmrk] call fn_saveData;
 ["membersPool", membersPool] call fn_saveData;
-["antenas", antenasmuertas] call fn_saveData;
-["mrkAAF", mrkAAF - controles] call fn_saveData;
-["mrkFIA", mrkFIA - puestosFIA - controles] call fn_saveData;
+["antennas", antennasDead] call fn_saveData;
+["mrkAAF", mrkAAF - controlsX] call fn_saveData;
+["mrkFIA", mrkFIA - outpostsFIA - controlsX] call fn_saveData;
+["supplySaveArray", supplySaveArray] call fn_saveData;
 ["posHQ", server getVariable ["posHQ", getMarkerPos guer_respawn]] call fn_saveData;
 ["prestigeNATO", server getVariable ["prestigeNATO",0]] call fn_saveData;
 ["prestigeCSAT", server getVariable ["prestigeCSAT",0]] call fn_saveData;
@@ -29,7 +30,7 @@ flag_savingServer = true;
 ["skillAAF", skillAAF] call fn_saveData;
 ["destroyedCities", destroyedCities] call fn_saveData;
 ["destroyedBuildings", destroyedBuildings] call fn_saveData;
-["distanciaSPWN", distanciaSPWN] call fn_saveData;
+["distanceSPWN", distanceSPWN] call fn_saveData;
 ["civPerc", civPerc] call fn_saveData;
 ["minimoFPS", minimoFPS] call fn_saveData;
 ["unlockedWeapons", unlockedWeapons] call fn_saveData;
@@ -48,7 +49,7 @@ flag_savingServer = true;
 //Sparker's War Statistics data
 //["ws_grid", ws_grid] call fn_saveData;
 
-private ["_hr","_funds","_vehicle","_weapons","_magazines","_items","_backpacks","_containers","_backpack","_vehiclesToSave","_vehicleType","_supportOPFOR","_supportBLUFOR","_data","_garrison","_mines","_emplacements","_camps","_missionTypes","_objectsHQ","_addObjectsHQ"];
+private ["_hr","_funds","_vehicle","_weapons","_magazines","_items","_backpacks","_containers","_backpack","_vehiclesToSave","_vehicleType","_supportOPFOR","_supportBLUFOR", "_supplyLevels","_data","_garrison","_mines","_emplacements","_camps","_missionTypes","_objectsHQ","_addObjectsHQ"];
 
 _hr = (server getVariable ["hr",0]) + ({(alive _x) AND (!isPlayer _x) AND (_x getVariable ["BLUFORSpawn",false]) AND (_x getVariable ["generated",false])} count allUnits);
 _funds = server getVariable ["resourcesFIA",0];
@@ -56,9 +57,9 @@ _funds = server getVariable ["resourcesFIA",0];
 ["hr",_hr] call fn_saveData;
 ["vehInGarage",vehInGarage] call fn_saveData;
 
-_weapons = weaponCargo caja;
-_magazines = magazineCargo caja;
-_items = itemCargo caja;
+_weapons = weaponCargo boxX;
+_magazines = magazineCargo boxX;
+_items = itemCargo boxX;
 _backpacks = [];
 
 {
@@ -108,13 +109,13 @@ _backpacks = [];
 
 ["resourcesFIA",_funds] call fn_saveData;
 
-if (count backpackCargo caja > 0) then {
+if (count backpackCargo boxX > 0) then {
 	{
 		_backpacks pushBack (_x call BIS_fnc_basicBackpack);
-	} forEach backPackCargo caja;
+	} forEach backPackCargo boxX;
 };
 
-_containers = everyBackpack caja;
+_containers = everyBackpack boxX;
 if (count _containers > 0) then {
 	for "_i" from 0 to (count _containers - 1) do {
 		_weapons = _weapons + weaponCargo (_containers select _i);
@@ -205,7 +206,7 @@ _vehiclesToSave = [];
 			};
 		};
 	};
-} forEach vehicles - [caja,bandera,fuego,cajaveh,mapa];
+} forEach vehicles - [boxX,flagX,fireX,vehicleBox,mapX];
 
 ["vehicles",_vehiclesToSave] call fn_saveData;
 ["weapons",_weapons] call fn_saveData;
@@ -220,7 +221,7 @@ _objectsHQ = [];
 	private _pos = call compile format ["getPosATLVisual %1", _x];
 	private _dir = call compile format ["getDir %1", _x];
 	_objectsHQ pushBackUnique [str _x,getPosATLVisual _x, getDir _x];
-} forEach [bandera,caja,cajaveh,fuego,mapa,petros];
+} forEach [flagX,boxX,vehicleBox,fireX,mapX,petros];
 */
 
 _objectsHQ = [];
@@ -228,14 +229,14 @@ _objectsHQ = [];
 	private _pos = call compile format ["getPosATLVisual %1", _x];
 	private _dir = call compile format ["getDir %1", _x];
 	_objectsHQ pushBackUnique [_x, _pos, _dir];
-} forEach ["bandera","caja","cajaveh","fuego","mapa","petros"];
+} forEach ["flagX","boxX","vehicleBox","fireX","mapX","petros"];
 
 ["objectsHQ",_objectsHQ] call fn_saveData;
 
 _addObjectsHQ = [];
 {
 	_addObjectsHQ pushBackUnique [typeOf _x,getPosATLVisual _x, getDir _x];
-} forEach (nearestObjects [getPos fuego, ["Land_Camping_Light_F","Land_BagFence_Round_F","CamoNet_BLUFOR_open_F"], 50]);
+} forEach (nearestObjects [getPos fireX, ["Land_Camping_Light_F","Land_BagFence_Round_F","CamoNet_BLUFOR_open_F"], 50]);
 
 if (count (server getVariable ["obj_vehiclePad",[]]) > 0) then {
 	_addObjectsHQ pushBackUnique [typeOf obj_vehiclePad,getPosATL obj_vehiclePad,server getVariable ["AS_vehicleOrientation",0]];
@@ -245,19 +246,22 @@ if (count (server getVariable ["obj_vehiclePad",[]]) > 0) then {
 
 _supportOPFOR = [];
 _supportBLUFOR = [];
+_supplyLevels= [];
 {
 	_data = server getVariable _x;
 	_supportOPFOR = _supportOPFOR + [_data select 2];
 	_supportBLUFOR = _supportBLUFOR + [_data select 3];
-} forEach ciudades;
+	_supplyLevels = _supplyLevels + [_data select 4];
+} forEach citiesX;
 
 ["supportOPFOR",_supportOPFOR] call fn_saveData;
 ["supportBLUFOR",_supportBLUFOR] call fn_saveData;
+["supplyLevels",_supplyLevels] call fn_saveData;
 
 _garrison = [];
 {
 _garrison = _garrison + [garrison getVariable [_x,[]]];
-} forEach (mrkFIA - puestosFIA - controles - ciudades);
+} forEach (mrkFIA - outpostsFIA - controlsX - citiesX);
 
 ["garrison",_garrison] call fn_saveData;
 
@@ -271,7 +275,7 @@ _mines = [];
 _emplacements = [];
 {
 	_emplacements = _emplacements + [getMarkerPos _x];
-} forEach puestosFIA;
+} forEach outpostsFIA;
 
 ["emplacements",_emplacements] call fn_saveData;
 
@@ -290,12 +294,12 @@ _camps = [];
 if (!isDedicated) then {
 	_missionTypes = [];
 	{
-		if (_x in misiones) then {
+		if (_x in missionsX) then {
 			if (([_x] call BIS_fnc_taskState) == "CREATED") then {
 				_missionTypes pushBack _x;
 			};
 		};
-	} forEach ["AS","ASS","CON","DES","LOG","RES","CONVOY","DEF_HQ","AtaqueAAF"];
+	} forEach ["AS","ASS","CON","DES","LOG","RES","CONVOY","DEF_HQ","AttackAAF"];
 
 	["tasks",_missionTypes] call fn_saveData;
 };
@@ -303,7 +307,7 @@ if (!isDedicated) then {
 _data = [];
 {
 	_data pushBack [_x,server getVariable _x];
-} forEach (aeropuertos + bases);
+} forEach (airportsX + bases);
 
 ["idleBases",_data] call fn_saveData;
 

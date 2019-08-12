@@ -15,7 +15,7 @@ player addEventHandler ["FIRED", {
 			};
 		} else {
 			private ["_city","_size","_data"];
-			_city = [ciudades,_player] call BIS_fnc_nearestPosition;
+			_city = [citiesX,_player] call BIS_fnc_nearestPosition;
 			_size = [_city] call sizeMarker;
 			_data = server getVariable _city;
 			if (random 100 < _data select 2) then {
@@ -43,7 +43,7 @@ player addEventHandler ["HandleHeal", {
 			_player setCaptive false;
 		} else {
 			private ["_city","_size","_data"];
-			_city = [ciudades,_player] call BIS_fnc_nearestPosition;
+			_city = [citiesX,_player] call BIS_fnc_nearestPosition;
 			_size = [_city] call sizeMarker;
 			_data = server getVariable _city;
 			if (random 100 < _data select 2) then {
@@ -108,7 +108,7 @@ player addEventHandler ["GetInMan", {
 		if (_vehicle isKindOf "Truck_F") then {
 			if !(typeOf _vehicle in ["C_Van_01_fuel_F","I_Truck_02_fuel_F","B_G_Van_01_fuel_F"]) then {
 				if (_this select 1 == "driver") then {
-					_EHid = _unit addAction [localize "STR_ACT_LOADAMMOBOX", "Municion\transfer.sqf",nil,0,false,true];
+					_EHid = _unit addAction [localize "STR_ACT_LOADAMMOBOX", "ammunition\transfer.sqf",nil,0,false,true];
 					_unit setVariable ["eh_transferID", _EHid, true];
 				};
 			};
@@ -130,7 +130,7 @@ player addEventHandler ["GetOutMan",{
 
 // If Jeroen's arsenal isn't active, display unlock requirements
 if !(activeJNA) then {
-	caja addEventHandler ["ContainerOpened", {
+	boxX addEventHandler ["ContainerOpened", {
 		hint format [localize "STR_HINTS_GEN_INIT_MEMBER_GEAR",
 			["weapons"] call AS_fnc_getUnlockRequirement,
 			["magazines"] call AS_fnc_getUnlockRequirement,
@@ -206,7 +206,7 @@ if (isMultiplayer) then {
 
 	// Access restrictions if Jeroen's Arsenal is not active
 	if !(activeJNA) then {
-		caja addEventHandler ["ContainerOpened", {
+		boxX addEventHandler ["ContainerOpened", {
 			params ["_container","_player"];
 		    if !([_player] call isMember) then {
 		    	_player setPos position petros;
@@ -222,7 +222,7 @@ if (isMultiplayer) then {
 	    player addEventHandler ["InventoryOpened", {
 			_control = false;
 			if !([_this select 0] call isMember) then {
-				if ((_this select 1 == caja) OR ((_this select 0) distance caja < 3)) then {
+				if ((_this select 1 == boxX) OR ((_this select 0) distance boxX < 3)) then {
 					_control = true;
 					hint format [localize "STR_HINTS_GEN_INIT_NOTMEMBER_GEAR",
 						["weapons"] call AS_fnc_getUnlockRequirement,

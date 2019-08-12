@@ -13,10 +13,10 @@ while {true} do {
 	_vehicleType = selectRandom _vehicleArray;
 	call {
 		if (_vehicleType in heli_unarmed) exitWith {
-			_arrayBases = aeropuertos - mrkFIA; //Stef disabled heli patrol, better use QRF instead
+			_arrayBases = airportsX - mrkFIA; //Stef disabled heli patrol, better use QRF instead
 		};
 		if (_vehicleType in vehPatrolBoat) exitWith {
-			_arrayBases = puertos - mrkFIA;
+			_arrayBases = seaports - mrkFIA;
 		};
 		_arrayBases = bases - mrkFIA;
 	};
@@ -123,11 +123,11 @@ while {alive _vehicle} do {
 				if (_knowledge > 1.4) then {
 					{
 						_group = _x;
-						if (leader _group distance _vehicle < distanciaSPWN) then {_group reveal [_object,_knowledge]};
+						if (leader _group distance _vehicle < distanceSPWN) then {_group reveal [_object,_knowledge]};
 					} forEach allGroups;
 				};
 			};
-		} forEach (driver _vehicle nearTargets distanciaSPWN);
+		} forEach (driver _vehicle nearTargets distanceSPWN);
 		if ((_vehicle distance2d _targetPosition < _distance) OR ({alive _x} count _allSoldiers == 0) OR ({fleeing _x} count _allSoldiers == {alive _x} count _allSoldiers) OR !(canMove _vehicle)) exitWith {};
 	};
 

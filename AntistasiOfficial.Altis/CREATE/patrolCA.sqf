@@ -22,7 +22,7 @@ _base = "";
 _airport = "";
 if !(_forceBase == "") then {
 	_base = ["", _forceBase] select (_forceBase in bases);
-	_airport = ["", _forceBase] select (_forceBase in aeropuertos);
+	_airport = ["", _forceBase] select (_forceBase in airportsX);
 	_forcedAttack = true;
 };
 
@@ -40,12 +40,12 @@ if !(_forceBase == "") then {
 			};
 		} else {
 			_nearestMarker = [smallCApos,_marker] call BIS_fnc_nearestPosition;
-			if (_nearestMarker distance _marker < (distanciaSPWN/2)) then {
+			if (_nearestMarker distance _marker < (distanceSPWN/2)) then {
 				_exit = true;
 			} else {
 				if (count smallCAmrk > 0) then {
 					_nearestMarker = [smallCAmrk,_marker] call BIS_fnc_nearestPosition;
-					if (getMarkerPos _nearestMarker distance _marker < (distanciaSPWN/2)) then {_exit = true};
+					if (getMarkerPos _nearestMarker distance _marker < (distanceSPWN/2)) then {_exit = true};
 				};
 			};
 		};
@@ -303,7 +303,7 @@ _roads = [];
 				{_x assignAsCargo _vehicle; _x moveInCargo _vehicle} forEach units _group;
 				_redGroups pushBack _group;
 				[_vehicle,"CSAT Air Transport"] spawn inmuneConvoy;
-				if ((_marker in bases) OR (_marker in aeropuertos) OR (random 10 < _threatEvaluation)) then {
+				if ((_marker in bases) OR (_marker in airportsX) OR (random 10 < _threatEvaluation)) then {
 					{removebackpack _x; _x addBackpack "B_Parachute"} forEach units _group;
 					[_vehicle,_group,_marker,_threatEvaluation] spawn airdrop;
 				}
@@ -356,7 +356,7 @@ _roads = [];
 
 		waitUntil {sleep 1; not (spawner getVariable _marker)};
 	} else {
-		waitUntil {sleep 1; !([distanciaSPWN,1,_markerPos,"BLUFORSpawn"] call distanceUnits)};
+		waitUntil {sleep 1; !([distanceSPWN,1,_markerPos,"BLUFORSpawn"] call distanceUnits)};
 		smallCApos = smallCApos - [_marker];
 		publicVariable "smallCApos";
 	};

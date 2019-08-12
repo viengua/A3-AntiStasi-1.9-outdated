@@ -1,12 +1,12 @@
-﻿params [["_oneIteration", false]];
-
+params [["_oneIteration", false]];
+[getMarkerPos guer_respawn,[],[],false] params ["_positionHQ","_options","_zones"];
 if (!isServer) exitWith{};
 
 scriptName "resourcecheck";
 
 if (isMultiplayer) then {waitUntil {!isNil "switchCom"}};
 
-private ["_incomeFIA","_incomeEnemy","_hrFIA","_popFIA","_popEnemy","_bonusFIA","_bonusEnemy","_city","_cityIncomeFIA","_cityIncomeEnemy","_cityIncomeHR","_data","_civilians","_supportFIA","_supportEnemy","_power","_coef","_mrkD","_base","_factory","_resource","_text","_updated","_resourcesAAF","_vehicle","_script"];
+private ["_incomeFIA","_incomeEnemy","_hrFIA","_popFIA","_popEnemy","_bonusFIA","_bonusEnemy", "_cityInRange" ,"_city","_cityIncomeFIA","_cityIncomeEnemy","_cityIncomeHR","_data","_civilians","_supportFIA","_supportEnemy", "_supplyLevels","_power","_coef","_mrkD","_base","_factory","_resource","_text","_updated","_resourcesAAF","_vehicle","_script","_types"];
 
 //Sparker's War Statistics variables
 private _ws_territory = call ws_fnc_newGridArray;	//Array for the sum of AAF(positive) and FIA(negative) territories
@@ -18,13 +18,12 @@ private _ws_radius = 500;						//Value needed to calculate fields around markers
 
 while {true} do {
 
-
 	//Roadblock placement based on the frontline, made by Sparker
 	//Just remove this if you need. Also check it in init and serverInit.
 	diag_log "resourcecheck.sqf: calculating grids...";
 	[_ws_territory, 0] call ws_fnc_setValueAll; //reset the grid
-	[((mrkAAF-ciudades)-colinas)-controles, _ws_radius, 1, _ws_territory] call ws_fnc_markersToGridArray;		//Convert AAF territory into a 2D array
-	[(((mrkFIA-["FIA_HQ"])-ciudades)-controles)-colinas, _ws_radius, -1.2,_ws_territory] call ws_fnc_markersToGridArray;	//Convert FIA territory into a 2D array
+	[((mrkAAF-citiesX)-colinas)-controlsX, _ws_radius, 1, _ws_territory] call ws_fnc_markersToGridArray;		//Convert AAF territory into a 2D array
+	[(((mrkFIA-["FIA_HQ"])-citiesX)-controlsX)-colinas, _ws_radius, -1.2,_ws_territory] call ws_fnc_markersToGridArray;	//Convert FIA territory into a 2D array
 	[_ws_territory, 0, _ws_frontline] call ws_fnc_filterZeroCrossing;											//Detect zero crossing
 	[_ws_frontline, 0.5, _ws_frontline] call ws_fnc_filterThreshold;											//Make the zero crossing more sharp
 	[_ws_frontline, _ws_frontlineSmooth] call ws_fnc_filterSmooth;												//Blur the frontline
@@ -36,7 +35,7 @@ while {true} do {
 	[ws_frontline, _ws_frontline] call ws_fnc_copyGrid;
 	[ws_frontlineDir, _ws_frontlineDir] call ws_fnc_copyGrid;
 	diag_log "resourcecheck.sqf: finished calculating grids. Putting roadblocks.";
-	private _newRoadblocks = [ws_frontline, ws_frontlineSmooth, ws_frontlineDir, controles, 1000, false] call ws_fnc_putRoadblockmarkersAtFrontline;
+	private _newRoadblocks = [ws_frontline, ws_frontlineSmooth, ws_frontlineDir, controlsX, 1000, false] call ws_fnc_putRoadblockmarkersAtFrontline;
 	diag_log format ["resourcecheck.sqf: Added %1 roadblocks.", _newRoadblocks];
 	//////////////////////////////////////////////////////////////////////////////
 
@@ -55,16 +54,18 @@ while {true} do {
 	_popEnemy = 0;
 	_bonusEnemy = 1;
 	_bonusFIA = 1;
+	_cityInRange = [];
 
 	{
 		_city = _x;
 		_cityIncomeEnemy = 0;
 		_cityIncomeFIA = 0;
 		_cityIncomeHR = 0;
-		_data = server getVariable [_city,[0,0,1,1]];
+		_data = server getVariable [_city,[0,0,1,1,[]]];
 		_civilians = _data select 0;
 		_supportEnemy = _data select 2;
 		_supportFIA = _data select 3;
+		_supplyLevels = _data select 4;
 		_power = [_city] call AS_fnc_powerCheck;
 		_coef = [0.5,1] select _power;
 		_popFIA = _popFIA + (_civilians * (_supportFIA / 100));
@@ -103,6 +104,10 @@ while {true} do {
 					};
 				};
 			};
+			if(getmarkerPos _city distance _positionHQ < 4000) then
+			{
+				_cityInRange pushbackunique _city;
+			}
 		};
 
 		_incomeEnemy = _incomeEnemy + _cityIncomeEnemy;
@@ -122,8 +127,8 @@ while {true} do {
 			if (_power) then {_power = false} else {_power = true};
 			[_city,_power] spawn AS_fnc_adjustLamps;
 			sleep 5;
-			{[_city,_x] spawn AS_fnc_deleteRoadblock} forEach controles;
-			if !("CONVOY" in misiones) then {
+			{[_city,_x] spawn AS_fnc_deleteRoadblock} forEach controlsX;
+			if !("CONVOY" in missionsX) then {
 				_base = [_city] call AS_fnc_findBaseForConvoy;
 				if ((_base != "") AND (random 3 < 1)) then {
 					[_city,_base,"city"] remoteExec ["CONVOY", call AS_fnc_getNextWorker];
@@ -144,7 +149,27 @@ while {true} do {
 			if (_power) then {_power = false} else {_power = true};
 			[_city,_power] spawn AS_fnc_adjustLamps;
 		};
-	} forEach ciudades;
+	} forEach citiesX;
+
+	if (countSupplyCrates < 6) then
+	{
+		_cityDecreased = false;
+		for "_i" from 0 to 4 do
+		{
+			_currentCity = selectRandom _cityInRange;
+			_types = [_currentCity, "GOOD"] call AS_fnc_getHighSupplies;
+			if (random 100 < 10) then {_types = [_currentCity, "LOW"] call AS_fnc_getHighSupplies};
+			if ( count _types != 0 AND !_cityDecreased ) then {
+				_cityDecreased = true;
+				_type = selectRandom _types;
+
+                [_type, -1, _currentCity] remoteExec ["AS_fnc_changeCitySupply", 2];
+			};
+		};
+		_passedtype = selectRandom["FOOD", "WATER", "FUEL"];
+		[[], _passedtype] remoteExec ["createSupplyBox", call AS_fnc_getNextWorker];
+	};
+
 
 	if ((_popFIA > _popEnemy) AND ("airport_3" in mrkFIA)) then {["end1",true,true,true,true] remoteExec ["BIS_fnc_endMission",0]};
 
@@ -155,7 +180,7 @@ while {true} do {
 			if (_factory in mrkFIA) then {_bonusFIA = _bonusFIA + 0.25};
 			if (_factory in mrkAAF) then {_bonusEnemy = _bonusEnemy + 0.25};
 		};
-	} forEach fabricas;
+	} forEach factories;
 
 	{
 		_resource = _x;
@@ -170,7 +195,7 @@ while {true} do {
 				if (_resource in mrkAAF) then {_incomeEnemy = _incomeEnemy + (100 * _bonusEnemy)};
 			};
 		};
-	} forEach recursos;
+	} forEach resourcesX;
 
 	if (server getVariable ["easyMode",false]) then {
 		_hrFIA = _hrFIA * 2;
@@ -209,7 +234,7 @@ while {true} do {
 	if (isMultiplayer) then {_resourcesAAF = _resourcesAAF + (round (_incomeEnemy + (_incomeEnemy * ((server getVariable "prestigeCSAT")/100))))} else {_resourcesAAF = _resourcesAAF + (round _incomeEnemy)};
 	server setVariable ["resourcesAAF",_resourcesAAF,true];
 	if (isMultiplayer) then {[] spawn assignStavros};
-	if (!("AtaqueAAF" in misiones) AND (random 100 < 50)) then {[] call missionRequestAUTO};
+	if (!("AttackAAF" in missionsX) AND (random 100 < 50)) then {[] call missionRequestAUTO};
 	if (AAFpatrols < 3) then {[] remoteExec ["genRoadPatrol", call AS_fnc_getNextWorker]};
 
 	/* Remove static auto rearm 28.07.2017 Sparker
@@ -221,23 +246,23 @@ while {true} do {
 		};
 	} forEach vehicles;
 	*/
-	cuentaCA = cuentaCA - 600;
-	publicVariable "cuentaCA";
-	if ((cuentaCA < 1) AND (diag_fps > minimoFPS) AND ((count allUnits) < 170)) then { //If there are not too many units on the map already, 17/08 Stef increased from 150 to 170
+	countCA = countCA - 600;
+	publicVariable "countCA";
+	if ((countCA < 1) AND (diag_fps > minimoFPS) AND ((count allUnits) < 170)) then { //If there are not too many units on the map already, 17/08 Stef increased from 150 to 170
 
 		[1200] remoteExec ["AS_fnc_increaseAttackTimer",2];
-		if ((count mrkFIA > 0) AND !("AtaqueAAF" in misiones) AND !(server getVariable ["waves_active",false])) then {
+		if ((count mrkFIA > 0) AND !("AttackAAF" in missionsX) AND !(server getVariable ["waves_active",false])) then {
 			_script = [] spawn AS_fnc_spawnAttack;
 			waitUntil {sleep 5; scriptDone _script};
 		};
 	};
 
-	sleep 3;
+    sleep 3;
 	diag_log "resourcecheck.sqf: calling AAFEconomics";
 	call AAFeconomics;
 	sleep 4;
-	diag_log "resourcecheck.sqf: calling FIAradio";
 	[] call AS_fnc_FIAradio;
+    diag_log "resourcecheck.sqf: calling FIAradio";
 
 	if (_oneIteration) exitWith {};
 };

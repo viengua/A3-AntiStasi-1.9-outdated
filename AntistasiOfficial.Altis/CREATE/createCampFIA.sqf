@@ -15,7 +15,7 @@ sleep 2;
 
 {
 	call {
-		if (typeof _x == campCrate) exitWith {[_x] call cajaAAF; [_x,"heal_camp"] remoteExec ["AS_fnc_addActionMP"]};
+		if (typeof _x == campCrate) exitWith {[_x] call boxAAF; [_x,"heal_camp"] remoteExec ["AS_fnc_addActionMP"]};
 		if (typeof _x == "Land_MetalBarrel_F") exitWith {[_x,"refuel"] remoteExec ["AS_fnc_addActionMP"]};
 		if (typeof _x == "Land_Campfire_F") exitWith {_fire = _x;};
 	};

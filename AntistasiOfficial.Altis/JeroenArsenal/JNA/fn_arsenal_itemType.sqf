@@ -57,7 +57,7 @@ _weaponTypeCategory = _weaponType select 0;
 
 private ["_weaponTypeSpecific"];
 _weaponTypeSpecific = _weaponType select 1;
-//workaround for ACE bugs related to bis_fnc_itemType by Barbolani from WotP
+
 if (activeACEMedical) then {
 	if (_weaponTypeSpecific == "AccessoryBipod") then {
 		if (_item in aceAdvMedItems) then {_weaponTypeSpecific = "FirstAidKit"};

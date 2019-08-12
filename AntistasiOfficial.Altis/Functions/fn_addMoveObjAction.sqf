@@ -6,7 +6,7 @@ private _objs = [];
 	then {
     	_objs pushBack _x;
 		};
-} forEach nearestObjects [getPos fuego, [], 60];
+} forEach nearestObjects [getPos fireX, [], 60];
 {
 	removeAllActions _x;
 	_x addAction [localize "STR_ACT_MOVEASSET", {[_this select 0,_this select 1,_this select 2,"static"] spawn AS_fnc_moveObject},nil,0,false,true,"","(_this == Slowhand)", 5];

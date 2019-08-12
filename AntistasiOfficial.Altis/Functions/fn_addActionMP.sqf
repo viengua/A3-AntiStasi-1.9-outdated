@@ -9,16 +9,16 @@ switch _type do {
 	case "mission": {petros addAction [localize "STR_ACT_MISSIONREQUEST", {nul=CreateDialog "mission_menu";},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"];};
 	case "misCiv": {_object addAction [localize "STR_ACT_MISSIONREQUEST", {nul=CreateDialog "misCiv_menu";},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"];};
 	case "misMil": {_object addAction [localize "STR_ACT_MISSIONREQUEST", {nul=CreateDialog "misMil_menu";},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"];};
-	case "camion": {_object addAction [localize "STR_ACT_LOADAMMOBOX", "Municion\transfer.sqf",nil,0,false,true]};
+	case "truckX": {_object addAction [localize "STR_ACT_LOADAMMOBOX", "ammunition\transfer.sqf",nil,0,false,true]};
 	case "remove": {
 		for "_i" from 0 to (_object addAction ["",""]) do {
 			_object removeAction _i;
 		};
 	};
-	case "refugiado": {_object addAction [localize "STR_ACT_ORDERREFUGEE", "AI\liberaterefugee.sqf",nil,0,false,true]};
-	case "prisionero": {_object addAction [localize "STR_ACT_LIBERATE", "AI\liberatePOW.sqf",nil,0,false,true]};
-	case "interrogar": {_object addAction [localize "STR_ACT_INTERROGATE", "AI\interrogar.sqf",nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"]};
-	case "capturar": {_object addAction [localize "STR_ACT_OFFERTOJOIN", "AI\capturar.sqf",nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"]};
+	case "refugee": {_object addAction [localize "STR_ACT_ORDERREFUGEE", "AI\liberaterefugee.sqf",nil,0,false,true]};
+	case "prisonerX": {_object addAction [localize "STR_ACT_LIBERATE", "AI\liberatePOW.sqf",nil,0,false,true]};
+	case "interrogate": {_object addAction [localize "STR_ACT_INTERROGATE", "AI\interrogate.sqf",nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"]};
+	case "captureX": {_object addAction [localize "STR_ACT_OFFERTOJOIN", "AI\captureX.sqf",nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"]};
 	case "buildHQ": {_object addAction [localize "STR_ACT_BUILDHQ", {[] spawn buildHQ},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"]};
 	case "seaport": {_object addAction [localize "STR_ACT_BUYB", "REINF\buyBoat.sqf",nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"];};
 	case "steal": {_object addAction ["Steal Static", "REINF\stealStatic.sqf",nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"];};
@@ -36,6 +36,7 @@ switch _type do {
 	case "jam": {_object addAction [localize "STR_ACT_JAMCSAT", "jamLRRAdio.sqf",nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"];};
 	case "toggle_device": {_object addAction [localize "STR_ACT_TOGGLEDEVICE", "Scripts\toggleDevice.sqf",nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"];};
 	case "unload_pamphlets": {_object addAction [localize "STR_ACT_PAMPHLETS", {server setVariable ["pr_unloading_pamphlets", true, true]; [[_this select 0,"remove"],"AS_fnc_addActionMP"] call BIS_fnc_MP;},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"];};
+	case "unload_supplies": {_object addAction ["Unload supplies", {server setVariable ["sup_unloading_supplies", true, true]; [[_this select 0,"remove"],"AS_fnc_addActionMP"] call BIS_fnc_MP;},nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"];};
 	case "moveObject" : {_object addAction [localize "STR_ACT_MOVEASSET", {[_this select 0,_this select 1,_this select 2] spawn AS_fnc_moveObject},nil,0,false,true,"","(_this == Slowhand)"]};
 	case "deploy" : {_object addAction [localize "STR_ACT_BUILDPAD", {[_this select 0, _this select 1] remoteExec ["AS_fnc_deployPad", 2]},nil,0,false,true,"","(_this == Slowhand)"]};
 	case "heal": {if (player != _object) then {_object addAction ["Revive", "Revive\actionRevive.sqf",nil,0,false,true,"","(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"]}};

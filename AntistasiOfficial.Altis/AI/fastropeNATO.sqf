@@ -1,16 +1,16 @@
-private ["_veh","_grupo","_posicion","_posorigen","_heli","_landpos","_wp","_d","_wp2","_wp3"];
+private ["_veh","_groupX","_positionX","_posOrigin","_heli","_landpos","_wp","_d","_wp2","_wp3"];
 
 _veh = _this select 0;
-_grupo = _this select 1;
-_posicion = _this select 2;
-_posorigen = _this select 3;
+_groupX = _this select 1;
+_positionX = _this select 2;
+_posOrigin = _this select 3;
 _heli = _this select 4;
 
 _landpos = [];
 {_x disableAI "TARGET"; _x disableAI "AUTOTARGET"} foreach units _heli;
 while {true} do
 	{
- 	_landpos = [_posicion, 30, random 360] call BIS_Fnc_relPos;
+ 	_landpos = [_positionX, 30, random 360] call BIS_Fnc_relPos;
  	if (!surfaceIsWater _landpos) exitWith {};
 	};
 _landpos set [2,0];
@@ -26,7 +26,7 @@ waitUntil {sleep 1; (not alive _veh) or (_veh distance _landpos < 550)};
 
 _veh flyInHeight 15;
 
-[_veh] call puertasLand;
+[_veh] call entriesLand;
 
 waitUntil {sleep 1; (not alive _veh) or ((speed _veh < 1) and (speed _veh > -1))};
 
@@ -55,19 +55,19 @@ waitUntil {sleep 1; (not alive _veh) or ((speed _veh < 1) and (speed _veh > -1))
 	sleep 0.5;
 	};
 sleep 5 + random 2;
-} forEach units _grupo;
+} forEach units _groupX;
 
 waitUntil {sleep 1; (not alive _veh) or ((count assignedCargo _veh == 0) and (count attachedObjects _veh == 0))};
 
 
 sleep 5;
 _veh flyInHeight 150;
-[_veh] call puertasLand;
+[_veh] call entriesLand;
 //_veh animateDoor ['door_R', 0];
 //_veh animateDoor ['door_L', 0];
-_wp2 = _grupo addWaypoint [_posicion, 0];
+_wp2 = _groupX addWaypoint [_positionX, 0];
 _wp2 setWaypointType "SAD";
-_wp3 = _heli addWaypoint [_posorigen, 1];
+_wp3 = _heli addWaypoint [_posOrigin, 1];
 _wp3 setWaypointType "MOVE";
 _wp3 setWaypointSpeed "NORMAL";
 _wp3 setWaypointBehaviour "AWARE";

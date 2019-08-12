@@ -1,7 +1,7 @@
 //initilise NATO close airsport
 
 
-private ["_unit","_muerto","_killer"];
+private ["_unit","_victim","_killer"];
 
 _unit = _this select 0;
 //_unit setVariable ["BLUFORSpawn",true,true]; //Disable CAS spawning bases. Edited: 27.07.2017
@@ -15,11 +15,11 @@ if (sunOrMoon < 1) then
 	};
 
 _EHkilledIdx = _unit addEventHandler ["killed", {
-	_muerto = _this select 0;
-	_muerto setVariable ["BLUFORSpawn",nil,true];
-	[_muerto] spawn postmortem;
-	[0.25,0,getPos _muerto] remoteExec ["AS_fnc_changeCitySupport",2];
+	_victim = _this select 0;
+	_victim setVariable ["BLUFORSpawn",nil,true];
+	[_victim] spawn postmortem;
+	[0.25,0,getPos _victim] remoteExec ["AS_fnc_changeCitySupport",2];
 	//[-1,0] remoteExec ["prestige",2];
-	//if (group _muerto == group player) then {arrayids = arrayids + [name _muerto]};
+	//if (group _victim == group player) then {arrayids = arrayids + [name _victim]};
 	}];
 

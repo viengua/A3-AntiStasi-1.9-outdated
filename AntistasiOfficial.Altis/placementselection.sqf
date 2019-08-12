@@ -15,7 +15,7 @@ if (!isNil "placementDone") then {
 private ["_nearestZone","_position","_oldUnit","_spawnPos","_direction"];
 
 if (isNil "placementDone") then {
-	_markers = _markers - controles;
+	_markers = _markers - controlsX;
 	openMap true;
 } else {
 	openMap [true,true];
@@ -64,7 +64,7 @@ if (visiblemap) then {
 				mrkAAF = mrkAAF - [_x];
 				mrkFIA = mrkFIA + [_x];
 			};
-		} forEach controles;
+		} forEach controlsX;
 		publicVariable "mrkAAF";
 		publicVariable "mrkFIA";
 		petros setPos _position;
@@ -88,21 +88,21 @@ if (visiblemap) then {
 
 	if (isMultiplayer) then {hint localize "STR_HINTS_HQPLACE_MOVING"; sleep 5};
 	_spawnPos = [_position, 3, getDir petros] call BIS_Fnc_relPos;
-	fuego setPos _spawnPos;
+	fireX setPos _spawnPos;
 	_direction = getdir Petros;
 	if (isMultiplayer) then {sleep 5};
-	_spawnPos = [getPos fuego, 3, _direction] call BIS_Fnc_relPos;
-	caja setPos _spawnPos;
+	_spawnPos = [getPos fireX, 3, _direction] call BIS_Fnc_relPos;
+	boxX setPos _spawnPos;
 	_direction = _direction + 45;
-	_spawnPos = [getPos fuego, 3, _direction] call BIS_Fnc_relPos;
-	mapa setPos _spawnPos;
-	mapa setDir ([fuego, mapa] call BIS_fnc_dirTo);
+	_spawnPos = [getPos fireX, 3, _direction] call BIS_Fnc_relPos;
+	mapX setPos _spawnPos;
+	mapX setDir ([fireX, mapX] call BIS_fnc_dirTo);
 	_direction = _direction + 45;
-	_spawnPos = [getPos fuego, 3, _direction] call BIS_Fnc_relPos;
-	bandera setPos _spawnPos;
+	_spawnPos = [getPos fireX, 3, _direction] call BIS_Fnc_relPos;
+	flagX setPos _spawnPos;
 	_direction = _direction + 45;
-	_spawnPos = [getPos fuego, 3, _direction] call BIS_Fnc_relPos;
-	cajaVeh setPos _spawnPos;
+	_spawnPos = [getPos fireX, 3, _direction] call BIS_Fnc_relPos;
+	vehicleBox setPos _spawnPos;
 
 	if (isNil "placementDone") then {
 		if (isMultiplayer) then {
@@ -117,17 +117,17 @@ if (visiblemap) then {
 	};
 
 	if (isMultiplayer) then {
-		caja hideObjectGlobal false;
-		cajaVeh hideObjectGlobal false;
-		mapa hideObjectGlobal false;
-		fuego hideObjectGlobal false;
-		bandera hideObjectGlobal false;
+		boxX hideObjectGlobal false;
+		vehicleBox hideObjectGlobal false;
+		mapX hideObjectGlobal false;
+		fireX hideObjectGlobal false;
+		flagX hideObjectGlobal false;
 	} else {
-		caja hideObject false;
-		cajaVeh hideObject false;
-		mapa hideObject false;
-		fuego hideObject false;
-		bandera hideObject false;
+		boxX hideObject false;
+		vehicleBox hideObject false;
+		mapX hideObject false;
+		fireX hideObject false;
+		flagX hideObject false;
 	};
     LOG("Unlock map");
 	openmap [false,false];

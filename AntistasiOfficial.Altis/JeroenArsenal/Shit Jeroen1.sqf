@@ -10,7 +10,7 @@ jn_fnc_forceFirstPerson = {
 
 	if!(
 		(!jn_forceFirstPersonVehicle && {!(vehicle player isEqualTo player)}) ||
-		{!jn_forceFirstPersonBase && {player distance fuego < 100}}
+		{!jn_forceFirstPersonBase && {player distance fireX < 100}}
 	)then{
 		[]spawn{
 			sleep 0.001;

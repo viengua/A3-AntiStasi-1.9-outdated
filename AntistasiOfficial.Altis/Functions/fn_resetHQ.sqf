@@ -15,14 +15,14 @@ if (_position isEqualTo [0,0,0]) then {
 	_position = static_defPosHQ;
 };
 
-grupoPetros = createGroup side_blue;
-publicVariable "grupoPetros";
-petros = grupoPetros createUnit [ guer_sol_OFF, _position, [], 0, "NONE" ];
-grupoPetros setGroupId ["Petros","GroupColor4"];
-petros setIdentity "amiguete";
+groupPetros = createGroup side_blue;
+publicVariable "groupPetros";
+petros = groupPetros createUnit [ guer_sol_OFF, _position, [], 0, "NONE" ];
+groupPetros setGroupId ["Petros","GroupColor4"];
+petros setIdentity "friendlyX";
 petros setName "Petros";
 petros forceSpeed 0;
-if (group _oldUnit == grupoPetros) then {
+if (group _oldUnit == groupPetros) then {
       [Petros,"mission"] remoteExec ["AS_fnc_addActionMP"];
 } else {
       [Petros,"buildHQ"] remoteExec ["AS_fnc_addActionMP"];

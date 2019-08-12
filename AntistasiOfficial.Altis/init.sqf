@@ -1,11 +1,11 @@
-//Arma 3 - Antistasi by Barbolani
-//Do whatever you want with this code, but credit me for the thousand hours spent making this.
+//Arma 3 - Antistasi by Barbolani and A3 Antistasi Community
+//Do whatever you want with this code, but credit me for the thousand hours spent making this.1
 enableSaving [ false, false ];
 
 call AS_fnc_init_hq;
 
 if (!isMultiPlayer) then {
-    {if ((_x != comandante) and (_x != Petros) and (_x != server) and (_x!=garrison) and (_x != carreteras)) then {_grupete = group _x; deleteVehicle _x; deleteGroup _grupete}} forEach allUnits;
+    {if ((_x != commanderX) and (_x != Petros) and (_x != server) and (_x!=garrison) and (_x != roadsX)) then {_grupete = group _x; deleteVehicle _x; deleteGroup _grupete}} forEach allUnits;
     [] execVM "musica.sqf";
     diag_log "Starting Antistasi SP";
     call compile preprocessFileLineNumbers "initVar.sqf";
@@ -34,8 +34,8 @@ if (!isMultiPlayer) then {
 waitUntil {(!isNil "saveFuncsLoaded") and (!isNil "serverInitDone")};
 
 call jn_fnc_logistics_init;
-cajaVeh call jn_fnc_garage_init;
-caja call jn_fnc_arsenal_init;
+vehicleBox call jn_fnc_garage_init;
+boxX call jn_fnc_arsenal_init;
 
 [] execVM "Scripts\fn_advancedTowingInit.sqf";
 [] execVM "Dialogs\welcome.sqf";
@@ -77,7 +77,7 @@ if(isServer) then {
         };
 
     fpsCheck = [] execVM "fpsCheck.sqf";
-    [caja] call cajaAAF; //Give few starting items
+    [boxX] call boxAAF; //Give few starting items
     if (activeJNA) then {
         ["complete"] call AS_fnc_JNA_pushLists;
     };
@@ -85,7 +85,7 @@ if(isServer) then {
     diag_log "init.sqf: waiting for placementDone to be true...";
     waitUntil {!(isNil "placementDone")};
     diag_log "init.sqf: placementDone = true";
-    distancias = [] spawn distancias3;
+    distancias = [] spawn distances3;
     resourcecheck = [] execVM "resourcecheck.sqf";
 };
 

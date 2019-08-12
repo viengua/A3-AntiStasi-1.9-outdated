@@ -1,7 +1,7 @@
 params ["_unit", ["_marker", ""]];
 private ["_skill","_skillFIA","_aiming","_spotD","_spotT","_cour","_comm","_aimingSh","_aimingSp","_reload","_unitType","_skillSet"];
 
-if !(_marker == "") then {_unit setVariable ["marcador", _marker]};
+if !(_marker == "") then {_unit setVariable ["markerX", _marker]};
 [_unit] call initRevive;
 
 _skillFIA = server getVariable ["skillFIA", 1];
@@ -82,7 +82,7 @@ call {
 		_skillSet = 1;
 	};
 
-	if (_unitType == guer_sol_UN) exitWith {
+	if (_unitType == guer_sol_HMG) exitWith {
 		{
 			_unit removeWeaponGlobal _x;
 		} forEach (weapons _unit);
@@ -290,9 +290,9 @@ _unit setskill ["aimingSpeed",_aimingSp];
 _unit setskill ["reloadSpeed",_reload];
 
 _EHkilledIdx = _unit addEventHandler ["killed", {
-	_muerto = _this select 0;
+	_victim = _this select 0;
 	_killer = _this select 1;
-	[_muerto] spawn postmortem;
+	[_victim] spawn postmortem;
 	//diag_log format ["==== Friendly unit was killed!! killer: %1, type: %2", _killer, typename _killer];
 	if (isPlayer _killer) then {
 		if (!isMultiPlayer) then {
@@ -300,16 +300,16 @@ _EHkilledIdx = _unit addEventHandler ["killed", {
 			_killer addRating 1000;
 		};
 	};
-	[0,-0.25,getPos _muerto] remoteExec ["AS_fnc_changeCitySupport",2];
-	_marcador = _muerto getVariable "marcador";
-	if (!isNil "_marcador") then {
-		if (_marcador in mrkFIA) then {
-			_garrison = garrison getVariable [_marcador,[]];
+	[0,-0.25,getPos _victim] remoteExec ["AS_fnc_changeCitySupport",2];
+	_markerX = _victim getVariable "markerX";
+	if (!isNil "_markerX") then {
+		if (_markerX in mrkFIA) then {
+			_garrison = garrison getVariable [_markerX,[]];
 			for "_i" from 0 to (count _garrison -1) do {
-				if (typeOf _muerto == (_garrison select _i)) exitWith {_garrison deleteAt _i};
+				if (typeOf _victim == (_garrison select _i)) exitWith {_garrison deleteAt _i};
 			};
-			garrison setVariable [_marcador,_garrison,true];
-			[_marcador] call AS_fnc_markerUpdate;
+			garrison setVariable [_markerX,_garrison,true];
+			[_markerX] call AS_fnc_markerUpdate;
 		};
 	};
 }];

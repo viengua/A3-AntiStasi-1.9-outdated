@@ -1,10 +1,10 @@
 if !(isPlayer Slowhand) exitWith {};
 
 params ["_veh"];
-private _tipo = typeOf _veh;
+private _typeX = typeOf _veh;
 
 call {
-	if ((_tipo in vehAPC) || (_tipo in vehIFV)) exitWith {
+	if ((_typeX in vehAPC) || (_typeX in vehIFV)) exitWith {
 		APCAAFcurrent = APCAAFcurrent -1;
 		if (APCAAFcurrent < 1) then {
 			APCAAFcurrent = 0;
@@ -13,7 +13,7 @@ call {
 		};
 		publicVariable "APCAAFcurrent";
 	};
-	if (_tipo in vehTank) exitWith {
+	if (_typeX in vehTank) exitWith {
 		tanksAAFcurrent = tanksAAFcurrent -1;
 		if (tanksAAFcurrent < 1) then {
 			tanksAAFcurrent = 0;
@@ -31,7 +31,7 @@ call {
 		};
 		publicVariable "helisAAFcurrent";
 	};
-	if (_tipo in planes) exitWith {
+	if (_typeX in planes) exitWith {
 		planesAAFcurrent = planesAAFcurrent -1;
 		if (planesAAFcurrent < 1) then {
 			planesAAFcurrent = 0;

@@ -1,6 +1,6 @@
 if (player != Slowhand) exitWith {hint localize "STR_HINTS_MHQ_OCSHATTF"};
 
-//if ((count weaponCargo caja >0) or (count magazineCargo caja >0) or (count itemCargo caja >0) or (count backpackCargo caja >0)) exitWith {hint localize "STR_HINTS_MHQ_YMFEYAIOTMTHQ"};
+//if ((count weaponCargo boxX >0) or (count magazineCargo boxX >0) or (count itemCargo boxX >0) or (count backpackCargo boxX >0)) exitWith {hint localize "STR_HINTS_MHQ_YMFEYAIOTMTHQ"};
 
 hint localize "STR_HINTS_MHQ_MTAACNTVACNPTTNL";
 
@@ -15,22 +15,22 @@ petros forceSpeed -1;
 petros setBehaviour "AWARE";
 if (isMultiplayer) then
 	{
-	//caja hideObjectGlobal true; //Redo it with Jeroen's crate loading script. Sparker
-	//cajaVeh hideObjectGlobal true;
-	mapa hideObjectGlobal true;
-	fuego hideObjectGlobal true;
-	bandera hideObjectGlobal true;
+	//boxX hideObjectGlobal true; //Redo it with Jeroen's crate loading script. Sparker
+	//vehicleBox hideObjectGlobal true;
+	mapX hideObjectGlobal true;
+	fireX hideObjectGlobal true;
+	flagX hideObjectGlobal true;
 	}
 else
 	{
-	//caja hideObject true;
-	//cajaVeh hideObject true;
-	mapa hideObject true;
-	fuego hideObject true;
-	bandera hideObject true;
+	//boxX hideObject true;
+	//vehicleBox hideObject true;
+	mapX hideObject true;
+	fireX hideObject true;
+	flagX hideObject true;
 	};
 
-fuego inflame false;
+fireX inflame false;
 
 if (count (server getVariable ["obj_vehiclePad",[]]) > 0) then {
 	[obj_vehiclePad, {deleteVehicle _this}] remoteExec ["call", 0];
@@ -42,12 +42,12 @@ if (count (server getVariable ["obj_vehiclePad",[]]) > 0) then {
 //guer_respawn setMarkerPos [0,0,0];
 guer_respawn setMarkerAlpha 0;
 _garrison = garrison getVariable ["FIA_HQ", []];
-_posicion = getMarkerPos "FIA_HQ";
+_positionX = getMarkerPos "FIA_HQ";
 if (count _garrison > 0) then
 	{
-	_coste = 0;
+	_costs = 0;
 	_hr = 0;
-	if ({(alive _x) and (!captive _x) and ((side _x == side_green) or (side _x == side_red)) and (_x distance _posicion < 500)} count allUnits > 0) then
+	if ({(alive _x) and (!captive _x) and ((side _x == side_green) or (side _x == side_red)) and (_x distance _positionX < 500)} count allUnits > 0) then
 		{
 		hint localize "STR_HINTS_MHQ_HQGWSHNHTE";
 		}
@@ -55,30 +55,30 @@ if (count _garrison > 0) then
 		{
 		_size = ["FIA_HQ"] call sizeMarker;
 		{
-		if ((side _x == side_blue) and (not(_x getVariable ["BLUFORSpawn",false])) and (_x distance _posicion < _size) and (_x != petros)) then
+		if ((side _x == side_blue) and (not(_x getVariable ["BLUFORSpawn",false])) and (_x distance _positionX < _size) and (_x != petros)) then
 			{
 			if (!alive _x) then
 				{
 				if (typeOf _x in guer_soldierArray) then
 					{
-					if (typeOf _x == guer_sol_UN) then {_coste = _coste - ([guer_stat_mortar] call vehiclePrice)};
+					if (typeOf _x == guer_sol_HMG) then {_costs = _costs - ([guer_stat_MGH] call vehiclePrice)};
 					_hr = _hr - 1;
-					_coste = _coste - (server getVariable (typeOf _x));
+					_costs = _costs - (server getVariable (typeOf _x));
 					};
 				};
-			if (typeOf (vehicle _x) == guer_stat_mortar) then {deleteVehicle vehicle _x};
+			if (typeOf (vehicle _x) == guer_stat_MGH) then {deleteVehicle vehicle _x};
 			deleteVehicle _x;
 			};
 		} forEach allUnits;
 		};
 	{
-	if (_x == guer_sol_UN) then {_coste = _coste + ([guer_stat_mortar] call vehiclePrice)};
+	if (_x == guer_sol_HMG) then {_costs = _costs + ([guer_stat_MGH] call vehiclePrice)};
 	_hr = _hr + 1;
-	_coste = _coste + (server getVariable _x);
+	_costs = _costs + (server getVariable _x);
 	} forEach _garrison;
-	[_hr,_coste] remoteExec ["resourcesFIA",2];
+	[_hr,_costs] remoteExec ["resourcesFIA",2];
 	garrison setVariable ["FIA_HQ",[],true];
-	hint format ["Garrison removed\n\nRecovered Money: %1 €\nRecovered HR: %2",_coste,_hr];
+	hint format ["Garrison removed\n\nRecovered Money: %1 €\nRecovered HR: %2",_costs,_hr];
 	};
 
 sleep 5;
@@ -86,5 +86,5 @@ sleep 5;
 petros addAction [localize "STR_act_buildHQ", {[] spawn buildHQ},nil,0,false,true];
 
 //Add actions to load the cargo boxes
-caja call jn_fnc_logistics_addAction;
-cajaVeh call jn_fnc_logistics_addAction;
+boxX call jn_fnc_logistics_addAction;
+vehicleBox call jn_fnc_logistics_addAction;

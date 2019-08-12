@@ -31,7 +31,7 @@ _endTimeNumber = dateToNumber _endTime;
 
 while {count _artyPositions > 0} do {
 	_artyPos = [artyEmplacements, _positionTarget] call BIS_fnc_nearestPosition;
-	if ((([ciudades, _artyPos] call BIS_fnc_nearestPosition) in mrkAAF) AND !(_artyPos in AS_destroyedZones)) exitWith {_artyAvailable = true};
+	if ((([citiesX, _artyPos] call BIS_fnc_nearestPosition) in mrkAAF) AND !(_artyPos in AS_destroyedZones)) exitWith {_artyAvailable = true};
 	_artyPositions = _artyPositions - [_artyPos];
 };
 
@@ -61,7 +61,7 @@ _composition = [_mapperPos, 0, _mapperStr] call BIS_fnc_ObjectsMapper;
 {
 	call {
 		if (typeOf _x == opArtillery) exitWith {_howitzer = _x; [_x] spawn AS_fnc_protectVehicle};
-		if (typeOf _x == vehAmmo) exitWith {_truck = _x; [_x] spawn AS_fnc_protectVehicle; _vehicles pushBack _truck; [_truck] call cajaAAF};
+		if (typeOf _x == vehAmmo) exitWith {_truck = _x; [_x] spawn AS_fnc_protectVehicle; _vehicles pushBack _truck; [_truck] call boxAAF};
 		if (_x isKindOf "StaticWeapon") exitWith {_statics pushBackUnique _x};
 		if (typeOf _x == "CamoNet_OPFOR_open_F") exitWith {_spawnPoints pushBackUnique (position _x)};
 		if (typeOf _x == "CamoNet_OPFOR_big_F") exitWith {[_x] spawn AS_fnc_protectCamoNet};
@@ -182,7 +182,7 @@ if !(alive _howitzer) then {AS_destroyedZones pushBackUnique _artyPos};
 
 [_allGroups, _soldiers, _vehicles] spawn AS_fnc_despawnUnits;
 
-waitUntil {sleep 3; !([distanciaSPWN,1,_posArty,"BLUFORSpawn"] call distanceUnits)};
+waitUntil {sleep 3; !([distanceSPWN,1,_posArty,"BLUFORSpawn"] call distanceUnits)};
 {deleteVehicle _x} forEach _composition;
 
 server setVariable ["artillerySupport", false, true];

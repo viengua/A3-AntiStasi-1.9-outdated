@@ -22,8 +22,8 @@ call {
 
 diag_log format ["Attack Timer -- number: %1", _delay];
 
-cuentaCA = cuentaCA + round ((_delay/2) + random _delay);
-if (cuentaCA < 0) then {cuentaCA = 300};
-publicVariable "cuentaCA";
+countCA = countCA + round ((_delay/2) + random _delay);
+if (countCA < 0) then {countCA = 300};
+publicVariable "countCA";
 
-diag_log format ["Attack Timer -- timer changed: %1", cuentaCA];
+diag_log format ["Attack Timer -- timer changed: %1", countCA];

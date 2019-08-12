@@ -28,7 +28,7 @@ call {
 	};
 };
 
-_friendlyHarbours = count (puestos - mrkAAF);
+_friendlyHarbours = count (outposts - mrkAAF);
 if (_friendlyHarbours > 0) then {_price = _price * ((1.1)^_friendlyHarbours)};
 
 for "_i" from 0 to (count _items - 1) do {

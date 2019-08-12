@@ -1,28 +1,28 @@
 // for easier testing
 
 openMap true;
-posicionTel = [];
+positionTel = [];
 hint localize "STR_HINTS_TELEPORT";
 
-onMapSingleClick "posicionTel = _pos;";
+onMapSingleClick "positionTel = _pos;";
 
-waitUntil {sleep 1; (count posicionTel > 0) or (not visiblemap)};
+waitUntil {sleep 1; (count positionTel > 0) or (not visiblemap)};
 onMapSingleClick "";
 
 if (!visibleMap) exitWith {};
 
-_posicionTel = posicionTel;
+_positionTel = positionTel;
 _pos = [];
 
 if (player != vehicle player) then {
-	_pos = _posicionTel findEmptyPosition [1,50,typeOf (vehicle player)];
+	_pos = _positionTel findEmptyPosition [1,50,typeOf (vehicle player)];
 	vehicle player setPosATL _pos;
 } else {
 	_pGroup = group player;
 	{
 		_unit = _x;
 		_unit allowDamage false;
-		_unit setPosATL _posicionTel;
+		_unit setPosATL _positionTel;
 	} forEach units _pGroup;
 };
 

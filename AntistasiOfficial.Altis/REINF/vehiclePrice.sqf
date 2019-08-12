@@ -1,29 +1,29 @@
-private ["_tipo","_coste"];
+private ["_typeX","_costs"];
 
-_tipo = _this select 0;
+_typeX = _this select 0;
 
-if (isNil {_tipo}) exitWith {};
+if (isNil {_typeX}) exitWith {};
 
-_coste = server getVariable [_tipo,0];
+_costs = server getVariable [_typeX,0];
 
-if (_coste == 0) then {
+if (_costs == 0) then {
 	call {
-		if ((_tipo in vehTrucks) or (_tipo in vehPatrol) or (_tipo in vehSupply)) exitWith {_coste = 300};
-		if (_tipo in vehAPC) exitWith {_coste = 1000};
-		if (_tipo in vehIFV) exitWith {_coste = 2000};
-		if (_tipo in vehTank) exitWith {_coste = 5000};
-		if (_tipo == "C_Van_01_fuel_F") exitWith {_coste = 50};
-		if (_tipo in CIV_vehicles) exitWith {_coste = 25};
-		if (_tipo in guer_vehicleArray) exitWith {_coste = 200};
+		if ((_typeX in vehTrucks) or (_typeX in vehPatrol) or (_typeX in vehSupply)) exitWith {_costs = 300};
+		if (_typeX in vehAPC) exitWith {_costs = 1000};
+		if (_typeX in vehIFV) exitWith {_costs = 2000};
+		if (_typeX in vehTank) exitWith {_costs = 5000};
+		if (_typeX == "C_Van_01_fuel_F") exitWith {_costs = 50};
+		if (_typeX in CIV_vehicles) exitWith {_costs = 25};
+		if (_typeX in guer_vehicleArray) exitWith {_costs = 200};
 
-		_coste = 0;
-		diag_log format ["Antistasi: Error en vehicle prize con este: %1",_tipo];
+		_costs = 0;
+		diag_log format ["Antistasi: Error en vehicle prize con este: %1",_typeX];
 		};
 	}
 else
 	{
-	//_coste = _coste + (_coste * ({_x in mrkAAF} count puertos));
-	_coste = round (_coste - (_coste * (0.1 * ({_x in mrkFIA} count puertos))));
+	//_costs = _costs + (_costs * ({_x in mrkAAF} count seaports));
+	_costs = round (_costs - (_costs * (0.1 * ({_x in mrkFIA} count seaports))));
 	};
 
-_coste
+_costs

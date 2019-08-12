@@ -17,7 +17,7 @@ _endTime = [date select 0, date select 1, date select 2, date select 3, (date se
 _endTime = dateToNumber _endTime;
 
 _tsk = ["NATOArmor",[side_blue,civilian],[["STR_TSK_TD_NATO_ARMOR",_targetName,_originName,numberToDate [2035,_endTime] select 3,numberToDate [2035,_endTime] select 4, A3_Str_BLUE],["STR_TSK_NATO_ARMOR", A3_Str_BLUE],_targetMarker],_targetPosition,"CREATED",5,true,true,"Attack"] call BIS_fnc_setTask;
-misiones pushBack _tsk; publicVariable "misiones";
+missionsX pushBack _tsk; publicVariable "missionsX";
 
 _counter = server getVariable ["prestigeNATO",0];
 _counter = round (_counter / 25);
@@ -71,6 +71,6 @@ if (({alive _x} count _allSoldiers == 0) OR ({(alive _x)} count _allVehicles == 
 
 sleep 15;
 
-[0,_tsk] spawn borrarTask;
+[0,_tsk] spawn deleteTaskX;
 
 [[_group], _allSoldiers, _allVehicles] call AS_fnc_despawnUnitsNow;

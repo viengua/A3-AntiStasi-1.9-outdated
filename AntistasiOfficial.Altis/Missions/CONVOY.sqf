@@ -41,7 +41,7 @@ call {
 	};
 
 	if (_source == "mil") exitWith {
-		_convoyTypeArray = ["Municion","Armor","HVT"];
+		_convoyTypeArray = ["ammunition","Armor","HVT"];
 		_val = server getVariable "milActive";
 		server setVariable ["milActive", _val + 1, true];
 	};
@@ -73,7 +73,7 @@ _originName = [_base] call AS_fnc_localizar;
 [_base,30] spawn AS_fnc_addTimeForIdle;
 
 call {
-	if (_convoyType == "Municion") exitWith {
+	if (_convoyType == "ammunition") exitWith {
 		_tskTitle = "STR_TSK_TD_CVY_AMMO";
 		_tskDesc = "STR_TSK_TD_DESC_CVY_AMMO";
 		_icon = "rearm";
@@ -118,7 +118,7 @@ call {
 
 _tsk = ["CONVOY",[side_blue,civilian],[[_tskDesc,_originName,numberToDate [2035,_startTimeNumber] select 3,numberToDate [2035,_startTimeNumber] select 4,_destinationName],[_tskTitle, A3_Str_INDEP],_destination],_posDestination,"CREATED",5,true,true,_icon] call BIS_fnc_setTask;
 
-misiones pushBack _tsk; publicVariable "misiones";
+missionsX pushBack _tsk; publicVariable "missionsX";
 
 _posData = [_posbase, _posDestination] call AS_fnc_findSpawnSpots;
 _posRoad = _posData select 0;
@@ -198,7 +198,7 @@ if (_convoyType == "HVT") then {
 			_escortType = enemyMotorpoolDef;
 		};
 
-		_FIAbases = mrkFIA arrayIntersect (bases + aeropuertos);
+		_FIAbases = mrkFIA arrayIntersect (bases + airportsX);
 		_AAFtanks = _motorpool arrayIntersect vehTank;
 		if ((count _FIAbases > 2) && (count _AAFtanks > 0) && (_i == _counter)) then {_escortType = selectRandom vehTank};
 
@@ -232,7 +232,7 @@ _vehObj = _objectiveType createVehicle _posRoad;
 _vehObj allowDamage false;
 _vehObj setDir _dir;
 _vehObj addEventHandler ["HandleDamage", {
-	if (((_this select 1) find "wheel" != -1) && !([distanciaSPWN,1,_vehObj,"BLUFORSpawn"] call distanceUnits)) then {
+	if (((_this select 1) find "wheel" != -1) && !([distanceSPWN,1,_vehObj,"BLUFORSpawn"] call distanceUnits)) then {
 		0;
 	} else {
 		(_this select 2);
@@ -287,7 +287,7 @@ call {
 			_unit moveInCargo [_vehObj, _i + 3];
 			removeAllWeapons _unit;
 			removeAllAssignedItems _unit;
-			[[_unit,"refugiado"],"AS_fnc_addActionMP"] call BIS_fnc_MP;
+			[[_unit,"refugee"],"AS_fnc_addActionMP"] call BIS_fnc_MP;
 			sleep 1;
 			_POWs pushBack _unit;
 		};
@@ -408,7 +408,7 @@ if (_convoyType == "HVT") then {
 };
 
 
-if (_convoyType == "Municion") then {
+if (_convoyType == "ammunition") then {
 	waitUntil {sleep 1; (dateToNumber date > _endTimeNumber) or (_vehObj distance _posDestination < 100) or (not alive _vehObj) or (driver _vehObj getVariable ["BLUFORSpawn",false])};
 
 	if ((_vehObj distance _posDestination < 100) or (dateToNumber date >_endTimeNumber)) then {
@@ -548,7 +548,7 @@ if (_convoyType == "Money") then {
 			};
 			// BE module
 			waitUntil {sleep 1; speed _vehObj < 1};
-			[_vehObj] call vaciar;
+			[_vehObj] call emptyX;
 			deleteVehicle _vehObj;
 		};
 	};
@@ -628,15 +628,15 @@ if (_source == "civ") then {
 	server setVariable ["civActive", _val - 1, true];
 };
 
-[600,_tsk] spawn borrarTask;
+[600,_tsk] spawn deleteTaskX;
 
 {
-	waitUntil {sleep 1; (!([distanciaSPWN,1,_x,"BLUFORSpawn"] call distanceUnits))};
+	waitUntil {sleep 1; (!([distanceSPWN,1,_x,"BLUFORSpawn"] call distanceUnits))};
 	deleteVehicle _x;
 } forEach _units;
 
 {
-	if (!([distanciaSPWN,1,_x,"BLUFORSpawn"] call distanceUnits)) then {deleteVehicle _x}
+	if (!([distanceSPWN,1,_x,"BLUFORSpawn"] call distanceUnits)) then {deleteVehicle _x}
 } forEach _vehicles;
 
 {deleteGroup _x} forEach _groups;

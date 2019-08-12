@@ -7,14 +7,14 @@ _site = _this select 0;
 
 private ["_mrk","_posCmp","_p1","_p2","_dirveh"];
 
-_grupos = [];
-_vehiculos = [];
-_soldados = [];
+_groups = [];
+_vehiclesX = [];
+_soldiers = [];
 
-_nombredest = [_site] call AS_fnc_localizar;
+_nameDest = [_site] call AS_fnc_localizar;
 _posSite = getMarkerPos _site;
 
-_roads = carreteras getVariable _site;
+_roads = roadsX getVariable _site;
 _break = false;
 _maxRoads = count (_roads);
 
@@ -49,12 +49,12 @@ if !(_break) exitWith {[[petros,"globalChat","STR_TSK_TD_CHAT_1"],"commsMP"] cal
 
 server setVariable ["expActive", true, true];
 
-_tiempolim = 60;
-_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-_fechalimnum = dateToNumber _fechalim;
+_timeLimit = 60;
+_dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
+_dateLimitNum = dateToNumber _dateLimit;
 
-_tsk = ["FND_E",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],_tskTitle,_site],_posCmp,"CREATED",5,true,true,"Find"] call BIS_fnc_setTask;
-misiones pushBack _tsk; publicVariable "misiones";
+_tsk = ["FND_E",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_site],_posCmp,"CREATED",5,true,true,"Find"] call BIS_fnc_setTask;
+missionsX pushBack _tsk; publicVariable "missionsX";
 
 _objs = [_posCmp, ([_posCmp,_p1] call BIS_fnc_DirTo), call (compile (preprocessFileLineNumbers "Compositions\cmpExp.sqf"))] call BIS_fnc_ObjectsMapper;
 sleep 3;
@@ -96,13 +96,13 @@ if (random 8 < 1) then {
 
 	_posbase = getMarkerPos _base;
 
-	_tam = 100;
+	_radiusX = 100;
 
 	while {true} do
 		{
-		_roads = _posbase nearRoads _tam;
+		_roads = _posbase nearRoads _radiusX;
 		if (count _roads > 0) exitWith {};
-		_tam = _tam + 50;
+		_radiusX = _radiusX + 50;
 		};
 
 	_road = _roads select 0;
@@ -113,31 +113,31 @@ if (random 8 < 1) then {
 	[_veh,"AAF Escort"] spawn inmuneConvoy;
 	_vehCrew = _vehicle select 1;
 	{[_x] spawn genInit} forEach _vehCrew;
-	_grupoVeh = _vehicle select 2;
-	_soldados = _soldados + _vehCrew;
-	_grupos = _grupos + [_grupoVeh];
-	_vehiculos = _vehiculos + [_veh];
+	_groupVeh = _vehicle select 2;
+	_soldiers = _soldiers + _vehCrew;
+	_groups = _groups + [_groupVeh];
+	_vehiclesX = _vehiclesX + [_veh];
 
 	sleep 1;
 
-	_tipoGrupo = [infSquad, side_green] call AS_fnc_pickGroup;
-	_grupo = [_posbase, side_green, _tipogrupo] call BIS_Fnc_spawnGroup;
+	_typeGroup = [infSquad, side_green] call AS_fnc_pickGroup;
+	_groupX = [_posbase, side_green, _typeGroup] call BIS_Fnc_spawnGroup;
 
-	{_x assignAsCargo _veh; _x moveInCargo _veh; _soldados = _soldados + [_x]; [_x] spawn genInit} forEach units _grupo;
-	_grupos = _grupos + [_grupo];
+	{_x assignAsCargo _veh; _x moveInCargo _veh; _soldiers = _soldiers + [_x]; [_x] spawn genInit} forEach units _groupX;
+	_groups = _groups + [_groupX];
 
 	//[_veh] spawn smokeCover;
 
-	_Vwp0 = _grupoVeh addWaypoint [_posCmp, 0];
+	_Vwp0 = _groupVeh addWaypoint [_posCmp, 0];
 	_Vwp0 setWaypointType "TR UNLOAD";
 	_Vwp0 setWaypointBehaviour "SAFE";
-	_Gwp0 = _grupo addWaypoint [_posCmp, 0];
+	_Gwp0 = _groupX addWaypoint [_posCmp, 0];
 	_Gwp0 setWaypointType "GETOUT";
 	_Vwp0 synchronizeWaypoint [_Gwp0];
 };
 // END QRF
 
-waitUntil {sleep 1; (dateToNumber date > _fechalimnum) || !(alive Devin) || ((Devin distance _posCmp) > 50) || ({(side _x isEqualTo side_blue) && (_x distance Devin < 200)} count allPlayers > 0)};
+waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) || !(alive Devin) || ((Devin distance _posCmp) > 50) || ({(side _x isEqualTo side_blue) && (_x distance Devin < 200)} count allPlayers > 0)};
 
 {if (isPlayer _x) then {[petros,"hint","STR_TSK_TD_CHAT_2"] remoteExec ["commsMP",_x]}} forEach ([200,0,Devin,"BLUFORSpawn"] call distanceUnits);
 
@@ -147,10 +147,10 @@ if !(_qrf) then {
 	["spawnCSAT", _posCmp, _site, 15, "transport", "small"] remoteExec ["enemyQRF", call AS_fnc_getNextWorker];
 };
 // END QRF
-waitUntil {sleep 1; (dateToNumber date > _fechalimnum) || !(alive Devin) || ({((side _x isEqualTo side_blue) || (side _x isEqualTo civilian)) && (_x distance Devin < 10)} count allPlayers > 0)};
+waitUntil {sleep 1; (dateToNumber date > _dateLimitNum) || !(alive Devin) || ({((side _x isEqualTo side_blue) || (side _x isEqualTo civilian)) && (_x distance Devin < 10)} count allPlayers > 0)};
 
 if ({((side _x isEqualTo side_blue) || (side _x isEqualTo civilian)) && (_x distance Devin < 10)} count allPlayers > 0) then {
-	_tsk = ["FND_E",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],_tskTitle,_site],_posCmp,"SUCCEEDED",5,true,true,"Find"] call BIS_fnc_setTask;
+	_tsk = ["FND_E",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_site],_posCmp,"SUCCEEDED",5,true,true,"Find"] call BIS_fnc_setTask;
 	[[Devin,"buy_exp"],"AS_fnc_addActionMP"] call BIS_fnc_MP;
 	_mrkDev = createMarker ["Devin", _posCmp];
 	_mrkDev setMarkerShape "ICON";
@@ -167,10 +167,10 @@ if ({((side _x isEqualTo side_blue) || (side _x isEqualTo civilian)) && (_x dist
     [[line1],"DIRECT",0.15] execVM "createConv.sqf";
 }
 else {
-	_tsk = ["FND_E",[side_blue,civilian],[[_tskDesc,_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],_tskTitle,_site],_posCmp,"FAILED",5,true,true,"Find"] call BIS_fnc_setTask;
+	_tsk = ["FND_E",[side_blue,civilian],[[_tskDesc,_nameDest,numberToDate [2035,_dateLimitNum] select 3,numberToDate [2035,_dateLimitNum] select 4],_tskTitle,_site],_posCmp,"FAILED",5,true,true,"Find"] call BIS_fnc_setTask;
 };
 
-waitUntil {sleep 10; (dateToNumber date > _fechalimnum) || !(alive Devin) || ((Devin distance _posCmp) > 50)};
+waitUntil {sleep 10; (dateToNumber date > _dateLimitNum) || !(alive Devin) || ((Devin distance _posCmp) > 50)};
 
 if (alive Devin) then {
 	Devin enableAI "ANIM";
@@ -184,15 +184,15 @@ else {
 
 server setVariable ["expActive", false, true];
 
-[1200,_tsk] spawn borrarTask;
+[1200,_tsk] spawn deleteTaskX;
 if((Devin distance _posCmp) > 50) then {Devin globalchat "STR_TSK_TD_CHAT_4"; sleep 5; _shell1 = "Sh_82mm_AMOS" createVehicle position Devin;_shell1 setVelocity [0,0,150]};
 sleep 30;
 deleteMarker "Devin";
 deleteMarker "DevPat";
-waitUntil {sleep 1; {_x distance Devin < distanciaSPWN/2} count (allPlayers - (entities "HeadlessClient_F")) == 0};
-{deleteVehicle _x} forEach _vehiculos;
-{deleteVehicle _x} forEach _soldados;
-{deleteGroup _x} forEach _grupos;
+waitUntil {sleep 1; {_x distance Devin < distanceSPWN/2} count (allPlayers - (entities "HeadlessClient_F")) == 0};
+{deleteVehicle _x} forEach _vehiclesX;
+{deleteVehicle _x} forEach _soldiers;
+{deleteGroup _x} forEach _groups;
 deleteVehicle Devin;
 deleteGroup _groupDev;
 [_posCmp, "exp"] remoteExec ["despawnCamp"];

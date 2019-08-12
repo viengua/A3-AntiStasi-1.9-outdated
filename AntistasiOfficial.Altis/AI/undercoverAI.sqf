@@ -1,4 +1,4 @@
-private ["_unit","_behaviour","_primaryWeapon","_secondaryWeapon","_handGunWeapon","_casco","_hmd","_list","_primaryWeaponItems","_secondaryWeaponItems","_handgunItems"];
+private ["_unit","_behaviour","_primaryWeapon","_secondaryWeapon","_handGunWeapon","_helmet","_hmd","_list","_primaryWeaponItems","_secondaryWeaponItems","_handgunItems"];
 
 _unit = _this select 0;
 _unit setCaptive true;
@@ -17,7 +17,7 @@ _unit removeWeaponGlobal _secondaryWeapon;
 _handGunWeapon = handGunWeapon _unit call BIS_fnc_baseWeapon;
 _handgunItems = handgunItems _unit;
 _unit removeWeaponGlobal _handGunWeapon;
-_casco = headgear _unit;
+_helmet = headgear _unit;
 removeHeadGear _unit;
 _hmd = hmd _unit;
 _unit unlinkItem _hmd;
@@ -36,12 +36,12 @@ _unit addEventHandler ["FIRED",
 			}
 		else
 			{
-			_ciudad = [ciudades,_unit] call BIS_fnc_nearestPosition;
-			_size = [_ciudad] call sizeMarker;
-			_datos = server getVariable _ciudad;
-			if (random 100 < _datos select 2) then
+			_cityX = [citiesX,_unit] call BIS_fnc_nearestPosition;
+			_size = [_cityX] call sizeMarker;
+			_dataX = server getVariable _cityX;
+			if (random 100 < _dataX select 2) then
 				{
-				if (_unit distance getMarkerPos _ciudad < _size * 1.5) then
+				if (_unit distance getMarkerPos _cityX < _size * 1.5) then
 					{
 					_unit setCaptive false;
 					};
@@ -51,7 +51,7 @@ _unit addEventHandler ["FIRED",
 	}
 	];
 
-_bases = bases + puestos + controles;
+_bases = bases + outposts + controlsX;
 while {(captive player) and (captive _unit)} do
 	{
 	sleep 1;
@@ -71,17 +71,17 @@ _unit enableAI "TARGET";
 _unit enableAI "AUTOTARGET";
 _unit setUnitPos "AUTO";
 _unit setBehaviour (behaviour leader _unit);
-_sinMochi = false;
+_withoutBackpck = false;
 if ((backpack _unit == "") and (_secondaryWeapon == "")) then
 	{
-	_sinMochi = true;
+	_withoutBackpck = true;
 	_unit addbackpack "B_AssaultPack_blk";
 	};
 {if (_x != "") then {[_unit, _x, 1, 0] call BIS_fnc_addWeapon};} forEach [_primaryWeapon,_secondaryWeapon,_handGunWeapon];
 {_unit addPrimaryWeaponItem _x} forEach _primaryWeaponItems;
 {_unit addSecondaryWeaponItem _x} forEach _secondaryWeaponItems;
 {_unit addHandgunItem _x} forEach _handgunItems;
-if (_sinMochi) then {removeBackpack _unit};
-_unit addHeadgear _casco;
+if (_withoutBackpck) then {removeBackpack _unit};
+_unit addHeadgear _helmet;
 _unit linkItem _hmd;
 _unit setBehaviour "AWARE";

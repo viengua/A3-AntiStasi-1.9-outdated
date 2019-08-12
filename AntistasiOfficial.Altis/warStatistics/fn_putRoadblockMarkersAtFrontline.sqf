@@ -16,12 +16,12 @@ Return value: total ammount of added roadblocks
 params ["_zc", "_zcCheck", "_dir", "_keepoutMarkers", "_keepoutRadius", ["_debug", false]];
 
 //Initialize the global roadblock counter
-if(isNil "controlesCounter") then
+if(isNil "controlsXCounter") then
 {
-	diag_log "fn_putRoadblockMarkerAtFrontline.sqf: controlesCounter not initialized! Removing previous roadblock markers.";
-	controlesCounter = 0;
-	mrkFIA = mrkFIA - controles;
-	controles = [];
+	diag_log "fn_putRoadblockMarkerAtFrontline.sqf: controlsXCounter not initialized! Removing previous roadblock markers.";
+	controlsXCounter = 0;
+	mrkFIA = mrkFIA - controlsX;
+	controlsX = [];
 	publicVariable "mrkFIA";
 	//call compile preprocessFileLineNumbers "WarStatistics\initRoadblocks2.sqf"; //Clear previously spawned roadblocks
 };
@@ -111,8 +111,8 @@ for [{private _i = 0}, {_i < ws_gridSizeX}, {_i = _i + 1}] do //_i is x-pos
 					_connectedRoads = roadsConnectedTo _road;
 					_rbpos = getPos _road;
 
-					//Create a marker for controles array
-					_rbname = format ["ws_control_%1", controlesCounter];
+					//Create a marker for controlsX array
+					_rbname = format ["ws_control_%1", controlsXCounter];
 					_rbmrk = createMarker [_rbname, _rbpos];
 					_rbmrk setMarkerShape "RECTANGLE";
 					_rbmrk setMarkerSize [50, 50];
@@ -127,10 +127,10 @@ for [{private _i = 0}, {_i < ws_gridSizeX}, {_i = _i + 1}] do //_i is x-pos
 						_rbmrk setMarkerAlpha 0.0;
 					};
 					_newRbMarkers pushBack _rbmrk;
-					controles pushBackUnique _rbmrk;
-					publicVariable "controles";
+					controlsX pushBackUnique _rbmrk;
+					publicVariable "controlsX";
 
-					controlesCounter = controlesCounter + 1;
+					controlsXCounter = controlsXCounter + 1;
 					_newRbCounter = _newRbCounter + 1;
 
 					//Set the composition data
@@ -172,13 +172,13 @@ for [{private _i = 0}, {_i < ws_gridSizeX}, {_i = _i + 1}] do //_i is x-pos
 							if(([_check, _rbpos select 0, _rbpos select 1] call ws_fnc_getValue) == 0) exitWith //This location is no longer at frontline, remove it
 							{
 								diag_log format ["fn_putRoadblockMarkerAtFrontline.sqf: roadblock was not spawned and is no longer at frontline. Marker name: %1", _rbname];
-								controles = controles - [_rbname];
-								publicVariable "controles";
+								controlsX = controlsX - [_rbname];
+								publicVariable "controlsX";
 								deleteMarker _rbname;
 								roadblocksEnemy setVariable [_rbname, nil];
 							};
 							//Check if there are no players around
-							if(({_x distance _rbpos < 2*distanciaSPWN} count allPlayers) == 0) exitWith //There are no players around, put a roadblock here
+							if(({_x distance _rbpos < 2*distanceSPWN} count allPlayers) == 0) exitWith //There are no players around, put a roadblock here
 							{
 								_rbname setMarkerColor "ColorRed";
 								mrkAAF pushBackUnique _rbname;
@@ -196,7 +196,7 @@ for [{private _i = 0}, {_i < ws_gridSizeX}, {_i = _i + 1}] do //_i is x-pos
 							while {true} do //Wait until it gets destroyed or it's no longer at the frontline
 							{
 								sleep _sleepInterval;
-								if(!(_rbname in controles)) exitWith {_a = 1;}; //It was killed
+								if(!(_rbname in controlsX)) exitWith {_a = 1;}; //It was killed
 								if((([_check, _rbpos select 0, _rbpos select 1] call ws_fnc_getValue) == 0)) exitWith {_a = 2;}; //Roadblock is no longer at frontline
 							};
 							if(_a == 1) then
@@ -209,10 +209,10 @@ for [{private _i = 0}, {_i < ws_gridSizeX}, {_i = _i + 1}] do //_i is x-pos
 								//Now delete the marker
 								mrkAAF = mrkAAF - [_rbname];
 								markers = markers - [_rbname];
-								controles = controles - [_rbname];
+								controlsX = controlsX - [_rbname];
 								publicVariable "mrkAAF";
 								publicVariable "markers";
-								publicVariable "controles";
+								publicVariable "controlsX";
 								spawner setVariable [_rbname, nil, true];
 								deleteMarker _rbname;
 								roadblocksEnemy setVariable [_rbname, nil];

@@ -3,18 +3,18 @@ if (not isServer) exitWith {};
 _plane = _this select 0;
 
 _ammo = "Bomb_03_F";
-_cuenta = 8;
+_countX = 8;
 _cluster = false;
 if (count _this > 1) then
 	{
 	_ammo = "G_40mm_HEDP";
-	if (_this select 1 == "NAPALM") then {_cuenta = 24} else {_cuenta = 48};
+	if (_this select 1 == "NAPALM") then {_countX = 24} else {_countX = 48};
 	_cluster = true;
 	};
 
 sleep random 5;
 
-for "_i" from 1 to _cuenta do
+for "_i" from 1 to _countX do
 	{
 	if (!_cluster) then {sleep 0.6} else {sleep 0.1};
 	if (alive _plane) then

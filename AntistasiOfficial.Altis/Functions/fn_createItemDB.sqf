@@ -4,7 +4,7 @@ params [["_category", "all"]];
 private ["_weaponData", "_magazineData", "_itemData", "_backpackData", "_updateWeapons", "_updateMagazines", "_updateItems", "_updateBackpacks"];
 
 _updateWeapons = {
-	_weaponData = getWeaponCargo caja;
+	_weaponData = getWeaponCargo boxX;
 	AS_weaponClasses = _weaponData select 0;
 	AS_weaponCounts = _weaponData select 1;
 	AS_weaponDisplayNames = [];
@@ -17,7 +17,7 @@ _updateWeapons = {
 };
 
 _updateMagazines = {
-	_magazineData = getMagazineCargo caja;
+	_magazineData = getMagazineCargo boxX;
 	AS_magazineClasses = _magazineData select 0;
 	AS_magazineCounts = _magazineData select 1;
 	AS_magazineDisplayNames = [];
@@ -30,7 +30,7 @@ _updateMagazines = {
 };
 
 _updateItems = {
-	_itemData = getItemCargo caja;
+	_itemData = getItemCargo boxX;
 	AS_itemClasses = _itemData select 0;
 	AS_itemCounts = _itemData select 1;
 	AS_itemDisplayNames = [];
@@ -43,7 +43,7 @@ _updateItems = {
 };
 
 _updateBackpacks = {
-	_backpackData = getBackpackCargo caja;
+	_backpackData = getBackpackCargo boxX;
 	AS_backpackClasses = _backpackData select 0;
 	AS_backpackCounts = _backpackData select 1;
 	AS_backpackDisplayNames = [];

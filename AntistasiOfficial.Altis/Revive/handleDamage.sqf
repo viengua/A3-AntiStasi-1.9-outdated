@@ -7,7 +7,7 @@ params ["_unit","_part","_dam","_injurer"];
 if (isPlayer _unit) then {
 	_owner = player getVariable ["owner",player];
 	if (_owner!=player) then {
-		if ((isNull _injurer) and (_unit distance fuego < 10)) then {
+		if ((isNull _injurer) and (_unit distance fireX < 10)) then {
 			_dam = 0;
 		} else {
 			removeAllActions _unit;
@@ -23,7 +23,7 @@ if (isPlayer _unit) then {
 		_owner = _unit getVariable "owner";
 		if (!isNil "_owner") then {
 			if (_owner==_unit) then {
-				if ((isNull _injurer) and (_unit distance fuego < 10)) then {
+				if ((isNull _injurer) and (_unit distance fireX < 10)) then {
 					_dam = 0;
 				} else {
 					removeAllActions player;

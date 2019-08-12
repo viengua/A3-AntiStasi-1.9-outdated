@@ -13,7 +13,7 @@ _dest = _this select 1;
 
 // names of locations for the task description
 _origName = format ["the %1 carrier", A3_Str_BLUE];
-_destName = [([ciudades, _dest] call BIS_fnc_nearestPosition)] call AS_fnc_localizar;
+_destName = [([citiesX, _dest] call BIS_fnc_nearestPosition)] call AS_fnc_localizar;
 
 // kind of QRF: air/land
 _type = "air";
@@ -38,34 +38,34 @@ _mrk setMarkerType "b_support";
 _mrk setMarkerText (format ["%1 QRF", A3_Str_BLUE]);
 
 // mission time restricted to 30 minutes
-_tiempolim = 30;
-_fechalim = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _tiempolim];
-_fechalimnum = dateToNumber _fechalim;
+_timeLimit = 30;
+_dateLimit = [date select 0, date select 1, date select 2, date select 3, (date select 4) + _timeLimit];
+_dateLimitNum = dateToNumber _dateLimit;
 
 _tsk = ["NATOQRF",[side_blue,civilian],[["Our Commander asked %3 for reinforcements near %1. Their troops will depart from %2.",_destName,_origName, A3_Str_BLUE],["%1 QRF", A3_Str_BLUE],_mrk],_dest,"CREATED",5,true,true,"Move"] call BIS_fnc_setTask;
-misiones pushBackUnique _tsk; publicVariable "misiones";
+missionsX pushBackUnique _tsk; publicVariable "missionsX";
 
 // cost: 10 NATO
 [-10,0] remoteExec ["prestige",2];
 
 
 // arrays of all spawned units/groups
-_grupos = [];
-_soldados = [];
-_vehiculos = [];
+_groups = [];
+_soldiers = [];
+_vehiclesX = [];
 
 // initialise groups, two for vehicles, two for dismounts
 _grpVeh1 = createGroup side_blue;
-_grupos pushBack _grpVeh1;
+_groups pushBack _grpVeh1;
 
 _grpVeh2 = createGroup side_blue;
-_grupos pushBack _grpVeh2;
+_groups pushBack _grpVeh2;
 
 _grpDis1 = createGroup side_blue;
-_grupos pushBack _grpDis1;
+_groups pushBack _grpDis1;
 
 _grpDis2 = createGroup side_blue;
-_grupos pushBack _grpDis2;
+_groups pushBack _grpDis2;
 
 // air cav
 if (_type == "air") then {
@@ -75,7 +75,7 @@ if (_type == "air") then {
 	_landpos1 = [_dest, 0, 150, 10, 0, 0.3, 0] call BIS_Fnc_findSafePos;
 	_landpos1 set [2, 0];
 	_pad1 = createVehicle ["Land_HelipadEmpty_F", _landpos1, [], 0, "NONE"];
-	_vehiculos = _vehiculos + [_pad1];
+	_vehiclesX = _vehiclesX + [_pad1];
 
 	// first chopper
 	_vehicle = [_posOrig, 0, selectRandom bluHeliArmed, side_blue] call bis_fnc_spawnvehicle;
@@ -85,9 +85,9 @@ if (_type == "air") then {
 	_grpVeh1 = _vehicle select 2;
 	{[_x] spawn NATOinitCA} forEach _heliCrew;
 	[_heli1] spawn NATOVEHinit;
-	_soldados = _soldados + _heliCrew;
-	_grupos = _grupos + [_grpVeh1];
-	_vehiculos = _vehiculos + [_heli1];
+	_soldiers = _soldiers + _heliCrew;
+	_groups = _groups + [_grpVeh1];
+	_vehiclesX = _vehiclesX + [_heli1];
 	_heli1 lock 3;
 
 	// spawn loiter script for armed escort
@@ -108,16 +108,16 @@ if (_type == "air") then {
 	_grpVeh2 = _vehicle2 select 2;
 	{[_x] spawn NATOinitCA} forEach _heliCrew2;
 	[_heli2] spawn NATOVEHinit;
-	_soldados = _soldados + _heliCrew2;
-	_grupos = _grupos + [_grpVeh2];
-	_vehiculos = _vehiculos + [_heli2];
+	_soldiers = _soldiers + _heliCrew2;
+	_groups = _groups + [_grpVeh2];
+	_vehiclesX = _vehiclesX + [_heli2];
 	_heli2 lock 3;
 
 	// add dismounts
 	{
 		_soldier = ([_posOrig, 0, _x, _grpDis2] call bis_fnc_spawnvehicle) select 0;
 		[_soldier] spawn NATOinitCA;
-		_soldados pushBack _soldier;
+		_soldiers pushBack _soldier;
 		_soldier assignAsCargo _heli2;
 		_soldier moveInCargo _heli2;
 	} forEach bluAirCav;
@@ -129,13 +129,13 @@ if (_type == "air") then {
 
 // ground convoy
 else {
-	_tam = 10;
+	_radiusX = 10;
 	_roads = [];
 
 	while {true} do {
-	_roads = _posOrig nearRoads _tam;
+	_roads = _posOrig nearRoads _radiusX;
 	if (count _roads > 2) exitWith {};
-	_tam = _tam + 10;
+	_radiusX = _radiusX + 10;
 	};
 
 	// first MRAP, escort
@@ -146,8 +146,8 @@ else {
 	_vehCrew1 = _vehicle1 select 1;
 	_grpVeh1 = _vehicle1 select 2;
 	{[_x] spawn NATOinitCA} forEach _vehCrew1;
-	_soldados = _soldados + _vehCrew1;
-	_vehiculos = _vehiculos + [_veh1];
+	_soldiers = _soldiers + _vehCrew1;
+	_vehiclesX = _vehiclesX + [_veh1];
 
 	// add dismounts
 	{
@@ -155,7 +155,7 @@ else {
 		[_soldier] spawn NATOinitCA;
 		_soldier assignAsCargo _veh1;
 		_soldier moveInCargo _veh1;
-		_soldados pushBack _soldier;
+		_soldiers pushBack _soldier;
 	} forEach bluMRAPHMGgroup;
 	_grpDis1 selectLeader (units _grpDis1 select 0);
 
@@ -172,8 +172,8 @@ else {
 	_vehCrew2 = _vehicle2 select 1;
 	_grpVeh2 = _vehicle2 select 2;
 	{[_x] spawn NATOinitCA} forEach _vehCrew2;
-	_soldados = _soldados + _vehCrew2;
-	_vehiculos = _vehiculos + [_veh2];
+	_soldiers = _soldiers + _vehCrew2;
+	_vehiclesX = _vehiclesX + [_veh2];
 
 	// add dismounts
 	{
@@ -181,7 +181,7 @@ else {
 		[_soldier] spawn NATOinitCA;
 		_soldier assignAsCargo _veh2;
 		_soldier moveInCargo _veh2;
-		_soldados pushBack _soldier;
+		_soldiers pushBack _soldier;
 	} forEach bluMRAPgroup;
 	_grpDis2 selectLeader (units _grpDis2 select 0);
 
@@ -195,13 +195,13 @@ else {
 
 {
 	_x setVariable ["esNATO",true,true];
-} foreach _grupos;
+} foreach _groups;
 
 
 // you lose if all soldiers die before the timer runs out
-waitUntil {sleep 10; (dateToNumber date > _fechalimnum) or ({alive _x} count _soldados == 0)};
+waitUntil {sleep 10; (dateToNumber date > _dateLimitNum) or ({alive _x} count _soldiers == 0)};
 
-if (dateToNumber date > _fechalimnum) then {
+if (dateToNumber date > _dateLimitNum) then {
 	_tsk = ["NATOQRF",[side_blue,civilian],[["Our Commander asked %3 for reinforcements near %1. Their troops will depart from %2",_destName,_origName, A3_Str_BLUE],["%1 QRF", A3_Str_BLUE],_mrk],_dest,"SUCCEEDED",5,true,true,"Move"] call BIS_fnc_setTask;
 }
 else {
@@ -211,19 +211,19 @@ else {
 
 sleep 15;
 deleteMarker "NATOQRF";
-[0,_tsk] spawn borrarTask;
+[0,_tsk] spawn deleteTaskX;
 
 // despawn everything
 {
-	_soldado = _x;
-	waitUntil {sleep 1; {_x distance _soldado < distanciaSPWN} count (allPlayers - (entities "HeadlessClient_F")) == 0};
-	deleteVehicle _soldado;
-} forEach _soldados;
+	_soldierX = _x;
+	waitUntil {sleep 1; {_x distance _soldierX < distanceSPWN} count (allPlayers - (entities "HeadlessClient_F")) == 0};
+	deleteVehicle _soldierX;
+} forEach _soldiers;
 
-{deleteGroup _x} forEach _grupos;
+{deleteGroup _x} forEach _groups;
 
 {
 	_vehiculo = _x;
-	waitUntil {sleep 1; {_x distance _vehiculo < distanciaSPWN/2} count (allPlayers - (entities "HeadlessClient_F")) == 0};
+	waitUntil {sleep 1; {_x distance _vehiculo < distanceSPWN/2} count (allPlayers - (entities "HeadlessClient_F")) == 0};
 	deleteVehicle _x
-} forEach _vehiculos;
+} forEach _vehiclesX;

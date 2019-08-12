@@ -30,8 +30,8 @@ if (isMultiplayer) exitWith
 	//if (captive _unit) then {[_unit,false] remoteExec ["setCaptive"]};
 	_unit setDamage 1;
 	};
-private ["_posicion","_tam","_roads","_road","_pos"];
-_posicion = getMarkerPos guer_respawn;
+private ["_positionX","_radiusX","_roads","_road","_pos"];
+_positionX = getMarkerPos guer_respawn;
 if ([_unit] call AS_fnc_isUnconscious) then {[_unit, false] call AS_fnc_setUnconscious};
 _unit setVariable ["ASmedHelped",nil];
 _unit setVariable ["ASmedHelping",nil];
@@ -55,12 +55,12 @@ if (_x != vehicle _x) then
 	if (driver vehicle _x == _x) then
 		{
 		sleep 3;
-		_tam = 10;
+		_radiusX = 10;
 		while {true} do
 			{
-			_roads = _posicion nearRoads _tam;
+			_roads = _positionX nearRoads _radiusX;
 			if (count _roads > 0) exitWith {};
-			_tam = _tam + 10;
+			_radiusX = _radiusX + 10;
 			};
 		_road = _roads select 0;
 		_pos = position _road findEmptyPosition [1,50,typeOf (vehicle _unit)];
@@ -71,7 +71,7 @@ else
 	{
 	if (!([_x] call AS_fnc_isUnconscious) and (alive _x)) then
 		{
-		_x setPosATL _posicion;
+		_x setPosATL _positionX;
 		_x setVariable ["ASrearming",false];
 		_x doWatch objNull;
 		_x doFollow leader _x;
@@ -82,7 +82,7 @@ else
 		};
 	};
 //_x hideObject false;
-} forEach (units group _unit) + (units rezagados) - [_unit];
+} forEach (units group _unit) + (units stragglers) - [_unit];
 removeAllItemsWithMagazines _unit;
 _hmd = hmd _unit;
 if (_hmd != "") then
@@ -93,7 +93,7 @@ if (_hmd != "") then
 {_unit removeWeaponGlobal _x} forEach weapons _unit;
 //removeBackpack _unit;
 //removeVest _unit;
-_unit setPosATL _posicion;
+_unit setPosATL _positionX;
 _unit setCaptive false;
 _unit setUnconscious false;
 _unit playMoveNow "AmovPpneMstpSnonWnonDnon_healed";

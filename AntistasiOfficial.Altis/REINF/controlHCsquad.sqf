@@ -2,21 +2,21 @@
 if (player != Slowhand) exitWith {hint "Only Commander has the ability to control HC units"};
 if ({((side _x == side_green) or (side _x == side_red)) and (not (captive _x)) and (_x distance player < 500)} count allUnits > 0) exitWith {hint "You cannot remote control with enemies nearby"};
 
-_grupos = _this select 0;
+_groups = _this select 0;
 
-_grupo = _grupos select 0;
-_unit = leader _grupo;
+_groupX = _groups select 0;
+_unit = leader _groupX;
 
 if ([_unit] call AS_fnc_isUnconscious) exitWith {hint "You cannot control an unconscious unit"};
 if (!alive _unit) exitWith {hint "You cannot control a dead unit"};
 if ((not(typeOf _unit in guer_soldierArray)) and (typeOf _unit != guer_POW)) exitWith {hint "You cannot control a unit which does not belong to FIA"};
 
-while {(count (waypoints _grupo)) > 0} do
+while {(count (waypoints _groupX)) > 0} do
  {
-  deleteWaypoint ((waypoints _grupo) select 0);
+  deleteWaypoint ((waypoints _groupX) select 0);
  };
 
-_wp = _grupo addwaypoint [getpos _unit,0];
+_wp = _groupX addwaypoint [getpos _unit,0];
 
 {
 if (_x != vehicle _x) then
@@ -32,7 +32,7 @@ _unit setVariable ["owner",player,true];
 selectPlayer _unit;
 (_unit getVariable ["owner",_unit]) allowDamage false;
 
-_tiempo = 60;
+_timeX = 60;
 
 _unit addAction [localize "Str_act_returnControl",{selectPlayer (player getVariable ["owner",player])}];
 _break = false;
@@ -46,7 +46,7 @@ _testEH = _unit addEventHandler ["HandleDamage", {
 	_damage
 }];
 
-waitUntil {sleep 1; hint format ["Time to return control to AI: %1", _tiempo]; _tiempo = _tiempo - 1; (_tiempo < 0) or (isPlayer Slowhand) || (_break)};
+waitUntil {sleep 1; hint format ["Time to return control to AI: %1", _timeX]; _timeX = _timeX - 1; (_timeX < 0) or (isPlayer Slowhand) || (_break)};
 
 removeAllActions _unit;
 _unit removeEventHandler ["HandleDamage", _testEH];

@@ -8,7 +8,7 @@ class EditorData
 	toggles=2;
 	class ItemIDProvider
 	{
-		nextID=931;
+		nextID=937;
 	};
 	class MarkerIDProvider
 	{
@@ -16,14 +16,14 @@ class EditorData
 	};
 	class LayerIndexProvider
 	{
-		nextID=428;
+		nextID=452;
 	};
 	class Camera
 	{
-		pos[]={3709.3755,99.568268,10310.304};
-		dir[]={-0.70126104,-0.71039939,0.059864335};
-		up[]={-0.70782828,0.7037949,0.06042479};
-		aside[]={0.085057281,-3.6870188e-007,0.99638343};
+		pos[]={3677.4629,50.911789,10323.363};
+		dir[]={-0.76473075,-0.63401657,0.11503996};
+		up[]={-0.6269716,0.77330941,0.094316542};
+		aside[]={0.14875832,-2.5336703e-007,0.98888308};
 	};
 };
 binarizationWanted=0;
@@ -31,24 +31,30 @@ addons[]=
 {
 	"A3_Ui_F",
 	"A3_Weapons_F_Ammoboxes",
+	"ace_cargo",
 	"A3_Structures_F_Mil_Flags",
 	"A3_Structures_F_Civ_InfoBoards",
 	"A3_Structures_F_Civ_Camping",
+	"cba_xeh",
+	"ace_rearm",
+	"ace_dragging",
 	"A3_Modules_F",
 	"A3_Characters_F",
 	"A3_Modules_F_Hc",
+	"ace_explosives",
 	"A3_Structures_F_Mil_Cargo",
 	"A3_Structures_F_Mil_Helipads",
 	"A3_Structures_F_Mil_Fortification",
 	"A3_Structures_F_Ind_AirPort",
 	"A3_Structures_F_Mil_BagFence",
-	"A3_Structures_F_Argo_Military_Fortifications"
+	"A3_Structures_F_Argo_Military_Fortifications",
+	"A3_Modules_F_Curator_Curator"
 };
 class AddonsMetaData
 {
 	class List
 	{
-		items=8;
+		items=13;
 		class Item0
 		{
 			className="A3_Ui_F";
@@ -65,22 +71,22 @@ class AddonsMetaData
 		};
 		class Item2
 		{
+			className="ace_cargo";
+			name="ACE3 - Cargo";
+			author="ACE-Team";
+			url="http://ace3mod.com/";
+		};
+		class Item3
+		{
 			className="A3_Structures_F_Mil";
 			name="Arma 3 - Military Buildings and Structures";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item3
+		class Item4
 		{
 			className="A3_Structures_F";
 			name="Arma 3 - Buildings and Structures";
-			author="Bohemia Interactive";
-			url="https://www.arma3.com";
-		};
-		class Item4
-		{
-			className="A3_Modules_F";
-			name="Arma 3 Alpha - Scripted Modules";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
@@ -93,15 +99,50 @@ class AddonsMetaData
 		};
 		class Item6
 		{
+			className="ace_rearm";
+			name="ACE3 - Rearm";
+			author="ACE-Team";
+			url="http://ace3mod.com/";
+		};
+		class Item7
+		{
+			className="ace_dragging";
+			name="ACE3 - Dragging";
+			author="ACE-Team";
+			url="http://ace3mod.com/";
+		};
+		class Item8
+		{
+			className="A3_Modules_F";
+			name="Arma 3 Alpha - Scripted Modules";
+			author="Bohemia Interactive";
+			url="https://www.arma3.com";
+		};
+		class Item9
+		{
+			className="ace_explosives";
+			name="ACE3 - Explosives";
+			author="ACE-Team";
+			url="http://ace3mod.com/";
+		};
+		class Item10
+		{
 			className="A3_Structures_F_Ind";
 			name="Arma 3 - Industrial Structures";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item7
+		class Item11
 		{
 			className="A3_Structures_F_Argo";
 			name="Arma 3 Malden - Buildings and Structures";
+			author="Bohemia Interactive";
+			url="https://www.arma3.com";
+		};
+		class Item12
+		{
+			className="A3_Modules_F_Curator";
+			name="Arma 3 Zeus Update - Scripted Modules";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
@@ -110,7 +151,34 @@ class AddonsMetaData
 randomSeed=8109385;
 class ScenarioData
 {
-	author="barbolani";
+	author="A3 Antistasi Community";
+};
+class CustomAttributes
+{
+	class Category0
+	{
+		name="Scenario";
+		class Attribute0
+		{
+			property="cba_settings_hasSettingsFile";
+			expression="false";
+			class Value
+			{
+				class data
+				{
+					class type
+					{
+						type[]=
+						{
+							"BOOL"
+						};
+					};
+					value=1;
+				};
+			};
+		};
+		nAttributes=1;
+	};
 };
 class Mission
 {
@@ -136,7 +204,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=326;
+		items=327;
 		class Item0
 		{
 			dataType="Marker";
@@ -340,7 +408,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={23077.313,48.254002,7284.8511};
-			name="puesto";
+			name="outpost";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -354,7 +422,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={14819.295,7.0902076,11126.992};
-			name="puesto_1";
+			name="outpost_1";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -367,7 +435,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={16688.547,2.6209717,12293.946};
-			name="puerto";
+			name="seaport";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorBlue";
@@ -381,7 +449,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={15322.282,0,15890.239};
-			name="puerto_1";
+			name="seaport_1";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorBlue";
@@ -395,7 +463,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={19350.746,195.49754,9679.0977};
-			name="puesto_2";
+			name="outpost_2";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -408,7 +476,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={16833.541,5.0973067,12054.586};
-			name="puesto_3";
+			name="outpost_3";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -467,13 +535,13 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={21912.703,17.296,20971.66};
-			name="puesto_4";
+			name="outpost_4";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
 			a=180;
 			b=120;
-			angle=319.12387;
+			angle=319.12381;
 			id=26;
 			atlOffset=-0.00024414063;
 		};
@@ -481,7 +549,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={28323.035,14.583267,25749.648};
-			name="puesto_5";
+			name="outpost_5";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -505,7 +573,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={25263.297,85.166588,21820.773};
-			name="puesto_6";
+			name="outpost_6";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -599,7 +667,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={20599.352,37.049549,18815.156};
-			name="puesto_8";
+			name="outpost_8";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -612,7 +680,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={20606,0,20106};
-			name="puesto_9";
+			name="outpost_9";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -706,7 +774,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={12472.775,74.417038,15193.172};
-			name="puesto_11";
+			name="outpost_11";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -719,7 +787,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={10812.686,5.8507752,10861.675};
-			name="puesto_12";
+			name="outpost_12";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -732,7 +800,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={3912.4871,50.217579,12297.194};
-			name="puesto_14";
+			name="outpost_14";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -745,7 +813,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={18082.393,18.409126,19178.787};
-			name="puesto_18";
+			name="outpost_18";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -758,7 +826,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={9708.7832,2.6216881,22289.277};
-			name="puesto_19";
+			name="outpost_19";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -771,7 +839,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={3187.5779,0,12911.908};
-			name="puerto_2";
+			name="seaport_2";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorBlue";
@@ -915,7 +983,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={10352.006,67.66671,8711.4512};
-			name="puesto_17";
+			name="outpost_17";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -928,7 +996,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={18727.076,209.287,10210.982};
-			name="puesto_20";
+			name="outpost_20";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -941,7 +1009,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={17860.234,88.914497,11745.42};
-			name="puesto_21";
+			name="outpost_21";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -954,7 +1022,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={6840,0,16106};
-			name="puesto_22";
+			name="outpost_22";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -968,7 +1036,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={4359,0,20635};
-			name="puesto_23";
+			name="outpost_23";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -982,7 +1050,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={26420.232,66.039474,22140.607};
-			name="puesto_24";
+			name="outpost_24";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -995,7 +1063,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={10011.299,16.417982,11235.339};
-			name="puesto_25";
+			name="outpost_25";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -1008,7 +1076,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={4554.5698,261.159,15435.746};
-			name="puesto_26";
+			name="outpost_26";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -1021,7 +1089,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={8388.5381,180.12085,18246.57};
-			name="puesto_27";
+			name="outpost_27";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -1043,7 +1111,7 @@ class Mission
 			class Attributes
 			{
 				skill=0.2;
-				name="caja";
+				name="boxX";
 			};
 			id=95;
 			type="B_supplyCrate_F";
@@ -1062,7 +1130,7 @@ class Mission
 			class Attributes
 			{
 				skill=0.2;
-				name="bandera";
+				name="flagX";
 			};
 			id=96;
 			type="Flag_FIA_F";
@@ -1081,7 +1149,7 @@ class Mission
 			class Attributes
 			{
 				skill=0.2;
-				name="mapa";
+				name="mapX";
 			};
 			id=97;
 			type="MapBoard_altis_F";
@@ -1100,7 +1168,7 @@ class Mission
 			class Attributes
 			{
 				skill=0.60000002;
-				name="fuego";
+				name="fireX";
 			};
 			id=98;
 			type="Campfire_burning_F";
@@ -1119,7 +1187,7 @@ class Mission
 			class Attributes
 			{
 				skill=0.60000002;
-				name="cajaveh";
+				name="vehicleBox";
 			};
 			id=99;
 			type="Box_NATO_AmmoVeh_F";
@@ -1221,7 +1289,7 @@ class Mission
 				position[]={3618.3899,15.22812,10285.885};
 				angles[]={6.2272439,0,6.2179451};
 			};
-			name="HC_comandante";
+			name="HC_commanderX";
 			id=103;
 			type="HighCommand";
 			atlOffset=1.9073486e-006;
@@ -1269,7 +1337,7 @@ class Mission
 					flags=6;
 					class Attributes
 					{
-						name="comandante";
+						name="commanderX";
 						description="Default Commander";
 						isPlayer=1;
 						isPlayable=1;
@@ -1333,7 +1401,7 @@ class Mission
 				position[]={3620.6443,16.238462,10311.122};
 				angles[]={6.2046804,0,6.1193342};
 			};
-			name="carreteras";
+			name="roadsX";
 			id=114;
 			type="Logic";
 		};
@@ -1465,7 +1533,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={20672,0,19415.174};
-			name="puerto_3";
+			name="seaport_3";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorBlue";
@@ -1479,7 +1547,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={27615.791,4.1600342,24616.549};
-			name="puerto_4";
+			name="seaport_4";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorBlue";
@@ -1820,7 +1888,7 @@ class Mission
 					class PositionInfo
 					{
 						position[]={3635.6479,19.584385,10358.322};
-						angles[]={0,3.0601509,0};
+						angles[]={0,3.0601556,0};
 					};
 					side="West";
 					flags=7;
@@ -2245,7 +2313,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={16083.18,15.853616,17002.723};
-			name="puesto_10";
+			name="outpost_10";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -5252,7 +5320,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={3582.7239,109.58374,14465.35};
-			name="puesto_28";
+			name="outpost_28";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -5266,7 +5334,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={3034,0,18480};
-			name="puesto_29";
+			name="outpost_29";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -5280,7 +5348,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={6562,0,22681};
-			name="puesto_30";
+			name="outpost_30";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -5294,7 +5362,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={3139,0,21980};
-			name="puesto_31";
+			name="outpost_31";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -5308,7 +5376,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={8850,0,23454};
-			name="puesto_32";
+			name="outpost_32";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -5322,7 +5390,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={3549,0,19985};
-			name="puesto_33";
+			name="outpost_33";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -5363,7 +5431,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={11536,0,7040};
-			name="puesto_13";
+			name="outpost_13";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -5377,7 +5445,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={8915,0,7477};
-			name="puesto_15";
+			name="outpost_15";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -5391,7 +5459,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={13786,0,6390};
-			name="puesto_16";
+			name="outpost_16";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -5419,7 +5487,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={3400,0,21373};
-			name="puesto_34";
+			name="outpost_34";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -5433,7 +5501,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={4009,0,19249};
-			name="puesto_35";
+			name="outpost_35";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -5447,7 +5515,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={2407.5154,0,22397.535};
-			name="puesto_36";
+			name="outpost_36";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -5461,7 +5529,7 @@ class Mission
 		{
 			dataType="Marker";
 			position[]={4891,0,19448};
-			name="puesto_37";
+			name="outpost_37";
 			markerType="RECTANGLE";
 			type="Empty";
 			colorName="ColorGreen";
@@ -10005,6 +10073,96 @@ class Mission
 					};
 				};
 				nAttributes=2;
+			};
+		};
+		class Item326
+		{
+			dataType="Logic";
+			class PositionInfo
+			{
+				position[]={3645.4551,16.626535,10324.277};
+			};
+			id=936;
+			type="ModuleCurator_F";
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="ModuleCurator_F_Owner";
+					expression="_this setVariable ['Owner',_value,true];";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="#adminLogged";
+						};
+					};
+				};
+				class Attribute1
+				{
+					property="ModuleCurator_F_Forced";
+					expression="_this setVariable ['Forced',_value,true];";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"SCALAR"
+								};
+							};
+							value=0;
+						};
+					};
+				};
+				class Attribute2
+				{
+					property="ModuleCurator_F_Name";
+					expression="_this setVariable ['Name',_value,true];";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="";
+						};
+					};
+				};
+				class Attribute3
+				{
+					property="ModuleCurator_F_Addons";
+					expression="_this setVariable ['Addons',_value,true];";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"SCALAR"
+								};
+							};
+							value=2;
+						};
+					};
+				};
+				nAttributes=4;
 			};
 		};
 	};

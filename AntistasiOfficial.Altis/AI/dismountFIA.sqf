@@ -1,19 +1,19 @@
 // Select group, Y menu, dismount. Could be improved.
-private ["_grupo","_modo"];
+private ["_groupX","_modeX"];
 
-_grupo = _this select 0;
+_groupX = _this select 0;
 
-while {{alive _x} count units _grupo > 0} do
+while {{alive _x} count units _groupX > 0} do
 	{
 	sleep 3;
-	_modo = behaviour leader _grupo;
+	_modeX = behaviour leader _groupX;
 
-	if (_modo != "SAFE") then
+	if (_modeX != "SAFE") then
 		{
-		{[_x] orderGetIn false; [_x] allowGetIn false} forEach units _grupo;
+		{[_x] orderGetIn false; [_x] allowGetIn false} forEach units _groupX;
 		}
 	else
 		{
-		{[_x] orderGetIn true; [_x] allowGetIn true} forEach units _grupo;
+		{[_x] orderGetIn true; [_x] allowGetIn true} forEach units _groupX;
 		};
 	};

@@ -1,12 +1,12 @@
 _pos = _this select 0;
 
-_argumentos = ["Car","Truck","Man","Air"];
+_argumentX = ["Car","Truck","Man","Air"];
 
-if (isServer) then {_argumentos = ["All", "", "House", "Wall"]};
+if (isServer) then {_argumentX = ["All", "", "House", "Wall"]};
 _timeOut = time + 70;
 while {time < _timeOut} do
 	{
-	_units = nearestobjects [_pos, _argumentos, 70];
+	_units = nearestobjects [_pos, _argumentX, 70];
 	{
 	if (local _x) then
 		{
@@ -32,9 +32,9 @@ while {time < _timeOut} do
 						{
 						[_x] spawn
 							{
-							_tipo = _this select 0;
+							_typeX = _this select 0;
 							sleep random 3;
-							playSound3D [(injuredSounds call BIS_fnc_selectRandom),_tipo];
+							playSound3D [(injuredSounds call BIS_fnc_selectRandom),_typeX];
 							};
 						};
 					}

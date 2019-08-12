@@ -58,11 +58,11 @@ _transportUnit = {
 		{
 			_x allowDamage false;
 		} forEach crew _unit;
-		_tam = 10;
+		_radiusX = 10;
 		_roads = [];
 		while {true} do {
-			_roads = _ftPos nearRoads _tam;
-			if (count _roads < 1) then {_tam = _tam + 10};
+			_roads = _ftPos nearRoads _radiusX;
+			if (count _roads < 1) then {_radiusX = _radiusX + 10};
 			if (count _roads > 0) exitWith {};
 		};
 		_road = _roads select 0;

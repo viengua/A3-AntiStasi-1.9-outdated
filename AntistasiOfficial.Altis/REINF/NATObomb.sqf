@@ -1,22 +1,22 @@
 if (server getVariable "prestigeNATO" < 10) exitWith {hint format ["You lack of enough %1 Support to make this request", A3_Str_BLUE]};
 if (!allowPlayerRecruit) exitWith {hint "Server is very loaded. \nWait one minute or change FPS settings in order to fulfill this request"};
 	if (!([player] call hasRadio)) exitWith {hint "You need a radio in your inventory to be able to give orders to other squads"};
-_tipo = _this select 0;
+_typeX = _this select 0;
 
-posicionTel = [];
+positionTel = [];
 
 hint "Select the spot from which the plane will start to drop the bombs";
 
 openMap true;
-onMapSingleClick "posicionTel = _pos;";
+onMapSingleClick "positionTel = _pos;";
 
-waitUntil {sleep 1; (count posicionTel > 0) or (!visibleMap)};
+waitUntil {sleep 1; (count positionTel > 0) or (!visibleMap)};
 onMapSingleClick "";
 
 if (!visibleMap) exitWith {};
 
-_pos1 = posicionTel;
-posicionTel = [];
+_pos1 = positionTel;
+positionTel = [];
 
 _mrkorig = createMarker [format ["BRStart%1",random 1000], _pos1];
 _mrkorig setMarkerShape "ICON";
@@ -26,21 +26,21 @@ _mrkOrig setMarkerText "Bomb Run Init";
 
 hint "Select the map position to which the plane will exit to calculate plane's route vector";
 
-onMapSingleClick "posicionTel = _pos;";
+onMapSingleClick "positionTel = _pos;";
 
-waitUntil {sleep 1; (count posicionTel > 0) or (!visibleMap)};
+waitUntil {sleep 1; (count positionTel > 0) or (!visibleMap)};
 onMapSingleClick "";
 
 if (!visibleMap) exitWith {deleteMarker _mrkOrig};
 
-_pos2 = posicionTel;
-posicionTel = [];
+_pos2 = positionTel;
+positionTel = [];
 
 _ang = [_pos1,_pos2] call BIS_fnc_dirTo;
 
 _central = [_pos1, 100, _ang] call BIS_fnc_relPos;
-_ciudad = [ciudades,_central] call BIS_fnc_nearestPosition;
-if (_central distance getMarkerPos _ciudad < ([_ciudad] call sizeMarker) * 1.5) exitWith {hint format ["That path is very close to %1.\n\n%2 won't perform any bomb run that may cause civilian casualties",_ciudad, A3_Str_BLUE]; deleteMarker _mrkOrig; openMap false};
+_cityX = [citiesX,_central] call BIS_fnc_nearestPosition;
+if (_central distance getMarkerPos _cityX < ([_cityX] call sizeMarker) * 1.5) exitWith {hint format ["That path is very close to %1.\n\n%2 won't perform any bomb run that may cause civilian casualties",_cityX, A3_Str_BLUE]; deleteMarker _mrkOrig; openMap false};
 
 [-10,0] remoteExec ["prestige",2];
 
@@ -70,9 +70,9 @@ _wp1 = group _plane addWaypoint [_pos1, 0];
 _wp1 setWaypointType "MOVE";
 _wp1 setWaypointSpeed "LIMITED";
 _wp1 setWaypointBehaviour "CARELESS";
-if (_tipo == "CARPET") then {_wp1 setWaypointStatements ["true", "[this,""CARPET""] execVM 'AI\airbomb.sqf'"]};
-if (_tipo == "NAPALM") then {_wp1 setWaypointStatements ["true", "[this,""NAPALM""] execVM 'AI\airbomb.sqf'"]};
-if (_tipo == "HE") then {_wp1 setWaypointStatements ["true", "[this] execVM 'AI\airbomb.sqf'"]};
+if (_typeX == "CARPET") then {_wp1 setWaypointStatements ["true", "[this,""CARPET""] execVM 'AI\airbomb.sqf'"]};
+if (_typeX == "NAPALM") then {_wp1 setWaypointStatements ["true", "[this,""NAPALM""] execVM 'AI\airbomb.sqf'"]};
+if (_typeX == "HE") then {_wp1 setWaypointStatements ["true", "[this] execVM 'AI\airbomb.sqf'"]};
 
 
 _wp2 = group _plane addWaypoint [_pos2, 1];

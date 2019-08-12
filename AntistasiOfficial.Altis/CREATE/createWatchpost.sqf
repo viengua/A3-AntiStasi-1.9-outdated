@@ -24,7 +24,7 @@ _allVehicles pushBack _vehicle;
 
 _vehicle = createVehicle ["I_supplyCrate_F", _markerPos, [],0, "NONE"];
 _allVehicles pushBack _vehicle;
-[_vehicle] call cajaAAF;
+[_vehicle] call boxAAF;
 
 _position = _markerPos findEmptyPosition [5,50,enemyMotorpoolDef];
 if !(count _position == 0) then {

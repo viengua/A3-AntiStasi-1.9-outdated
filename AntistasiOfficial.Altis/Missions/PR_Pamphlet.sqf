@@ -29,7 +29,7 @@ _endTime = [date select 0, date select 1, date select 2, date select 3, (date se
 _endTime = dateToNumber _endTime;
 
 _task = ["PR",[side_blue,civilian],[[_tskDesc,_targetName,numberToDate [2035,_endTime] select 3,numberToDate [2035,_endTime] select 4],_tskTitle,_marker],_targetPosition,"CREATED",5,true,true,"Heal"] call BIS_fnc_setTask;
-misiones pushBack _task; publicVariable "misiones";
+missionsX pushBack _task; publicVariable "missionsX";
 
 _spawnPosition = (getMarkerPos guer_respawn) findEmptyPosition [5,50,"C_Van_01_transport_F"];
 sleep 1;
@@ -137,10 +137,10 @@ if !(_missionVehicle distance _targetPosition < 550) exitWith {
     [5,-5,_targetPosition] remoteExec ["AS_fnc_changeCitySupport",2];
 	[-10,Slowhand] call playerScoreAdd;
 
-    [1200,_task] spawn borrarTask;
-	waitUntil {sleep 1; !([distanciaSPWN,1,_missionVehicle,"BLUFORSpawn"] call distanceUnits) OR ((_missionVehicle distance (getMarkerPos guer_respawn) < 60) AND (speed _missionVehicle < 1))};
+    [1200,_task] spawn deleteTaskX;
+	waitUntil {sleep 1; !([distanceSPWN,1,_missionVehicle,"BLUFORSpawn"] call distanceUnits) OR ((_missionVehicle distance (getMarkerPos guer_respawn) < 60) AND (speed _missionVehicle < 1))};
 	if ((_missionVehicle distance (getMarkerPos guer_respawn) < 60) AND (speed _missionVehicle < 1)) then {
-		[_missionVehicle,true] call vaciar;
+		[_missionVehicle,true] call emptyX;
 	};
 	{deleteVehicle _x} forEach _leafletCrates;
 	[_allGroups, _allSoldiers, _allVehicles] spawn AS_fnc_despawnUnits;
@@ -305,10 +305,10 @@ if (!(alive _missionVehicle) OR (dateToNumber date > _endTime)) then {
 	// BE module
 };
 
-[1200,_task] spawn borrarTask;
-waitUntil {sleep 1; (not([distanciaSPWN,1,_missionVehicle,"BLUFORSpawn"] call distanceUnits)) or ((_missionVehicle distance (getMarkerPos guer_respawn) < 60) && (speed _missionVehicle < 1))};
+[1200,_task] spawn deleteTaskX;
+waitUntil {sleep 1; (not([distanceSPWN,1,_missionVehicle,"BLUFORSpawn"] call distanceUnits)) or ((_missionVehicle distance (getMarkerPos guer_respawn) < 60) && (speed _missionVehicle < 1))};
 if ((_missionVehicle distance (getMarkerPos guer_respawn) < 60) && (speed _missionVehicle < 1)) then {
-	[_missionVehicle,true] call vaciar;
+	[_missionVehicle,true] call emptyX;
 };
 {deleteVehicle _x} forEach _leafletCrates;
 sleep 1;

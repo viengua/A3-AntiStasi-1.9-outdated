@@ -1,14 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?><Project name="Antistasi">
+<?xml version="1.0" encoding="UTF-8"?>
+<Project name="Antistasi">
 	<Package name="MissionNames">
 		<Container name="MissionNames_0">
 			<Key ID="STR_MISSION_NAME_SQM">
-				<Original>[SP/CO]- Antistasi 1.8.0 Altis Blufor</Original>
+				<Original>[SP/CO]- Antistasi 1.9.1.3d Altis Blufor - 1-0010</Original>
 			</Key>
 			<Key ID="STR_MISSION_NAME_INITVAR_SQF">
-				<Original>v 1.8.0</Original>
+				<Original>v 1.9.1.3d</Original>
 			</Key>
 			<Key ID="STR_MISSION_NAME_EXT">
-				<Original>Antistasi 1.8.0</Original>
+				<Original>Antistasi 1.9.1.3d</Original>
 			</Key>
 		</Container>
 	</Package>
@@ -166,7 +167,7 @@
 			<Key ID="STR_ACT_TAKEFLAG">
 				<Original>&lt;img size='1.2' image='\A3\ui_f\data\IGUI\Cfg\Actions\takeFlag_ca.paa' /&gt; Take the Flag</Original>
 				<Russian>&lt;img size='1.2' image='\A3\ui_f\data\IGUI\Cfg\Actions\takeFlag_ca.paa' /&gt; Захватить флаг</Russian>
-				<Spanish>&lt;img size='1.2' image='\A3\ui_f\data\IGUI\Cfg\Actions\takeFlag_ca.paa' /&gt; Tomar la Bandera</Spanish>
+				<Spanish>&lt;img size='1.2' image='\A3\ui_f\data\IGUI\Cfg\Actions\takeFlag_ca.paa' /&gt; Tomar la flagX</Spanish>
 			</Key>
 			<Key ID="STR_ACT_PERSGARAGE"><!-- not use need to delete -->
 				<Original>&lt;img size='1.75' image='\A3\ui_f\data\GUI\rsc\rscdisplaysinglemission\source\backup\large_64x64\locked_ca.paa' /&gt; Personal Garage</Original>
@@ -247,6 +248,11 @@
 				<Original>&lt;img size='1.75' image='\A3\ui_f\data\GUI\cfg\Hints\Map_ca.paa' /&gt; Map Info</Original>
 				<Russian>&lt;img size='1.75' image='\A3\ui_f\data\GUI\cfg\Hints\Map_ca.paa' /&gt; Информация на карте</Russian>
 				<Spanish>&lt;img size='1.75' image='\A3\ui_f\data\GUI\cfg\Hints\Map_ca.paa' /&gt; Info Mapa</Spanish>
+			</Key>
+			<Key ID="STR_ACT_BUYNATO">
+				<Original>&lt;img size='1.75' image='\A3\ui_f\data\IGUI\Cfg\MPTable\soft_ca.paa' /&gt; Buy NATO vehicles</Original>
+				<Russian>&lt;img size='1.75' image='\A3\ui_f\data\IGUI\Cfg\MPTable\soft_ca.paa' /&gt; Missing</Russian>
+				<Spanish>&lt;img size='1.75' image='\A3\ui_f\data\IGUI\Cfg\MPTable\soft_ca.paa' /&gt; Missing</Spanish>
 			</Key>
 			<Key ID="STR_ACT_BUILDPAD">
 				<Original>&lt;img size='1.75' image='\A3\ui_f\data\Map\markers\military\objective_ca.paa' /&gt; Build Vehicle Zone</Original>
@@ -454,26 +460,32 @@
 			<Key ID="STR_GL_AAFOP">
 				<Original>AAF Outpost</Original>
 				<Russian>ОП AAF</Russian>
+                <Spanish>Puesto AAF</Spanish>
 			</Key>
 			<Key ID="STR_GL_AAFBS">
 				<Original>AAF Base</Original>
 				<Russian>В/база AAF</Russian>
+                <Spanish>Base AAF</Spanish>
 			</Key>
 			<Key ID="STR_GL_AAFAB">
 				<Original>AAF Airport</Original>
 				<Russian>А/база AAF</Russian>
+                <Spanish>Aeródromo AAF</Spanish>
 			</Key>
 			<Key ID="STR_GL_FIARB">
 				<Original>FIA Roadblock</Original>
 				<Russian>БП FIA</Russian>
+                <Spanish>Control FIA</Spanish>
 			</Key>
 			<Key ID="STR_GL_FIAWP">
 				<Original>FIA Watchpost</Original>
 				<Russian>НП FIA</Russian>
+                <Spanish>Observación FIA</Spanish>
 			</Key>
 			<Key ID="STR_GL_NATORB">
 				<Original>NATO Roadblock</Original>
 				<Russian>БП НАТО</Russian>
+                <Spanish>Control OTAN</Spanish>
 			</Key>
 		</Container>
 	</Package>
@@ -507,7 +519,7 @@
 			<Key ID="STR_UI_SM_COM_TT">
 				<Original>Automatic Commander Switching&lt;br/&gt;In regular intervals, the highest ranking player will be assigned the role of Commander.</Original>
 				<Russian>Смена Командира&lt;br/&gt;Через равные промежутки времени статус Командира получает игрок более высокого ранга.</Russian>
-				<Spanish>Cambiar Comandante Automático&lt;br/&gt;En intervalos regulares, al jugador de mayor rango se le asignará el puesto de comandante.</Spanish>
+				<Spanish>Cambiar Comandante Automático&lt;br/&gt;En intervalos regulares, al playerX de mayor rango se le asignará el puesto de comandante.</Spanish>
 			</Key>
 			<Key ID="STR_UI_SM_MEM_0">
 				<Original>Membership Enabled</Original>
@@ -522,7 +534,7 @@
 			<Key ID="STR_UI_SM_MEM_TT">
 				<Original>Only players on the members list are eligible to become Commander, can access the arsenal inventory and have their rank saved.</Original>
 				<Russian>Только игроки из списка игроков могут быть Командирами, иметь доступ к Арсеналу. Их ранг сохраняется.</Russian>
-				<Spanish>Sólo los jugadores de la lista de miembros pueden ser elegidos como Comandante, tienen acceso al Arsenal y su rango será guardado.</Spanish>
+				<Spanish>Sólo los playerXes de la lista de miembros pueden ser elegidos como Comandante, tienen acceso al Arsenal y su rango será guardado.</Spanish>
 			</Key>
 			<Key ID="STR_UI_SM_LOAD_0">
 				<Original>Continuing Campaign</Original>
@@ -604,7 +616,7 @@
 			<Key ID="STR_UI_MENU_PLAYER_TT">
 				<Original>Player Menu</Original>
 				<Russian>Меню игрока</Russian>
-				<Spanish>Menú Jugador</Spanish>
+				<Spanish>Menú playerX</Spanish>
 			</Key>
 			<Key ID="STR_UI_MENU_ADMIN_TT">
 				<Original>Admin Menu</Original>
@@ -636,7 +648,7 @@
 			<Key ID="STR_UI_BM_NAV1_TT">
 				<Original>Select Camp or HQ when no enemies nearby</Original>
 				<Russian>Выберите лагерь или Штаб когда рядом нет противника</Russian>
-				<Spanish>Selecciona un Campamento o HQ sin enemigos cercanos</Spanish>
+				<Spanish>Selecciona un Campamento o HQ sin enemyXs nearXs</Spanish>
 			</Key>
 			<Key ID="STR_UI_BM_NAV2_TEXT">
 				<Original>Undercover</Original>
@@ -646,7 +658,7 @@
 			<Key ID="STR_UI_BM_NAV2_TT">
 				<Original>Look like a civilian and be ignored by enemies, don't get revealed!</Original>
 				<Russian>Вы будете выглядеть как гражданский, и противник не будет Вас замечать</Russian>
-				<Spanish>Pareces un civil y serás ignorado por el enemigo, que no te detecten!</Spanish>
+				<Spanish>Pareces un civil y serás ignorado por el enemyX, que no te detecten!</Spanish>
 			</Key>
 			<Key ID="STR_UI_BM_NAV3_TEXT">
 				<Original>Vehicle Mgmt</Original>
@@ -671,7 +683,7 @@
 			<Key ID="STR_UI_BM_NAV5_TEXT">
 				<Original>Player &amp; Money</Original>
 				<Russian>Деньги</Russian>
-				<Spanish>Jugador &amp; Dinero</Spanish>
+				<Spanish>playerX &amp; Dinero</Spanish>
 			</Key>
 			<Key ID="STR_UI_BM_NAV5_TT">
 				<Original>Give money to FIA or to your mates</Original>
@@ -820,12 +832,12 @@
 			<Key ID="STR_UI_MONEY_PLY_TEXT">
 				<Original>Donate 100€ to Player</Original>
 				<Russian>Передать 100€ игроку</Russian>
-				<Spanish>Donar 100€ a un Jugador</Spanish>
+				<Spanish>Donar 100€ a un playerX</Spanish>
 			</Key>
 			<Key ID="STR_UI_MONEY_PLY_TT">
 				<Original>Donate 100€ to the player you're looking at.</Original>
 				<Russian>Передаёт 100€ игроку, на которого Вы смотрите.</Russian>
-				<Spanish>Dona 100€ al jugador que estás mirando.</Spanish>
+				<Spanish>Dona 100€ al playerX que estás mirando.</Spanish>
 			</Key>
 			<Key ID="STR_UI_MONEY_FIA_TEXT">
 				<Original>Donate 100€ to FIA</Original>
@@ -875,7 +887,7 @@
 			<Key ID="STR_UI_NAVCOM_BUILD_TT">
 				<Original>Setup or take down camps, roadblocks and watchposts.</Original>
 				<Russian>Развертывание и сворачивание лагерей, БП и т.д.</Russian>
-				<Spanish>Montar o quitar campamentos, controles y puestos de observación.</Spanish>
+				<Spanish>Montar o quitar campamentos, controles y outposts de observación.</Spanish>
 			</Key>
 			<Key ID="STR_UI_NAVCOM_INFO_TEXT">
 				<Original>Details</Original>
@@ -992,12 +1004,12 @@
 			<Key ID="STR_UI_ALLY_RED_TEXT"><!--' Stef 30-08 '-->
 				<Original>Reduce Opfor support</Original>
 				<Russian>Дипломатия</Russian>
-				<Spanish>Reducir Apoyo Enemigo</Spanish>
+				<Spanish>Reducir Apoyo enemyX</Spanish>
 			</Key>
 			<Key ID="STR_UI_ALLY_RED_TT"><!--' Stef 30-08 '-->
 				<Original>Price: 100 Points -- Weaken the enemy supporting faction by 10 points</Original>
 				<Russian>Цена: 100 очков - Ослабить поддержку противника на 10 очков</Russian>
-				<Spanish>Coste: 100 Puntos -- Debilita el apoyo enemigo en 10 puntos</Spanish>
+				<Spanish>Coste: 100 Puntos -- Debilita el apoyo enemyX en 10 puntos</Spanish>
 			</Key>
 		</Container>
 		<Container name="Squad Recruitment Menu">
@@ -1074,12 +1086,12 @@
 			<Key ID="STR_UI_SR_MORTAR_TEXT">
 				<Original>Mortar</Original>
 				<Russian>Миномет</Russian>
-				<Spanish>Mortero</Spanish>
+				<Spanish>mortarX</Spanish>
 			</Key>
 			<Key ID="STR_UI_SR_MORTAR_TT">
 				<Original>HR=2 money=1300 A truck with a mortar attached, give it time to deploy then shift+ctrl+Y to bombard</Original>
 				<Russian>HR=2 денег=1300 - Грузовик с миномётом, подождите пока развернется, затем через «Shift + Ctrl + Y» управляйте огнем</Russian>
-				<Spanish>HR=2 dinero=1300 - Un camión con un mortero acoplado, dale tiempo para desplegar, luego shift+ctrl+Y para bombardear</Spanish>
+				<Spanish>HR=2 dinero=1300 - Un camión con un mortarX acoplado, dale tiempo para desplegar, luego shift+ctrl+Y para bombardear</Spanish>
 			</Key>
 			<Key ID="STR_UI_SR_ENG_TEXT">
 				<Original>Engineers</Original>
@@ -1213,7 +1225,7 @@
 			<Key ID="STR_UI_EMP_HQFORT_TT">
 				<Original>Add objects to make HQ look better, watch out collision with spawning vehicles</Original>
 				<Russian>Добавление объектов для улучшения Штаба, следите чтобы они не сталкивались с появляющейся техникой</Russian>
-				<Spanish>Añade objetos para que el HQ se vea mejor, vigila las colisiones con los vehículos generados</Spanish>
+				<Spanish>Añade objectsX para que el HQ se vea mejor, vigila las colisiones con los vehículos generados</Spanish>
 			</Key>
 		</Container>
 		<Container name="Info">
@@ -1230,22 +1242,22 @@
 			<Key ID="STR_UI_INFO_MRESTR_TEXT">
 				<Original>Arsenal Membership</Original>
 				<Russian>Arsenal Membership</Russian>
-				<Spanish>Arsenal Membership</Spanish>
+				<Spanish>Arsenal de Membresía</Spanish>
 			</Key>
 			<Key ID="STR_UI_INFO_MRESTR_TT">
 				<Original>When enabled, non members can't pick items below a threshold</Original>
 				<Russian>When enabled, non members can't pick items below a threshold</Russian>
-				<Spanish>When enabled, non members can't pick items below a threshold</Spanish>
+				<Spanish>Cuando está habilitado, los que no sean miembros no pueden coger elementos por debajo del umbral</Spanish>
 			</Key>
 			<Key ID="STR_UI_INFO_ACEMEDIC_TEXT">
 				<Original>Arsenal ACE Medical</Original>
 				<Russian>Arsenal ACE Medical</Russian>
-				<Spanish>Arsenal ACE Medicall</Spanish>
+				<Spanish>Arsenal Médico ACE</Spanish>
 			</Key>
 			<Key ID="STR_UI_INFO_ACEMEDIC_TT">
 				<Original>Reset ACE items according to basic or advanced</Original>
 				<Russian>Reset ACE items according to basic or advanced</Russian>
-				<Spanish>Reset ACE items according to basic or advanced</Spanish>
+				<Spanish>Reinicia los objectsX de ACE de básico o avanzado</Spanish>
 			</Key>
 			<Key ID="STR_UI_INFO_AXPREST_TEXT">
 				<Original>Current Restrictions</Original>
@@ -1277,7 +1289,7 @@
 			<Key ID="STR_UI_MAINT_GAR_TT">
 				<Original>Delete on ground items, corpses, destroyed vehicle. Might freeze a bit</Original>
 				<Russian>Удаляются предметы на земле, трупы, уничтоженный транспорт. Может немного подвиснуть</Russian>
-				<Spanish>Borra objetos en el suelo, cuerpos, vehículos destruidos. Puede ralentizar un poco</Spanish>
+				<Spanish>Borra objectsX en el suelo, cuerpos, vehículos destruidos. Puede ralentizar un poco</Spanish>
 			</Key>
 			<Key ID="STR_UI_MAINT_PET_TEXT">
 				<Original>Reset Petros' position</Original>
@@ -1292,7 +1304,7 @@
 			<Key ID="STR_UI_MAINT_MOV_TEXT">
 				<Original>Move Statics/HQ Items</Original>
 				<Russian>Перемещение Предметов</Russian>
-				<Spanish>Mover Estáticas/Objetos HQ</Spanish>
+				<Spanish>Mover Estáticas/objectsX HQ</Spanish>
 			</Key>
 			<Key ID="STR_UI_MAINT_MOV_TT">
 				<Original>Reinitialize your ability to move statics and HQ assets.</Original>
@@ -1307,7 +1319,7 @@
 			<Key ID="STR_UI_MAINT_RES_TT">
 				<Original>If you managed to lose one of your HQ items, this will reset all of them near Petros.</Original>
 				<Russian>Помещает все Предметы Штаба рядом с Петросом.</Russian>
-				<Spanish>Si al administrar los objetos del HQ pierdes alguno, esto los dejará todos cerca de Petros.</Spanish>
+				<Spanish>Si al administrar los objectsX del HQ pierdes alguno, esto los dejará todos cerca de Petros.</Spanish>
 			</Key>
 		</Container>
 		<Container name="Admin">
@@ -1319,7 +1331,7 @@
 			<Key ID="STR_UI_ADMIN_TGLPN_TT">
 				<Original>Toggle player names displayed on map.</Original>
 				<Russian>Переключает видимость имён игроков на карте.</Russian>
-				<Spanish>Muestra el nombre de los jugadores en el mapa.</Spanish>
+				<Spanish>Muestra el nombre de los playerXes en el mapa.</Spanish>
 			</Key>
 			<Key ID="STR_UI_ADMIN_ADDMEM_TEXT">
 				<Original>Add Server Member</Original>
@@ -1329,7 +1341,7 @@
 			<Key ID="STR_UI_ADMIN_ADDMEM_TT">
 				<Original>Look at a player, Members are eligible to be commander and can recruit AI</Original>
 				<Russian>Игроки из списка игроков могут быть Командиром и набирать отряды.</Russian>
-				<Spanish>Mira al Jugador, los miembros pueden ser elegidos Comandante y pueden reclutar IA</Spanish>
+				<Spanish>Mira al playerX, los miembros pueden ser elegidos Comandante y pueden reclutar IA</Spanish>
 			</Key>
 			<Key ID="STR_UI_ADMIN_REMMEM_TEXT">
 				<Original>Remove S. Member</Original>
@@ -1339,7 +1351,7 @@
 			<Key ID="STR_UI_ADMIN_REMMEM_TT">
 				<Original>Look at a player to remove him from the member list</Original>
 				<Russian>Взглядом выберите игрока для удаления его из списка игроков сервера</Russian>
-				<Spanish>Mira al Jugador para eliminarlo de la lista de miembros</Spanish>
+				<Spanish>Mira al playerX para eliminarlo de la lista de miembros</Spanish>
 			</Key>
 			<Key ID="STR_UI_ADMIN_GEARRES_TEXT">
 				<Original>Gear Reset</Original>
@@ -1409,7 +1421,7 @@
 			<Key ID="STR_UI_ADMIN_FORCE1ST_TT">
 				<Original>The script is not optimized for Join in Progress, not all the player might retain the effect.</Original>
 				<Russian>Скрипт не оптимизирован, может подействовать не на всех игроков.</Russian>
-				<Spanish>El script no está optimizado para añadirlo en progreso, no a todos los jugadores puede afectarles</Spanish>
+				<Spanish>El script no está optimizado para añadirlo en progreso, no a todos los playerXes puede afectarles</Spanish>
 			</Key>
 		</Container>
 		<Container name="Sell">
@@ -1431,7 +1443,7 @@
 			<Key ID="STR_UI_SELL_ITEMS">
 				<Original>Items</Original>
 				<Russian>Предметы</Russian>
-				<Spanish>Objetos</Spanish>
+				<Spanish>objectsX</Spanish>
 			</Key>
 			<Key ID="STR_UI_SELL_BACKPACKS">
 				<Original>Backpacks</Original>
@@ -1492,12 +1504,12 @@
 			<Key ID="STR_TSK_TD_ASOFFICER">
 				<Original>Kill the Officer</Original>
 				<Russian>Убить офицера</Russian>
-				<Spanish>Matar al Oficial</Spanish>
+				<Spanish>Matar al official</Spanish>
 			</Key>
 			<Key ID="STR_TSK_TD_DESC_ASOFFICER">
 				<Original>Our Spies have reported that a CSAT officer is inspecting %1. Now is the time to Strike! Make sure he is eliminated by any means possible before %2:%3.</Original>
 				<Russian>Наши агенты сообщили, что вражеский офицер инспектирует %1. Настало время для удара возмездия! Устраните его до %2:%3 любыми возможными средствами.</Russian>
-				<Spanish>Nuestros espías informan que un oficial del CSAT está inspeccionando %1. Es el momento de atacar! Asegúrate de que sea eliminado por cualquier medio posible antes de las %2:%3.</Spanish>
+				<Spanish>Nuestros espías informan que un official del CSAT está inspeccionando %1. Es el momento de atacar! Asegúrate de que sea eliminado por cualquier medio potential antes de las %2:%3.</Spanish>
 			</Key>
 			<Key ID="STR_TSK_TD_ASSPECOP">
 				<Original>CSAT SpecOps</Original>
@@ -1517,7 +1529,7 @@
 			<Key ID="STR_TSK_TD_DESC_ASSTRAITOR">
 				<Original>Bad news, one of our very own is planning to defect. We have tracked his movements to the nearby town of %1. We are not taking any chancs. Kill him before he provides the enemy with intel of the location of our soldiers homes and FIA cash stockpiles. Do this before %2:%3. We don't where exactly this meeting will happen. You will recognise the building by the nearby MRAP and CSAT presence.</Original>
 				<Russian>Плохие новости, один из наших планирует предать нас. Мы отследили его движение в соседний город %1. У нас не будет второго шанса. Убейте его, прежде чем он передаст противнику информацию, которую он знает о домашних адресах наших солдат и схронах боеприпасов. Сделайте это до %2:%3. Мы не знаем в каком доме будет место встречи. Найдите это место по присутствию MRAP и CSAT.</Russian>
-				<Spanish>Malas noticias, uno de los nuestros está planeando desertar. Hemos seguido sus movimentos hasta cerca de la ciudad de %1. No tenemos otra opción. Mátalo antes de que facilite al enemigo información de la posición de nuestros soldados y activos de la FIA. Hazlo antes de las %2:%3. No sabemos exactamente dónde sera la reunión. Reconoceras el edificio por estar cerca un MRAP y presencia del CSAT.</Spanish>
+				<Spanish>Malas noticias, uno de los nuestros está planeando desertar. Hemos seguido sus movimentos hasta cerca de la ciudad de %1. No tenemos otra opción. Mátalo antes de que facilite al enemyX información de la posición de nuestros soldados y activos de la FIA. Hazlo antes de las %2:%3. No sabemos exactamente dónde sera la reunión. Reconoceras el edificio por estar cerca un MRAP y presencia del CSAT.</Spanish>
 			</Key>
 			<Key ID="STR_TSK_TD_ASSMAYOR">
 				<Original>Kidnap the Mayor</Original>
@@ -1527,7 +1539,7 @@
 			<Key ID="STR_TSK_TD_DESC_ASSMAYOR">
 				<Original>The mayor of %1 is having a meeting with an enemy representetive, this is our chance to kidnap him and take him to our HQ for a much needed chat. The mayor must not die! Do this before %2:%3.</Original>
 				<Russian>Мэра населённого пункта %1 видели на военной базе противника, похитьте его и заберите в наш Штаб для допроса. Мэр не должен умереть! Сделайте это до %2:%3.</Russian>
-				<Spanish>El alcalde de %1 tiene una reunión con representantes enemigos, es nuestra oportunidad de secuestrarle y traerlo al HQ para una charla muy necesaria. El alcalde no debe morir! Hazlo antes de las %2:%3.</Spanish>
+				<Spanish>El alcalde de %1 tiene una reunión con representantes enemyXs, es nuestra oportunidad de secuestrarle y traerlo al HQ para una charla muy necesaria. El alcalde no debe morir! Hazlo antes de las %2:%3.</Spanish>
 			</Key>
 			<Key ID="STR_TSK_TD_HQATTACK">
 				<Original>Defend Petros</Original>
@@ -1547,7 +1559,7 @@
 			<Key ID="STR_TSK_TD_DESC_CONOPAA">
 				<Original>A CSAT %1 is disturbing our operations in the area. This heavily defended outpost has Mortar and UAV, from what our spies tell us. We advise the destruction of the Drone before engaging and elimination the majority of ground troops. If there is an AA tank, this is also a priorty target. The operation must be completed before %2:%3.</Original>
 				<Russian>Спецназ %1 срывает наши операции в этом районе. Наши агенты выяснили, что опорный пункт спецназа хорошо защищён, имеет миномёт и БПЛА. Мы советуем уничтожить БПЛА перед наземной атакой. Если у них есть зенитная установка - уничтожьте её в первую очередь. Задание должно быть выполнено до %2:%3.</Russian>
-				<Spanish>Un %1 del CSAT interrumpe nuestras operaciones en la zona. Este puesto fuertemente defendido cuenta con morteros y UAV, según nuestros espías. Aconsejamos la destrucción del dron antes de atacar y eliminar a la mayoría de las tropas de tierra. Si hay un tanque AA, será el objetivo prioritario. La operación debe estar completada antes de las %2:%3.</Spanish>
+				<Spanish>Un %1 del CSAT interrumpe nuestras operaciones en la zona. Este puesto fuertemente defendido cuenta con mortarXs y UAV, según nuestros espías. Aconsejamos la destrucción del dron antes de atacar y eliminar a la mayoría de las tropas de tierra. Si hay un tanque AA, será el objetivo prioritario. La operación debe estar completada antes de las %2:%3.</Spanish>
 			</Key>
 			<Key ID="STR_TSK_TD_CONPOWER">
 				<Original>Take the Power Plant</Original>
@@ -1577,7 +1589,7 @@
 			<Key ID="STR_TSK_TD_DESC_CVY_AMMO">
 				<Original>A convoy from %1 is about to depart at %2:%3. It will provide ammunition to %4. Try to intercept it. Steal or destroy that truck before it reaches it's destination. Be careful, the enemy may provide an armoured escort.</Original>
 				<Russian>Конвой противника в %2:%3 отправляется  из %1. Он везёт боеприпасы в %4. Попытайтесь его перехватить. Захватите или уничтожьте грузовик с боеприпасами, прежде чем он достигнет места назначения. Будьте осторожны, конвой может сопровождать бронетехника.</Russian>
-				<Spanish>Un convoy desde %1 ha salido a las %2:%3. Va a llevar munición a %4. trata de interceptarlo. Roba o destruye el camión antes de que llegue a su destino. Ten cuidado, el enemigo le habrá dispuesto un blindado de escolta.</Spanish>
+				<Spanish>Un convoy desde %1 ha salido a las %2:%3. Va a llevar munición a %4. trata de interceptarlo. Roba o destruye el camión antes de que llegue a su destinationX. Ten cuidado, el enemyX le habrá dispuesto un blindado de escolta.</Spanish>
 			</Key>
 			<Key ID="STR_TSK_TD_CVY_ARMOR">
 				<Original>%1 Armored Convoy</Original>
@@ -1587,7 +1599,7 @@
 			<Key ID="STR_TSK_TD_DESC_CVY_ARMOR">
 				<Original>A convoy from %1 is about to depart at %2:%3. It will reinforce %4 with armored vehicles. Try to intercept it. Steal or destroy the main Armoured Vehicle before it reaches it's destination.</Original>
 				<Russian>Конвой противника в %2:%3 отправляется из %1. Он перегоняет бронетехнику в %4. Попытайтесь его перехватить. Захватите или уничтожьте перегоняемую бронетехнику, прежде чем она достигнет места назначения.</Russian>
-				<Spanish>Un convoy desde %1 ha salido a las %2:%3. Van a reforzar %4 con vehículos blindados. Trata de interceptarlo. Roba o destruye el blindado principal antes de que llegue a su destino.</Spanish>
+				<Spanish>Un convoy desde %1 ha salido a las %2:%3. Van a reforzar %4 con vehículos blindados. Trata de interceptarlo. Roba o destruye el blindado principal antes de que llegue a su destinationX.</Spanish>
 			</Key>
 			<Key ID="STR_TSK_TD_CVY_PRIS">
 				<Original>%1 Prisoner Convoy</Original>
@@ -1597,7 +1609,7 @@
 			<Key ID="STR_TSK_TD_DESC_CVY_PRIS">
 				<Original>A group of POW's is being transported from %1 to %4, departing at %2:%3. Sadly, it seems the enemy are planning their execution. We must intercept it and rescue them. Kill the driver or capture the truck to make them join you and bring them to HQ. </Original>
 				<Russian>Конвой противника в %2:%3 отправляется из %1. Он перевозит военнопленных в %4, чтобы потом их публично казнили. У нас есть единственный шанс перехватить конвой и спасти их. Захватите грузовик и доставьте военнопленных в Штаб.</Russian>
-				<Spanish>Un grupo de prisioneros está siendo transportado desde %1 a %4, saliendo a las %2:%3. Por desgracia, el enemigo planea su ejecución. Debemos interceptarlo y rescatarlos. Mata al conductor o captura el camión para que se unan a nosotros y traelos al HQ.</Spanish>
+				<Spanish>Un grupo de prisioneros está siendo transportado desde %1 a %4, saliendo a las %2:%3. Por desgracia, el enemyX planea su ejecución. Debemos interceptarlo y rescatarlos. Mata al conductor o captura el camión para que se unan a nosotros y traelos al HQ.</Spanish>
 			</Key>
 			<Key ID="STR_TSK_TD_CVY_MONEY">
 				<Original>%1 Money Convoy</Original>
@@ -1607,7 +1619,7 @@
 			<Key ID="STR_TSK_TD_DESC_CVY_MONEY">
 				<Original>The enemy have been spotted moving large amounts of money from %1 to %4 departing at %2:%3. Steal that truck and bring it to HQ. There aren't many better opportunities to acquire the funds we will need to build up our army, don't screw up! </Original>
 				<Russian>Конвой противника в %2:%3 отправляется из %1. Он перевозит деньги в %4. Захватите грузовик и привезите его в Штаб. Другого способа добыть такую большую сумму денег у нас нет, эти деньги пойдут для увеличения наших войск, не облажайтесь!</Russian>
-				<Spanish>El enemigo ha sido avistado moviendo grandes sumas de dinero desde %1 a %4 a las %2:%3. Roba el camión y traelo al HQ. No hay muchas oportunidades para adquirir los fondos que necesitaremos para construir nuestro ejército, no la cagues! </Spanish>
+				<Spanish>El enemyX ha sido avistado moviendo grandes sumas de dinero desde %1 a %4 a las %2:%3. Roba el camión y traelo al HQ. No hay muchas oportunidades para adquirir los fondos que necesitaremos para construir nuestro ejército, no la cagues! </Spanish>
 			</Key>
 			<Key ID="STR_TSK_TD_CVY_SUPPLY">
 				<Original>%1 Supply Convoy</Original>
@@ -1692,12 +1704,12 @@
 			<Key ID="STR_TSK_TD_FNDMIL">
 				<Original>Contact the Corrupt Officer</Original>
 				<Russian>Контакт с офицером</Russian>
-				<Spanish>Contactar con el Oficial Corrupto</Spanish>
+				<Spanish>Contactar con el official Corrupto</Spanish>
 			</Key>
 			<Key ID="STR_TSK_TD_DESC_FNDMIL">
 				<Original>A disgruntled %4 officer is trying to leave Altis. His departure is scheduled for %2:%3. If you manage to get to him in time, you might be able to convince him to stay and support our case. He was spotted near %1 and has stated that he is willing to speak to us only on the condition that none of our agents are overt within that town. In other words, put on your sunday-best and meet him disguised. </Original>
 				<Russian>Недовольный %4 офицер, пытается покинуть Альтис. Его отъезд запланирован на %2:%3. Если вам удастся успеть добраться до него, Вы могли бы убедить его остаться и поддержать нас. Его видели возле %1, он заявил, что готов говорить с нами, если ни один из наших агентов не будет обнаружен противником в районе места встречи. Другими словами, оденьте свой лучший воскресный костюм и встретьтесь с ним замаскированным.</Russian>
-				<Spanish>Un oficial descontento del %4 trata de abandonar Altis. Su marcha está planificada para las %2:%3. Si te las arreglas para llegar a tiempo, es posible que puedas convencerlo de quedarse y apoyar nuestra causa. Ha sido visto cerca de %1 y comenta estar dispuesto a hablar con nosotros sólo si ninguno de nuestros agentes es descubierto dentro de la ciudad. Ya sabes, ponte de domingo y ve hasta él disfrazado.</Spanish>
+				<Spanish>Un official descontento del %4 trata de abandonar Altis. Su marcha está planificada para las %2:%3. Si te las arreglas para llegar a tiempo, es potential que puedas convencerlo de quedarse y apoyar nuestra causa. Ha sido visto cerca de %1 y comenta estar dispuesto a hablar con nosotros sólo si ninguno de nuestros agentes es descubierto dentro de la ciudad. Ya sabes, ponte de domingo y ve hasta él disfrazado.</Spanish>
 			</Key>
 			<Key ID="STR_TSK_TD_LOGAMMO">
 				<Original>Steal or Destroy Ammotruck</Original>
@@ -1707,7 +1719,7 @@
 			<Key ID="STR_TSK_TD_DESC_LOGAMMO">
 				<Original>We've spotted an enemy Ammotruck in an %1. This is a great opportunity to scavange some well-needed gear from the enemy. We have until  %2:%3.</Original>
 				<Russian>В %1 был замечен вражеский грузовик с боеприпасами. Это отличная возможность захватить боеприпасы противника. Мы должны успеть до %2:%3.</Russian>
-				<Spanish>Hemos localizado un camión con munición cerca de %1. es una gran oportunidad para saquear algo de equipamiento enemigo. Tenemos hasta las %2:%3.</Spanish>
+				<Spanish>Hemos localizado un camión con munición cerca de %1. es una gran oportunidad para saquear algo de equipamiento enemyX. Tenemos hasta las %2:%3.</Spanish>
 			</Key>
 			<Key ID="STR_TSK_TD_LOGBANK">
 				<Original>Bank Robbery</Original>
@@ -1787,7 +1799,7 @@
 			<Key ID="STR_TSK_TD_DESC_PRPAMPHLET">
 				<Original>Supporters of our cause have been working hard to bring the population of %1 over to our side. Help these brave volunteers by delivering these leaflets to safe drop locations. Pick up will take place at %2:%3, so you better have them in place by then. This might be easier if you manage to remain undetected for as long as possible.</Original>
 				<Russian>Наши добровольцы стараются убедить население %1 стать нашими сторонниками. Помогите им, доставьте эти листовки по адресам, которые они укажут. Ящики заберут в %2:%3, так что лучше их уже доставить к этому времени. Вам будет проще, если удастся остаться незамеченными как можно дольше.</Russian>
-				<Spanish>Partidarios de la causa han estado trabajando duro para traer a la población de %1 a nuestro bando. Ayuda a estos valientes voluntarios entregando estos panfletos en las zonas seguras. La recogida se hará a las %2:%3, así que es mejor que esten entregados para entonces. Facilitaria las cosas que permanezca sin ser detectado el mayor tiempo posible.</Spanish>
+				<Spanish>Partidarios de la causa han estado trabajando duro para traer a la población de %1 a nuestro bando. Ayuda a estos valientes voluntarios entregando estos panfletos en las zonas seguras. La recogida se hará a las %2:%3, así que es mejor que esten entregados para entonces. Facilitaria las cosas que permanezca sin ser detectado el mayor tiempo potential.</Spanish>
 			</Key>
 			<Key ID="STR_TSK_TD_DESC_PRPAMPHLET_FAIL">
 				<Original>You failed to provide leaflets for our volunteers in %1.</Original>
@@ -1847,12 +1859,12 @@
 			<Key ID="STR_TSK_TD_DESSuppression">
 				<Original>Destroy the enemy taskforce.</Original>
 				<Russian>Уничтожить группу противника.</Russian>
-				<Spanish>Destruir Escuadrón Enemigo</Spanish>
+				<Spanish>Destruir Escuadrón enemyX</Spanish>
 			</Key>
 			<Key ID="STR_TSK_TD_DESC_DESSuppression">
 				<Original>We have received word that the enemy are suppressing a community at their local church. If we wipe them out we will surely bring some support to our cause. Go to the location and kill the squad. </Original>
 				<Russian>Мы получили донесение о том, что группа спецназа удерживает жителей в местной церкви. Если мы уничтожим эту группу, мы, безусловно, поддержим наше дело. Идите в указанное место и устраните группу противника.</Russian>
-				<Spanish>Hemos recibido noticias de que el enemigo está reteniendo a una comunidad en su iglesia local. Si los eliminamos, seguramente traeremos algo de apoyo a nuestra causa. Ve a la localización y acaba con el escuadrón.</Spanish>
+				<Spanish>Hemos recibido noticias de que el enemyX está reteniendo a una comunidad en su iglesia local. Si los eliminamos, seguramente traeremos algo de apoyo a nuestra causa. Ve a la localización y acaba con el escuadrón.</Spanish>
 			</Key>
 			<Key ID="STR_TSK_TD_DESfuel">
 				<Original>Steal or destroy Fuel Truck.</Original>
@@ -1862,7 +1874,7 @@
 			<Key ID="STR_TSK_TD_DESC_DESfuel">
 				<Original>The enemy is taking fuel from the civilians to supply their war machine. The truck is leaving from %1 and will return there once it is full. We have a contact who will let us know when the truck is at the fuel station. Destroy the fuel truck or take its control.</Original>
 				<Russian>Противник закупает топливо у гражданских для своих военных нужд. Топливозаправщик покинул %1 и вернется туда, как только заправится. У нас есть контакт, который должен сообщить нам, когда грузовик будет на АЗС. Уничтожьте или захватите этот топливозаправщик.</Russian>
-				<Spanish>El enemigo está cogiendo el combustible de los civiles para abastecer su maquinaria de guerra. El camión está yendo de %1 y regresará allí una vez que esté lleno. Tenemos un contacto que nos avisará cuando el camión esté en la estación de servicio. Destruye el camión de combustible para mostrar al enemigo y a la población que no apoyaremos la colaboración.</Spanish>
+				<Spanish>El enemyX está cogiendo el combustible de los civiles para abastecer su maquinaria de guerra. El camión está yendo de %1 y regresará allí una vez que esté lleno. Tenemos un contacto que nos avisará cuando el camión esté en la estación de servicio. Destruye el camión de combustible para mostrar al enemyX y a la población que no apoyaremos la colaboración.</Spanish>
 			</Key>
 			<Key ID="STR_TSK_TD_ASFOREST">
 				<Original>Forest Patrol</Original>
@@ -1877,18 +1889,22 @@
 			<Key ID="STR_TSK_OPDEPLOY">
 				<Original>Post \ Roadblock Deploy</Original>
 				<Russian>Развернуть БП/НП</Russian>
+				<Spanish>Puesto/Control Desplegado</Spanish>
 			</Key>
 			<Key ID="STR_TSK_DESC_OPDEPLOY">
 				<Original>We are sending a team to establish an Observation Post or Roadblock. Send and cover the team until reaches it's destination.</Original>
 				<Russian>Мы посылаем группу, чтобы развернуть блокпост или наблюдательный пост. Сопровождайте группу, пока она не достигнет места назначения.</Russian>
+				<Spanish>Hemos enviado un equipo para establecer un puesto de observación o un control. Envía y cubre al equipo hasta que llegue al destinationX.</Spanish>
 			</Key>
 			<Key ID="STR_TSK_CAMPSET">
 				<Original>Camp Setup</Original>
 				<Russian>Развернуть лагерь</Russian>
+				<Spanish>Montar Campamento</Spanish>
 			</Key>
 			<Key ID="STR_TSK_DESC_CAMPSET">
 				<Original>We are sending a team to establish a camp. Send and cover the team until reaches it's destination.</Original>
 				<Russian>Мы посылаем группу, чтобы развернуть лагерь. Сопровождайте группу, пока она не достигнет места назначения.</Russian>
+				<Spanish>Hemos enviado un equipo para montar un campamento. Envía y cubre al equipo hasta que llegue al destinationX.</Spanish>
 			</Key>
 			<Key ID="STR_TSK_TD_RADIO_DESTROYED">
 				<Original>Radio Tower Destroyed</Original>
@@ -1937,7 +1953,7 @@
 			<Key ID="STR_TSK_TD_NATO_ARMOR">
 				<Original>Our Commander asked %5 for an armored column departing from %2 with destination %1. Provide whatever support you can. They are scheduled to leave the AO at %3:%4.</Original>
 				<Russian>Наш Командир попросил %5 организовать бронированную колонну, из %2 в %1. Предоставьте любую поддержку. Они планируют покинуть расположение в %3:%4.</Russian>
-				<Spanish>Nuestro comandante solicitó a %5 una columna de blindados que sale desde %2 con destino a %1. Proporcione todo el apoyo que pueda. Se espera su llega en la zona a las %3:%4.</Spanish>
+				<Spanish>Nuestro comandante solicitó a %5 una columna de blindados que sale desde %2 con destinationX a %1. Proporcione todo el apoyo que pueda. Se espera su llega en la zona a las %3:%4.</Spanish>
 			</Key>
 			<Key ID="STR_TSK_ATTACK">
 				<Original>%1 Attack</Original>
@@ -1965,7 +1981,7 @@
 			<Key ID="STR_TSK_TD_BEMP_DEL_ENEMY">
 				<Original>You cannot delete an emplacement while there are enemies near it.</Original>
 				<Russian>Вы не можете убрать позицию, пока поблизости есть противник.</Russian>
-				<Spanish>No puedes borrar un emplazamiento mientras hay enemigos cerca.</Spanish>
+				<Spanish>No puedes borrar un emplazamiento mientras hay enemyXs cerca.</Spanish>
 			</Key>
 			<Key ID="STR_TSK_TD_BEMP_BLD_INFO">
 				<Original>Click on the position you wish to build the wachpost or roadblock. \n Remember: to build roadblocks, you must click exactly on a road map section.</Original>
@@ -1985,7 +2001,7 @@
 			<Key ID="STR_TSK_TD_BEMP_DEL_NONE">
 				<Original>No emplacement nearby.</Original>
 				<Russian>Поблизости нет места.</Russian>
-				<Spanish>No hay emplazamientos cercanos.</Spanish>
+				<Spanish>No hay emplazamientos nearXs.</Spanish>
 			</Key>
 		</Container>
 	    <Container name="NATO">
@@ -2235,7 +2251,7 @@
 			<Key ID="STR_HINTS_HQPLACE_START_3">
 				<Original>Try not to select areas with nearby enemies\n\nGameplay and difficulty change with different starting locations.</Original>
 				<Russian>Старайтесь не выбирать позицию рядом с противником\n\nВыбор позиции на старте влияет на сложность и процесс игры.</Russian>
-				<Spanish>Trata de no seleccionar áreas con enemigos cercanos\n\nLa experiencia y dificultad varia según el punto de inicio.</Spanish>
+				<Spanish>Trata de no seleccionar áreas con enemyXs nearXs\n\nLa experiencia y dificultad varia según el punto de inicio.</Spanish>
 			</Key>
 			<Key ID="STR_HINTS_HQPLACE_DEATH_TITLE">
 				<Original>Petros is Dead</Original>
@@ -2260,7 +2276,7 @@
 			<Key ID="STR_HINTS_HQPLACE_ENEMIES">
 				<Original>There are enemies nearby, please select another position.</Original>
 				<Russian>Рядом есть противник, выберите другую позицию.</Russian>
-				<Spanish>Hay enemigos cerca, por favor, selecciona otra ubicación.</Spanish>
+				<Spanish>Hay enemyXs cerca, por favor, selecciona otra ubicación.</Spanish>
 			</Key>
 			<Key ID="STR_HINTS_HQPLACE_MOVING">
 				<Original>Please wait while your assets are being moved to the selected location.</Original>
@@ -2282,7 +2298,7 @@
 			<Key ID="STR_HINTS_SAVE_COM_2">
 				<Original>Vehicles outside of your garage will only be saved if they are within 50m of your HQ flag, with no AI inside.</Original>
 				<Russian>Техника вне Вашего гаража будет сохранена только в том случае, если она находится в пределах 50м от Флага Штаба, без ИИ внутри.</Russian>
-				<Spanish>Los vehículos fuera del garaje sólo se guardaran si están dentro de 50m de la bandera del HQ, sin IA dentro.</Spanish>
+				<Spanish>Los vehículos fuera del garaje sólo se guardaran si están dentro de 50m de la flagX del HQ, sin IA dentro.</Spanish>
 			</Key>
 			<Key ID="STR_HINTS_SAVE_COM_3">
 				<Original>AI units and squads will not be saved, but you will be reimbursed.</Original>
@@ -2292,7 +2308,7 @@
 			<Key ID="STR_HINTS_SAVE_COM_4">
 				<Original>Static weapons need to be within 50m of a friendly flag, and they need to be assembled, otherwise they will not be saved.</Original>
 				<Russian>Станковое оружие должно находиться в пределах 50м от дружественного флага, и должно быть в сборе, иначе оно не будет сохранено.</Russian>
-				<Spanish>Las armas estáticas necesitan estar a menos de 50m de una bandera aliada y deben estar montadas, sino no se guardaran.</Spanish>
+				<Spanish>Las armas estáticas necesitan estar a menos de 50m de una flagX aliada y deben estar montadas, sino no se guardaran.</Spanish>
 			</Key>
 		</Container>
 		<Container name="Commander">
@@ -2346,7 +2362,7 @@
 			<Key ID="STR_HINTS_GEN_DONATE_PLAYER_FAIL">
 				<Original>You must be looking at a player in order to donate money.</Original>
 				<Russian>Вы должны смотреть на игрока, чтобы передать ему деньги.</Russian>
-				<Spanish>Debes mirar a un jugador para poder donarle dinero.</Spanish>
+				<Spanish>Debes mirar a un playerX para poder donarle dinero.</Spanish>
 			</Key>
 			<Key ID="STR_HINTS_GEN_DONATE_PLAYER">
 				<Original>You have donated 100€ to %1.</Original>
@@ -2381,17 +2397,17 @@
 			<Key ID="STR_HINTS_GEN_MEM_TARGET">
 				<Original>You are not looking at a player.</Original>
 				<Russian>Вы не смотрите на игрока.</Russian>
-				<Spanish>No estás mirando a un jugador.</Spanish>
+				<Spanish>No estás mirando a un playerX.</Spanish>
 			</Key>
 			<Key ID="STR_HINTS_GEN_MEM_ADD_FAIL">
 				<Original>The player is already a member on this server.</Original>
 				<Russian>Игрок уже в списке игроков.</Russian>
-				<Spanish>Este jugador ya es miembro del server.</Spanish>
+				<Spanish>Este playerX ya es miembro del server.</Spanish>
 			</Key>
 			<Key ID="STR_HINTS_GEN_MEM_REM_FAIL">
 				<Original>The player is already not a member on this server.</Original>
 				<Russian>Игрок не в списке игроков.</Russian>
-				<Spanish>El jugador ya no es miembro de este server.</Spanish>
+				<Spanish>El playerX ya no es miembro de este server.</Spanish>
 			</Key>
 			<Key ID="STR_HINTS_GEN_MEM_ADD_SUC">
 				<Original>%1 has been added to this server's members list.</Original>
@@ -2436,7 +2452,7 @@
 			<Key ID="STR_HINTS_GEN_EH_VEH_GROUP">
 				<Original>You cannot board another player's private vehicle if you are not in the same group.</Original>
 				<Russian>Вы не можете пользоваться личной техникой другого игрока, если Вы не в одной группе с ним.</Russian>
-				<Spanish>No puedes montar en el vehículo privado de otro jugador si no estás en su mismo grupo.</Spanish>
+				<Spanish>No puedes montar en el vehículo privado de otro playerX si no estás en su mismo grupo.</Spanish>
 			</Key>
 			<Key ID="STR_HINTS_GEN_OPR_TEMP">
 				<Original>You died while remote-controlling AI.</Original>
@@ -2458,7 +2474,7 @@
 			<Key ID="STR_HINTS_MIS_DES_NO_CHAT">
 				<Original>I have no destroy missions for you. Move our HQ closer to the enemy or finish some other missions in order to have better intel.</Original>
 				<Russian>У меня нет для Вас такого задания. Двигайте наш Штаб ближе к противнику или завершите другие задания, чтобы получить больше разведданных.</Russian>
-				<Spanish>No tengo misiones de Destruir para ti. Mueve el HQ cerca del enemigo o acaba algunas misiones para mejorar la inteligencia.</Spanish>
+				<Spanish>No tengo misiones de Destruir para ti. Mueve el HQ cerca del enemyX o acaba algunas misiones para mejorar la inteligencia.</Spanish>
 			</Key>
 			<Key ID="STR_HINTS_MIS_DES_NO_HINT">
 				<Original>Destroy missions require radio towers or enemy cities within 4km of your HQ.</Original>
@@ -2468,17 +2484,17 @@
 			<Key ID="STR_HINTS_MIS_LOG_NO_CHAT">
 				<Original>I have no logistics missions for you. Move our HQ closer to the enemy or finish some other missions in order to have better intel.</Original>
 				<Russian>У меня нет для Вас такого задания. Двигайте наш Штаб ближе к противнику или завершите другие задания, чтобы получить больше разведданных.</Russian>
-				<Spanish>No tengo misiones de Logística para ti. Mueve el HQ cerca del enemigo o termina algunas misiones para mejorar la inteligencia.</Spanish>
+				<Spanish>No tengo misiones de Logística para ti. Mueve el HQ cerca del enemyX o termina algunas misiones para mejorar la inteligencia.</Spanish>
 			</Key>
 			<Key ID="STR_HINTS_MIS_LOG_NO_HINT">
 				<Original>Logistics missions require enemy outposts, cities or banks within 4km of your HQ.</Original>
 				<Russian>Снабжение требует наличия опорных пунктов противника, враждебных населённых пунктов или банков в пределах 4км от Штаба.</Russian>
-				<Spanish>Las misiones de Logística requieren puestos enemigos, ciudades o bancos a menos de 4km del HQ.</Spanish>
+				<Spanish>Las misiones de Logística requieren outposts enemyXs, ciudades o bancos a menos de 4km del HQ.</Spanish>
 			</Key>
 			<Key ID="STR_HINTS_MIS_RES_NO_CHAT">
 				<Original>I have no rescue missions for you. Move our HQ closer to the enemy or finish some other missions in order to have better intel.</Original>
 				<Russian>У меня нет для Вас такого задания. Двигайте наш Штаб ближе к противнику или завершите другие задания, чтобы получить больше разведданных.</Russian>
-				<Spanish>No tengo misiones de Rescate para ti. Mueve el HQ cerca del enemigo o termina algunas misiones para mejorar la inteligencia.</Spanish>
+				<Spanish>No tengo misiones de Rescate para ti. Mueve el HQ cerca del enemyX o termina algunas misiones para mejorar la inteligencia.</Spanish>
 			</Key>
 			<Key ID="STR_HINTS_MIS_RES_NO_HINT">
 				<Original>Rescue missions require enemy cities or bases within 4km of your HQ.</Original>
@@ -2508,7 +2524,7 @@
 			<Key ID="STR_HINTS_MIS_CVY_NO_CHAT">
 				<Original>I have no convoy missions for you. Move our HQ closer to the enemy or finish some other missions in order to have better intel.</Original>
 				<Russian>У меня нет для Вас такого задания. Перенесите Штаб ближе к противнику или завершите другие задания, чтобы получить больше разведданных.</Russian>
-				<Spanish>No tengo misiones de Convoy para ti. Mueve el HQ cerca del enemigo o termina algunas misiones para mejorar la inteligencia.</Spanish>
+				<Spanish>No tengo misiones de Convoy para ti. Mueve el HQ cerca del enemyX o termina algunas misiones para mejorar la inteligencia.</Spanish>
 			</Key>
 			<Key ID="STR_HINTS_MIS_CVY_NO_HINT">
 				<Original>Convoy missions require enemy cities within 4km of your HQ, and they must have an idle base in their surroundings.</Original>
@@ -2518,17 +2534,17 @@
 			<Key ID="STR_HINTS_MIS_ASS_NO_CHAT">
 				<Original>I have no assassination missions for you. Move our HQ closer to the enemy or finish some other missions in order to have better intel.</Original>
 				<Russian>У меня нет для Вас такого задания. Перенесите Штаб ближе к противнику или завершите другие задания, чтобы получить больше разведданных.</Russian>
-				<Spanish>No tengo misiones de Asesinato para ti. Mueve el HQ cerca del enemigo o termina algunas misiones para mejorar la inteligencia.</Spanish>
+				<Spanish>No tengo misiones de Asesinato para ti. Mueve el HQ cerca del enemyX o termina algunas misiones para mejorar la inteligencia.</Spanish>
 			</Key>
 			<Key ID="STR_HINTS_MIS_ASS_NO_HINT">
 				<Original>Assassination missions require enemy cities or outposts within 4km of your HQ.</Original>
 				<Russian>Устранение требует наличия враждебного населённого пункта или опорного пункта противника в пределах 4 км от Штаба.</Russian>
-				<Spanish>Las misiones de Asesinato requieren ciudades o puestos enemigos a menos de 4km del HQ.</Spanish>
+				<Spanish>Las misiones de Asesinato requieren ciudades o outposts enemyXs a menos de 4km del HQ.</Spanish>
 			</Key>
 			<Key ID="STR_HINTS_MIS_PR_NO_CHAT">
 				<Original>I have no PR missions for you. Move our HQ closer to the enemy or finish some other missions in order to have better intel.</Original>
 				<Russian>У меня нет для Вас такого задания. Перенесите Штаб ближе к противнику или завершите другие задания, чтобы получить больше разведданных.</Russian>
-				<Spanish>No tengo misiones de Propaganda para ti. Mueve el HQ cerca del enemigo o termina algunas misiones para mejorar la inteligencia.</Spanish>
+				<Spanish>No tengo misiones de Propaganda para ti. Mueve el HQ cerca del enemyX o termina algunas misiones para mejorar la inteligencia.</Spanish>
 			</Key>
 			<Key ID="STR_HINTS_MIS_PR_NO_HINT">
 				<Original>PR missions require enemy cities within 4km of your HQ.</Original>
@@ -2550,12 +2566,12 @@
 			<Key ID="STR_HINTS_FT_ENEMIES">
 				<Original>This group cannot fast-travel with enemies nearby.</Original>
 				<Russian>Эта группа не может телепортироваться из-за находящегося рядом с ней противника.</Russian>
-				<Spanish>Este grupo no puede hacer viaje rápido al haber enemigos cerca.</Spanish>
+				<Spanish>Este grupo no puede hacer viaje rápido al haber enemyXs cerca.</Spanish>
 			</Key>
 			<Key ID="STR_HINTS_FT_ENEMIES_PERS">
 				<Original>You cannot fast-travel with enemies nearby.</Original>
 				<Russian>Вы не можете телепортироваться, когда рядом противник.</Russian>
-				<Spanish>No puedes hacer viaje rápido con enemigos cerca.</Spanish>
+				<Spanish>No puedes hacer viaje rápido con enemyXs cerca.</Spanish>
 			</Key>
 			<Key ID="STR_HINTS_FT_DAMAGE">
 				<Original>You cannot fast-travel if one of your vehicles is damaged or doesn't have a driver.</Original>
@@ -2565,12 +2581,12 @@
 			<Key ID="STR_HINTS_FT_MARKER">
 				<Original>You cannot fast-travel to an enemy-controlled zone.</Original>
 				<Russian>Вы не можете телепортироваться в зону контролируемую противником.</Russian>
-				<Spanish>No puedes hacer viaje rápido a una zona controlada por el enemigo.</Spanish>
+				<Spanish>No puedes hacer viaje rápido a una zona controlada por el enemyX.</Spanish>
 			</Key>
 			<Key ID="STR_HINTS_FT_ATTACK">
 				<Original>You cannot fast-travel to an area under attack or with enemies in the surrounding.</Original>
 				<Russian>Вы не можете телепортироваться в зону атакованную или окружённую противником.</Russian>
-				<Spanish>No puedes hacer viaje rápido a un área bajo ataque o con enemigos en los alrededores.</Spanish>
+				<Spanish>No puedes hacer viaje rápido a un área bajo ataque o con enemyXs en los alrededores.</Spanish>
 			</Key>
 			<Key ID="STR_HINTS_FT_TARGET">
 				<Original>Click on the zone you want to travel to.</Original>
@@ -2602,7 +2618,7 @@
 			<Key ID="STR_HINTS_UND_REPORTED_CAR">
 				<Original>The vehicle you are in has been reported to the enemy. Switch to another vehicle or change its plates at HQ to become incognito.</Original>
 				<Russian>Вы сидите в транспорте, который разыскивает противник. Смените транспортное средство или езжайте в Штаб за новыми номерами.</Russian>
-				<Spanish>El vehículo en el vas ha sido reportado al enemigo. Cambia a otro vehículo o cambia las matrículas en el HQ para pasar a incógnito.</Spanish>
+				<Spanish>El vehículo en el vas ha sido reportado al enemyX. Cambia a otro vehículo o cambia las matrículas en el HQ para pasar a incógnito.</Spanish>
 			</Key>
 			<Key ID="STR_HINTS_UND_REPORTED">
 				<Original>You have been reported in the last 30 minutes and cannot go incognito.</Original>
@@ -2612,17 +2628,17 @@
 			<Key ID="STR_HINTS_UND_ENEMY_DIST">
 				<Original>You cannot become incognito with enemies less than %1m from you.</Original>
 				<Russian>Вы не можете быть в гражданском статусе, противник ближе %1 м.</Russian>
-				<Spanish>No puedes pasar a incognito con enemigos a menos de %1m de ti.</Spanish>
+				<Spanish>No puedes pasar a incognito con enemyXs a menos de %1m de ti.</Spanish>
 			</Key>
 			<Key ID="STR_HINTS_UND_ENEMY_KNOW">
 				<Original>You cannot become incognito while enemies are still on the lookout for you nearby.</Original>
 				<Russian>Вы не можете быть в гражданском статусе, Вас ищут.</Russian>
-				<Spanish>No puedes pasar a incógnito mientras los enemigos aún te vigilan.</Spanish>
+				<Spanish>No puedes pasar a incógnito mientras los enemyXs aún te vigilan.</Spanish>
 			</Key>
 			<Key ID="STR_HINTS_UND_FAC_GRND">
 				<Original>You cannot become incognito near bases, outposts, or roadblocks.</Original>
 				<Russian>Вы не можете быть в гражданском статусе вблизи баз, опорных пунктов или блокпостов.</Russian>
-				<Spanish>No puedes pasar a incognito cerca de bases, puestos, o controles.</Spanish>
+				<Spanish>No puedes pasar a incognito cerca de bases, outposts, o controles.</Spanish>
 			</Key>
 			<Key ID="STR_HINTS_UND_GEAR">
 				<Original>You cannot disguise yourself while wearing suspicious-looking gear.\n</Original>
@@ -2702,7 +2718,7 @@
 			<Key ID="STR_HINTS_UND_CMP_REPWAN">
 				<Original>You have been made, enemies are on the lookout for you!</Original>
 				<Russian>Вы раскрыты, противник ищет Вас!</Russian>
-				<Spanish>Has sido detectado, los enemigos te buscan!</Spanish>
+				<Spanish>Has sido detectado, los enemyXs te buscan!</Spanish>
 			</Key>
 			<Key ID="STR_HINTS_UND_CMP_GEAR">
 				<Original>Your gear is arousing suspicion, you are no longer incognito.\n</Original>
@@ -2724,7 +2740,7 @@
 			<Key ID="STR_HINTS_FTR_YCFTWOPIYG">
 				<Original>You cannot Fast Travel with other players in your group</Original>
 				<Russian>Вы не можете телепортироваться когда в Вашей группе другие игроки</Russian>
-				<Spanish>No puedes hacer Viaje Rápido con otros jugadores en tu grupo</Spanish>
+				<Spanish>No puedes hacer Viaje Rápido con otros playerXes en tu grupo</Spanish>
 			</Key>
 			<Key ID="STR_HINTS_FTR_YCFTWYACAI">
 				<Original>You cannot Fast Travel while you are controlling AI</Original>
@@ -2734,7 +2750,7 @@
 			<Key ID="STR_HINTS_FTR_YCFTWENTG">
 				<Original>You cannot Fast Travel with enemies near the group</Original>
 				<Russian>Вы не можете быстро перемещаться когда противник рядом с группой</Russian>
-				<Spanish>No puedes hacer Viaje Rápido con enemigos cerca del grupo</Spanish>
+				<Spanish>No puedes hacer Viaje Rápido con enemyXs cerca del grupo</Spanish>
 			</Key>
 			<Key ID="STR_HINTS_FTR_YCFTIYDHADIAY">
 				<Original>You cannot Fast Travel if you don't have a driver in all your vehicles or your vehicles are damage and cannot move</Original>
@@ -2749,12 +2765,12 @@
 			<Key ID="STR_HINTS_FTR_YCFTTRNW">
 				<Original>You cannot Fast Travel to roadblocks and watchposts</Original>
 				<Russian>Вы не можете телепортироваться на БП/НП</Russian>
-				<Spanish>No puedes hacer Viaje Rápido a controles ni puestos de observación</Spanish>
+				<Spanish>No puedes hacer Viaje Rápido a controles ni outposts de observación</Spanish>
 			</Key>
 			<Key ID="STR_HINTS_FTR_YCFTTAECZ">
 				<Original>You cannot Fast Travel to an enemy controlled zone</Original>
 				<Russian>Вы не можете быстро переместиться в зону, контролируемую противником</Russian>
-				<Spanish>No puedes hacer Viaje Rápido a zonas controladas por el enemigo</Spanish>
+				<Spanish>No puedes hacer Viaje Rápido a zonas controladas por el enemyX</Spanish>
 			</Key>
 			<Key ID="STR_HINTS_FTR_YCFTTC">
 				<Original>You cannot Fast Travel to camps.</Original>
@@ -2764,17 +2780,17 @@
 			<Key ID="STR_HINTS_FTR_YCFTTAAUAOWE">
 				<Original>You cannot Fast Travel to an area under attack or with enemies in the surrounding</Original>
 				<Russian>Вы не можете быстро переместиться в область, находящуюся под атакой, или в окружении врагов</Russian>
-				<Spanish>No puedes hacer Viaje Rápido a un área bajo ataque o con enemigos en los alrededores</Spanish>
+				<Spanish>No puedes hacer Viaje Rápido a un área bajo ataque o con enemyXs en los alrededores</Spanish>
 			</Key>
 			<Key ID="STR_HINTS_FTR_MG1TD">
 				<Original>Moving group %1 to destination</Original>
 				<Russian>Перемещение группы %1 в пункт назначения</Russian>
-				<Spanish>Moviendo grupo %1 a destino</Spanish>
+				<Spanish>Moviendo grupo %1 a destinationX</Spanish>
 			</Key>
 			<Key ID="STR_HINTS_FTR_G1ATD">
 				<Original>Group %1 arrived to destination</Original>
 				<Russian>Группа %1 прибыла в пункт назначения</Russian>
-				<Spanish>Grupo %1 ha llegado a su destino</Spanish>
+				<Spanish>Grupo %1 ha llegado a su destinationX</Spanish>
 			</Key>
 			<Key ID="STR_HINTS_FTR_YMCNMUYC">
 				<Original>You must click near marker under your control</Original>
@@ -2816,7 +2832,7 @@
 			<Key ID="STR_HINTS_FD_YCDACWEANI">
 				<Original>You cannot delete a camp while enemies are near it.</Original>
 				<Russian>Вы не можете свернуть лагерь пока противник находится рядом с ним</Russian>
-				<Spanish>No puedes borrar un campamento con enemigos cerca de él</Spanish>
+				<Spanish>No puedes borrar un campamento con enemyXs cerca de él</Spanish>
 			</Key>
 			<Key ID="STR_HINTS_FD_YCOSAMOFFC">
 				<Original>You can only sustain a maximum of four camps.</Original>
@@ -2838,7 +2854,7 @@
 			<Key ID="STR_HINTS_HNR_ALL">
 				<Original>All nearby units and vehicles have been healed or repaired. Near vehicles have been rearmed at full load and no longer in reported list.</Original>
 				<Russian>Все находящиеся рядом бойцы и техника вылечены/отремонтированы. Техника перевооружена, заправлена и больше не находится в розыске.</Russian>
-				<Spanish>Todas las unidades y vehículos cercanos han sido curados o reparados. Los vehículos han sido rearmados al máximo y ya no están en la lista de buscados.</Spanish>
+				<Spanish>Todas las unidades y vehículos nearXs han sido curados o reparados. Los vehículos han sido rearmados al máximo y ya no están en la lista de buscados.</Spanish>
 			</Key>
 		</Container>
 		<Container name="MOVE_HQ">
@@ -2860,14 +2876,14 @@
 			<Key ID="STR_HINTS_MHQ_HQGWSHNHTE">
 				<Original>HQ Garrison will stay here and hold the enemy</Original>
 				<Russian>Гарнизон Штаба останется здесь и будет удерживать врага</Russian>
-				<Spanish>La Guarnición del HQ se quedará aquí y repelerá al enemigo</Spanish>
+				<Spanish>La Guarnición del HQ se quedará aquí y repelerá al enemyX</Spanish>
 			</Key>
 		</Container>
 		<Container name="MRK_WIN">
 			<Key ID="STR_HINTS_MRKW_YCCTFWIUM">
 				<Original>You cannot Capture the Flag while in Undercover Mode</Original>
 				<Russian>Вы не можете захватить флаг в гражданском статусе</Russian>
-				<Spanish>No puedes Capturar la Bandera mientras estás en Modo Incógnito</Spanish>
+				<Spanish>No puedes Capturar la flagX mientras estás en Modo Incógnito</Spanish>
 			</Key>
 		</Container>
 		<Container name="NATO_DIALOG">
@@ -2979,7 +2995,7 @@
 			<Key ID="STR_HINTS_NATOD_COTACD">
 				<Original>Click on the Armored Column destination</Original>
 				<Russian>Укажите пункт назначения колонны бронетехники</Russian>
-				<Spanish>Click en el destino de la Columna de Blindados</Spanish>
+				<Spanish>Click en el destinationX de la Columna de Blindados</Spanish>
 			</Key>
 			<Key ID="STR_HINTS_NATOD_YMCNAMMS">
 				<Original>You must click near a map marker</Original>
@@ -3047,7 +3063,7 @@
 			<Key ID="STR_HINTS_ST_YCRWENOU">
 				<Original>You cannot rest with enemies near our units</Original>
 				<Russian>Вы не можете отдыхать когда противник находится рядом с Вашим отрядом</Russian>
-				<Spanish>No puedes descansar con enemigos cerca de nuestras unidades</Spanish>
+				<Spanish>No puedes descansar con enemyXs cerca de nuestras unidades</Spanish>
 			</Key>
 			<Key ID="STR_HINTS_ST_YCRWAAFOCSATIC">
 				<Original>You cannot rest while AAF or CSAT is counterattacking</Original>
@@ -3062,7 +3078,7 @@
 			<Key ID="STR_HINTS_ST_APMBIA100MRFHQ">
 				<Original>All player must be in a 100mts radius from HQ to be able to rest</Original>
 				<Russian>Все игроки должны находиться в радиусе 100 м от Штаба, чтобы иметь возможность отдыхать</Russian>
-				<Spanish>Todos los jugadores deben estar en un radio de 100m del HQ para Descansar</Spanish>
+				<Spanish>Todos los playerXes deben estar en un radio de 100m del HQ para Descansar</Spanish>
 			</Key>
 		</Container>
 		<Container name="TELEPORT">
@@ -3107,7 +3123,7 @@
 			<Key ID="STR_HINTS_MUSICA">
 				<Original>The player is in this stance: %1</Original>
 				<Russian>Игрок находится в этой позиции: %1</Russian>
-				<Spanish>El jugador está en esta stance: %1</Spanish>
+				<Spanish>El playerX está en esta stance: %1</Spanish>
 			</Key>
 		</Container>
 	</Package>
@@ -3241,7 +3257,7 @@
 			<Key ID="STR_D_RECRU_MOR_TEAM">
 				<Original>Recruit Mortar Team</Original>
 				<Russian>Миномёт. расчёт</Russian>
-				<Spanish>Equipo Mortero</Spanish>
+				<Spanish>Equipo mortarX</Spanish>
 			</Key>
 			<Key ID="STR_D_RECRU_ENGIN">
 				<Original>Recruit Engineers</Original>
@@ -3254,49 +3270,69 @@
 				<Spanish>Comprar Vehículo Militar</Spanish>
 			</Key>
 			<Key ID="STR_D_BUY_QUA">
-				<Original>Buy Quadbike</Original>
+				<Original>Quadbike</Original>
 				<Russian>Квадроцикл</Russian>
 				<Spanish>Quad</Spanish>
 			</Key>
 			<Key ID="STR_D_BUY_OR_UAZ">
-				<Original>Buy Offroad/UAZ</Original>
-				<Russian>Внедорожник/Уаз</Russian>
-				<Spanish>Offroad/UAZ</Spanish>
+				<Original>Offroad</Original>
+				<Russian>Внедорожник</Russian>
+				<Spanish>Offroad</Spanish>
 			</Key>
-			<Key ID="STR_D_BUY_TRU">
-				<Original>Buy Truck</Original>
+			<Key ID="STR_D_BUY_TRUCK">
+				<Original>Truck</Original>
 				<Russian>Грузовик</Russian>
 				<Spanish>Camión</Spanish>
 			</Key>
-			<Key ID="STR_D_BUY_TRUC">
-				<Original>Buy Static AT</Original>
+			<Key ID="STR_D_BUY_LVEH">
+				<Original>Light Transport</Original>
+				<Russian>Light Transport</Russian>
+				<Spanish>Transporte Ligero</Spanish>
+			</Key>
+			<Key ID="STR_D_BUY_ST_AT">
+				<Original>Static AT</Original>
 				<Russian>Станк. ПТУР</Russian>
 				<Spanish>AT Estático</Spanish>
 			</Key>
 			<Key ID="STR_D_BUY_ARM_OR">
-				<Original>Buy Armed Offroad</Original>
+				<Original>Armed Offroad</Original>
 				<Russian>Внедорожник с пулемётом</Russian>
 				<Spanish>Offroad Armado</Spanish>
 			</Key>
+			<Key ID="STR_D_BUY_ARM_AT">
+				<Original>Armed Offroad AT</Original>
+				<Russian>Внедорожник с пулемётом AT</Russian>
+				<Spanish>Offroad Armado AT</Spanish>
+			</Key>
 			<Key ID="STR_D_BUY_MOR">
-				<Original>Buy Mortar</Original>
+				<Original>Mortar</Original>
 				<Russian>Миномёт</Russian>
-				<Spanish>Mortero</Spanish>
+				<Spanish>mortarX</Spanish>
 			</Key>
 			<Key ID="STR_D_BUY_MG">
-				<Original>Buy MG</Original>
+				<Original>Static MG</Original>
 				<Russian>Станк. пулемет</Russian>
 				<Spanish>MG</Spanish>
 			</Key>
 			<Key ID="STR_D_BUY_ST_AA">
-				<Original>Buy Static AA</Original>
+				<Original>Static AA</Original>
 				<Russian>Станк. ЗУ</Russian>
 				<Spanish>AA Estático</Spanish>
 			</Key>
+			<Key ID="STR_D_BUY_ST_AA_ZU_23">
+				<Original>Static AA ZU 23</Original>
+				<Russian>Статический TO 23</Russian>
+				<Spanish>AA Estático ZU 23</Spanish>
+			</Key>
 			<Key ID="STR_D_BUY_APC">
-				<Original>Buy APC</Original>
+				<Original>APC</Original>
 				<Russian>БМД</Russian>
 				<Spanish>APC</Spanish>
+			</Key>
+			<Key ID="STR_D_BUY_MRAP">
+				<Original>MRAP</Original>
+				<Russian>MRAP</Russian>
+				<Spanish>MRAP</Spanish>
 			</Key>
 			<Key ID="STR_D_LOAD_PS">
 				<Original>Load previous session?</Original>
@@ -3361,7 +3397,7 @@
 			<Key ID="STR_D_LOG_MI">
 				<Original>Logistics Mission</Original>
 				<Russian>Снабжение</Russian>
-				<Spanish>Misión Logísitca</Spanish>
+				<Spanish>Misión Logística</Spanish>
 			</Key>
 			<Key ID="STR_D_DES_MI">
 				<Original>Destroy Mission</Original>
@@ -3483,10 +3519,10 @@
 				<Russian>Стрелок ГП</Russian>
 				<Spanish>Granadero</Spanish>
 			</Key>
-			<Key ID="STR_D_REC_MORTAR">
-				<Original>Recruit Mortar</Original>
-				<Russian>Миномёт</Russian>
-				<Spanish>Mortero</Spanish>
+			<Key ID="STR_D_REC_HMG">
+				<Original>Recruit HMG</Original>
+				<Russian>Тяжелый пулемет</Russian>
+				<Spanish>Ametralladora pesada</Spanish>
 			</Key>
 			<Key ID="STR_D_REC_AT">
 				<Original>Recruit AT</Original>
@@ -3586,7 +3622,7 @@
 			<Key ID="STR_D_PNMI">
 				<Original>Player and Money Interaction</Original>
 				<Russian>Игрок и деньги взаимодействие</Russian>
-				<Spanish>Interacción Jugador y Dinero</Spanish>
+				<Spanish>Interacción playerX y Dinero</Spanish>
 			</Key>
 			<Key ID="STR_D_ADD_SM">
 				<Original>Add Server Member</Original>
@@ -3601,7 +3637,7 @@
 			<Key ID="STR_D_DONP">
 				<Original>Donate 100 € to player</Original>
 				<Russian>Подарить 100 € игроку</Russian>
-				<Spanish>Donar 100 € a jugador</Spanish>
+				<Spanish>Donar 100 € a playerX</Spanish>
 			</Key>
 			<Key ID="STR_D_DONFI">
 				<Original>Donate 100 € to FIA</Original>
@@ -3687,11 +3723,6 @@
 				<Original>Offroad</Original>
 				<Russian>Внедорожник</Russian>
 				<Spanish>Offroad</Spanish>
-			</Key>
-			<Key ID="STR_D_TRUCK">
-				<Original>Truck</Original>
-				<Russian>Грузовик</Russian>
-				<Spanish>Camión</Spanish>
 			</Key>
 			<Key ID="STR_D_HELI">
 				<Original>Helicopter</Original>
@@ -3786,7 +3817,7 @@
 			<Key ID="STR_D_SEMA">
 				<Original>Select Mortar Ammo</Original>
 				<Russian>Тип миномётных снарядов</Russian>
-				<Spanish>Selecciona Munición de Mortero</Spanish>
+				<Spanish>Selecciona Munición de mortarX</Spanish>
 			</Key>
 			<Key ID="STR_D_BUI_MINF">
 				<Original>Build Minefield</Original>
@@ -4077,7 +4108,7 @@
 			<Key ID="STR_D_DELC_DV_OGIMF">
 				<Original>Delete corpses, destroyed vehicles, on ground items, might freeze</Original>
 				<Russian>Удалить трупы, уничтоженную технику, валяющиеся предметы, игра может тормознуть</Russian>
-				<Spanish>Borrar cadáveres, vehículos destruidos, objetos en el suelo, puede ralentizar</Spanish>
+				<Spanish>Borrar cadáveres, vehículos destruidos, objectsX en el suelo, puede ralentizar</Spanish>
 			</Key>
 			<Key ID="STR_D_TOGPA">
 				<Original>Toggle Petros' animations</Original>
@@ -4107,7 +4138,7 @@
 			<Key ID="STR_D_IYMTLOOYHAI">
 				<Original>If you managed to lose one of your HQ items, this will reset all of them near Petros.</Original>
 				<Russian>Если Вы потеряли один из Ваших Предметов Штаба, это заново разместит их рядом с Петросом.</Russian>
-				<Spanish>Si al manipular objetos del HQ has perdido uno, esto hará que aparezcan todos cerca de Petros</Spanish>
+				<Spanish>Si al manipular objectsX del HQ has perdido uno, esto hará que aparezcan todos cerca de Petros</Spanish>
 			</Key>
 			<Key ID="STR_D_RESPP">
 				<Original>Reset Petros' position</Original>
@@ -4122,7 +4153,7 @@
 			<Key ID="STR_D_MSHQI">
 				<Original>Move statics/HQ items</Original>
 				<Russian>Перемещение станк.оружия/Предметов Штаба</Russian>
-				<Spanish>Mover Estáticas/Objetos del HQ</Spanish>
+				<Spanish>Mover Estáticas/objectsX del HQ</Spanish>
 			</Key>
 			<Key ID="STR_D_RYBTMSNHQA">
 				<Original>Reset your ability to move statics and HQ assets.</Original>
@@ -4217,7 +4248,7 @@
 			<Key ID="STR_D_OFFICER">
 				<Original>Officer</Original>
 				<Russian>Офицер</Russian>
-				<Spanish>Oficial</Spanish>
+				<Spanish>official</Spanish>
 			</Key>
 			<Key ID="STR_D_AUTORIFLEMAN">
 				<Original>Autorifleman</Original>
@@ -4282,7 +4313,7 @@
 			<Key ID="STR_DH_SCEGWASCPTTHRP">
 				<Original>Switch Commander Enabled\n\nGame will auto assign Commander position to the highest ranked player</Original>
 				<Russian>Включна смена Командира\n\nИгра автоматически назначит Командиром игрока с наивысшим рангом</Russian>
-				<Spanish>Cambiar Comandante Activado\n\nEl juego asignará el puesto de Comandante al jugador de mayor rango</Spanish>
+				<Spanish>Cambiar Comandante Activado\n\nEl juego asignará el puesto de Comandante al playerX de mayor rango</Spanish>
 			</Key>
 			<Key ID="STR_DH_SCDGWOACPUCD">
 				<Original>Switch Commander Disabled\n\nGame will only assign Commander position upon Commander disconnection</Original>
@@ -4312,7 +4343,7 @@
 			<Key ID="STR_DH_SMEATPP">
 				<Original>Server Membership Enabled.\n\nAll the present players have been added to the Member's List.\n\nNon-members cannot use the HQ Ammobox and cannot be commanders, even with Switch Commander enabled.\n\nIf you load a session with this feature disabled, it will change to disabled.\n\nUse this option for Open Server Environments</Original>
 				<Russian>Список Участников Включён.\n\nВсе нынешние игроки были добавлены в список Участников.\n\nНе Участники не могут использовать Арсенал и не могут стать Командиром\n\nЕсли Вы загрузите сессию с отключенной функцией, она будет отключена.\n\nИспользуйте этот параметр для отрытого сервера</Russian>
-				<Spanish>Membresía Server Activada.\n\nLos jugadores actuales han sido añadidos a la lista de miembros.\n\nLos que no sean miembros, no pueden usar la caja de munición del HQ ni ser elegidos Comandante, incluso si Cambiar Comandante esta activo.\n\nSi cargas una sesión con esta función desactivada, esta cambiará a descativa.\n\nUsa esta opción para Servidores Abiertos</Spanish>
+				<Spanish>Membresía Server Activada.\n\nLos playerXes actuales han sido añadidos a la lista de miembros.\n\nLos que no sean miembros, no pueden usar la caja de munición del HQ ni ser elegidos Comandante, incluso si Cambiar Comandante esta activo.\n\nSi cargas una sesión con esta función desactivada, esta cambiará a descativa.\n\nUsa esta opción para Servidores Abiertos</Spanish>
 			</Key>
 			<Key ID="STR_DH_EMDACUT">
 				<Original>Server Membership Disabled.\n\nAnyone can use the HQ Ammobox and become Commander (if Switch Commander is enabled).\n\nIf you load a session with this feature enabled, it will become enabled.\n\nUse this option for Private Server environments.</Original>
@@ -4449,13 +4480,13 @@
 				</Russian>
 				<Spanish>Antistasi se puede disfrutar con la versión vanilla de ArmA 3, o con modificaciones compatibles, siempre y cuando no afecten a la IA.&lt;br/&gt;Algunos mods están completamente integrados en Antistasi; cuando se cargan, estos mods cambiarán las facciones enfrentadas, usará diferentes vehículos, equipo y mecánicas.	&lt;br/&gt;Por el momento son estos: RHS: (AFRF, USAF, GREF), TFAR y ACE3.&lt;br/&gt;	 &lt;br/&gt;
 
-					Los ajustes de ACE están puestos por defecto, sin embargo, pueden ser cambiados por el admin del servidor o en el modo un jugador pulsando la tecla Esc, entrando en configuración, opciones addons.Ahí puedes cambiar otras opciones como el modo del sistema médico, distancia de visión en ACE, etc.&lt;br/&gt;&lt;br/&gt;
+					Los ajustes de ACE están outposts por defecto, sin embargo, pueden ser cambiados por el admin del servidor o en el modo un playerX pulsando la tecla Esc, entrando en configuración, opciones addons.Ahí puedes cambiar otras opciones como el modo del sistema médico, distancia de visión en ACE, etc.&lt;br/&gt;&lt;br/&gt;
 
-					Los objetos de los mods integrados se incluiran en las entregas de suministros y las cajas de munición.&lt;br/&gt;Otros mods, añaden nuevas armas o otros equipos por ejemplo, pero sólo estaran disponibles si se los comprar al Irlandés Loco.&lt;br/&gt;&lt;br/&gt;
+					Los objectsX de los mods integrados se incluiran en las entregas de suministros y las cajas de munición.&lt;br/&gt;Otros mods, añaden nuevas armas o otros equipos por example, pero sólo estaran disponibles si se los comprar al Irlandés Loco.&lt;br/&gt;&lt;br/&gt;
 
-					El Irlandés Loco, también conocido como Devin, puedes encontrarlo preguntandole a  Petros por la misión del Irlandés Loco. En su tienda, puedes hacer una compra aleatoria de todos los objetos de los mods instalados. Quieres jugar con una oxidada mp40 de la WWII o una ametralladora estilo depredador? Tienes la oportunidad de conseguirla en la tienda del Irlandés Loco! (No admite devoluciones.)&lt;br/&gt;&lt;br/&gt;
+					El Irlandés Loco, también conocido como Devin, puedes encontrarlo preguntandole a  Petros por la misión del Irlandés Loco. En su tienda, puedes hacer una compra aleatoria de todos los objectsX de los mods instalados. Quieres jugar con una oxidada mp40 de la WWII o una ametralladora estilo depredador? Tienes la oportunidad de conseguirla en la tienda del Irlandés Loco! (No admite devoluciones.)&lt;br/&gt;&lt;br/&gt;
 
-					El servidor de la comunidad oficial de Antistasi utiliza una pequeña lista de mods cerrados. Visita a3antistasi.com o el servidor de Teamspeak de la comunidad para acceder al link en steam con la lista completa y descargarlos fácilmente.&lt;br/&gt;&lt;br/&gt;
+					El servidor de la comunidad official de Antistasi utiliza una pequeña lista de mods cerrados. Visita a3antistasi.com o el servidor de Teamspeak de la comunidad para acceder al link en steam con la lista completa y descargarlos fácilmente.&lt;br/&gt;&lt;br/&gt;
 
 					IMPORTANTE: El Grabado Persistente con un mod lo hará inservible si tratas de jugar sin ese mod instalado. Esto no se aplica a los mods del cliente.&lt;br/&gt;&lt;br/&gt;
 
@@ -4499,7 +4530,7 @@
 
 					Distancia Spawn: 1 km es lo optimo, valores mayores podrían permitirle disparar a larga distancia, pero el rendimiento del juego podría sufrir. &lt;br/&gt;&lt;br/&gt;
 
-					Limpiar Basura: los cadávares y objetos en el suelo consumen memoria, limpiar es un proceso instantaneo que mejorará el rendimiento, ten en cuenta al resto de jugadores cuando lo uses, sobretodo si estaban saqueando. (Algunos objetos ya tienen un temporizador de eliminación automático.)&lt;br/&gt;&lt;br/&gt;
+					Limpiar Basura: los cadávares y objectsX en el suelo consumen memoria, limpiar es un proceso instantaneo que mejorará el rendimiento, ten en cuenta al resto de playerXes cuando lo uses, sobretodo si estaban saqueando. (Algunos objectsX ya tienen un temporizador de eliminación automático.)&lt;br/&gt;&lt;br/&gt;
 
 					Limitador FPS: por debajo del umbral, se generarán muy pocos civiles. Esta función no es demasiado fiable.&lt;br/&gt;&lt;br/&gt;
 				</Spanish>
@@ -4529,8 +4560,8 @@
 					Важно отметить, что уровень мастерства ИИ в Arma 3 также зависит от доступной вычислительной мощности: если компьютер/сервер перегружен, многие расчеты поведения ИИ будут отключены/упрощены, и ИИ будет туповат.&lt;br/&gt;&lt;br/&gt;
 				</Russian>
 				<Spanish>
-					Antistasi establece una 'Habilidad' y 'Precisión' únicas para la IA, que aumentan en función del nivel de XP del Ejército y la gestión de recursos enemigos.&lt;br/&gt;
-					Estos parámetros están influenciados por la configuración de dificultad del juego ArmA 3, que puede ajustar (en un solo jugador) desde el menú de opciones y en un servidor al inicio de la misión.&lt;br/&gt;&lt;br/&gt;
+					Antistasi establece una 'Habilidad' y 'Precisión' únicas para la IA, que aumentan en función del nivel de XP del Ejército y la gestión de recursos enemyXs.&lt;br/&gt;
+					Estos parámetros están influenciados por la configuración de dificultad del juego ArmA 3, que puede ajustar (en un solo playerX) desde el menú de opciones y en un servidor al inicio de la misión.&lt;br/&gt;&lt;br/&gt;
 
 					La ‘Habilidad’ principalmente afecta al movimiento de la IA (p.e. flanquear y buscar cobertura).&lt;br/&gt;
 					‘Precisión’ es el parámetro principal que debes ajustar si quieres aumentar o disminuir la dificultad del juego. &lt;br/&gt;&lt;br/&gt;
@@ -4571,13 +4602,13 @@
 					Обратите внимание, что серверы могут добавлять Headless клиента, что значительно увеличит обработку ИИ. Доступны 3 Слота HC.
 				</Russian>
 				<Spanish>
-					Petros, Jugadores, IA Controlada (p.e. refugiados liberados, soldados reclutados, escuadrones y unidades terrestres de OTAN/VMF) desencadenan la generación de enemigos y civiles en un radio de 1km - el radio de caché. Los vehículos aéreos de la OTAN no generarán enemigos para salvar el rendimiento. Existe un plan para agregar una posibilidad de destruir el avión cuando se vuela por territorios enemigos. &lt;br/&gt;&lt;br/&gt;
+					Petros, playerXes, IA Controlada (p.e. refugiados liberados, soldados reclutados, escuadrones y unidades terrestres de OTAN/VMF) desencadenan la generación de enemyXs y civiles en un radio de 1km - el radio de caché. Los vehículos aéreos de la OTAN no generarán enemyXs para salvar el rendimiento. Existe un plan para agregar una posibilidad de destruir el avión cuando se vuela por territorios enemyXs. &lt;br/&gt;&lt;br/&gt;
 
-					La mayoría de los enemigos que se encuentran fuera del radio de caché desaparecerán y si tu o tu IA vuelven a acercarse, reaparecerán en una posición diferente y con toda su fuerza.&lt;br/&gt;
-					MRAPs enemigos, helicopteros de patrulla, refugiados/prisioneros tras la liberación, convoys, fuerzas de ataque de las AAF estarán activos independientemente del rango de generación. &lt;br/&gt;
+					La mayoría de los enemyXs que se encuentran fuera del radio de caché desaparecerán y si tu o tu IA vuelven a acercarse, reaparecerán en una posición diferente y con toda su fuerza.&lt;br/&gt;
+					MRAPs enemyXs, helicopteros de patrulla, refugiados/prisioneros tras la liberación, convoys, fuerzas de ataque de las AAF estarán activos independientemente del rango de generación. &lt;br/&gt;
 					Las fuerzas de ataque de las AAF solo almacenan en caché la guarnición aliada de su objetivo y los controles de la FIA en el camino. &lt;br/&gt;&lt;br/&gt;
 
-					Arma 3 está mal optimizado y puede provocar fallos en el juego con más de 150 IA desplegadas. &lt;br/&gt;Por eso, intenta unir a las personas en el mismo Área de Operaciones y evita almacenar en caché demasiados enemigos a la vez, ya que esto provocará una experiencia de juego pobre con niveles bajos de FPS o IA sin reaccionar como deberían.&lt;br/&gt;
+					Arma 3 está mal optimizado y puede provocar fallos en el juego con más de 150 IA desplegadas. &lt;br/&gt;Por eso, intenta unir a las personas en el mismo Área de Operaciones y evita almacenar en caché demasiados enemyXs a la vez, ya que esto provocará una experiencia de juego pobre con niveles bajos de FPS o IA sin reaccionar como deberían.&lt;br/&gt;
 					Además, trata de ubicar el HQ y los campamentos fuera del radio de spawn de las ciudades y emplazamientos para que no se almacenen en caché de forma permanente.&lt;br/&gt;&lt;br/&gt;
 
 					Tenga en cuenta que los servidores pueden agregar un cliente headless que aumentará drásticamente el manejo de la inteligencia artificial. Hay 3 ranuras HC disponibles que se le asignará proporcionalmente a la IA, dando mayor prioridad al HC que al servidor principal.
@@ -4619,16 +4650,16 @@
 				</Russian>
 				<Spanish>
 					La opción de guardado de Vanilla está deshabilitado porque hace fallar la misión. Para guardar el progreso, el Comandante tiene el Guardar Persistente al interactuar en el juego con el Mapa del HQ y, al reiniciar, Antistasi pregunta si quieres cargar una Sesión Previa.&lt;br/&gt;
-					Si eres un jugador normal, tu equipo, dinero y rango será guardado automáticamente al desconectar.&lt;br/&gt;&lt;br/&gt;
+					Si eres un playerX normal, tu equipo, dinero y rango será guardado automáticamente al desconectar.&lt;br/&gt;&lt;br/&gt;
 
 					Los datos de guardado se almacena en documentos/Arma 3/user.vars.Arma3Profile y se guarda por separado para cada isla y respectiva versión blufor y greenfor. &lt;br/&gt;&lt;br/&gt;
 
 					Qué se graba:&lt;br/&gt;
-					- Localización del HQ con armas estáticas y vehículos dentro de 50m de la bandera sin nada en sus inventarios.&lt;br/&gt;
+					- Localización del HQ con armas estáticas y vehículos dentro de 50m de la flagX sin nada en sus inventarios.&lt;br/&gt;
 					- armas estáticas desplegadas en zonas con guarnición.&lt;br/&gt;
 					- controles, guarniciones, dinero, HR, garaje, apoyo.&lt;br/&gt;
-					- Objetos en Arsenal y vehículos del Garaje.&lt;br/&gt;
-					Qué NO se graba: posiciones de la IA, objetos dentro de vehículos, IA reclutada (parte de su coste es reembolsado).&lt;br/&gt; Para tener múltiples guardados y mantener tu equipo al desconectarte dentro de 100m desde el HQ, ejecuta el mod inidbi2 de code34.
+					- objectsX en Arsenal y vehículos del Garaje.&lt;br/&gt;
+					Qué NO se graba: posiciones de la IA, objectsX dentro de vehículos, IA reclutada (parte de su coste es reembolsado).&lt;br/&gt; Para tener múltiples guardados y mantener tu equipo al desconectarte dentro de 100m desde el HQ, ejecuta el mod inidbi2 de code34.
 				</Spanish>
 			</Key>
 			<Key ID="STR_BR_1WELCOME">
@@ -4679,7 +4710,7 @@
 					El objetivo es ganar el apoyo de más del 50% de la población civil de la isla. &lt;br/&gt;
 					Pierdes la campaña si el CSAT destruye 8 ciudades por bombardeos. &lt;br/&gt;&lt;br/&gt;
 
-					Notas Multijugador:&lt;br/&gt;
+					Notas MultiplayerX:&lt;br/&gt;
 					- Se puede acceder a los Parámetros después de seleccionar la misión en la pantalla de selección en el lado superior derecho antes de iniciar la misión.&lt;br/&gt;
 					- El guardado previo se cargará automáticamente a menos que el admin/host habilite en Parametros la opción de comenzar una campaña nueva&lt;br/&gt;
 					- Los parámetros son muy importantes, compruébalos para hacer la configuración más util.&lt;br/&gt;
@@ -4755,15 +4786,15 @@
 					Coloca el HQ en lugar seguro lejos de carreteras principales, pero cerca al menos de una pequeña.&lt;br/&gt;
 					NO coloque el HQ dentro de un edificio para evitar fallos por colisión.&lt;br/&gt;&lt;br/&gt;
 
-					Ten en cuenta que los vehículos de misión aparecen alrededor de la hoguera, los vehículos comprados aparecen alrededor de la bandera, los refuerzos aparecen cerca de la carretera así como los vehículos de jugadores/IA cuando hacen Viaje Rápido.&lt;br/&gt;&lt;br/&gt;
+					Ten en cuenta que los vehículos de misión aparecen alrededor de la hoguera, los vehículos comprados aparecen alrededor de la flagX, los refuerzos aparecen cerca de la carretera así como los vehículos de playerXes/IA cuando hacen Viaje Rápido.&lt;br/&gt;&lt;br/&gt;
 
-					Como se dijo en 'Sistema Spawn', Petros mantendrá un área de 1km en caché, así que evite ubicar el HQ evitando zonas civiles o patrullas de la ciudad (Incluso en territorio aliado para salvar el rendimiento del juego.) Los enemigos pueden tropezar con Petros y matarlo mientras estás operando lejos del HQ.&lt;br/&gt;&lt;br/&gt;
+					Como se dijo en 'Sistema Spawn', Petros mantendrá un área de 1km en caché, así que evite ubicar el HQ evitando zonas civiles o patrullas de la ciudad (Incluso en territorio aliado para salvar el rendimiento del juego.) Los enemyXs pueden tropezar con Petros y matarlo mientras estás operando lejos del HQ.&lt;br/&gt;&lt;br/&gt;
 
-					Una vez que hayas colocado con seguridad tu nuevo HQ, interactúa con Petros, la Bandera, Arsenal, Hoguera y la caja Curar y Reparar para descubrir sus funciones únicas.&lt;br/&gt;&lt;br/&gt;
+					Una vez que hayas colocado con seguridad tu nuevo HQ, interactúa con Petros, la flagX, Arsenal, Hoguera y la caja Curar y Reparar para descubrir sus funciones únicas.&lt;br/&gt;&lt;br/&gt;
 
 					- Mapa: edita Opciones de Antistasi y hace Guardado Persistente de tu progreso, información detallada de ciudades/guarniciones.&lt;br/&gt;&lt;br/&gt;
 
-					- Bandera: reclutar IA, comprar vehículos y armas estáticas, administrar el HQ.&lt;br/&gt;&lt;br/&gt;
+					- flagX: reclutar IA, comprar vehículos y armas estáticas, administrar el HQ.&lt;br/&gt;&lt;br/&gt;
 
 					- Hoguera: acelerar el tiempo 8 horas y quemar tus pies. (Si se usa, Las misiones actuales fallarán, no se puede usar cuando hay un ataque AAF en marcha.)&lt;br/&gt;&lt;br/&gt;
 
@@ -4773,7 +4804,7 @@
 
 					- Petros: solicitar misiones.&lt;br/&gt;&lt;br/&gt;
 
-					La ubicación de la sede se revela al CSAT sólo si un traidor logra huir a una base enemiga. Además, el fuego de mortero es una forma fácil de triangularla, espera asaltos agresivos en ambos casos.
+					La ubicación de la sede se revela al CSAT sólo si un traidor logra huir a una base enemiga. Además, el fuego de mortarX es una forma fácil de triangularla, espera asaltos agresivos en ambos casos.
 				</Spanish>
 			</Key>
 			<Key ID="STR_BR_BT1TIB">
@@ -4841,30 +4872,30 @@
 				</Russian>
 				<Spanish>La Barra de Información muestra detalles de la campaña, recursos y estado de Incógnito.&lt;br/&gt;&lt;br/&gt;
 
-					-Comandante: El Comandante actual. Se mostrará ‘Ninguno’ cuando la membresía esté activada y no haya ningún miembro online electo para el puesto. En este caso, las siguientes características se detendrán: economía por ronda, respuesta principal del enemigo, como QRF, ataques y generación de misiones aleatorias.&lt;br/&gt;&lt;br/&gt;
+					-Comandante: El Comandante actual. Se mostrará ‘Ninguno’ cuando la membresía esté activada y no haya ningún miembro online electo para el puesto. En este caso, las siguientes características se detendrán: economía por ronda, respuesta principal del enemyX, como QRF, ataques y generación de misiones aleatorias.&lt;br/&gt;&lt;br/&gt;
 					Pulsa Renunciar en el menú Y (Teclado-US) cuando se muestre 'Ninguno' para buscar un nuevo Comandante.&lt;br/&gt;
 
-					-Rango: afecta el valor de tu IA y con qué efectividad ejecutarán las órdenes. Aumenta tu rango matando enemigos y, mas efectivo, completando misiones. En multijugador también puedes donar tu dinero a la FIA para ganar Rango.&lt;br/&gt;
-					El Rango del jugador se guarda automáticamente en multijugador al desconectar.&lt;br/&gt;&lt;br/&gt;
+					-Rango: afecta el valor de tu IA y con qué efectividad ejecutarán las órdenes. Aumenta tu rango matando enemyXs y, mas efectivo, completando misiones. En multiplayerX también puedes donar tu dinero a la FIA para ganar Rango.&lt;br/&gt;
+					El Rango del playerX se guarda automáticamente en multiplayerX al desconectar.&lt;br/&gt;&lt;br/&gt;
 
-					- HR: Recursos Humanos se usa para reclutar IA, añadir tropas a las guarniciones, conquistar emplazamientos y, sólo en un jugador, el 10% de los HR y el 5% del dinero se perderá cada vez que mueras. &lt;br/&gt;
+					- HR: Recursos Humanos se usa para reclutar IA, añadir tropas a las guarniciones, conquistar emplazamientos y, sólo en un playerX, el 10% de los HR y el 5% del dinero se perderá cada vez que mueras. &lt;br/&gt;
 					Gana HR escoltando refugiados o prisioneros al HQ, o controlando pueblos y ciudades.&lt;br/&gt;
 					El juego evalua cada 10 minutos y añade HR dependiendo del número de civiles que apoyen al FIA.&lt;br/&gt;&lt;br/&gt;
 
-					- Dinero: en un jugador, sólo estará disponible el 'Dinero FIA'. utilizalo para comprar vehículos, reclutar IA, añadir guarniciones e incrementar el nivel de tu Ejército. &lt;br/&gt;
-					En multijugador, la cuenta del FIA y la del jugador están separadas; si mueres pierdes un porcentaje de tu cuenta personal.&lt;br/&gt;
+					- Dinero: en un playerX, sólo estará disponible el 'Dinero FIA'. utilizalo para comprar vehículos, reclutar IA, añadir guarniciones e incrementar el nivel de tu Ejército. &lt;br/&gt;
+					En multiplayerX, la cuenta del FIA y la del playerX están separadas; si mueres pierdes un porcentaje de tu cuenta personal.&lt;br/&gt;
 					El juego revisa cada 10 minutos y añade dinero a la cuenta del FIA dependiendo de los territorios controlados.&lt;br/&gt;
-					El dinero del Jugador se guarda automáticamente en multijugador cuando este se desconecta.&lt;br/&gt;&lt;br/&gt;
+					El dinero del playerX se guarda automáticamente en multiplayerX cuando este se desconecta.&lt;br/&gt;&lt;br/&gt;
 
 					- Apoyo OTAN: El Comandante puede solicitar a la facción aliada un apoyo contundente en la batalla (la facción aliada será diferente dependiendo del mod/vanilla blufor/greenfor). Comprueba las entradas de diario de las Opciones de Comandante y de las Características Antistasi - Apoyo. &lt;br/&gt;&lt;br/&gt;
 
-					- Apoyo CSAT: la facción enemiga (de nuevo, será diferente dependiendo del mod/vanilla blufor/greenfor) ayudará al enemigo y cuando este valor sea muy alto, empezarán a bombardear ciudades. &lt;br/&gt;
-					Tras destruir 8 ciudades, la campaña se habrá perdido. El apoyo CSAT crece si conquistas bases y aeropuertos enemigos, también si destruyes emplazamientos AA en cimas de colina con nombre. &lt;br/&gt;&lt;br/&gt;
+					- Apoyo CSAT: la facción enemiga (de nuevo, será diferente dependiendo del mod/vanilla blufor/greenfor) ayudará al enemyX y cuando este valor sea muy alto, empezarán a bombardear ciudades. &lt;br/&gt;
+					Tras destruir 8 ciudades, la campaña se habrá perdido. El apoyo CSAT crece si conquistas bases y airportsX enemyXs, también si destruyes emplazamientos AA en cimas de colina con nombre. &lt;br/&gt;&lt;br/&gt;
 
 					- XP Ejército: indica el nivel XP del Ejército, consulta la sección relativa en el diario para una explicación detallada, las flechas muestran lo cerca que estás del siguiente nivel y, si están en rojo, significa que no has cumplido el requisito para la próxima actualización de nivel.&lt;br/&gt;&lt;br/&gt;
 
-					- Descubierto / Incógnito: indicador de tu estado de Incógnito, cuando muestra Incógnito, los enemigos pensarán que eres un civil y te ignoraran. &lt;br/&gt;
-					Obten el estado incógnito seleccionándolo en el menú Y o entrando en un vehículo civil. Solo es posible si cumples todas las condiciones. &lt;br/&gt;
+					- Descubierto / Incógnito: indicador de tu estado de Incógnito, cuando muestra Incógnito, los enemyXs pensarán que eres un civil y te ignoraran. &lt;br/&gt;
+					Obten el estado incógnito seleccionándolo en el menú Y o entrando en un vehículo civil. Solo es potential si cumples todas las condiciones. &lt;br/&gt;
 					Revisa la sección del diario para una explicación más detallada.
 				</Spanish>
 			</Key>
@@ -4892,7 +4923,7 @@
 				</Russian>
 				<Spanish>
 					Pulsar ‘Y’ abrirá la PDA, con 3 botones en el lado derecho que corresponden respectivamente de arriba a abajo a:&lt;br/&gt;
-					Jugador &lt;br/&gt;
+					playerX &lt;br/&gt;
 					Comandante  &lt;br/&gt;
 					Admin.&lt;br/&gt;&lt;br/&gt;
 				</Spanish>
@@ -4938,18 +4969,18 @@
 				<Spanish>
 					El Arsenal está vacío, con fondos apenas suficientes para fianciar tus primeras misiones...&lt;br/&gt;
 					Tu primer objetivo es ganar dinero y recolectar equipo. Solicita a Petros misiones y decide si hacerlas o no.&lt;br/&gt;
-					Las misione no son el objetivo real del juego, sólo opciones que a veces deberás ignorar. Mira el mapa o explora la zona, porque algunas misiones pueden ser imposibles para tu capacidad actual. Los prismáticos y el sistema de Incógnito serán tus amigos. &lt;br/&gt;&lt;br/&gt;
+					Las misione no son el objetivo real del juego, sólo opciones que a veces deberás ignorar. Mira el mapa o explora la zona, porque algunas misiones pueden ser impotentials para tu capacidad actual. Los prismáticos y el sistema de Incógnito serán tus amigos. &lt;br/&gt;&lt;br/&gt;
 
-					Las misiones se activarán en un rango de 4 km desde tu HQ. No trates de hacerlas sólo, reúne amigos o recluta a IA en la bandera, no son buenos como los soldados del ejército enemigo, sin embargo, pueden ser útiles para distraer y para el fuego de cobertura. Algunos objetivos pueden estar muy lejos, o ser demasiado arriesgados para llegar desde el HQ directamente. Si es el caso, el Comandante puede montar un  Campamento dónde hacer Viaje Rápido (teletransporte) para acelerar tus movimientos o hacer una aproximación segura.&lt;br/&gt;&lt;br/&gt;
+					Las misiones se activarán en un rango de 4 km desde tu HQ. No trates de hacerlas sólo, reúne amigos o recluta a IA en la flagX, no son buenos como los soldados del ejército enemyX, sin embargo, pueden ser útiles para distraer y para el fuego de cobertura. Algunos objetivos pueden estar muy lejos, o ser demasiado arriesgados para llegar desde el HQ directamente. Si es el caso, el Comandante puede montar un  Campamento dónde hacer Viaje Rápido (teletransporte) para acelerar tus movimientos o hacer una aproximación segura.&lt;br/&gt;&lt;br/&gt;
 
 					Recoge equipo, cárgalo en un vehículo, vuelve al HQ, interactua con el Arsenal, elige Descargar Contenido Vehículo al Arsenal para dejar todo el equipo en la caja del Arsenal. Comprueba la entrada Arsenal, Inventorio y Desbloquear para más información.&lt;br/&gt;&lt;br/&gt;
 
-					Los enemigos reaccionan a tus movimientos ya sea enviando refuerzos o patrullas saliendo físicamente desde una base, por lo que, el tiempo de reacción es diferente dependiendo del rango de la base, qué modo de transporte utiliza el enemigo y si pueden llegar hasta allí. &lt;br/&gt;
-					Trata de eliminar al enemigo rápidamente si quieres quieres tener una oportunidad de saquear y escapar de forma segura. &lt;br/&gt;&lt;br/&gt;
+					Los enemyXs reaccionan a tus movimientos ya sea enviando refuerzos o patrullas saliendo físicamente desde una base, por lo que, el tiempo de reacción es diferente dependiendo del rango de la base, qué modo de transporte utiliza el enemyX y si pueden llegar hasta allí. &lt;br/&gt;
+					Trata de eliminar al enemyX rápidamente si quieres quieres tener una oportunidad de saquear y escapar de forma segura. &lt;br/&gt;&lt;br/&gt;
 
-					Jugar solo puede ser difícil sino exploras apropiadamente y conoces el territorio. Prueba a reclutar IA (1 o 2 pueden hacer el trabajo, no están entrenados para matar enemigos, aun así pueden ser una gran distracción o proporcionar fuego de cobertura si los has colocado inteligentemente). LA IA intentará revivirte si caes y no están en combate con el enemigo. &lt;br/&gt;&lt;br/&gt;
+					Jugar solo puede ser difícil sino exploras apropiadamente y conoces el territorio. Prueba a reclutar IA (1 o 2 pueden hacer el trabajo, no están entrenados para matar enemyXs, aun así pueden ser una gran distracción o proporcionar fuego de cobertura si los has colocado inteligentemente). LA IA intentará revivirte si caes y no están en combate con el enemyX. &lt;br/&gt;&lt;br/&gt;
 
-					Sin embargo, Antistasi realmente brilla si juegas con amigos, ¡así que únete a Servidores Oficiales Antistasi o crea otros nuevos!
+					Sin embargo, Antistasi realmente brilla si juegas con amigos, ¡así que únete a Servidores officiales Antistasi o crea otros nuevos!
 				</Spanish>
 			</Key>
 			<Key ID="STR_BR_BT4JAS">
@@ -5008,22 +5039,22 @@
 					El sistema de invetario en Antistasi es único: Cargar una sesión anterior vaciará todos los inventarios de los vehículos. Sólo el contenido del Arsenal Virtual y el invetario de la Caja de Arsenal se guardan. &lt;br/&gt;&lt;br/&gt;
 
 					Puedes usarlos de la siguiente manera:&lt;br/&gt;
-					- Invetario de la Caja de Arsenal = almacena temporalmente objetos. El equipo transferido con la función ‘Descargar Contenido Vehículo al Arsenal’ acaba aquí. &lt;br/&gt;
-					- Arsenal Virtual = Almacena el equipo principal. Mueve los objetos de la Caja del Arsenal al propio Arsenal presionando ‘A la Caja’ en el entorno del Arsenal Virtual.&lt;br/&gt;&lt;br/&gt;
+					- Invetario de la Caja de Arsenal = almacena temporalmente objectsX. El equipo transferido con la función ‘Descargar Contenido Vehículo al Arsenal’ acaba aquí. &lt;br/&gt;
+					- Arsenal Virtual = Almacena el equipo principal. Mueve los objectsX de la Caja del Arsenal al propio Arsenal presionando ‘A la Caja’ en el entorno del Arsenal Virtual.&lt;br/&gt;&lt;br/&gt;
 
-					Al abrir el Arsenal, veras la interfaz modificada del Arsenal por JAS. En el lado izquierdo se visualizan los objetos por categorías. Las categorías marcadas en rojo significan que no hay ningún objeto equipado de ese tipo.&lt;br/&gt;&lt;br/&gt;
+					Al abrir el Arsenal, veras la interfaz modificada del Arsenal por JAS. En el lado izquierdo se visualizan los objectsX por categorías. Las categorías marcadas en rojo significan que no hay ningún objeto equipado de ese tipo.&lt;br/&gt;&lt;br/&gt;
 
 					El número entre parentesis delante de cada objeto, es la cantidad disponible en el Arsenal de dicho objeto.&lt;br/&gt;
 					Lo mismo ocurre con la munición (que se cuentan por separado en número de proyectiles), grenadas y otros consumibles, mostrados en el lado derecho.&lt;br/&gt;&lt;br/&gt;
 
 					A diferencia de las versiones anteriores de Antistasi, no hay manera de desbloquear un elemento de forma permanente y en cantidades ilimitadas. Todo está limitado a lo que en encuentres y lleves al HQ.&lt;br/&gt;&lt;br/&gt;
 
-					Acceder al Arsenal desde el asiento del conductor de un vehículo permite cargar objetos al invetario del vehículo.&lt;br/&gt;&lt;br/&gt;
+					Acceder al Arsenal desde el asiento del conductor de un vehículo permite cargar objectsX al invetario del vehículo.&lt;br/&gt;&lt;br/&gt;
 
 					Los botones personalizados en la parte inferior son:&lt;br/&gt;
 					- Equipo por Defecto: agrega cosas que siempre necesitarás según los mods instalados.&lt;br/&gt;&lt;br/&gt;
 
-					- A la Caja: Mueve todos los objetos de la Caja del Arsenal al invetario de JAS.&lt;br/&gt;&lt;br/&gt;
+					- A la Caja: Mueve todos los objectsX de la Caja del Arsenal al invetario de JAS.&lt;br/&gt;&lt;br/&gt;
 
 					Equipo IA: La IA reclutada usará el equipamiento por encima del límite del Arsenal dependiendo de su clase. Esto no reducirá la cantidad real de elementos almacenados. La ropa dependerá del nivel del Ejército FIA.
 				</Spanish>
@@ -5065,19 +5096,19 @@
 					В городах, поддерживающих врага, будут встречаться вражеские патрули, а в городах, поддерживающих партизан, будут время от времени курсировать Ваши патрули.
 				</Russian>
 				<Spanish>
-					La población civil en la isla debe estar convencida de que tu causa es la correcta. Esa es la meta de Antistasi. A medida que subes el apoyo en una ciudad, el enemigo tratará de hacer lo mismo.&lt;br/&gt;&lt;br/&gt;
+					La población civil en la isla debe estar convencida de que tu causa es la correcta. Esa es la meta de Antistasi. A medida que subes el apoyo en una ciudad, el enemyX tratará de hacer lo mismo.&lt;br/&gt;&lt;br/&gt;
 
-					Cada ciudad tiene un número de habitantes que pueden apoyarte a ti, al enemigo o ser neutrales.&lt;br/&gt;
+					Cada ciudad tiene un número de habitantes que pueden apoyarte a ti, al enemyX o ser neutrales.&lt;br/&gt;
 					Puede verificar el valor actual de Apoyo en una ciudad en el Mapa del HQ o cuando estás en una ciudad, se muestra en la esquina inferior derecha.&lt;br/&gt;&lt;br/&gt;
 
-					Aumenta el apoyo de la ciudad matando a los soldados enemigos, llevando suministros, mediante la entrega de panfletos, capturando la planta de energía cercana o estableciendo una estación de propaganda.&lt;br/&gt;
+					Aumenta el apoyo de la ciudad matando a los soldados enemyXs, llevando suministros, mediante la entrega de panfletos, capturando la planta de energía cercana o estableciendo una estación de propaganda.&lt;br/&gt;
 					Una misión completada con éxito obtiene el favor de un número relativo de personas, lo que significa que no todas las misiones obtienen la misma cantidad % en diferentes ciudades.&lt;br/&gt;
-					El apoyo del pueblo disminuirá si se mata a civiles, si el enemigo trae suministros o si la ciudad no tiene electricidad.&lt;br/&gt;&lt;br/&gt;
+					El apoyo del pueblo disminuirá si se mata a civiles, si el enemyX trae suministros o si la ciudad no tiene electricidad.&lt;br/&gt;&lt;br/&gt;
 
 					Las ciudades solo recibirán energía si apoyan a la facción que controla la planta de energía cercana.&lt;br/&gt;
-					Si la ciudad apoya a los rebeldes, el enemigo cortará el suministro y perderás el apoyo de la ciudad con el tiempo, lo mismo ocurre con las ciudades que apoyan al enemigo si las centrales eléctricas las controlas tu.&lt;br/&gt;.&lt;br/&gt;
+					Si la ciudad apoya a los rebeldes, el enemyX cortará el suministro y perderás el apoyo de la ciudad con el tiempo, lo mismo ocurre con las ciudades que apoyan al enemyX si las centrales eléctricas las controlas tu.&lt;br/&gt;.&lt;br/&gt;
 
-					Las ciudades que apoyan al enemigo tendrán patrullas enemigas a su alrededor, y las ciudades que te apoyan tendrán una pequeña patrulla aliada en la zona.
+					Las ciudades que apoyan al enemyX tendrán patrullas enemigas a su alrededor, y las ciudades que te apoyan tendrán una pequeña patrulla aliada en la zona.
 				</Spanish>
 			</Key>
 			<Key ID="STR_BR_BT6HT">
@@ -5101,10 +5132,10 @@
 					Командир может развернуть БП (Блокпост) из меню «Y». Блокпосты очень эффективны для того, чтобы остановить/уничтожить одно-два вражеских транспортных средства, так как бойцы на блокпосту вооружены противотанковым (ПТ) оружием и крупнокалиберными пулемётами на автомобилях.&lt;br/&gt;&lt;br/&gt;
 				</Russian>
 				<Spanish>
-					Cada vez que conquistes o mates algunos objetivos especiales, el enemigo enviará una fuerza de acción rápida desde la base o el aeropuerto disponible, el primer paso para asegurar un área es esperar y defender ese primer ataque.&lt;br/&gt;
-					Más adelante, el enemigo comprobará la cantidad de guarnición y puede decidir enviar una patrulla para retormar el territorio en caso de que esté abandonado.&lt;br/&gt;
+					Cada vez que conquistes o mates algunos objetivos especiales, el enemyX enviará una fuerza de acción rápida desde la base o el aeropuerto disponible, el primer paso para asegurar un área es esperar y defender ese primer ataque.&lt;br/&gt;
+					Más adelante, el enemyX comprobará la cantidad de guarnición y puede decidir enviar una patrulla para retormar el territorio en caso de que esté abandonado.&lt;br/&gt;
 					Dicho esto, necesitas HR para guarnecer la posición e incrementar el nivel XP del Ejército para hacer que tu guarnición sea lo suficientemente buena como para resistir un ataque, que es una misión donde se envía una cantidad masiva de fuerzas para recuperar un objetivo. Tenga en cuenta que la OTAN es muy útil en este caso.&lt;br/&gt;
-					El Comandante puede desplegar un control con el menú Y. Los controles de carretera son muy efectivos para eliminar uno o dos vehículos enemigos gracias a sus capacidades AT y ametralladoras del calibre .50.&lt;br/&gt;&lt;br/&gt;
+					El Comandante puede desplegar un control con el menú Y. Los controles de carretera son muy efectivos para eliminar uno o dos vehículos enemyXs gracias a sus capacidades AT y ametralladoras del calibre .50.&lt;br/&gt;&lt;br/&gt;
 				</Spanish>
 			</Key>
 			<Key ID="STR_BR_BT7MI">
@@ -5148,17 +5179,17 @@
 					Обратите внимание, что запрос миссии «Установка точки пропаганды» в городе, который имеет поддержку FIA менее чем 12%, создаёт миссию «Разброс листовок». При начале миссии «Установка точки пропаганды» возле Штаба появится специальный грузовик.
 				</Russian>
 				<Spanish>
-					Las misiones se le solicitan a Petros, así cómo misiones secundarias cómo el Político/Oficial corrupto, o pueden aparecer espontáneamente. &lt;br/&gt;
+					Las misiones se le solicitan a Petros, así cómo misiones secundarias cómo el Político/official corrupto, o pueden aparecer espontáneamente. &lt;br/&gt;
 					La mayoría de ellas están programadas por tiempo y se pueden comprobar al revisar las tareas en su mapa. Puede haber muchas misiones activas al mismo tiempo; tu eliges cuál quieres completar.&lt;br/&gt;&lt;br/&gt;
 
-					Hay alrededor de 18 misiones en Antistasi, pero es posible que algunas misiones no aparezcan en el área del HQ (4 km de radio), dependerá de los pueblos, ciudades y tipos de bases de los alrededores.&lt;br/&gt;&lt;br/&gt;
+					Hay alrededor de 18 misiones en Antistasi, pero es potential que algunas misiones no aparezcan en el área del HQ (4 km de radio), dependerá de los pueblos, ciudades y tipos de bases de los alrededores.&lt;br/&gt;&lt;br/&gt;
 
-					Las misiones variarán en dificultad dependiendo de las posiciones enemigas cercanas (controles, posiciones de mortero y cimas AA), el equipo que lleves, los efectivos que te acompañen y la cantidad de tiempo que pasas.&lt;br/&gt;
+					Las misiones variarán en dificultad dependiendo de las posiciones enemigas cercanas (controles, posiciones de mortarX y cimas AA), el equipo que lleves, los efectivos que te acompañen y la cantidad de tiempo que pasas.&lt;br/&gt;
 					Todos estos factores deben ser considerados al elegir una misión u otra, y los tiempos de finalización pueden cambiar dependiendo de la planificación.&lt;br/&gt;&lt;br/&gt;
 
-					Ignorar misiones también es una opción válida, aunque ignorar las misiones puede tener repercusiones, como por ejemplo:&lt;br/&gt;
+					Ignorar misiones también es una opción válida, aunque ignorar las misiones puede tener repercusiones, como por example:&lt;br/&gt;
 					Matar al Traidor: perderá un porcentaje de dinero y recursos humanos y los ataques a sus territorios serán más frecuentes. &lt;br/&gt;
-					Convoy de Suministros: las ciudades que sean abastecidas con éxito por el convoy enemigo obtendrán apoyo a su favor.&lt;br/&gt;&lt;br/&gt;
+					Convoy de Suministros: las ciudades que sean abastecidas con éxito por el convoy enemyX obtendrán apoyo a su favor.&lt;br/&gt;&lt;br/&gt;
 
 					Petros te da 1 misión de cada tipo con un tiempo de reutilización de 30 minutos en tiempo real, por lo que saltarte el tiempo no te permitirá tener otra misión más rápido. Por otro lado, el tiempo de la misión se basa en el tiempo en el juego, por lo que si omites el tiempo cuando las misiones están activas, se considerarán fallidas.&lt;br/&gt;&lt;br/&gt;
 
@@ -5220,7 +5251,7 @@
 					La mayoría de las clases jugables tienen habilidades especiales y/o pericia en armas.&lt;br/&gt;
 					Una clase que no tiene competencia para un tipo específico de arma puede usarla, pero con dificultades de manejo, todos pueden usar armas AT sin ninguna penalización.&lt;br/&gt;
 					Clases disponibles: &lt;br/&gt;
-					- Oficial: silenciosos y más difíciles de detectar, menos capacidad de carga.&lt;br/&gt;
+					- official: silenciosos y más difíciles de detectar, menos capacidad de carga.&lt;br/&gt;
 					- Líder de Equipo: Estandar.&lt;br/&gt;
 					- Soldados: silenciosos, menos capacidad de carga.&lt;br/&gt;
 					- Médico: pueden usar botiquín, pueden hacer transfusiones de sangre (ACE básico), pueden usar el Kit Quirúrgico (ACE avanzado)&lt;br/&gt;
@@ -5232,9 +5263,9 @@
 
 					Elegir clase es importante así como equilibrar los roles dentro de tu grupo.&lt;br/&gt;&lt;br/&gt;
 
-					En un jugador, puedes interactuar con la caja del Arsenal y Cambiar de Clase cuando quieras. Tenga en cuenta que no se guardará de una sesión a otra, por lo que al reiniciar deberás volver a cambiarla.&lt;br/&gt;&lt;br/&gt;
+					En un playerX, puedes interactuar con la caja del Arsenal y Cambiar de Clase cuando quieras. Tenga en cuenta que no se guardará de una sesión a otra, por lo que al reiniciar deberás volver a cambiarla.&lt;br/&gt;&lt;br/&gt;
 
-					En multijugador eliges la clase al iniciar sesión y puedes cambiarla cerrando sesión y abriendola de nuevo.
+					En multiplayerX eliges la clase al iniciar sesión y puedes cambiarla cerrando sesión y abriendola de nuevo.
 				</Spanish>
 			</Key>
 			<Key ID="STR_BR_AF2AIME">
@@ -5288,7 +5319,7 @@
 					- Распустить: отправить бойцов по домам. При этом возвращается их стоимость в деньгах и очки HR.
 				</Russian>
 				<Spanish>
-					El Comandante y los miembros del servidor pueden reclutar IA en la Bandera o añadir guarniciones a los objetivos conquistados. Estos comienzan con ropa civil y sus armas corresponden a una elección aleatoria entre las armas de su clase presentes en el Arsenal, en esta versión ya no extraen el arma de él ni necesitan una cantidad tope como con el sistema original de Arsenal.&lt;br/&gt;&lt;br/&gt;
+					El Comandante y los miembros del servidor pueden reclutar IA en la flagX o añadir guarniciones a los objetivos conquistados. Estos comienzan con ropa civil y sus armas corresponden a una elección aleatoria entre las armas de su clase presentes en el Arsenal, en esta versión ya no extraen el arma de él ni necesitan una cantidad tope como con el sistema original de Arsenal.&lt;br/&gt;&lt;br/&gt;
 
 					Sin embargo, en la versión actual no restan el arma del Arsenal ni requieren una cantidad para desbloquearlas (Antistasi 1.7.5 y anteriores).&lt;br/&gt;&lt;br/&gt;
 
@@ -5302,9 +5333,9 @@
 
 					- Autocurar: actívalo para que la IA ​​reclutada pueda curar a sus compañeros de equipo y a sí mismos automáticamente.&lt;br/&gt;&lt;br/&gt;
 
-					- AutoRearmar: envía a la IA a recoger munición y armas para su clase de los cadáveres del enemigo o de las cajas de suministros.&lt;br/&gt;&lt;br/&gt;
+					- AutoRearmar: envía a la IA a recoger munición y armas para su clase de los cadáveres del enemyX o de las cajas de suministros.&lt;br/&gt;&lt;br/&gt;
 
-					- Control Remoto: si no estás de incógnito y no hay enemigos cerca, permite controlar una IA para solucionar problemas con el entorno o simplemente administrar su inventario. Perderás el control pasados 60 segundos o si la IA recibe daño. Puedes acceder al Arsenal y equiparlo como desees.&lt;br/&gt;&lt;br/&gt;
+					- Control Remoto: si no estás de incógnito y no hay enemyXs cerca, permite controlar una IA para solucionar problemas con el entorno o simplemente administrar su inventario. Perderás el control pasados 60 segundos o si la IA recibe daño. Puedes acceder al Arsenal y equiparlo como desees.&lt;br/&gt;&lt;br/&gt;
 
 					- Despedir: envía a la IA de vuelta al HQ. Cuando llegue, su inversión en dinero y HR serán reeembolsados.
 				</Spanish>
@@ -5343,13 +5374,13 @@
 					La Experiencia del Ejército afecta a las habilidades de las tropas reclutadas del FIA, refuerzos y guarniciones. Gana Experiencia luchando, completando misiones y capturando objetivos.&lt;br/&gt;&lt;br/&gt;
 
 					Nivel del Ejército:&lt;br/&gt;
-					0) XP tope en 4, los reclutados llevan ropa civil, Huecos del Garaje = 10 FIA y 3 Personal, sólo puede almacenar vehículos básicos y MRAPs, tope de HR en 50, 2 Campamentos, 2 controles de carretera normales, 2 puestos de observación normales.&lt;br/&gt;&lt;br/&gt;
+					0) XP tope en 4, los reclutados llevan ropa civil, Huecos del Garaje = 10 FIA y 3 Personal, sólo puede almacenar vehículos básicos y MRAPs, tope de HR en 50, 2 Campamentos, 2 controles de carretera normales, 2 outposts de observación normales.&lt;br/&gt;&lt;br/&gt;
 
-					1) XP tope en 8, el 25% de los reclutados visten uniforme de la guerrilla, Huecos del Garaje = 15 FIA y 5 Personal, puede almacenar APCs, tope de HR en 75, 3 Campamentos, 4 controles de carretera normales, 3 puestos de observación normales, aumento único de +10 en apoyo OTAN.&lt;br/&gt;&lt;br/&gt;
+					1) XP tope en 8, el 25% de los reclutados visten uniforme de la guerrilla, Huecos del Garaje = 15 FIA y 5 Personal, puede almacenar APCs, tope de HR en 75, 3 Campamentos, 4 controles de carretera normales, 3 outposts de observación normales, aumento único de +10 en apoyo OTAN.&lt;br/&gt;&lt;br/&gt;
 
-					2) XP tope en 12, el 50% de los reclutados visten uniforme de la guerrilla, Huecos del Garaje = 20 FIA y 10 Personal, puede almacenar algunos Helicópteros, tope de HR en 100, 4 Campamentos, 6 controles de carretera mejorados, 4 puestos de observación mejorados, aumento único de +20 en apoyo OTAN.&lt;br/&gt;&lt;br/&gt;
+					2) XP tope en 12, el 50% de los reclutados visten uniforme de la guerrilla, Huecos del Garaje = 20 FIA y 10 Personal, puede almacenar algunos Helicópteros, tope de HR en 100, 4 Campamentos, 6 controles de carretera mejorados, 4 outposts de observación mejorados, aumento único de +20 en apoyo OTAN.&lt;br/&gt;&lt;br/&gt;
 
-					3) XP tope 20 para FIA y personal, todos los vehículos pueden ser guardados, tope de HR en 150, 5 Campamentos, 10 controles de carretera mejorados, 6 puestos de observación mejorados, aumento único de +30 en apoyo OTAN.
+					3) XP tope 20 para FIA y personal, todos los vehículos pueden ser guardados, tope de HR en 150, 5 Campamentos, 10 controles de carretera mejorados, 6 outposts de observación mejorados, aumento único de +30 en apoyo OTAN.
 				</Spanish>
 			</Key>
 			<Key ID="STR_BR_AF7JAG">
@@ -5413,7 +5444,7 @@
 					Работа в процессе
 				</Russian>
 				<Spanish>
-					Cajones, cajas de munición y algunas objetos más pueden cargarse en los vehículos, una animación moverá el objeto dentro del vehículo ocupando algunos asientos si es necesario.&lt;br/&gt;&lt;br/&gt;
+					Cajones, cajas de munición y algunas objectsX más pueden cargarse en los vehículos, una animación moverá el objeto dentro del vehículo ocupando algunos asientos si es necesario.&lt;br/&gt;&lt;br/&gt;
 
 					Gracias a esta función, podrás traer suministros, robar cajas de munición enemigas, mover el Arsenal y Garaje cuando reposicionemos el HQ sin necesidad de instalar ningún mod.&lt;br/&gt;&lt;br/&gt;
 
@@ -5459,19 +5490,19 @@
 					- Убедитесь, что Вы не делаете это в одно и то же время и в то же самое место, когда ведете транспортные средства, поскольку они, как Вы догадались, могут взорваться.
 				</Russian>
 				<Spanish>
-					Con el Viaje Rápido puedes saltarte las rutas que te parezcan una perdida de tiempo, es un teletransporte con tiempo variable en relación a la distancia de destino (pantalla en negro). &lt;br/&gt;
+					Con el Viaje Rápido puedes saltarte las rutas que te parezcan una perdida de tiempo, es un teletransporte con tiempo variable en relación a la distancia de destinationX (pantalla en negro). &lt;br/&gt;
 					A pie, serás transportado directamente a la marca de localización del mapa, junto a la IA que esté en tu grupo.&lt;br/&gt;
 					Si eres el conductor de un vehículo, el resto de la tripulación viajará contigo. Los vehículos aparecerán en la carretera más cercana a la ubicación del marcador del mapa.&lt;br/&gt;&lt;br/&gt;
 
 					Condiciones:&lt;br/&gt;
-					- Los destinos permitidos son el HQ o Campamentos.&lt;br/&gt;
-					- No debe haber presencia enemiga a menos de un radio de 350m ni en la posición de salida ni en la de destino.&lt;br/&gt;&lt;br/&gt;
+					- Los destinationXs permitidos son el HQ o Campamentos.&lt;br/&gt;
+					- No debe haber presencia enemiga a menos de un radio de 350m ni en la posición de salida ni en la de destinationX.&lt;br/&gt;&lt;br/&gt;
 
 					Cuidado:&lt;br/&gt;
-					- Cada Viaje Rápido a un Campamento tiene posibilidad de ser interceptado; el enemigo enviará un helicóptero y un escuadrón de infantería desplegará en rappel para atacar el Campamento. Viajar al HQ es siempre seguro.&lt;br/&gt;
+					- Cada Viaje Rápido a un Campamento tiene posibilidad de ser interceptado; el enemyX enviará un helicóptero y un escuadrón de infantería desplegará en rappel para atacar el Campamento. Viajar al HQ es siempre seguro.&lt;br/&gt;
 					- Evita hacer Viaje Rápido con un vehículo mientras remolcas a otro, estos tienen una alta probabilidad de volar por los aires o desaparecer.&lt;br/&gt;
 					- Evita el Viaje Rápido con vehículos aéreos o botes, de nuevo, hay altas posibilidades de explosión.&lt;br/&gt;
-					- En multijugador no sabrás si otros jugadores hacen Viaje Rápido (si estáis todos en un coche, sólo el conductorpodrá solicitar el Viaje Rápido).&lt;br/&gt;
+					- En multiplayerX no sabrás si otros playerXes hacen Viaje Rápido (si estáis todos en un coche, sólo el conductorpodrá solicitar el Viaje Rápido).&lt;br/&gt;
 					- Aseguraos de no hacer Viaje Rápido a la misma ubicación a la vez mientras llevéis más de un vehículo porque, ya lo habrás adivinado, podrían explotar.
 				</Spanish>
 			</Key>
@@ -5504,9 +5535,9 @@
 					El apoyo disminuye cuando los civiles resultan heridos (muertos, o se enfadan por perder la electricidad) o si ejecutan prisoneros.&lt;br/&gt;
 					El Comandante puede usar el apoyo de la Facción Aliada de diversas formas (comprueba la sección correspondiente).&lt;br/&gt;&lt;br/&gt;
 
-					El apoyo enemigo se acumula cuando conquistas Bases, Aeropuertos o Cimas AA.&lt;br/&gt;
-					Se puede reducir pidiendo a la facción aliada que asalte los emplazamientos militares enemigos lejos de Altis.&lt;br/&gt;
-					Si el apoyo enemigo es muy alto, su Facción de apoyo empezará a bombardear ciudades. Si destruyen 8 ciudades habrás perdido la campaña.
+					El apoyo enemyX se acumula cuando conquistas Bases, airportsX o Cimas AA.&lt;br/&gt;
+					Se puede reducir pidiendo a la facción aliada que asalte los emplazamientos militares enemyXs lejos de Altis.&lt;br/&gt;
+					Si el apoyo enemyX es muy alto, su Facción de apoyo empezará a bombardear ciudades. Si destruyen 8 ciudades habrás perdido la campaña.
 				</Spanish>
 			</Key>
 			<Key ID="STR_BR_AF10FS">
@@ -5524,7 +5555,7 @@
 				Работа в процессе
 				</Russian>
 				<Spanish>
-					Dependiendo de los objetivos controlados, sin contar ciudades, el enemigo desplegará controles de carretera y reforzará más sus puestos avanzados.&lt;br/&gt;
+					Dependiendo de los objetivos controlados, sin contar ciudades, el enemyX desplegará controles de carretera y reforzará más sus outposts avanzados.&lt;br/&gt;
 				En proceso.
 				</Spanish>
 			</Key>
@@ -5557,11 +5588,11 @@
 					- Набирать отряды ИИ.&lt;br/&gt;
 				</Russian>
 				<Spanish>
-					En multijugador, el Administrador del Servidor puede darle el estatus de miembros a los jugadores usando el menú Y mientras mirá directamente al jugador.&lt;br/&gt;&lt;br/&gt;
+					En multiplayerX, el Administrador del Servidor puede darle el estatus de miembros a los playerXes usando el menú Y mientras mirá directamente al playerX.&lt;br/&gt;&lt;br/&gt;
 
 					La membresía del Servidor es la mejor manera de prevenir que cualquier usuario pueda interferir en la campaña de Antistasi en un servidor abierto, pero deja que la gente siga disfrutando de Antistasi, con algunas opciones desactivadas.;&lt;br/&gt;&lt;br/&gt;
 
-					Si no hay miembros online, el hueco de Comandante quedará vacío, no se actualizará la economía, no habrá respuestas principales del enemigo ni se generarán misiones aleatorias.&lt;br/&gt;&lt;br/&gt;
+					Si no hay miembros online, el hueco de Comandante quedará vacío, no se actualizará la economía, no habrá respuestas principales del enemyX ni se generarán misiones aleatorias.&lt;br/&gt;&lt;br/&gt;
 
 					Privilegios de los Miembros:&lt;br/&gt;
 					- Ser Comandante electo.&lt;br/&gt;
@@ -5633,12 +5664,12 @@
 					Примечание: «быть замеченным врагом» не значит, что враг должен непосредственно Вас увидеть, игровой движок считает что Вы замечены при нахождении врага в определенном радиусе.
 				</Russian>
 				<Spanish>
-					Cuando esté habilitado podrás ver la palabra ‘Incógnito’ en verde en la barra de Información y los enemigos te ignoraran.&lt;br/&gt;&lt;br/&gt;
+					Cuando esté habilitado podrás ver la palabra ‘Incógnito’ en verde en la barra de Información y los enemyXs te ignoraran.&lt;br/&gt;&lt;br/&gt;
 
 					Condiciones para pasar al modo Incógnito:&lt;br/&gt;
 					- no haber sido descubierto en los últimos 30 minutos. Si fuiste descubierto, usa la opción Curar, Reparar y Rearmar en el HQ para pasar a Incógnito de nuevo. Reaparecer también lo vuelve a habilitar.&lt;br/&gt;
 					- no tener presencia enemiga en un radio de 350 m.&lt;br/&gt;
-					- vestir ropas civiles y no llevar equipo militar. una pantalla de consejo en la parte superior derecha mostrará una lista de objetos que impiden usar el modo de incógnito.&lt;br/&gt;&lt;br/&gt;
+					- vestir ropas civiles y no llevar equipo militar. una pantalla de consejo en la parte superior derecha mostrará una lista de objectsX que impiden usar el modo de incógnito.&lt;br/&gt;&lt;br/&gt;
 
 					Si cumple con las condiciones anteriores, puede pasar a Incógnito si:&lt;br/&gt;
 					- activas Incógnito desde el menú Y.&lt;br/&gt;
@@ -5653,11 +5684,11 @@
 
 					En vehículos, perderás el estado de Incógnito si:&lt;br/&gt;
 					- te ven conduciendo 25m fuera de una carretera.&lt;br/&gt;
-					- atropellando a un soldado enemigo.&lt;br/&gt;
+					- atropellando a un soldado enemyX.&lt;br/&gt;
 					- si te bajas sin cumplir las condiciones del equipamiento.&lt;br/&gt;
-					- si alguien que no está de incógnito entra en tu vehículo con enemigos cerca.&lt;br/&gt;
+					- si alguien que no está de incógnito entra en tu vehículo con enemyXs cerca.&lt;br/&gt;
 					A pie, pierdes el modo Incógnito si:&lt;br/&gt;
-					- te equipas con objetos militares o te quitas la ropa de civil (no puedes ir de incógnito mientras vas desnudo).&lt;br/&gt;&lt;br/&gt;
+					- te equipas con objectsX militares o te quitas la ropa de civil (no puedes ir de incógnito mientras vas desnudo).&lt;br/&gt;&lt;br/&gt;
 
 					Nota: ‘ser detectado’ no requiere de una línea de visión, es un radio alrededor de las unidades enemigas.
 				</Spanish>
@@ -5693,7 +5724,7 @@
 				</Russian>
 				<Spanish>
 					Para mover el HQ el Comandante debe: &lt;br/&gt;
-					- Interactuar con la Bandera física del HQ, elegir 'Opciones HQ' y pulsar 'Mover HQ', &lt;br/&gt;
+					- Interactuar con la flagX física del HQ, elegir 'Opciones HQ' y pulsar 'Mover HQ', &lt;br/&gt;
 					- Petros se unirá al escuadrón del Comandante y le acompañará a la nueva ubicación, a pie o como pasajero de un vehículo. &lt;br/&gt;
 					- Las cajas de Arsenal y Vehículo tienen que ser cargadas en un camión, conduce cerca de ellas e interactua eligiendo ‘Cargar Caja en Vehículo’. &lt;br/&gt;
 					- Una vez en el lugar deseado, habla con Petros y elige ‘Construir HQ’. &lt;br/&gt;&lt;br/&gt;
@@ -5761,7 +5792,7 @@
 				<Spanish>
 					El Comandate puede solicitar de varias formas el apoyo de la Facción Aliada escogiendo una de las opciones disponibles en el menú Y (Pestaña Comandante). Los tipos de unidades o vehículos y la fuerza de la intervención dependerán del valor de apoyo actual. Cada tipo de soporte cuesta puntos y se explican a continuación.&lt;br/&gt;&lt;br/&gt;
 
-					El apoyo debe hacer un viaje físico hasta su objetivo y puede ser interceptado antes de llegar a su destino, es importante recordar esto, especialmente para las fuerzas aéreas, teniendo en cuenta que cada cima de colina con nombre, tiene un emplazamiento de operaciones especiales con AA que podrán destruirlas facilmente.&lt;br/&gt;&lt;br/&gt;
+					El apoyo debe hacer un viaje físico hasta su objetivo y puede ser interceptado antes de llegar a su destinationX, es importante recordar esto, especialmente para las fuerzas aéreas, teniendo en cuenta que cada cima de colina con nombre, tiene un emplazamiento de operaciones especiales con AA que podrán destruirlas facilmente.&lt;br/&gt;&lt;br/&gt;
 
 					Una vez solicitado estarán bajo tu control durante 30 minutos, después regresarán a la base.&lt;br/&gt;
 					No puedes subir a los vehículos de apoyo ni guardarlos en el garaje.&lt;br/&gt;&lt;br/&gt;
@@ -5774,15 +5805,15 @@
 
 					- Control: selecciona una Base bajo tu control, selecciona un punto en una carretera, controla con HC para moverlos a la ubicación seleccionada y que hagan un despliegue efectivo del control.&lt;br/&gt;&lt;br/&gt;
 
-					- Dron: saldrá desde el Portaaviones o el Aeropuerto controlado más cercano Airport, controlalo con HC para enviarlo a donde desees.&lt;br/&gt;&lt;br/&gt;
+					- Dron: saldrá desde el Portaaviones o el Aeropuerto controlado más nearX Airport, controlalo con HC para enviarlo a donde desees.&lt;br/&gt;&lt;br/&gt;
 
 					- Reabastecer: selecciona la ubicación aproximada donde quieres que lancen la caja de suministros, con HC muévelo a la zona designada, busca el humo azul para encontrar la caja.&lt;br/&gt;&lt;br/&gt;
 
-					- CAS: Apoyo Aéreo Cercano; 3 activos aéreos saldrán desde el Portaaviones o Aeropuerto controlado más cercano, contrólalos con HC y mándalos a donde quieras.&lt;br/&gt;&lt;br/&gt;
+					- CAS: Apoyo Aéreo nearX; 3 activos aéreos saldrán desde el Portaaviones o Aeropuerto controlado más nearX, contrólalos con HC y mándalos a donde quieras.&lt;br/&gt;&lt;br/&gt;
 
-					- Bombardeo: selecciona el punto de entrada y salida, un avión despegará desde el Portaaviones o Aeropuerto bajo tu control más cercano, no controlado desde el HC, requiere práctica para que sea efectivo.&lt;br/&gt;&lt;br/&gt;
+					- Bombardeo: selecciona el punto de entrada y salida, un avión despegará desde el Portaaviones o Aeropuerto bajo tu control más nearX, no controlado desde el HC, requiere práctica para que sea efectivo.&lt;br/&gt;&lt;br/&gt;
 
-					- QRF (xx puntos): Fuerzas de reacción rápida; pequeños helicópteros de transporte saldrán desde el Portaaviones o Aeropuerto controlado más cercano desplegando tropas en la ubicación designada.
+					- QRF (xx puntos): Fuerzas de reacción rápida; pequeños helicópteros de transporte saldrán desde el Portaaviones o Aeropuerto controlado más nearX desplegando tropas en la ubicación designada.
 				</Spanish>
 			</Key>
 			<Key ID="STR_BR_CM3R">
@@ -5817,9 +5848,9 @@
 					Puede controlar directamente al líder de cada grupo seleccionando el equipo en el modo HC y usando la función de control directo de IA en el menú Y.&lt;br/&gt;&lt;br/&gt;
 
 					* Si está cargado el mod RHS, este camión no está disponible y nada se generará.&lt;br/&gt;
-					** Los equipos de mortero tardan un tiempo en (des)montar el equipo cuando les das una orden de movimiento. Una vez desplegado, verás un icono diferente en el mapa y solo entonces estarán listos para disparar.&lt;br/&gt;
-					Presiona Shift+Y después de seleccionar el equipo de mortero y haz click en la posición del mapa escogida para realizar el ataque.&lt;br/&gt;
-					Los morteros tienen limitado el rango y la munición. Pueden rearmarse en el HQ con la función Curar, Reparar y Rearmar.
+					** Los equipos de mortarX tardan un tiempo en (des)montar el equipo cuando les das una orden de movimiento. Una vez desplegado, verás un icono diferente en el mapa y solo entonces estarán listos para disparar.&lt;br/&gt;
+					Presiona Shift+Y después de seleccionar el equipo de mortarX y haz click en la posición del mapa escogida para realizar el ataque.&lt;br/&gt;
+					Los mortarXs tienen limitado el rango y la munición. Pueden rearmarse en el HQ con la función Curar, Reparar y Rearmar.
 				</Spanish>
 			</Key>
 			<Key ID="STR_BR_CM4G">
@@ -5853,11 +5884,11 @@
 				<Spanish>
 					El Comandante puede invertir HR en fuerzas del FIA como guarnición de emplazamientos conquistados o en el mismo HQ. Estas tropas se ven afectadas por el nivel XP del Ejército y no pueden controlarse directamente. &lt;br/&gt;&lt;br/&gt;
 
-					En tu HQ, interactua con la Bandera, Administrar HQ, Reclutar Guarnición. Selecciona el emplazamiento donde quieras añadir unidades de guarnición.&lt;br/&gt;&lt;br/&gt;
+					En tu HQ, interactua con la flagX, Administrar HQ, Reclutar Guarnición. Selecciona el emplazamiento donde quieras añadir unidades de guarnición.&lt;br/&gt;&lt;br/&gt;
 
 					Agregar armas estáticas manejadas: monta un arma estática, recluta un miliciano y se pondrá en el arma. En Información de Guarnición (visible en el mapa del HQ) se mostrará el número de armas estáticas manejadas.&lt;br/&gt;&lt;br/&gt;
 
-					Los equipos de mortero guarnecidos se enfrentarán a cualquier cosa en un rango largo, así que ten cuidado con dónde colocarlos para minimizar el fuego amigo, las bajas civiles y daños colaterales.&lt;br/&gt;&lt;br/&gt;
+					Los equipos de mortarX guarnecidos se enfrentarán a cualquier cosa en un rango largo, así que ten cuidado con dónde colocarlos para minimizar el fuego amigo, las bajas civiles y daños colaterales.&lt;br/&gt;&lt;br/&gt;
 
 					Nota: Un gran número de tropas guarnecidas pueden reducir el rendimiento del juego; verifica la sección relativa para obtener más información.
 				</Spanish>
@@ -5901,7 +5932,7 @@
 
 					- Controles: colocados en carreteras, defenderán la zona con una calibre .50 y rpgs: ideal para neutralizar patrullas enemigas e incluso convoys, cuando se actualizan a Controles Mejorados (Nivel de Ejército >12).&lt;br/&gt;&lt;br/&gt;
 
-					- Puestos de Observación: colocados en el campo, 2 centinelas vigilarán el área informando de contactos a través del interfaz HC.&lt;br/&gt;&lt;br/&gt;
+					- outposts de Observación: colocados en el campo, 2 centinelas vigilarán el área informando de contactos a través del interfaz HC.&lt;br/&gt;&lt;br/&gt;
 
 					- Campamentos: permiten hacer Viaje Rápido. Tienen cajas con equipamiento gratuito y la posibilidad de restaurar salud y combustible, pero no se puede reparar vehículos.&lt;br/&gt;&lt;br/&gt;
 
@@ -6050,7 +6081,7 @@
 					iniDIBI2 por code34&lt;br/&gt;
 					Vcom AI por Genesis92x&lt;br/&gt;&lt;br/&gt;
 
-					Briefing por Stef, Dethleffs, Fireman, todo el mundo de la Comunidad Oficial que ha añadido sugerencias y correcciones&lt;br/&gt;
+					Briefing por Stef, Dethleffs, Fireman, todo el mundo de la Comunidad official que ha añadido sugerencias y correcciones&lt;br/&gt;
 					IrLED: asignación de unidades equilibradas por cliente headless, integración IA Vcom.&lt;br/&gt;
 					AlexTriada, VelvetNight y BeZZuBik41: Traducción al ruso y plataforma multilenguaje&lt;br/&gt;
 					nuker: por hacer pruebas e ideas.&lt;br/&gt;
@@ -6066,15 +6097,14 @@
 					tommytom73: Pruebas del HC.&lt;br/&gt;
 					Manko: fragmento de los tapones de los oídos.&lt;br/&gt;
 					harmdhast: ayuda con el scripting.&lt;br/&gt;
-					DeathTouchWilly: Primer Manual Oficial de Antistasi.&lt;br/&gt;
+					DeathTouchWilly: Primer Manual official de Antistasi.&lt;br/&gt;
 					daveallen10: Integración de los scripts de ACE.&lt;br/&gt;
-					RickyTan: Toneladas de ayuda y pruebas en los Servidores Oficiales, Director de la Comunidad Oficial de Antistasi desde Marzo de 2016 hasta Junio de 2017 y hacer que la comunidad sea más consciente de la financiación.&lt;br/&gt;
+					RickyTan: Toneladas de ayuda y pruebas en los Servidores officiales, Director de la Comunidad official de Antistasi desde Marzo de 2016 hasta Junio de 2017 y hacer que la comunidad sea más consciente de la financiación.&lt;br/&gt;
 					Toshi: Exportar Antistasi a otras islas.&lt;br/&gt;
 					Kendo y Tuck por sus plantillas.&lt;br/&gt;
-					Y a todos los jugadores que gastan su tiempo en hacer comentarios, sugerencias e informes en Steam y la Comunidad Oficial de Antistasi.
+					Y a todos los playerXes que gastan su tiempo en hacer comentarios, sugerencias e informes en Steam y la Comunidad official de Antistasi.
 				</Spanish>
 			</Key>
 		</Container>
 	</Package>
 </Project>
-

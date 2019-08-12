@@ -65,7 +65,7 @@ _statics = staticsToSave select {_x distance _markerPos < (_size max 50)};
 	};*/ //Disabled, those are added out from no-where, in future this can become a sort of upgrade
 
 /*Jam  feature disabled untill jam will have a function in AirControl patch
-	_antenna = [antenas,_markerPos] call BIS_fnc_nearestPosition;
+	_antenna = [antennas,_markerPos] call BIS_fnc_nearestPosition;
 	if (getPos _antenna distance _markerPos < 100) then {
 		[_flag,"jam"] remoteExec ["AS_fnc_addActionMP"];
 	};
@@ -89,10 +89,10 @@ _statics = staticsToSave select {_x distance _markerPos < (_size max 50)};
 		_unitType = _garrison select _counter;
 		call {
 			//Mortar
-			if (_unitType == guer_sol_UN) exitWith {
+			if (_unitType == guer_sol_HMG) exitWith {
 				_unit = _groupGunners createUnit [_unitType, _markerPos, [], 0, "NONE"];
 				_spawnPos = [_markerPos] call mortarPos;
-				_vehicle = guer_stat_mortar createVehicle _spawnPos;
+				_vehicle = guer_stat_MGH createVehicle _spawnPos;
 				_allVehicles pushBack _vehicle;
 				[_vehicle] execVM "scripts\UPSMON\MON_artillery_add.sqf";
 				_unit assignAsGunner _vehicle;
@@ -101,7 +101,7 @@ _statics = staticsToSave select {_x distance _markerPos < (_size max 50)};
 			//Militiaman use the statics placed by player
 			if ((_unitType == guer_sol_RFL) AND (count _statics > 0)) exitWith {
 				_static = _statics select 0;
-				if (typeOf _static == guer_stat_mortar) then {
+				if (typeOf _static == guer_stat_MGH) then {
 					_unit = _groupGunners createUnit [_unitType, _markerPos, [], 0, "NONE"];
 					_unit moveInGunner _static;
 					[_static] execVM "scripts\UPSMON\MON_artillery_add.sqf";
@@ -179,7 +179,7 @@ _statics = staticsToSave select {_x distance _markerPos < (_size max 50)};
 		"",
 		"(isPlayer _this) and (_this == _this getVariable ['owner',objNull])"
 	];
-	if (_marker in puertos) then {
+	if (_marker in seaports) then {
 		[_flag,"seaport"] remoteExec ["AS_fnc_addActionMP"];
 	};
 

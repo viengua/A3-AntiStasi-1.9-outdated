@@ -28,7 +28,7 @@ _unit setVariable ["owner",player,true];
 selectPlayer _unit;
 (_unit getVariable ["owner",_unit]) allowDamage false;
 
-_tiempo = 60;
+_timeX = 60;
 
 _unit addAction [localize "Str_act_returnControl",{selectPlayer leader (group (_this select 0))}];
 _break = false;
@@ -42,7 +42,7 @@ _testEH = _unit addEventHandler ["HandleDamage", {
 	_damage
 }];
 
-waitUntil {sleep 1; hint format ["Time to return control to AI: %1", _tiempo]; _tiempo = _tiempo - 1; (_tiempo == -1) or (isPlayer (leader group player)) || (_break)};
+waitUntil {sleep 1; hint format ["Time to return control to AI: %1", _timeX]; _timeX = _timeX - 1; (_timeX == -1) or (isPlayer (leader group player)) || (_break)};
 
 removeAllActions _unit;
 _unit removeEventHandler ["HandleDamage", _testEH];

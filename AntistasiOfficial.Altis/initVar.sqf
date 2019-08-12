@@ -8,12 +8,12 @@ diag_log "InitVar.sqf: start";
 //Don't touch them.
 antistasiVersion = localize "STR_MISSION_NAME_INITVAR_SQF";
 
-servidoresOficiales = ["Antistasi Official: Main","Antistasi Official: Hardcore", "Antistasi Official: USA"];//No longer effect
+officialServers = ["Antistasi Official: Main","Antistasi Official: Hardcore", "Antistasi Official: USA"];//No longer effect
 
 debug = false;//debug variable, not useful for everything..
 
 cleantime = 3600; //time to delete dead bodies, vehicles etc..
-distanciaSPWN = 1000;//initial spawn distance. Less than 1Km makes parked vehicles spawn in your nose while you approach.
+distanceSPWN = 1000;//initial spawn distance. Less than 1Km makes parked vehicles spawn in your nose while you approach.
 musicON = false;
 civPerc = 0.02;//initial % civ spawn rate
 minimoFPS = 15;//initial FPS minimum.
@@ -116,7 +116,7 @@ server setVariable ["genATlocked",true,true];
 server setVariable ["genAAlocked",true,true];
 
 //Pricing values for soldiers, vehicles
-{server setVariable [_x,50,true]} forEach [guer_sol_RFL,guer_sol_R_L,guer_sol_UN];
+{server setVariable [_x,50,true]} forEach [guer_sol_RFL,guer_sol_R_L,guer_sol_HMG];
 {server setVariable [_x,100,true]} forEach [guer_sol_MED,guer_sol_ENG,guer_sol_EXP,guer_sol_TL,guer_sol_AM];
 {server setVariable [_x,400,true]} forEach [guer_sol_AR,guer_sol_GL,guer_sol_MRK,guer_sol_LAT]; // Stef Temporarnely increase to balance the not requirement
 {server setVariable [_x,150,true]} forEach [guer_sol_SL,guer_sol_OFF,guer_sol_SN,guer_sol_AA];
@@ -131,24 +131,38 @@ server setVariable ["genAAlocked",true,true];
 
 {server setVariable [_x,400,true]} forEach [guer_stat_MGH,guer_veh_dinghy,guer_veh_engineer];
 {server setVariable [_x,800,true]} forEach [guer_stat_mortar,guer_stat_AT,guer_stat_AA];
-server setVariable [vfs select 0,300,true];
-server setVariable [vfs select 1,600,true];
-server setVariable [vfs select 2,6000,true];
-server setVariable [vfs select 3,50,true];
-server setVariable [vfs select 4,200,true];
-server setVariable [vfs select 5,450,true];
-server setVariable [vfs select 6,700,true];
-server setVariable [vfs select 7,400,true];
-server setVariable [vfs select 8,800,true];
-server setVariable [vfs select 9,800,true];
-server setVariable [vfs select 10,800,true];
+server setVariable [vfs select 0,300,true];		//Civi Offroad
+server setVariable [vfs select 1,600,true];		//Civi Truck
+server setVariable [vfs select 2,6000,true];	//Civi Helicopter
+server setVariable [vfs select 3,50,true];		//Civi Quadbike
+server setVariable [vfs select 4,100,true];		//Light transport 6 spots
+server setVariable [vfs select 5,200,true];		//Unarmed Offroad
+server setVariable [vfs select 6,450,true];		//Military Truck
+server setVariable [vfs select 7,700,true];		//Armed Offroad
+server setVariable [vfs select 8,400,true];		//Static MG
+server setVariable [vfs select 9,800,true];		//Static Mortar
+server setVariable [vfs select 10,800,true];		//Static AT
+server setVariable [vfs select 11,800,true];	//Static AA
+server setVariable [vfs select 14,1000,true];		//Armed Offroad AT
+
 
 if (activeAFRF) then {
-	server setVariable [vfs select 2,6000,true];
-	server setVariable [vfs select 11,5000,true];
+	server setVariable [vfs select 2,2000,true];
 	server setVariable [vfs select 12,600,true];
 	server setVariable [vehTruckAA, 800, true];
 };
+
+//Blu vehicle to purchase in base
+server setVariable [blubuyTruck,1200,true];
+if!(activeUSAF) then {server setVariable [blubuyAPC,5000,true];} else {server setVariable [blubuyAPC,3500,true];};
+server setVariable [blubuyMRAP,2000,true];
+server setVariable [blubuyHeli,3000,true];
+server setVariable [blubuyBoat,700,true];
+server setVariable [bluStatAA select 0,1200,true];
+server setVariable [bluStatAT select 0,1200,true];
+server setVariable [bluStatHMG select 0,600,true ];
+server setVariable [bluStatMortar select 0,800,true];
+if (activeAFRF) then {server setVariable [blubuyHumvee,2000,true];};
 
 server setVariable ["hr",8,true];//initial HR value
 server setVariable ["resourcesFIA",1000,true];//Initial FIA money pool value
@@ -168,20 +182,21 @@ server setVariable ["testMode",false,true];
 staticsToSave = []; publicVariable "staticsToSave";
 staticsData = []; publicVariable "staticsData";
 prestigeOPFOR = 50;//Initial % support for AAF on each city
-if (not cadetMode) then {prestigeOPFOR = 75};//if you play on vet, this is the number
 prestigeBLUFOR = 0;//Initial % FIA support on each city
 planesAAFmax = 0;
 helisAAFmax = 0;
 APCAAFmax = 0;
 tanksAAFmax = 0;
-cuentaCA = 600;//600
+countCA = 600;//600
 prestigeIsChanging = false;
 cityIsSupportChanging = false;
 resourcesIsChanging = false;
 flag_savingServer = false;
 flag_chopForest = false;
-misiones = [];
-revelar = false;
+missionsX = [];
+markerSupplyCrates = [];
+countSupplyCrates = 0;
+revealX = false;
 
 vehInGarage = ["C_Van_01_transport_F","C_Offroad_01_F","C_Offroad_01_F",guer_veh_quad,guer_veh_quad,guer_veh_quad]; // initial motorpool
 destroyedBuildings = []; publicVariable "destroyedBuildings";
@@ -228,8 +243,8 @@ publicVariable "activeXLA";
 publicVariable "activeACEhearing";
 publicVariable "activeACEMedical";
 publicVariable "skillAAF";
-publicVariable "misiones";
-publicVariable "revelar";
+publicVariable "missionsX";
+publicVariable "revealX";
 publicVariable "FIA_texturedVehicles";
 publicVariable "FIA_texturedVehicleConfigs";
 publicVariable "activeBE";
@@ -238,6 +253,8 @@ publicVariable "FIA_RB_list";
 publicVariable "reducedGarrisons";
 publicVariable "replaceFIA";
 publicVariable "static_playerSide";
+publicVariable "markerSupplyCrates";
+publicVariable "countSupplyCrates";
 
 if (isMultiplayer) then {[[petros,"locHint","STR_HINTS_INITVAR"],"commsMP"] call BIS_fnc_MP;};
 

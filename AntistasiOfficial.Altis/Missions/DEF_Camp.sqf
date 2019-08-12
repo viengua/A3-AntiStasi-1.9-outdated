@@ -5,7 +5,7 @@ _tskDesc = "STR_TSK_TD_DESC_DEFCAMP";
 
 if (server getVariable ["active_campQRF", false]) exitWith {};
 if (server getVariable ["blockCSAT", false]) exitWith {};
-if ("DEF" in misiones) exitWith {};
+if ("DEF" in missionsX) exitWith {};
 
 server setVariable ["active_campQRF", true, true];
 
@@ -23,7 +23,7 @@ for "_i" from 0 to (count campList - 1) do {
 	};
 };
 
-_airportsAAF = aeropuertos - mrkFIA;
+_airportsAAF = airportsX - mrkFIA;
 {
 	_airport = _x;
 	_posAirport = getMarkerPos _airport;
@@ -39,7 +39,7 @@ if (count _airports > 0) then {
 };
 
 _tsk = ["DEF_Camp",[side_blue,civilian],[[_tskDesc, _campName, _airportName],[_tskTitle, _campName],_targetMarker],_targetPosition,"CREATED",5,true,true,"Defend"] call BIS_fnc_setTask;
-misiones pushBack _tsk; publicVariable "misiones";
+missionsX pushBack _tsk; publicVariable "missionsX";
 
 if (isMultiplayer) then {
 	if (count (allPlayers - entities "HeadlessClient_F") > 3) then {
@@ -64,4 +64,4 @@ if (_targetMarker in campsFIA) then {
 server setVariable ["campQRF", false, true];
 server setVariable ["active_campQRF", false, true];
 
-[1200,_tsk] spawn borrarTask;
+[1200,_tsk] spawn deleteTaskX;

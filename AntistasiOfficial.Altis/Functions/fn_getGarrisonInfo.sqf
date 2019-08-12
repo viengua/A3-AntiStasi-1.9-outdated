@@ -8,7 +8,7 @@ _position = getMarkerPos _location;
 format ["\n
 	\nGarrison men: %1
 	\n\nSquad Leaders: %2
-	\nMortars: %3
+	\nHMGs: %3
 	\nRiflemen: %4
 	\nAutoriflemen: %5
 	\nMedics: %6
@@ -18,7 +18,7 @@ format ["\n
 	\nStatic Weap: %10",
 	count _garrison,
 	{_x == guer_sol_SL} count _garrison,
-	{_x == guer_sol_UN} count _garrison,
+	{_x == guer_sol_HMG} count _garrison,
 	{_x == guer_sol_RFL} count _garrison,
 	{_x == guer_sol_AR} count _garrison,
 	{_x == guer_sol_MED} count _garrison,

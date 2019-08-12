@@ -14,8 +14,8 @@ private ["_hr","_resourcesFIA","_spawnData","_roadPos","_direction","_spawnPos",
 
 if (_check) exitWith {Hint "You cannot Recruit Squads with enemies near your HQ"};
 
-_spawnData = [(getMarkerPos guer_respawn), [ciudades, (getMarkerPos guer_respawn)] call BIS_fnc_nearestPosition] call AS_fnc_findRoadspot;
-if(_spawnData isequalto []) exitwith {hint localize "STR_HINTS_COMMANDER_HQRECRUITFAR"; comandante globalChat localize "STR_HINTS_COMMANDER_HQRECRUITFAR";};
+_spawnData = [(getMarkerPos guer_respawn), [citiesX, (getMarkerPos guer_respawn)] call BIS_fnc_nearestPosition] call AS_fnc_findRoadspot;
+if(_spawnData isequalto []) exitwith {hint localize "STR_HINTS_COMMANDER_HQRECRUITFAR"; commanderX globalChat localize "STR_HINTS_COMMANDER_HQRECRUITFAR";};
 
 _hr = server getVariable ["hr",0];
 _resourcesFIA = server getVariable ["resourcesFIA",0];
@@ -69,13 +69,13 @@ if (_isInfantry) then {
 			_vehicle = vehTruckAA createVehicle _spawnPos;
 			_vehicle setDir _direction;
 			_group = createGroup side_blue;
-			_unit = _group createUnit [guer_sol_UN, _roadPos, [],0, "NONE"];
+			_unit = _group createUnit [guer_sol_HMG, _roadPos, [],0, "NONE"];
 			_unit assignAsDriver _vehicle;
 			_unit moveInDriver _vehicle;
-			_unit = _group createUnit [guer_sol_UN, _roadPos, [],0, "NONE"];
+			_unit = _group createUnit [guer_sol_HMG, _roadPos, [],0, "NONE"];
 			_unit moveInGunner _vehicle;
 			_unit assignAsGunner _vehicle;
-			_unit = _group createUnit [guer_sol_UN, _roadPos, [],0, "NONE"];
+			_unit = _group createUnit [guer_sol_HMG, _roadPos, [],0, "NONE"];
 			_unit moveInCommander _vehicle;
 			_unit assignAsCommander _vehicle;
 			_group setGroupId [format ["M.AA-%1",{side (leader _x) == side_blue} count allGroups]];
@@ -86,10 +86,10 @@ if (_isInfantry) then {
 			_vehicle = guer_veh_technical_AT createVehicle _spawnpos;
 			_vehicle setDir _direction;
 			_group = createGroup side_blue;
-			_unit = _group createUnit [guer_sol_UN, _roadPos, [],0,"NONE"];
+			_unit = _group createUnit [guer_sol_HMG, _roadPos, [],0,"NONE"];
 			_unit assignAsDriver _vehicle;
 			_unit moveInDriver _vehicle;
-			_unit = _group createUnit [guer_sol_UN, _roadPos, [],0,"NONE"];
+			_unit = _group createUnit [guer_sol_HMG, _roadPos, [],0,"NONE"];
 			_unit moveInGunner _vehicle;
 			_unit assignAsGunner _vehicle;
 			_group setGroupId [format ["M.AT-%1",{side (leader _x) == side_blue} count allGroups]];
@@ -106,7 +106,7 @@ if (_isInfantry) then {
 		};
 		_static = _groupCategory createVehicle _spawnPos;
 		[_static] spawn VEHinit;
-		_unit = _group createUnit [guer_sol_UN, _spawnPos, [],0, "NONE"];
+		_unit = _group createUnit [guer_sol_HMG, _spawnPos, [],0, "NONE"];
 		_group setVariable ["staticAutoT",false,true];
 		if (_groupCategory isEqualTo guer_stat_mortar) then {
 			_unit moveInGunner _static;
