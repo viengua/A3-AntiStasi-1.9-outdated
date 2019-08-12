@@ -12,7 +12,7 @@ Modset: https://drive.google.com/file/d/1VVt3XFMtIz9sgLD2jVWQHOfVShPrM0kz/view?u
 
 In over a year this project added many features which are not as functional as it is the [current Antistasi](https://github.com/A3Antistasi/Antistasi-WotP), the official community discontinued this project in favor of the other.
 
----# Antistasi: An Arma III Guerilla simulator
+# Antistasi: An Arma III Guerilla simulator
 
 It's a persistent mission designed for semi-randomized asymmetric warfare designed by The Author **Barbolani**. Fight dirty, ambush or deliver supplies to convince Altis civilians to join your cause. Get support from NATO depending on your behaviour and beware of CSAT that will support AAF or eventually napalm cities if you gain too much control over AAF military emplacements.
 Operate Undercover or raid along your fellows by recruiting AI and garrisons or simply join your friends in multiplayer with the possibility to load the best mods of Arma3 community.
