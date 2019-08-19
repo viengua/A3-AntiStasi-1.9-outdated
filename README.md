@@ -1,8 +1,9 @@
-# The project is continued again
+# The project is not being continued but we will implement parts of 1.9 into out 1.4 version.
 
-The AntiStasi Community has decided to continue this version next to the the further development of version 1.4.0.2 at https://github.com/official-antistasi-community/A3-AntiStasi-1.9.
+If you would like to play AntiStasi 1.9 you can find it on the steam Workshop.
+https://steamcommunity.com/sharedfiles/filedetails/?id=1832910657
 
-If you would like to play AntiStasi 1.9, following we have posted a plug & play pbo as well as a tested modset:
+Following we have also posted a plug & play pbo as well as a tested modset:
 
 Mission: https://drive.google.com/file/d/15eWVvTaYm2jbsB8T4LrTjYtdOHM7617Q/view?usp=sharing
 
