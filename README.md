@@ -11,7 +11,7 @@ Modset: https://drive.google.com/file/d/1VVt3XFMtIz9sgLD2jVWQHOfVShPrM0kz/view?u
 
 # Discontinued project
 
-In over a year this project added many features which are not as functional as it is the [current Antistasi](https://github.com/A3Antistasi/Antistasi-WotP), the official community discontinued this project in favor of the other.
+In over a year this project added many features which are not as functional as it is the [current Antistasi](https://github.com/official-antistasi-community/A3-Antistasi), the official community discontinued this project in favor of the other.
 
 ---
 
