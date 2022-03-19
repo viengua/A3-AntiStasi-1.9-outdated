@@ -721,14 +721,18 @@ switch _mode do {
                         case (ctrlenabled (_display displayctrl (IDC_RSCDISPLAYARSENAL_LIST + IDC_RSCDISPLAYARSENAL_TAB_UNIFORM))): {uniformContainer player};
                         case (ctrlenabled (_display displayctrl (IDC_RSCDISPLAYARSENAL_LIST + IDC_RSCDISPLAYARSENAL_TAB_VEST))): {vestContainer player};
                         case (ctrlenabled (_display displayctrl (IDC_RSCDISPLAYARSENAL_LIST + IDC_RSCDISPLAYARSENAL_TAB_BACKPACK))): {backpackContainer player};
-                        default {""};
+                        default {objNull};
                     };
 
-                    _items =  if(_idc == IDC_RSCDISPLAYARSENAL_TAB_CARGOMISC)then{
-                        itemCargo _container;
-                    }else{
-                        magazinesAmmoCargo _container;
-                    };
+                    _items = if (!isNull _container) then { 
+                       if(_idc == IDC_RSCDISPLAYARSENAL_TAB_CARGOMISC)then{
+                           itemCargo _container;
+                       }else{
+                           magazinesAmmoCargo _container;
+                       };
+                   } else {
+                       [];
+                   };
 
                     for "_l" from 0 to ((lnbsize _ctrlList select 0) - 1) do {
                         _dataStr = _ctrlList lnbdata [_l,0];
@@ -2380,19 +2384,10 @@ switch _mode do {
         if(activeACEMedical)then{
 
             //ACE Basic medical system
-            if (ace_medical_level == 1) then{
-                _itemsUnifrom pushBack ["ACE_fieldDressing",10];
-                _itemsUnifrom pushBack ["ACE_morphine",3];
-                _itemsUnifrom pushBack ["ACE_epinephrine",2];
-            };
-
-            //ACE Advanced medical system
-            if (ace_medical_level == 2) then{
-                _itemsUnifrom pushBack ["ACE_elasticBandage",10];
-                _itemsUnifrom pushBack ["ACE_morphine",1];
-                _itemsUnifrom pushBack ["ACE_epinephrine",1];
-                _itemsUnifrom pushBack ["ACE_tourniquet",2];
-            };
+            _itemsUnifrom pushBack ["ACE_elasticBandage",10];
+            _itemsUnifrom pushBack ["ACE_morphine",1];
+            _itemsUnifrom pushBack ["ACE_epinephrine",1];
+            _itemsUnifrom pushBack ["ACE_tourniquet",2];
 
             _itemsUnifrom pushBack ["ACE_EarPlugs",1];
             _itemsUnifrom pushBack ["ACE_MapTools",1];
@@ -2428,22 +2423,14 @@ switch _mode do {
 
         if(player getUnitTrait "Medic")then{
             if(activeACEMedical)then{
-                if (ace_medical_level == 1) then{ //ACE Basic medical system
-                    _itemsBackpack pushBack ["ACE_fieldDressing",20];
-                    _itemsBackpack pushBack ["ACE_morphine",10];
-                    _itemsBackpack pushBack ["ACE_epinephrine",10];
-                    _itemsBackpack pushBack ["ACE_bloodIV",6];
-                };
-                if (ace_medical_level == 2) then{ //ACE Advanced medical system
-                    _itemsBackpack pushBack ["ACE_elasticBandage",25];
-                    _itemsBackpack pushBack ["ACE_tourniquet",5];
-                    _itemsBackpack pushBack ["ACE_morphine",10];
-                    _itemsBackpack pushBack ["ACE_epinephrine",10];
-                    _itemsBackpack pushBack ["ACE_adenosine",5];
-                    _itemsBackpack pushBack ["ACE_salineIV_250",4];
-                    _itemsBackpack pushBack ["ACE_surgicalKit",1];
-                    _itemsBackpack pushBack ["ACE_personalAidKit",2];
-                };
+                _itemsBackpack pushBack ["ACE_elasticBandage",25];
+                _itemsBackpack pushBack ["ACE_tourniquet",5];
+                _itemsBackpack pushBack ["ACE_morphine",10];
+                _itemsBackpack pushBack ["ACE_epinephrine",10];
+                _itemsBackpack pushBack ["ACE_adenosine",5];
+                _itemsBackpack pushBack ["ACE_salineIV_250",4];
+                _itemsBackpack pushBack ["ACE_surgicalKit",1];
+                _itemsBackpack pushBack ["ACE_personalAidKit",2];
             }else{
                 _itemsBackpack pushBack ["Medikit",1];
                 _itemsBackpack pushBack ["FirstAidKit",10];

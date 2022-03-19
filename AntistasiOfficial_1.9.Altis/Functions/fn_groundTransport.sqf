@@ -89,7 +89,7 @@ if (_groupCounter > 1) then {
 if !(_isArmed) then {
 	[_vehicleGroup, _infGroupOne, _targetPosition, _originPosition, _vehicle] spawn {
 		params ["_vg","_ig","_tp","_op","_veh"];
-		waitUntil {sleep 5; (((units _ig select 0) distance _veh > 50) AND ((assignedCargo _veh)isEqualTo [])) OR ({alive _x} count units _vg == 0)};
+		waitUntil {sleep 5; private _cond = false; if (!isNil "_veh") then {private _unit = units _ig select 0; if (!isNil "_unit") then {_cond = (_unit distance _veh > 50) && ((assignedCargo _veh)isEqualTo []);};};if (!isNil "_vg" && !isNil "_x")then{_cond = _cond || (({alive _x} count units _vg) == 0);}; _cond};
 		[_vg, _op] spawn AS_fnc_QRF_RTB;
 	};
 };

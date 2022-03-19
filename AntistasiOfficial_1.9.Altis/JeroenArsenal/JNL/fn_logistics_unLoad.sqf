@@ -85,8 +85,13 @@ if(_nodeLast == 0)then{
 _ace_dragging_canDrag = _object getVariable ["ace_dragging_canDrag_old",nil];
 _ace_dragging_canCarry = _object getVariable ["ace_dragging_canCarry_old",nil];
 _ace_cargo_canLoad = _object getVariable ["ace_cargo_canLoad_old",nil];
-_object setVariable ["ace_dragging_canDrag",_ace_dragging_canDrag];
-_object setVariable ["ace_dragging_canCarry",_ace_dragging_canCarry];
-_object setvariable ["ace_cargo_canLoad",_ace_cargo_canLoad];
-
+if (!isNil "_ace_dragging_canDrag") then {
+	_object setVariable ["ace_dragging_canDrag",_ace_dragging_canDrag];
+};
+if (!isNil "_ace_dragging_canCarry") then {
+	_object setVariable ["ace_dragging_canCarry",_ace_dragging_canCarry];
+};
+if (!isNil "_ace_cargo_canLoad") then {
+	_object setvariable ["ace_cargo_canLoad",_ace_cargo_canLoad];
+};
 _return

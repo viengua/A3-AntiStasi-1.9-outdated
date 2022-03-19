@@ -11,7 +11,7 @@ overviewPicture = "pic.paa";
 
 allowFunctionsLog = 1;
 enableDebugConsole = 1;
-//allowFunctionsRecompile = 1;
+allowFunctionsRecompile = 1;
 
 //Load CBA settings if CBA is not attached in the editor
 /*Check it here: https://github.com/CBATeam/CBA_A3/wiki/CBA-Settings-System */

@@ -31,7 +31,7 @@ if(hasInterface)then{
 
         localize"STR_ACT_GARAGE",
         {
-            //["jn_fnc_garage"] call bis_fnc_startloadingscreen;
+            ["jn_fnc_garage"] call bis_fnc_startloadingscreen;
             UINamespace setVariable ["jn_type","garage"];
             [clientOwner] remoteExecCall ["jn_fnc_garage_requestOpen",2];
         },

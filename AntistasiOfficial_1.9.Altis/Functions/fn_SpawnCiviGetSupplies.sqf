@@ -9,10 +9,16 @@ if (_civcount < 50) then {
   for "_i" from 0 to 8 do{
       _buildings = nearestObjects [_pos, ["House", "Building"], 100];
       _civhouse =  position (selectrandom _buildings);
-      _civType = selectRandom CIV_units;
-      _civ = _group createunit [_civType, _civhouse, [],0, "NONE"];
-      sleep 2;
-      _civ domove _pos;
+      if (isNil "_civhouse") then {
+          _buildings = nearestObjects [_pos, ["House", "Building"], 100, true];
+          _civhouse =  position (selectrandom _buildings);
+      };
+      if (!isNil "_civhouse") then {
+          _civType = selectRandom CIV_units;
+          _civ = _group createunit [_civType, _civhouse, [],0, "NONE"];
+          sleep 2;
+          _civ domove _pos;
+      };
     };
 
 // try Double everything 
@@ -21,8 +27,15 @@ if (_civcount < 50) then {
   sleep 120;
 
   _buildings = nearestObjects [_pos, ["House", "Building"], 50];
-  _civhouse =  position (selectrandom _buildings);
-  {_x domove _civhouse} foreach (units _group);
+  _civhouse = position (selectrandom _buildings);
+  if (isNil "_civhouse") then {
+      _buildings = nearestObjects [_pos, ["House", "Building"], 50, true];
+      _civhouse = position (selectrandom _buildings);
+  };
+  
+  if (!isNil "_civhouse") then {
+   {_x domove _civhouse} foreach (units _group);
+  };
 
   sleep 30;
   {deletevehicle _x} foreach (units _group);

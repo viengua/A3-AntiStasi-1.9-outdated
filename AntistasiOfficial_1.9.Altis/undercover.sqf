@@ -97,6 +97,7 @@ call {
     }
 
 	// You are wearing compromising gear
+	_break = false;
 	call {
 		_break = false;
 		if (primaryWeapon player != "") exitWith {_break = true};

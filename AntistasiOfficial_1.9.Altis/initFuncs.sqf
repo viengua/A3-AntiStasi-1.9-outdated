@@ -85,6 +85,7 @@ CON_Outposts = compile preProcessFileLineNumbers "Missions\CON_Outposts.sqf";
 attackHQ = compile preProcessFileLineNumbers "Missions\attackHQ.sqf";
 AS_Official = compile preProcessFileLineNumbers "Missions\AS_Official.sqf";
 ASS_Traitor = compile preProcessFileLineNumbers "Missions\ASS_Traitor.sqf";
+ASS_Mayor = compile preProcessFileLineNumbers "Missions\ASS_Mayor.sqf";
 missionrequest = compile preProcessFileLineNumbers "Missions\missionrequest.sqf";
 missionrequestAUTO = compile preProcessFileLineNumbers "Missions\missionrequestAUTO.sqf";
 boxAAF = compile preProcessFileLineNumbers "ammunition\boxAAF.sqf";

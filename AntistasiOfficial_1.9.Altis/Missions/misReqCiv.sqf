@@ -49,7 +49,8 @@ if (_typeX == "ASS") then {
 	}
 	else {
 		_siteX = _potentials call BIS_fnc_selectRandom;
-		[_siteX, "civ"] remoteExec ["ASS_Traitor", call AS_fnc_getNextWorker];
+		_mission = ["ASS_Traitor", "ASS_Mayor"] call BIS_fnc_selectRandom; 
+		[_siteX, "civ"] remoteExec [_mission, call AS_fnc_getNextWorker];
 	};
 };
 

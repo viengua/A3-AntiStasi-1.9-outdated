@@ -57,9 +57,9 @@ _funds = server getVariable ["resourcesFIA",0];
 ["hr",_hr] call fn_saveData;
 ["vehInGarage",vehInGarage] call fn_saveData;
 
-_weapons = weaponCargo boxX;
-_magazines = magazineCargo boxX;
-_items = itemCargo boxX;
+_weapons = weaponCargo boxX + weaponCargo vehicleBox;
+_magazines = magazineCargo boxX + magazineCargo vehicleBox;
+_items = itemCargo boxX + itemCargo vehicleBox;
 _backpacks = [];
 
 {
@@ -114,8 +114,13 @@ if (count backpackCargo boxX > 0) then {
 		_backpacks pushBack (_x call BIS_fnc_basicBackpack);
 	} forEach backPackCargo boxX;
 };
+if (count backpackCargo vehicleBox > 0) then {
+	{
+		_backpacks pushBack (_x call BIS_fnc_basicBackpack);
+	} forEach backPackCargo vehicleBox;
+};
 
-_containers = everyBackpack boxX;
+_containers = everyBackpack boxX + everyBackpack vehicleBox;
 if (count _containers > 0) then {
 	for "_i" from 0 to (count _containers - 1) do {
 		_weapons = _weapons + weaponCargo (_containers select _i);

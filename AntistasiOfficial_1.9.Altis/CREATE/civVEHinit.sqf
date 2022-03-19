@@ -16,17 +16,3 @@ if (_vehicle isKindOf "Car") then {
 		if ((_part find "wheel" != -1) AND (_projectile =="") AND !(isPlayer driver _unit)) then {0} else {_damage};
 	}];
 };
-
-if ((crew _vehicle)isEqualTo []) then {
-	sleep 10;
-	_vehicle enableSimulationGlobal false;
-	_vehicle addEventHandler ["GetIn",{
-		params ["_object"];
-		if !(simulationEnabled _object) then {_object enableSimulationGlobal true};
-		[_object] spawn VEHdespawner;
-	}];
-	_vehicle addEventHandler ["HandleDamage",{
-		params ["_object"];
-		if (!simulationEnabled _object) then {_object enableSimulationGlobal true};
-	}];
-};
